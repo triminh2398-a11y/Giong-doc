@@ -1,0 +1,43 @@
+{
+ "tag": "test1",
+ "style": "2D digital painting, Vietnamese folk horror illustration, painterly, cinematic lighting, muted desaturated colors, eerie atmosphere, highly detailed, artstation",
+ "neg": "photo, photorealistic, 3d render, text, watermark, logo, deformed, extra limbs, bad hands, blurry, lowres, nsfw, gore",
+ "steps": 6,
+ "cfg": 1.5,
+ "w": 912,
+ "h": 512,
+ "items": [
+  {
+   "id": "v_flood",
+   "p": "old Vietnamese village in rainy season at dusk, flooded rice fields, tiled roof houses, coconut trees, heavy rain, gloomy sky"
+  },
+  {
+   "id": "v_hall",
+   "p": "interior of a traditional Vietnamese wooden house at night, an old man's body lying on a wooden plank bed covered with white cloth, ancestral altar with candles and incense smoke, oil lamp, dark shadows"
+  },
+  {
+   "id": "v_cat",
+   "p": "a black cat with glowing yellow eyes sitting on a dark wooden floor, candle light, creepy, close up"
+  },
+  {
+   "id": "v_lam",
+   "p": "portrait of a 19 year old Vietnamese village boy wearing brown ao ba ba shirt, frightened face, holding an oil lamp in a dark room"
+  },
+  {
+   "id": "v_corpse",
+   "p": "a pale old Vietnamese man corpse standing stiffly with arms stretched forward, wearing dark traditional ao the robe, white blank eyes, dark wooden hall, candles, horror"
+  },
+  {
+   "id": "v_batu",
+   "p": "an old Vietnamese woman servant in brown clothes whispering a secret, rustic kitchen at dawn, warm light through window"
+  },
+  {
+   "id": "v_mango",
+   "p": "a big mango tree at the gate of an old Vietnamese mansion at night, a frayed rope hanging from a branch, mist, moonlight, ominous"
+  },
+  {
+   "id": "v_cemetery",
+   "p": "rural Vietnamese cemetery with grave mounds on a grey day, a black cat sitting on a low brick wall, funeral procession with white headbands in the distance"
+  }
+ ]
+}

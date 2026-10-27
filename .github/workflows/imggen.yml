@@ -1,0 +1,33 @@
+name: tao-hinh
+on:
+  push:
+    paths: ['imggen/job.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: { shard: [0,1,2,3,4,5,6,7] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: imggen }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - uses: actions/cache@v4
+        with: { path: ~/.cache/huggingface, key: hf-sd15-dreamshaper8-lcm }
+      - run: pip install -q --index-url https://download.pytorch.org/whl/cpu torch==2.4.1 && pip install -q diffusers==0.30.3 transformers==4.44.2 accelerate==0.34.2 peft==0.12.0
+        timeout-minutes: 15
+      - run: python imggen/gen.py 2>&1 | tee imggen/log_${{ matrix.shard }}.txt
+        timeout-minutes: 100
+        env: { SHARD: '${{ matrix.shard }}', NSHARD: '8' }
+      - name: Push
+        if: always()
+        run: |
+          git config user.name bot; git config user.email bot@users.noreply.github.com
+          mkdir -p imggen/logs; cp imggen/log_*.txt imggen/logs/ 2>/dev/null || true
+          git add imggen/out imggen/logs; git commit -qm "hinh shard ${{ matrix.shard }}" || true
+          for k in 1 2 3 4 5 6 7 8; do git pull -q --rebase && git push -q && break; sleep $((RANDOM % 10 + 3)); done
