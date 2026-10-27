@@ -5,3 +5,13 @@ loaded V3TurboVieNeuTTS
 00_thu_giong Thanh Bình 0 ok 8.8
 00_thu_giong Thái Sơn 0 ok 11.1
 00_thu_giong Đức Trí 0 ok 15.5
+loaded V3TurboVieNeuTTS
+01_thu_giong_tung_cau Thiện Minh 0 ok 1.5
+01_thu_giong_tung_cau Thiện Minh 1 ok 1.5
+01_thu_giong_tung_cau Thiện Minh 2 ok 1.5
+01_thu_giong_tung_cau Thanh Bình 0 ok 1.3
+01_thu_giong_tung_cau Thanh Bình 1 ok 1.5
+01_thu_giong_tung_cau Thanh Bình 2 ok 1.4
+01_thu_giong_tung_cau Thái Sơn 0 ok 1.5
+01_thu_giong_tung_cau Thái Sơn 1 ok 1.9
+01_thu_giong_tung_cau Thái Sơn 2 ok 1.8
