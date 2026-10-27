@@ -30,4 +30,14 @@ for job in sorted(glob.glob('jobs/*.json')):
                 log(name, v, i, 'ok', round(time.time() - t0, 1))
             except Exception:
                 log(name, v, i, 'FAIL', traceback.format_exc())
+    if J.get('asr'):
+        try:
+            from faster_whisper import WhisperModel
+            wm = WhisperModel('small', device='cpu', compute_type='int8')
+            for f in sorted(glob.glob(f'out/{name}/*/*.wav')):
+                segs, _ = wm.transcribe(f, language='vi', beam_size=5)
+                open(f[:-4] + '.txt', 'w', encoding='utf-8').write(' '.join(x.text.strip() for x in segs))
+            log(name, 'asr ok')
+        except Exception:
+            log(name, 'ASR FAIL', traceback.format_exc())
     open(f'out/{name}/DONE', 'w').write('ok')
