@@ -1,0 +1,7 @@
+loaded V3TurboVieNeuTTS
+00_thu_giong clone:refs/mada.wav 0 ok 35.0
+00_thu_giong Thiện Minh 0 ok 9.9
+00_thu_giong Thiền Tâm Đức 0 ok 13.8
+00_thu_giong Thanh Bình 0 ok 8.8
+00_thu_giong Thái Sơn 0 ok 11.1
+00_thu_giong Đức Trí 0 ok 15.5
