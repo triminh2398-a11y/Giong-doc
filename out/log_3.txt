@@ -231,3 +231,5 @@ loaded V3TurboVieNeuTTS
 17_qnt_v2_mada clone:refs/mada8.wav 51 ok 2.2
 17_qnt_v2_mada asr ok
 18_qnt_v2_t asr ok
+loaded V3TurboVieNeuTTS
+19_qnt_v2_title asr ok
