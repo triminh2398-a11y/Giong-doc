@@ -7,7 +7,7 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - TikTok @chuyendongtaykimco: truyện ngắn 3–4 phút, khung dọc 9:16.
 - Chủ đề xoay vòng: ma làng quê, điều cấm kỵ dân gian, bùa ngải / thư ếm.
 - Giọng: dẫn truyện + thoại nam = clone MaDa mẫu 8s (`refs/mada8.wav`); thoại nữ = preset VieNeu "Mỹ Duyên". Nhịp bình thường, KHÔNG hạ giọng, KHÔNG vang/echo/làm chậm. Chỉ kéo dài khoảng lặng (`pace.stretch_pauses(factor=1.4, extra=0.06)`).
-- Hình: vẫn là hoạt hình vẽ bằng code, nhân vật CỬ ĐỘNG (KHÔNG dùng ảnh tĩnh AI rồi zoom — chủ kênh đã từ chối). Nhân vật cũ đầu tròn bị chê "giống stickman" → dùng bộ nhân vật mới `pipeline/lib/char2.js`: `ch(tên,x,chân_y,scale,{pose,em,mouth,look,turn,tilt,walk,sit,...})` với CAST lam/khoa/thay/batu/tham/corpse (thêm preset mới cho truyện mới: hair short/long/bun/bald, cloth baba/aodai/aothe, màu áo). Tỉ lệ người thật, mặt có mắt/mày/mũi/miệng, đổ bóng cel. Xem `char2_demo.html`. Vẫn KHÔNG rung hình, KHÔNG lớp lọc tối/ám màu.
+- Hình: vẫn là hoạt hình vẽ bằng code, nhân vật CỬ ĐỘNG (KHÔNG dùng ảnh tĩnh AI rồi zoom — chủ kênh đã từ chối). Nhân vật cũ đầu tròn bị chê "giống stickman" → dùng bộ nhân vật mới `pipeline/lib/char2.js`: `ch(tên,x,chân_y,scale,{pose,em,mouth,look,turn,tilt,walk,sit,...})` với CAST lam/khoa/thay/batu/tham/ghost/corpse; nét vẽ mặc định STY = "bán anime" (đầu 1.15, mắt 1.3, cằm nhọn) do chủ kênh chọn cho truyện ma (thêm preset mới cho truyện mới: hair short/long/bun/bald, cloth baba/aodai/aothe, màu áo). Tỉ lệ người thật, mặt có mắt/mày/mũi/miệng, đổ bóng cel. Xem `char2_demo.html`. Vẫn KHÔNG rung hình, KHÔNG lớp lọc tối/ám màu.
 - Phụ đề: chữ trắng viền đen; thoại nữ màu hồng đỏ, thoại nam màu vàng, trong ngoặc kép.
 
 ## Các bước một tập YouTube

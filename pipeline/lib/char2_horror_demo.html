@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0}</style></head><body><canvas id="c" width="1920" height="1080"></canvas><script>
+const W=1920,H=1080;const cv=document.getElementById('c');let ctx=cv.getContext('2d');</script><script src="char2.js"></script><script>
+// night hall
+let g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1c1813');g.addColorStop(1,'#2e241a');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ctx.strokeStyle='rgba(0,0,0,.4)';ctx.lineWidth=5;for(let x=0;x<W;x+=110){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,860);ctx.stroke()}
+ctx.fillStyle='#3b2619';ctx.fillRect(0,860,W,220);
+// window with moon
+ctx.fillStyle='#0d1626';ctx.fillRect(1180,180,380,420);ctx.fillStyle='#e9e6d6';ctx.beginPath();ctx.arc(1460,280,46,0,7);ctx.fill();ctx.strokeStyle='#2a1c10';ctx.lineWidth=16;ctx.strokeRect(1180,180,380,420);ctx.lineWidth=8;for(let i=1;i<5;i++){ctx.beginPath();ctx.moveTo(1180+i*76,180);ctx.lineTo(1180+i*76,600);ctx.stroke()}
+// ghost outside window (behind bars)
+ctx.save();ctx.beginPath();ctx.rect(1180,180,380,420);ctx.clip();ctx.globalAlpha=0.9;ch('ghost',1370,800,1.15,{mouth:'calm',t:0});ctx.restore();ctx.strokeStyle='#2a1c10';ctx.lineWidth=8;for(let i=1;i<5;i++){ctx.beginPath();ctx.moveTo(1180+i*76,180);ctx.lineTo(1180+i*76,600);ctx.stroke()}
+// lamp glow
+const r=ctx.createRadialGradient(420,780,20,420,780,900);r.addColorStop(0,'rgba(255,200,120,.45)');r.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=r;ctx.fillRect(0,0,W,H);
+ctx.save();ctx.translate(420,880);ctx.fillStyle='#6a4a2a';ctx.strokeStyle=OUT2;ctx.lineWidth=4;ctx.beginPath();ctx.ellipse(0,0,40,14,0,0,7);ctx.fill();ctx.stroke();ctx.fillStyle='rgba(220,235,240,.5)';ctx.beginPath();ctx.ellipse(0,-50,26,44,0,0,7);ctx.fill();ctx.stroke();ctx.fillStyle='#ffd27a';ctx.beginPath();ctx.ellipse(0,-56,7,16,0,0,7);ctx.fill();ctx.restore();
+ch('lam',720,960,1.55,{em:'fear',mouth:'scream',look:1,turn:0.3,pose:{la:[-0.4,-1.6],ra:[0.3,-1.4]},sweat:0.5});
+ch('thay',220,960,1.45,{em:'sad',eyes:0.7,turn:0.3,look:1});
+</script></body></html>
