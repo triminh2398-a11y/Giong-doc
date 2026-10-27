@@ -3,16 +3,16 @@
 Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo: `triminh2398-a11y/Giong-doc`.
 
 ## Định hướng kênh (chủ kênh đã chốt)
-- YouTube @chuyendongtaykimco: 2 tập/tuần, 20–30 phút, khung 16:9. Mỗi tập = một truyện kinh dị nhiều tình tiết, hồi hộp, KHÁC truyện TikTok, rồi phần giải thích tục lệ / khoa học (có nguồn thật, kiểm chứng bằng web).
+- YouTube @chuyendongtaykimco: 2 tập/tuần, 20–30 phút, khung 16:9. Mỗi tập = MỘT truyện ma kể liền mạch, nhiều tình tiết, hồi hộp, KHÁC truyện TikTok. KHÔNG có phần giải mã bí ẩn / giải thích khoa học (chủ kênh không muốn). Chỉ kể chuyện.
 - TikTok @chuyendongtaykimco: truyện ngắn 3–4 phút, khung dọc 9:16.
 - Chủ đề xoay vòng: ma làng quê, điều cấm kỵ dân gian, bùa ngải / thư ếm.
 - Giọng: dẫn truyện + thoại nam = clone MaDa mẫu 8s (`refs/mada8.wav`); thoại nữ = preset VieNeu "Mỹ Duyên". Nhịp bình thường, KHÔNG hạ giọng, KHÔNG vang/echo/làm chậm. Chỉ kéo dài khoảng lặng (`pace.stretch_pauses(factor=1.4, extra=0.06)`).
-- Hình: nét vẽ 2D rùng rợn (hốc mắt thâm, xác tím tái, mèo mắt vàng...), nhưng KHÔNG rung hình, KHÔNG lớp lọc tối/ám màu. Hình đứng yên, sáng rõ.
+- Hình: chủ kênh chê nét vẽ code cũ "giống stickman" → cần nét vẽ đẹp, chi tiết hơn (đang thử hình minh họa AI qua workflow tao-hinh, xem imggen/). Vẫn KHÔNG rung hình, KHÔNG lớp lọc tối/ám màu.
 - Phụ đề: chữ trắng viền đen; thoại nữ màu hồng đỏ, thoại nam màu vàng, trong ngoặc kép.
 
 ## Các bước một tập YouTube
-1. Nghiên cứu (WebSearch/WebFetch) cho phần giải thích; chỉ đưa số liệu có nguồn.
-2. Viết `script.txt`: mỗi dòng `shot|speaker|text` (N dẫn, M thoại nam, T thoại nữ). Mục tiêu ≥ 3.800 chữ (~22 phút; 0,33 giây/chữ + khoảng lặng). Câu ≤ 25 chữ.
+1. (Không cần phần giải thích.) Có thể tra cứu tục lệ/bối cảnh để truyện chân thực.
+2. Viết `script.txt`: mỗi dòng `shot|speaker|text` (N dẫn, M thoại nam, T thoại nữ). Mục tiêu ≥ 4.000 chữ truyện (~22–25 phút; 0,33 giây/chữ + khoảng lặng), chia 3–5 chương, mỗi chương kết bằng một điểm treo. Câu ≤ 25 chữ.
 3. Đọc giọng: tạo `jobs/NN_ten_mada.json` (`{"voices":["clone:refs/mada8.wav"],"lines":[mỗi câu x2],"asr":true}`) và `jobs/NN_ten_t.json` (`{"voices":["Mỹ Duyên"], ... x3}`), commit + push → workflow `tao-giong` chạy 4 máy song song, đẩy kết quả về `out/`. Chọn bản tốt nhất theo ASR; câu < 0.68 thì đọc lại (job mới) hoặc đổi chữ.
 4. Vẽ: viết `shots169.js` (hàm `SH[shot](lt,D,T,ls)`), dùng thư viện `pipeline/lib/*` (person, woman, fhead, corpse, cat, hall, mansionExt...). Xem `ep01_quy_nhap_trang/` làm mẫu. `build_*.py` ghép timeline từ thời lượng giọng → `tl.json`, `*.html`, `voice.wav`.
 5. Kiểm tra khung hình bằng `stills.sh` (Playwright có sẵn; `render_local.js` hỗ trợ VW/VH).
