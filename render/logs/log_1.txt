@@ -1,28 +1,25 @@
-+ grep -ci dejavu
 + fc-list
++ grep -ci dejavu
 22
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=qnt-ep1-v1
++ TAG=kid-ep1-v1
 ++ jq -r .html job.json
-+ HTML=qnt.html
++ HTML=kid1.html
 ++ jq -r .frames job.json
-+ N=33892
++ N=13003
 + S=16
-+ A=2118
-+ B=4236
++ A=812
++ B=1625
 ++ printf %02d 1
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js qnt.html seg_01.mp4 2118 4236 1920 1080
-frame 2400
-frame 3000
-frame 3600
-frame 4200
++ node render_seg.js kid1.html seg_01.mp4 812 1625 1920 1080
+frame 1200
 + sleep 2
 + for k in 1 2 3 4 5 6
-+ gh release view qnt-ep1-v1
++ gh release view kid-ep1-v1
 ++ printf %02d 1
-+ gh release upload qnt-ep1-v1 seg_01.mp4 --clobber
++ gh release upload kid-ep1-v1 seg_01.mp4 --clobber
 + break
