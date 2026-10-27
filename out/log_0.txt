@@ -107,3 +107,30 @@ loaded V3TurboVieNeuTTS
 14_qnt_myduyen Mỹ Duyên 8 ok 2.5
 14_qnt_myduyen Mỹ Duyên 12 ok 1.6
 14_qnt_myduyen asr ok
+loaded V3TurboVieNeuTTS
+15_qnt_more clone:refs/mada8.wav 0 ok 19.3
+15_qnt_more clone:refs/mada8.wav 4 ok 1.4
+15_qnt_more clone:refs/mada8.wav 8 ok 0.9
+15_qnt_more clone:refs/mada8.wav 12 ok 1.5
+15_qnt_more clone:refs/mada8.wav 16 ok 1.7
+15_qnt_more clone:refs/mada8.wav 20 ok 2.0
+15_qnt_more clone:refs/mada8.wav 24 ok 1.0
+15_qnt_more clone:refs/mada8.wav 28 ok 0.7
+15_qnt_more clone:refs/mada8.wav 32 ok 1.4
+15_qnt_more clone:refs/mada8.wav 36 ok 0.6
+15_qnt_more clone:refs/mada8.wav 40 ok 1.5
+15_qnt_more clone:refs/mada8.wav 44 ok 0.6
+15_qnt_more clone:refs/mada8.wav 48 ok 0.8
+15_qnt_more clone:refs/mada8.wav 52 ok 0.6
+15_qnt_more clone:refs/mada8.wav 56 ok 1.9
+15_qnt_more clone:refs/mada8.wav 60 ok 0.6
+15_qnt_more clone:refs/mada8.wav 64 ok 0.6
+15_qnt_more clone:refs/mada8.wav 68 ok 1.0
+15_qnt_more clone:refs/mada8.wav 72 ok 0.8
+15_qnt_more clone:refs/mada8.wav 76 ok 0.5
+15_qnt_more clone:refs/mada8.wav 80 ok 1.2
+15_qnt_more clone:refs/mada8.wav 84 ok 1.4
+15_qnt_more clone:refs/mada8.wav 88 ok 2.4
+15_qnt_more clone:refs/mada8.wav 92 ok 2.8
+15_qnt_more clone:refs/mada8.wav 96 ok 1.8
+15_qnt_more asr ok
