@@ -170,3 +170,46 @@ loaded V3TurboVieNeuTTS
 05_ma_lai clone:refs/mada.wav 86 ok 2.7
 05_ma_lai clone:refs/mada.wav 87 ok 2.7
 05_ma_lai asr ok
+loaded V3TurboVieNeuTTS
+06_giong_moi clone:refs/mada8.wav 0 ok 24.8
+06_giong_moi clone:refs/mada8.wav 1 ok 0.8
+06_giong_moi clone:refs/mada8.wav 2 ok 1.8
+06_giong_moi Adam bựa 0 ok 1.8
+06_giong_moi Adam bựa 1 ok 1.1
+06_giong_moi Adam bựa 2 ok 1.9
+06_giong_moi Minh Đức 0 ok 1.9
+06_giong_moi Minh Đức 1 ok 0.6
+06_giong_moi Minh Đức 2 ok 2.0
+06_giong_moi Trúc Ly 0 ok 1.5
+06_giong_moi Trúc Ly 1 ok 0.6
+06_giong_moi Trúc Ly 2 ok 1.5
+06_giong_moi Mai Anh 0 ok 1.7
+06_giong_moi Mai Anh 1 ok 0.7
+06_giong_moi Mai Anh 2 ok 1.8
+06_giong_moi Thùy Dung 0 ok 1.5
+06_giong_moi Thùy Dung 1 ok 0.5
+06_giong_moi Thùy Dung 2 ok 1.5
+06_giong_moi Ngọc Huyền 0 ok 1.7
+06_giong_moi Ngọc Huyền 1 ok 0.6
+06_giong_moi Ngọc Huyền 2 ok 1.7
+06_giong_moi Ngọc Trân 0 ok 1.8
+06_giong_moi Ngọc Trân 1 ok 0.8
+06_giong_moi Ngọc Trân 2 ok 2.0
+06_giong_moi Ngọc Linh 0 ok 1.7
+06_giong_moi Ngọc Linh 1 ok 0.6
+06_giong_moi Ngọc Linh 2 ok 1.6
+06_giong_moi Đoan Trang 0 ok 1.7
+06_giong_moi Đoan Trang 1 ok 0.8
+06_giong_moi Đoan Trang 2 ok 1.9
+06_giong_moi Quỳnh Anh 0 ok 1.7
+06_giong_moi Quỳnh Anh 1 ok 0.6
+06_giong_moi Quỳnh Anh 2 ok 1.9
+06_giong_moi Thục Đoan 0 ok 1.8
+06_giong_moi Thục Đoan 1 ok 0.6
+06_giong_moi Thục Đoan 2 ok 1.9
+06_giong_moi Mỹ Duyên 0 ok 2.0
+06_giong_moi Mỹ Duyên 1 ok 0.8
+06_giong_moi Mỹ Duyên 2 ok 2.5
+06_giong_moi Kim Thanh 0 ok 2.2
+06_giong_moi Kim Thanh 1 ok 0.8
+06_giong_moi Kim Thanh 2 ok 2.4
