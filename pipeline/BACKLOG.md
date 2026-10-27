@@ -25,3 +25,9 @@
 - Cái võng tự đung đưa
 - Tiếng gõ cửa lúc 3 giờ sáng
 - Chiếc lược trên mộ
+- Đứa trẻ chơi một mình ngoài sân lúc nửa đêm
+- Người đàn bà gánh hàng trên đường làng không có bóng
+- Ngôi nhà ai mua cũng bán lại sau 3 tháng
+- Con búp bê trong hũ sành
+- Chuyến xe đò đêm cuối cùng
+- Lời nguyền cây đa đầu làng

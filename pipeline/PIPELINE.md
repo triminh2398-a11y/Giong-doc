@@ -27,3 +27,10 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Không đọc được log Actions trực tiếp: workflow tự đẩy log vào `render/logs/` và `out/log_*.txt`.
 - Commit kết thúc bằng 2 dòng Co-Authored-By / Claude-Session theo hướng dẫn hệ thống.
 - YouTube không cho kiếm tiền "nội dung lặp lại/rập khuôn": mỗi tập phải có cốt truyện, bối cảnh, nhân vật và phần nghiên cứu riêng; tránh máu me câu view.
+
+## Các bước một truyện TikTok (mỗi ngày 1 truyện)
+- Khung dọc 1080x1920, dài 3–4 phút (~600–650 chữ, 40–50 câu). Mẫu: `pipeline/tiktok_malai/` (shots.js = thư viện + SH theo số câu, build.py, audio_ml.py). Các file mẫu dùng đường dẫn `/home/claude/ml/...`: copy sang thư mục mới và sửa đường dẫn.
+- 2 giây đầu phải có câu móc + hình gây tò mò; có thẻ tiêu đề; cuối có khung Follow @chuyendongtaykimco và câu hỏi gợi bình luận.
+- Truyện TikTok KHÁC truyện YouTube (xem BACKLOG). Tự nghĩ truyện mới, ghi vào BACKLOG.
+- Render: có thể render ngay trong container (`render_local.js` với VW=1080 VH=1920, ~20 phút) để tiết kiệm phút GitHub, hoặc workflow render-video (job.json w=1080 h=1920, tag riêng).
+- Giao: video MP4 + chú thích đăng TikTok (1–2 câu móc + 5–6 hashtag). Không gửi file nặng quá ~60MB.
