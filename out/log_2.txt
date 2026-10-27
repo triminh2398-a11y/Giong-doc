@@ -237,3 +237,21 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 19_qnt_v2_title clone:refs/mada8.wav 2 ok 22.6
 19_qnt_v2_title asr ok
+loaded V3TurboVieNeuTTS
+20_qnt_k Hải Đăng 2 ok 1.9
+20_qnt_k Hải Đăng 6 ok 1.5
+20_qnt_k Hải Đăng 10 ok 1.6
+20_qnt_k Hải Đăng 14 ok 0.7
+20_qnt_k Hải Đăng 18 ok 0.4
+20_qnt_k Hải Đăng 22 ok 1.1
+20_qnt_k asr ok
+21_qnt_th Thiện Minh 2 ok 2.0
+21_qnt_th Thiện Minh 6 ok 1.9
+21_qnt_th Thiện Minh 10 ok 1.4
+21_qnt_th Thiện Minh 14 ok 2.7
+21_qnt_th asr ok
+22_qnt_bt Ngọc Trân 2 ok 3.0
+22_qnt_bt asr ok
+23_qnt_me Mai Anh 2 ok 2.7
+23_qnt_me Mai Anh 6 ok 1.8
+23_qnt_me asr ok
