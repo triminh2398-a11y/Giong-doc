@@ -207,3 +207,14 @@ loaded V3TurboVieNeuTTS
 30_stv1_mada clone:refs/mada8.wav 92 ok 1.4
 30_stv1_mada clone:refs/mada8.wav 96 ok 2.1
 30_stv1_mada asr ok
+loaded V3TurboVieNeuTTS
+31_stv_giong_tre Hải Đăng 0 ok 2.0
+31_stv_giong_tre Thiện Minh 0 ok 1.8
+31_stv_giong_tre Adam bựa 0 ok 2.1
+31_stv_giong_tre Minh Đức 0 ok 2.5
+31_stv_giong_tre Mai Anh 0 ok 2.1
+31_stv_giong_tre Trúc Ly 0 ok 2.0
+31_stv_giong_tre Ngọc Huyền 0 ok 2.1
+31_stv_giong_tre Thùy Dung 0 ok 1.7
+31_stv_giong_tre Ngọc Trân 0 ok 2.0
+31_stv_giong_tre Đoan Trang 0 ok 2.2
