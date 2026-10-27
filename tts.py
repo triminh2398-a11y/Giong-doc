@@ -23,7 +23,8 @@ for job in sorted(glob.glob('jobs/*.json')):
         for i, line in enumerate(J['lines']):
             t0 = time.time()
             try:
-                a = tts.infer(text=line, ref_audio=v[6:]) if v.startswith('clone:') else tts.infer(text=line, voice=v)
+                kw = J.get('kw', {})
+                a = tts.infer(text=line, ref_audio=v[6:], **kw) if v.startswith('clone:') else tts.infer(text=line, voice=v, **kw)
                 sr = getattr(tts, 'sample_rate', 48000)
                 try: tts.save(a, f'{vdir}/{i:02d}.wav')
                 except Exception: sf.write(f'{vdir}/{i:02d}.wav', a, sr)
