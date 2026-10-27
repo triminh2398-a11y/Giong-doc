@@ -138,3 +138,49 @@ loaded V3TurboVieNeuTTS
 15_qnt_more clone:refs/mada8.wav 93 ok 3.4
 15_qnt_more clone:refs/mada8.wav 97 ok 3.1
 15_qnt_more asr ok
+loaded V3TurboVieNeuTTS
+20_kid1_maianh Mai Anh 1 ok 1.9
+20_kid1_maianh Mai Anh 5 ok 2.3
+20_kid1_maianh Mai Anh 9 ok 1.4
+20_kid1_maianh Mai Anh 13 ok 1.2
+20_kid1_maianh Mai Anh 17 ok 1.9
+20_kid1_maianh Mai Anh 21 ok 1.0
+20_kid1_maianh Mai Anh 25 ok 1.3
+20_kid1_maianh Mai Anh 29 ok 1.2
+20_kid1_maianh Mai Anh 33 ok 1.3
+20_kid1_maianh Mai Anh 37 ok 0.9
+20_kid1_maianh Mai Anh 41 ok 1.3
+20_kid1_maianh Mai Anh 45 ok 1.2
+20_kid1_maianh Mai Anh 49 ok 1.7
+20_kid1_maianh Mai Anh 53 ok 1.0
+20_kid1_maianh Mai Anh 57 ok 1.2
+20_kid1_maianh Mai Anh 61 ok 0.9
+20_kid1_maianh Mai Anh 65 ok 1.5
+20_kid1_maianh Mai Anh 69 ok 1.3
+20_kid1_maianh Mai Anh 73 ok 1.6
+20_kid1_maianh Mai Anh 77 ok 1.0
+20_kid1_maianh Mai Anh 81 ok 1.7
+20_kid1_maianh Mai Anh 85 ok 1.0
+20_kid1_maianh Mai Anh 89 ok 2.3
+20_kid1_maianh Mai Anh 93 ok 1.8
+20_kid1_maianh Mai Anh 97 ok 2.7
+20_kid1_maianh Mai Anh 101 ok 1.7
+20_kid1_maianh Mai Anh 105 ok 1.7
+20_kid1_maianh Mai Anh 109 ok 2.0
+20_kid1_maianh Mai Anh 113 ok 2.9
+20_kid1_maianh Mai Anh 117 ok 1.3
+20_kid1_maianh Mai Anh 121 ok 2.6
+20_kid1_maianh Mai Anh 125 ok 1.5
+20_kid1_maianh Mai Anh 129 ok 2.1
+20_kid1_maianh Mai Anh 133 ok 1.8
+20_kid1_maianh Mai Anh 137 ok 2.0
+20_kid1_maianh Mai Anh 141 ok 1.3
+20_kid1_maianh Mai Anh 145 ok 2.0
+20_kid1_maianh Mai Anh 149 ok 2.0
+20_kid1_maianh Mai Anh 153 ok 2.2
+20_kid1_maianh Mai Anh 157 ok 1.6
+20_kid1_maianh Mai Anh 161 ok 2.1
+20_kid1_maianh Mai Anh 165 ok 1.8
+20_kid1_maianh Mai Anh 169 ok 2.5
+20_kid1_maianh Mai Anh 173 ok 2.5
+20_kid1_maianh asr ok
