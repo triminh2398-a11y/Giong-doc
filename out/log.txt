@@ -213,3 +213,109 @@ loaded V3TurboVieNeuTTS
 06_giong_moi Kim Thanh 0 ok 2.2
 06_giong_moi Kim Thanh 1 ok 0.8
 06_giong_moi Kim Thanh 2 ok 2.4
+loaded V3TurboVieNeuTTS
+07_ml_mada8 clone:refs/mada8.wav 0 ok 27.1
+07_ml_mada8 clone:refs/mada8.wav 1 ok 6.0
+07_ml_mada8 clone:refs/mada8.wav 2 ok 1.3
+07_ml_mada8 clone:refs/mada8.wav 3 ok 1.4
+07_ml_mada8 clone:refs/mada8.wav 4 ok 5.0
+07_ml_mada8 clone:refs/mada8.wav 5 ok 4.5
+07_ml_mada8 clone:refs/mada8.wav 6 ok 1.8
+07_ml_mada8 clone:refs/mada8.wav 7 ok 2.0
+07_ml_mada8 clone:refs/mada8.wav 8 ok 4.6
+07_ml_mada8 clone:refs/mada8.wav 9 ok 4.1
+07_ml_mada8 clone:refs/mada8.wav 10 ok 3.7
+07_ml_mada8 clone:refs/mada8.wav 11 ok 3.9
+07_ml_mada8 clone:refs/mada8.wav 12 ok 1.7
+07_ml_mada8 clone:refs/mada8.wav 13 ok 1.5
+07_ml_mada8 clone:refs/mada8.wav 14 ok 2.2
+07_ml_mada8 clone:refs/mada8.wav 15 ok 2.4
+07_ml_mada8 clone:refs/mada8.wav 16 ok 3.4
+07_ml_mada8 clone:refs/mada8.wav 17 ok 3.6
+07_ml_mada8 clone:refs/mada8.wav 18 ok 4.1
+07_ml_mada8 clone:refs/mada8.wav 19 ok 4.1
+07_ml_mada8 clone:refs/mada8.wav 20 ok 3.4
+07_ml_mada8 clone:refs/mada8.wav 21 ok 3.3
+07_ml_mada8 clone:refs/mada8.wav 22 ok 2.7
+07_ml_mada8 clone:refs/mada8.wav 23 ok 2.7
+07_ml_mada8 clone:refs/mada8.wav 24 ok 2.1
+07_ml_mada8 clone:refs/mada8.wav 25 ok 2.2
+07_ml_mada8 clone:refs/mada8.wav 26 ok 2.9
+07_ml_mada8 clone:refs/mada8.wav 27 ok 2.8
+07_ml_mada8 clone:refs/mada8.wav 28 ok 1.5
+07_ml_mada8 clone:refs/mada8.wav 29 ok 1.3
+07_ml_mada8 clone:refs/mada8.wav 30 ok 1.0
+07_ml_mada8 clone:refs/mada8.wav 31 ok 1.0
+07_ml_mada8 clone:refs/mada8.wav 32 ok 1.9
+07_ml_mada8 clone:refs/mada8.wav 33 ok 1.8
+07_ml_mada8 clone:refs/mada8.wav 34 ok 1.0
+07_ml_mada8 clone:refs/mada8.wav 35 ok 0.9
+07_ml_mada8 clone:refs/mada8.wav 36 ok 2.8
+07_ml_mada8 clone:refs/mada8.wav 37 ok 2.9
+07_ml_mada8 clone:refs/mada8.wav 38 ok 2.4
+07_ml_mada8 clone:refs/mada8.wav 39 ok 2.4
+07_ml_mada8 clone:refs/mada8.wav 40 ok 4.3
+07_ml_mada8 clone:refs/mada8.wav 41 ok 4.6
+07_ml_mada8 clone:refs/mada8.wav 42 ok 4.5
+07_ml_mada8 clone:refs/mada8.wav 43 ok 4.6
+07_ml_mada8 clone:refs/mada8.wav 44 ok 3.7
+07_ml_mada8 clone:refs/mada8.wav 45 ok 3.8
+07_ml_mada8 clone:refs/mada8.wav 46 ok 3.0
+07_ml_mada8 clone:refs/mada8.wav 47 ok 2.7
+07_ml_mada8 clone:refs/mada8.wav 48 ok 1.3
+07_ml_mada8 clone:refs/mada8.wav 49 ok 1.5
+07_ml_mada8 clone:refs/mada8.wav 50 ok 0.9
+07_ml_mada8 clone:refs/mada8.wav 51 ok 1.0
+07_ml_mada8 clone:refs/mada8.wav 52 ok 3.8
+07_ml_mada8 clone:refs/mada8.wav 53 ok 3.9
+07_ml_mada8 clone:refs/mada8.wav 54 ok 3.8
+07_ml_mada8 clone:refs/mada8.wav 55 ok 4.2
+07_ml_mada8 clone:refs/mada8.wav 56 ok 3.1
+07_ml_mada8 clone:refs/mada8.wav 57 ok 3.0
+07_ml_mada8 clone:refs/mada8.wav 58 ok 2.0
+07_ml_mada8 clone:refs/mada8.wav 59 ok 2.0
+07_ml_mada8 clone:refs/mada8.wav 60 ok 3.3
+07_ml_mada8 clone:refs/mada8.wav 61 ok 3.2
+07_ml_mada8 clone:refs/mada8.wav 62 ok 4.2
+07_ml_mada8 clone:refs/mada8.wav 63 ok 4.4
+07_ml_mada8 clone:refs/mada8.wav 64 ok 3.1
+07_ml_mada8 clone:refs/mada8.wav 65 ok 2.8
+07_ml_mada8 clone:refs/mada8.wav 66 ok 2.7
+07_ml_mada8 clone:refs/mada8.wav 67 ok 2.8
+07_ml_mada8 clone:refs/mada8.wav 68 ok 0.9
+07_ml_mada8 clone:refs/mada8.wav 69 ok 0.8
+07_ml_mada8 clone:refs/mada8.wav 70 ok 2.4
+07_ml_mada8 clone:refs/mada8.wav 71 ok 2.6
+07_ml_mada8 clone:refs/mada8.wav 72 ok 3.9
+07_ml_mada8 clone:refs/mada8.wav 73 ok 3.9
+07_ml_mada8 clone:refs/mada8.wav 74 ok 1.6
+07_ml_mada8 clone:refs/mada8.wav 75 ok 1.5
+07_ml_mada8 clone:refs/mada8.wav 76 ok 1.2
+07_ml_mada8 clone:refs/mada8.wav 77 ok 1.2
+07_ml_mada8 clone:refs/mada8.wav 78 ok 2.3
+07_ml_mada8 clone:refs/mada8.wav 79 ok 2.5
+07_ml_mada8 clone:refs/mada8.wav 80 ok 2.1
+07_ml_mada8 clone:refs/mada8.wav 81 ok 2.3
+07_ml_mada8 clone:refs/mada8.wav 82 ok 2.1
+07_ml_mada8 clone:refs/mada8.wav 83 ok 2.1
+07_ml_mada8 clone:refs/mada8.wav 84 ok 3.7
+07_ml_mada8 clone:refs/mada8.wav 85 ok 3.7
+07_ml_mada8 clone:refs/mada8.wav 86 ok 6.6
+07_ml_mada8 clone:refs/mada8.wav 87 ok 6.8
+07_ml_mada8 clone:refs/mada8.wav 88 ok 4.5
+07_ml_mada8 clone:refs/mada8.wav 89 ok 4.6
+07_ml_mada8 clone:refs/mada8.wav 90 ok 2.3
+07_ml_mada8 clone:refs/mada8.wav 91 ok 2.7
+07_ml_mada8 clone:refs/mada8.wav 92 ok 3.8
+07_ml_mada8 clone:refs/mada8.wav 93 ok 3.5
+07_ml_mada8 asr ok
+08_ml_myduyen Mỹ Duyên 0 ok 1.0
+08_ml_myduyen Mỹ Duyên 1 ok 1.0
+08_ml_myduyen Mỹ Duyên 2 ok 1.4
+08_ml_myduyen Mỹ Duyên 3 ok 2.5
+08_ml_myduyen Mỹ Duyên 4 ok 2.5
+08_ml_myduyen Mỹ Duyên 5 ok 2.5
+08_ml_myduyen Mỹ Duyên 6 ok 1.9
+08_ml_myduyen Mỹ Duyên 7 ok 2.0
+08_ml_myduyen Mỹ Duyên 8 ok 2.0
+08_ml_myduyen asr ok
