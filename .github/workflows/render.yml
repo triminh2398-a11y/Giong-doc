@@ -17,9 +17,6 @@ jobs:
         with: { sparse-checkout: render }
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
-      - name: Fonts
-        timeout-minutes: 6
-        run: sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -q fonts-dejavu-core fonts-noto-cjk >/dev/null || true
       - name: Playwright
         timeout-minutes: 10
         run: |
@@ -27,11 +24,24 @@ jobs:
           npx playwright install chromium
       - name: Render shard
         timeout-minutes: 75
+        shell: bash
         run: |
           cd render
+          exec > >(tee log_${{ matrix.shard }}.txt) 2>&1
+          set -x
+          fc-list | grep -ci dejavu || true
+          which ffmpeg
           TAG=$(jq -r .tag job.json); HTML=$(jq -r .html job.json); N=$(jq -r .frames job.json); S=16
           A=$(( N * ${{ matrix.shard }} / S )); B=$(( N * (${{ matrix.shard }} + 1) / S ))
           node render_seg.js "$HTML" seg_$(printf %02d ${{ matrix.shard }}).mp4 $A $B $(jq -r .w job.json) $(jq -r .h job.json)
           sleep $(( ${{ matrix.shard }} * 2 ))
           for k in 1 2 3 4 5 6; do gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" -t "$TAG" -n "render" || true; gh release upload "$TAG" seg_$(printf %02d ${{ matrix.shard }}).mp4 --clobber && break; sleep 8; done
         env: { GH_TOKEN: '${{ github.token }}' }
+      - name: Push log
+        if: always()
+        shell: bash
+        run: |
+          cd render; mkdir -p logs; cp log_*.txt logs/ 2>/dev/null || echo nolog > logs/log_${{ matrix.shard }}.txt
+          git config user.name bot; git config user.email bot@users.noreply.github.com
+          git add logs; git commit -qm "render log ${{ matrix.shard }}" || true
+          for k in 1 2 3 4 5 6 7 8; do git pull -q --rebase && git push -q && break; sleep $((RANDOM % 10 + 3)); done
