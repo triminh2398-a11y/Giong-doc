@@ -14,7 +14,5 @@ for job in sorted(glob.glob('jobs/*.json')):
                 a = tts.infer(text=line, ref_audio=v[6:])
             else:
                 a = tts.infer(text=line, voice=v)
-            tts.save(a, f'{vdir}/{i:02d}.wav')
-            subprocess.run(['ffmpeg','-y','-v','error','-i',f'{vdir}/{i:02d}.wav','-b:a','160k',f'{vdir}/{i:02d}.mp3'], check=True)
-            os.remove(f'{vdir}/{i:02d}.wav'); print(name, v, i, round(time.time()-t0,1), flush=True)
+            tts.save(a, f'{vdir}/{i:02d}.wav'); print(name, v, i, round(time.time()-t0,1), flush=True)
     open(f'out/{name}/DONE','w').write('ok')

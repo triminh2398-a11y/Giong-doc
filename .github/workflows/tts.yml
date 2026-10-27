@@ -17,9 +17,10 @@ jobs:
       - name: Cache models
         uses: actions/cache@v4
         with: { path: ~/.cache/huggingface, key: hf-vieneu-v3 }
-      - run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
       - run: pip install -q vieneu
+        timeout-minutes: 15
       - run: python tts.py
+        timeout-minutes: 60
       - name: Commit audio
         run: |
           git config user.name "tao-giong-bot"
