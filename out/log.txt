@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/runner/work/Giong-doc/Giong-doc/tts.py", line 13, in <module>
+    tts = Vieneu()
+          ^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/vieneu/factory.py", line 25, in Vieneu
+    return V3TurboVieNeuTTS(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/vieneu/v3turbo.py", line 176, in __init__
+    self.engine = OnnxV3LiteEngine(
+                  ^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/vieneu/_v3_turbo_engine/onnx_runtime_lite.py", line 158, in __init__
+    self.sess_pre = ort.InferenceSession(str(vd / "vieneu_prefill.onnx"), so, providers=prov)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 683, in __init__
+    self._create_inference_session(providers, provider_options, disabled_optimizers)
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 789, in _create_inference_session
+    sess.initialize_session(providers, provider_options, disabled_optimizers)
+onnxruntime.capi.onnxruntime_pybind11_state.Fail: [ONNXRuntimeError] : 1 : FAIL : External data path validation failed for initializer: c.layers.0.self_attn.q_norm.weight. Error: External data path escapes model directory. External data path: "vieneu_backbone_shared.data" resolved path: "/home/runner/.cache/huggingface/hub/blobs/5c/5cdab01c7698482515bcc0440cf7a395c42c4358240304b7ddc65f17db39e7c0" allowed directory: "/home/runner/.cache/huggingface/hub/blobs/8b"
+
