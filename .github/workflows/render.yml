@@ -1,0 +1,37 @@
+name: render-video
+on:
+  push:
+    paths: ['render/job.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix: { shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: render }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Fonts
+        timeout-minutes: 6
+        run: sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -q fonts-dejavu-core fonts-noto-cjk >/dev/null || true
+      - name: Playwright
+        timeout-minutes: 10
+        run: |
+          cd render && npm init -y >/dev/null && npm i -q playwright@1.47.2 >/dev/null
+          npx playwright install chromium
+      - name: Render shard
+        timeout-minutes: 75
+        run: |
+          cd render
+          TAG=$(jq -r .tag job.json); HTML=$(jq -r .html job.json); N=$(jq -r .frames job.json); S=16
+          A=$(( N * ${{ matrix.shard }} / S )); B=$(( N * (${{ matrix.shard }} + 1) / S ))
+          node render_seg.js "$HTML" seg_$(printf %02d ${{ matrix.shard }}).mp4 $A $B $(jq -r .w job.json) $(jq -r .h job.json)
+          sleep $(( ${{ matrix.shard }} * 2 ))
+          for k in 1 2 3 4 5 6; do gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" -t "$TAG" -n "render" || true; gh release upload "$TAG" seg_$(printf %02d ${{ matrix.shard }}).mp4 --clobber && break; sleep 8; done
+        env: { GH_TOKEN: '${{ github.token }}' }
