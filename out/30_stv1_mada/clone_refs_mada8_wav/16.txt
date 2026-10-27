@@ -1,0 +1,1 @@
+Nó không thể bỏ chạy nên phải tự bảo vệ bằng một thứ khác.
