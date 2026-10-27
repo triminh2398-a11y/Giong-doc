@@ -233,3 +233,21 @@ loaded V3TurboVieNeuTTS
 18_qnt_v2_t asr ok
 loaded V3TurboVieNeuTTS
 19_qnt_v2_title asr ok
+loaded V3TurboVieNeuTTS
+20_qnt_k Hải Đăng 3 ok 2.0
+20_qnt_k Hải Đăng 7 ok 1.3
+20_qnt_k Hải Đăng 11 ok 1.3
+20_qnt_k Hải Đăng 15 ok 1.0
+20_qnt_k Hải Đăng 19 ok 0.5
+20_qnt_k Hải Đăng 23 ok 1.0
+20_qnt_k asr ok
+21_qnt_th Thiện Minh 3 ok 1.9
+21_qnt_th Thiện Minh 7 ok 1.7
+21_qnt_th Thiện Minh 11 ok 1.3
+21_qnt_th Thiện Minh 15 ok 2.4
+21_qnt_th asr ok
+22_qnt_bt Ngọc Trân 3 ok 1.9
+22_qnt_bt asr ok
+23_qnt_me Mai Anh 3 ok 1.2
+23_qnt_me Mai Anh 7 ok 1.7
+23_qnt_me asr ok
