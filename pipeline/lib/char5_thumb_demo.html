@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0}</style></head><body><canvas id="c" width="1280" height="720"></canvas><script>
+const W=1280,H=720;let ctx=document.getElementById('c').getContext('2d');</script><script src="char5.js"></script><script>
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+const g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#1a1622');g.addColorStop(1,'#0c0a10');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+// ghost right big
+ctx.save();ctx.translate(960,330);ctx.rotate(-0.18);ctx.scale(1.95,1.95);
+q(()=>{ctx.moveTo(-200,330);ctx.quadraticCurveTo(-190,200,-92,168);ctx.lineTo(92,168);ctx.quadraticCurveTo(190,200,200,330);ctx.closePath()},'#e2e2e8',2.6);
+face5(Object.assign({},CAST5.ghost));ctx.restore();
+ctx.save();ctx.globalCompositeOperation='multiply';const r=ctx.createRadialGradient(960,480,60,960,360,700);r.addColorStop(0,'#e4e6f0');r.addColorStop(1,'#1c1a26');ctx.fillStyle=r;ctx.fillRect(0,0,W,H);ctx.restore();
+// Lâm small scared bottom-left with lamp glow
+ctx.save();ctx.translate(250,560);ctx.scale(1.15,1.15);q(()=>{ctx.moveTo(-200,330);ctx.quadraticCurveTo(-190,200,-92,168);ctx.lineTo(-34,152);ctx.lineTo(34,152);ctx.lineTo(92,168);ctx.quadraticCurveTo(190,200,200,330);ctx.closePath()},'#6a6070',2.6);
+face5({hair:'messy',em:'fear',sweat:true,mouth:'teeth',skin:'#e6cfc4',skin2:'#c4a8a0',look:0.8});ctx.restore();
+const lg=ctx.createRadialGradient(200,640,10,200,640,300);lg.addColorStop(0,'rgba(255,170,90,.35)');lg.addColorStop(1,'rgba(255,170,90,0)');ctx.fillStyle=lg;ctx.fillRect(0,300,600,420);
+// title
+ctx.textAlign='left';ctx.lineJoin='round';
+ctx.font='900 112px "DejaVu Sans"';ctx.lineWidth=16;ctx.strokeStyle='#000';ctx.strokeText('QUỶ NHẬP',40,140);ctx.fillStyle='#f2efe8';ctx.fillText('QUỶ NHẬP',40,140);
+ctx.strokeText('TRÀNG',40,262);ctx.fillStyle='#d61f26';ctx.fillText('TRÀNG',40,262);
+ctx.font='bold 40px "DejaVu Sans"';ctx.lineWidth=9;ctx.strokeText('ĐỪNG THƯA KHI NGHE GỌI TÊN',44,330);ctx.fillStyle='#ffd04a';ctx.fillText('ĐỪNG THƯA KHI NGHE GỌI TÊN',44,330);
+for(let i=0;i<5000;i++){ctx.fillStyle=`rgba(255,255,255,${rnd(i)*0.04})`;ctx.fillRect(rnd(i+1)*W,rnd(i+2)*H,2,2)}
+</script></body></html>

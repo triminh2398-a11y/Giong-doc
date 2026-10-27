@@ -5,7 +5,7 @@ cold_corpse|N|Vì người già dặn rằng, nếu để một con mèo đen nh
 cold_corpse|N|Người ta gọi đó là quỷ nhập tràng.
 title|N|Xin chào, đây là Chuyện Đông Tây Kim Cổ.
 title|N|Tập hôm nay là chuyện về hai đêm canh xác ở một ngôi làng ven sông, và một con mèo đen không ai biết từ đâu tới.
-title|N|Cuối video, mình sẽ cùng tìm hiểu vì sao người xưa sợ mèo nhảy qua xác, và khoa học nói gì về những cái xác biết cử động.
+title|N|Hãy tắt đèn, đeo tai nghe, và nghe cho đến phút cuối cùng nhé.
 village_flood|N|Chuyện xảy ra vào mùa nước lớn năm ấy, ở làng Đông Thạch.
 village_flood|N|Mưa suốt nửa tháng, nước sông dâng trắng đồng, đường lên huyện ngập quá đầu gối.
 mansion|N|Giàu nhất làng là cụ Hội đồng Thạch, nhà ngói năm gian, ruộng thẳng cánh cò bay.
@@ -17,18 +17,20 @@ cu_thach|N|Đến lúc tắt thở, hai mắt vẫn không chịu nhắm.
 steward|N|Con cháu cụ đều ở trên tỉnh. Nước lũ cắt đường, ít nhất hai ngày nữa mới về kịp.
 steward|N|Xác chưa thể khâm liệm, đành đặt tạm trên tấm phản giữa nhà, phủ vải trắng.
 steward|N|Ông quản gia đi khắp làng, tìm người canh xác hai đêm, trả mỗi đêm một đồng bạc.
+steward|N|Ai nghe cũng lắc đầu. Người làng đồn nhau, cụ Thạch chết mà mắt không nhắm, là còn oán chưa tan.
+steward|N|Cả buổi sáng, không một ai dám nhận lời.
 lam_home|N|Lâm nhận lời đầu tiên.
 lam_home|N|Anh mười chín tuổi, nhà nghèo, mẹ đau ốm nằm liệt giường, một đồng bạc đủ tiền thuốc cả tháng.
 lam_home|N|Cha anh mất từ năm anh lên mười. Đêm canh xác cha, anh còn nhỏ quá, ngủ gục bên quan tài, sáng dậy chỉ nhớ mùi nhang và tiếng mẹ khóc.
 lam_home|N|Lần này, anh tự nhủ, mình đã lớn rồi, chẳng có gì phải sợ.
 khoa|N|Người thứ hai là Khoa, bạn cùng xóm, to con, ăn nói bạt mạng, chẳng sợ trời chẳng sợ đất.
-khoa|M|Ma quỷ gì. Người chết rồi thì nằm đó, có ăn ai đâu mà sợ.
+khoa|K|Ma quỷ gì. Người chết rồi thì nằm đó, có ăn ai đâu mà sợ.
 khoa|N|Khoa cười hề hề, vác theo một chai rượu đế.
 thay_rules|N|Chiều hôm đó, ông thầy cúng trong làng gọi hai người lại, dặn từng lời.
-thay_rules|M|Nghe cho kỹ. Thứ nhất, không được để con mèo nào lại gần cái xác.
-thay_rules|M|Thứ hai, ngọn đèn đầu giường phải cháy suốt đêm, tắt là thắp lại liền.
-thay_rules|M|Thứ ba, qua giờ Sửu, nghe ai gọi tên mình, tuyệt đối không được thưa.
-thay_rules|M|Thứ tư, chưa nghe gà gáy, không được bước ra khỏi nhà.
+thay_rules|TH|Nghe cho kỹ. Thứ nhất, không được để con mèo nào lại gần cái xác.
+thay_rules|TH|Thứ hai, ngọn đèn đầu giường phải cháy suốt đêm, tắt là thắp lại liền.
+thay_rules|TH|Thứ ba, qua giờ Sửu, nghe ai gọi tên mình, tuyệt đối không được thưa.
+thay_rules|TH|Thứ tư, chưa nghe gà gáy, không được bước ra khỏi nhà.
 thay_rules|N|Khoa bĩu môi. Lâm thì gật đầu, nhớ từng chữ.
 night1_hall|N|Đêm thứ nhất.
 night1_hall|N|Gian nhà giữa rộng thênh thang, chỉ có ngọn đèn dầu đặt trên đầu tấm phản.
@@ -39,6 +41,12 @@ night1_roof|N|Rồi trên mái ngói, có tiếng sột soạt, như có thứ g
 night1_roof|N|Lâm ngước nhìn lên. Tiếng động dừng lại, ngay phía trên tấm phản.
 night1_roof|N|Một tia chớp lóe lên. Qua khe cửa, Lâm thấy dưới gốc xoài ngoài ngõ, có bóng ai đó đứng im, tóc xõa dài.
 night1_roof|N|Chớp tắt. Lâm dụi mắt nhìn lại, gốc xoài chỉ còn một màu đen kịt.
+night1_steps|N|Một lúc sau, ngoài hiên có tiếng bước chân.
+night1_steps|N|Bước chân rất nhẹ, đi vòng quanh nhà, hết vòng này đến vòng khác.
+night1_steps|N|Mỗi lần đi ngang cửa chính, nó lại dừng lại một chút, như đang nghe ngóng bên trong.
+night1_steps|N|Lâm nín thở. Tiếng bước chân dừng hẳn trước cửa.
+night1_steps|N|Rồi có tiếng cào vào cánh cửa gỗ, rột, rột, rột, chậm rãi, như móng tay ai đó.
+night1_steps|N|Lâm ôm chặt cuốn kinh, đọc to lên. Tiếng cào ngưng bặt. Bên ngoài chỉ còn tiếng mưa.
 night1_drink|N|Khoa uống hết nửa chai rượu, rồi nằm khoanh tay trên chiếu ngáy pho pho.
 night1_drink|N|Lâm ngồi một mình, mắt không dám rời tấm vải trắng.
 night1_drink|N|Anh lấy cuốn kinh ông thầy đưa, lẩm nhẩm đọc cho đỡ sợ, dù chẳng hiểu chữ nào.
@@ -47,7 +55,7 @@ night1_sound|N|Khoảng nửa đêm, Lâm nghe một tiếng.
 night1_sound|N|Một tiếng hự khẽ.
 night1_sound|N|Tiếng thở hắt ra, rất khẽ, phát ra từ dưới tấm vải.
 night1_sound|N|Lâm lạnh toát người, lay Khoa dậy. Khoa dụi mắt, cười.
-night1_sound|M|Hơi trong bụng nó thoát ra đó. Người chết ai chả vậy. Ngủ đi.
+night1_sound|K|Hơi trong bụng nó thoát ra đó. Người chết ai chả vậy. Ngủ đi.
 night1_hand|N|Lâm không ngủ.
 night1_hand|N|Anh cứ nhìn chằm chằm vào hai bàn tay dưới lớp vải.
 night1_hand|N|Lúc đầu hôm, hai tay ấy đặt ngay ngắn trên ngực.
@@ -56,20 +64,28 @@ night1_dawn|N|Gà gáy. Trời sáng. Không có chuyện gì xảy ra nữa.
 night1_dawn|N|Lâm thở phào, tự nhủ chắc tại mình mệt quá mà nhìn nhầm.
 ba_tu|N|Sáng đó, bà Tư, người ở lâu năm nhất trong nhà, bưng cho Lâm bát cháo.
 ba_tu|N|Bà nhìn quanh, rồi ghé tai anh nói nhỏ.
-ba_tu|T|Cháu có thấy cây xoài ngoài ngõ không? Hai mươi năm trước, có đứa con gái treo cổ chết ở đó.
+ba_tu|BT|Cháu có thấy cây xoài ngoài ngõ không? Hai mươi năm trước, có đứa con gái treo cổ chết ở đó.
 mango_tree|N|Bà kể, cô gái ấy là con nhà tá điền.
 mango_tree|N|Năm mất mùa, nhà cô không trả nổi nợ lúa, cụ Thạch cho người tới xiết hết nhà cửa ruộng vườn.
 mango_tree|N|Cha cô uất ức sinh bệnh mà chết. Đêm đưa ma cha xong, cô ra gốc xoài trước cửa nhà cụ Thạch, treo cổ.
 mango_tree|N|Lúc người ta gỡ xác cô xuống, dưới gốc cây có một con mèo đen ngồi canh, mắt vàng khè, ai đuổi cũng không đi.
-ba_tu|T|Sau đó con mèo biến mất. Hai mươi năm rồi, không ai thấy nó nữa.
+ba_tu|BT|Sau đó con mèo biến mất. Hai mươi năm rồi, không ai thấy nó nữa.
 ba_tu|N|Bà Tư nói xong, lụi cụi đi xuống bếp, không quay đầu lại.
 khoa_cat|N|Chiều hôm ấy, Khoa tới, ôm theo trong lòng một con mèo con đen tuyền.
-khoa_cat|M|Tao nhặt được ngoài gốc xoài đầu ngõ. Dễ thương không?
+khoa_cat|K|Tao nhặt được ngoài gốc xoài đầu ngõ. Dễ thương không?
 khoa_cat|N|Lâm nhìn con mèo. Nó cũng nhìn lại anh, đôi mắt vàng khè, không chớp.
 khoa_cat|N|Lâm bảo Khoa mang nó đi chỗ khác. Khoa cười, nhốt nó vào cái giỏ tre, để ngoài hiên.
+ruin|N|Buổi trưa, Lâm không ngủ được. Anh lần theo lối mòn ra cuối xóm, tìm đến nền nhà cũ của gia đình tá điền năm xưa.
+ruin|N|Căn nhà chỉ còn lại mấy cây cột mục, cỏ dại mọc cao quá đầu gối.
+ruin|N|Giữa đống đổ nát có một bàn thờ nhỏ bằng đá. Ai đó vẫn còn thắp nhang, khói vẫn còn bay.
+ruin|N|Trên bàn thờ có một tấm ảnh đã ố vàng. Một cô gái trẻ, tóc dài, ôm trong lòng một con mèo đen.
+ruin|N|Lâm cúi xuống nhìn kỹ. Đôi mắt con mèo trong ảnh vàng khè, y hệt con mèo Khoa vừa nhặt được.
+ruin|N|Sau lưng anh, có tiếng ai đó nói khẽ.
+ruin|G|Anh đừng canh nữa. Đêm nay không phải chuyện của anh.
+ruin|N|Lâm quay phắt lại. Không có ai. Chỉ có gió lay mấy bụi chuối, và mùi nhang thoang thoảng.
 mother_day|N|Trước khi quay lại canh đêm thứ hai, Lâm ghé về nhà, đút cho mẹ chén cháo.
 mother_day|N|Bà nắm tay anh, bàn tay gầy guộc lạnh ngắt.
-mother_day|T|Con đừng canh nữa. Đêm qua mẹ nằm mơ thấy con mèo đen ngồi trên ngực mẹ, nặng như cối đá.
+mother_day|ME|Con đừng canh nữa. Đêm qua mẹ nằm mơ thấy con mèo đen ngồi trên ngực mẹ, nặng như cối đá.
 mother_day|N|Lâm cười trấn an mẹ. Còn một đêm nữa thôi, một đồng bạc nữa thôi, là đủ tiền thuốc.
 mother_day|N|Anh không biết, đó là lời hứa mà anh suýt nữa không giữ được.
 midroll|N|Trước khi kể tiếp đêm thứ hai, nếu bạn thấy câu chuyện này đủ rợn người, hãy bấm đăng ký kênh để ủng hộ mình nhé.
@@ -81,7 +97,7 @@ night2_smell|N|Cái xác bắt đầu có mùi.
 night2_smell|N|Dưới lớp vải trắng, bụng cụ Thạch phình lên thấy rõ.
 night2_smell|N|Lâm thắp thêm một nắm nhang, khói bay mù mịt.
 night2_smell|N|Khoa lấy khăn bịt mũi, càu nhàu, rồi lại tu thêm một ngụm rượu.
-night2_smell|M|Hai ngày nữa mà chưa chôn, chắc cả làng ngửi thấy luôn quá.
+night2_smell|K|Hai ngày nữa mà chưa chôn, chắc cả làng ngửi thấy luôn quá.
 lamp_out|N|Gần giờ Tý, một cơn gió rất mạnh thốc vào nhà.
 lamp_out|N|Ngọn đèn đầu giường phụt tắt.
 dark_hall|N|Bóng tối đặc quánh. Chỉ còn mấy đốm nhang đỏ lập lòe, và tiếng mưa rào rào trên mái ngói.
@@ -92,13 +108,13 @@ relight|N|Lâm run run châm lại đèn.
 relight|N|Cái xác vẫn nằm đó. Nhưng tấm vải trắng đã tụt xuống ngang ngực, để lộ khuôn mặt tím tái của cụ Thạch.
 relight|N|Hai mắt cụ vẫn mở trừng trừng, nhìn thẳng lên nóc nhà.
 call_name|N|Đúng lúc ấy, ngoài cổng có tiếng gọi.
-call_name|T|Lâm ơi. Lâm ơi, về nhà đi con.
+call_name|ME|Lâm ơi. Lâm ơi, về nhà đi con.
 call_name|N|Là giọng mẹ anh.
 call_name|N|Lâm đứng bật dậy. Mẹ anh nằm liệt giường đã nửa năm nay, làm sao đi nổi tới đây, giữa đêm mưa bão thế này.
 call_name|N|Anh nhớ lời thầy dặn, cắn chặt môi, không dám thưa.
-call_name|T|Lâm ơi, mẹ lạnh quá. Mở cửa cho mẹ vô với con.
+call_name|ME|Lâm ơi, mẹ lạnh quá. Mở cửa cho mẹ vô với con.
 khoa_answer|N|Khoa say mèm, lảo đảo đứng dậy.
-khoa_answer|M|Ai đó? Ai gọi đó?
+khoa_answer|K|Ai đó? Ai gọi đó?
 khoa_answer|N|Tiếng gọi ngoài cổng im bặt.
 khoa_answer|N|Rồi từ ngoài hiên, có tiếng nắp giỏ tre rơi xuống đất, cạch một tiếng.
 cat_in|N|Con mèo đen bước vào nhà.
@@ -113,7 +129,7 @@ silence|N|Mưa cũng như ngừng rơi.
 finger|N|Lâm nhìn xuống bàn tay buông thõng bên mép phản.
 finger|N|Ngón tay trỏ của cụ Thạch, khẽ co lại.
 finger|N|Rồi ngón giữa. Rồi cả bàn tay, từ từ nắm chặt lại, kêu răng rắc như cành khô bị bẻ.
-khoa_laugh|M|Co cơ thôi mà. Người chết vẫn vậy.
+khoa_laugh|K|Co cơ thôi mà. Người chết vẫn vậy.
 khoa_laugh|N|Khoa nói, nhưng giọng anh ta đã run lên bần bật.
 sit_up|N|Cái xác bắt đầu ngồi dậy.
 sit_up|N|Không như người sống ngồi dậy. Nó không chống tay, không co chân.
@@ -124,6 +140,10 @@ corpse_face|N|Hai con mắt đã chuyển sang màu trắng đục, không còn 
 corpse_face|N|Cái miệng há ra, phát ra một tiếng khò khè dài, lạnh như hơi gió thổi từ dưới huyệt.
 corpse_stand|N|Rồi nó đứng dậy, hai tay duỗi thẳng ra phía trước.
 corpse_stand|N|Đầu nó nghiêng nghiêng, như đang đánh hơi.
+corpse_altar|N|Nó lắc lư bước về phía bàn thờ, nơi đặt tấm ảnh thờ của chính nó.
+corpse_altar|N|Một cánh tay quét ngang. Bát hương đổ nhào, tấm ảnh rơi xuống đất vỡ tan.
+corpse_altar|N|Qua khe cửa sổ, Lâm thấy một bóng trắng đứng ngoài sân mưa, tóc dài xõa che mặt, đang nhìn vào trong nhà.
+corpse_altar|N|Bóng trắng ấy không làm gì cả. Nó chỉ đứng đó, như đang chờ đợi.
 remember_rule|N|Lâm chợt nhớ ra lời ông nội kể ngày xưa.
 remember_rule|N|Xác bị quỷ nhập không nhìn được. Nó tìm người sống bằng hơi thở.
 remember_rule|N|Anh bịt chặt miệng mũi, lùi từng bước một vào góc tối sau bàn thờ.
@@ -151,14 +171,14 @@ morning|N|Trời sáng hẳn, dân làng mới phá cửa xông vào.
 morning|N|Họ thấy xác cụ Thạch nằm úp mặt giữa nhà, cách tấm phản cả chục bước chân.
 morning|N|Khoa ngồi co ro ở góc cửa, người lạnh ngắt, tóc bạc trắng một mảng trên đỉnh đầu.
 morning|N|Anh ta còn sống, nhưng từ hôm đó trở đi, không ai nghe Khoa nói thêm câu nào, ngoài hai chữ.
-morning|M|Lạnh quá.
+morning|K|Lạnh… lạnh quá.
 mother|N|Lâm chạy một mạch về nhà.
 mother|N|Mẹ anh vẫn nằm trên giường, ngủ say. Cửa nhà khóa then từ bên trong.
 mother|N|Bà nói, cả đêm qua bà không hề ra khỏi giường.
 mother|N|Lâm ngồi sụp xuống bên giường mẹ, khóc như một đứa trẻ.
 mother|N|Tiền công canh xác hôm ấy, anh không dám nhận. Ông quản gia gửi tới tận nhà, anh đem đi cúng hết ở chùa đầu làng.
 thay_morning|N|Ông thầy cúng tới, nhìn cái giỏ tre trống không ngoài hiên, rồi nhìn gốc xoài đầu ngõ, lặng đi rất lâu.
-thay_morning|M|Nợ máu hai mươi năm, giờ nó về đòi. Cũng may thằng Lâm biết nín thở, không thì hai đứa đã nằm đây rồi.
+thay_morning|TH|Nợ máu hai mươi năm, giờ nó về đòi. Cũng may thằng Lâm biết nín thở, không thì hai đứa đã nằm đây rồi.
 thay_morning|N|Ông sai người đốt cái giỏ tre, rắc tro quanh gốc xoài, rồi lập một bàn thờ nhỏ cho cô gái năm xưa.
 funeral|N|Chiều hôm đó, con cháu cụ Thạch về tới. Đám tang làm vội, chôn cất ngay trong ngày.
 funeral|N|Người ta kể, lúc khiêng quan tài đi ngang gốc xoài, tám người khiêng bỗng thấy nặng trĩu, phải dừng lại thắp nhang khấn vái mới đi tiếp được.
@@ -166,53 +186,16 @@ funeral|N|Lúc hạ huyệt, Lâm đứng lẫn trong đám đông, mắt nhìn 
 last_cat|N|Trên bờ tường nghĩa địa, có một con mèo đen ngồi im lặng.
 last_cat|N|Nó nhìn Lâm, rất lâu, rồi quay lưng, đi về phía gốc xoài đầu ngõ, và biến mất trong bóng cây.
 last_cat|N|Từ đó về sau, làng Đông Thạch có thêm một lệ mới. Nhà nào có người mất, phải nhốt hết mèo trong xóm, suốt cho đến ngày chôn cất.
+epilogue|N|Một tuần sau đám tang, Lâm mang nhang ra gốc xoài đầu ngõ.
+epilogue|N|Anh thắp ba nén, cắm xuống gốc cây, khấn vái cho cô gái năm xưa được siêu thoát.
+epilogue|N|Khói nhang vừa bay lên, thì gió bỗng lặng hẳn.
+epilogue|N|Dưới tán xoài, một cô gái mặc áo trắng hiện ra, ôm trong lòng con mèo đen.
+epilogue|N|Cô không nói gì, chỉ cúi đầu chào Lâm, rồi tan dần vào trong sương sớm.
+epilogue|N|Từ đó, không ai còn thấy con mèo đen ở làng Đông Thạch nữa.
+epilogue|N|Nhưng Khoa thì không bao giờ khỏi hẳn. Đêm nào trời mưa, anh ta cũng ngồi co ro ở góc nhà, miệng lẩm bẩm.
+epilogue|K|Lạnh quá. Ông ấy vẫn còn đứng ngoài cửa.
 last_cat|N|Lâm sống đến già ở làng Đông Thạch. Mỗi lần kể lại chuyện này, ông đều dặn con cháu một câu.
-last_cat|M|Đêm canh người chết, đáng sợ không phải là cái xác. Mà là món nợ người chết còn mang theo.
-explain_title|N|Câu chuyện đến đây là hết.
-explain_title|N|Nhưng tục kiêng mèo đến gần người chết thì có thật, và đến nay ở nhiều vùng quê vẫn còn giữ.
-explain_title|N|Vậy người xưa sợ điều gì, và vì sao?
-vigil|N|Ngày xưa, khi trong nhà có người mất, người Việt thường để xác tại nhà một thời gian trước khi khâm liệm và chôn cất.
-vigil|N|Suốt thời gian đó, con cháu và người làng thay nhau thức canh, gọi là canh xác.
-vigil|N|Người canh phải giữ cho nhang đèn không tắt, và không để chó mèo, chuột bọ lại gần.
-vigil_why|N|Lý do đầu tiên rất thực tế.
-vigil_why|N|Ở nông thôn, chuột, mèo, chó có thể bị mùi thu hút, cắn phá thi thể nếu không ai trông.
-vigil_why|N|Canh xác cũng là cách người sống ở bên người chết lần cuối, để người đã khuất không cô đơn.
-belief_cat|N|Nhưng trong dân gian, con mèo còn mang một nỗi sợ khác.
-belief_cat|N|Người ta tin rằng mèo, nhất là mèo đen, có thể làm cầu nối giữa hai cõi.
-belief_cat|N|Khi một con mèo nhảy qua xác, một hồn ma lang thang nào đó có thể nhân cơ hội chui vào thân xác bỏ trống, khiến nó đứng dậy.
-belief_cat|N|Đó chính là quỷ nhập tràng.
-linh_mieu|N|Có truyền thuyết còn kể về linh miêu, một loài mèo đen mang dòng máu của rắn, chỉ cần nhảy qua xác là gọi được quỷ nhập vào.
-linh_mieu|N|Và giờ nguy hiểm nhất, là giờ Sửu, từ một đến ba giờ sáng.
-call_belief|N|Lời dặn đừng thưa khi bị gọi tên lúc nửa đêm, cũng là một điều kiêng kỵ rất phổ biến trong dân gian.
-call_belief|N|Người xưa tin rằng ma quỷ có thể giả giọng người thân để gọi, ai lỡ thưa thì hồn vía bị bắt theo.
-call_belief|N|Vì vậy, nhiều cụ già vẫn dặn con cháu, đêm khuya nghe gọi tên, phải chờ gọi đến lần thứ ba, và nhìn thấy mặt người gọi, mới được trả lời.
-china|N|Niềm tin này không chỉ có ở Việt Nam.
-china|N|Trong văn hóa Trung Hoa cũng có chuyện cương thi, xác chết đi đứng nhảy từng bước, hai tay duỗi thẳng, và người ta cũng kiêng để mèo đến gần linh cữu.
-china|N|Có lẽ vì vậy mà hình ảnh cái xác nhảy thình thịch, hai tay đưa ra phía trước, đã trở nên quen thuộc với cả vùng Á Đông.
-science|N|Vậy còn khoa học thì sao? Xác chết có thật sự cử động được không?
-science|N|Câu trả lời đáng ngạc nhiên là, có, nhưng không phải theo cách trong truyện.
-twitch|N|Ngay sau khi chết, hệ thần kinh vẫn còn những xung điện cuối cùng, có thể làm các cơ co giật nhẹ.
-rigor|N|Sau đó, cơ thể bắt đầu co cứng, gọi là hiện tượng cứng tử thi.
-rigor|N|Sự co cứng thường bắt đầu từ những cơ nhỏ ở mặt và cổ, rồi lan dần xuống các cơ lớn hơn.
-rigor|N|Vì vậy, bàn tay người chết có thể từ từ nắm lại, cánh tay có thể hơi co lên, khiến người canh xác giật mình.
-gas|N|Khi cơ thể bắt đầu phân hủy, khí sinh ra trong ngực và bụng làm bụng phình to.
-gas|N|Lượng khí ấy có thể đẩy cơ thể xê dịch một chút, hoặc thoát ra qua cổ họng, tạo thành một tiếng thở hắt hay tiếng rên rất giống người sống.
-gas|N|Chính là tiếng hự mà Lâm nghe thấy trong đêm đầu tiên.
-cat_eyes|N|Còn con mèo thì sao? Vì sao lại là mèo, mà không phải con vật nào khác?
-cat_eyes|N|Mắt mèo có một lớp tế bào đặc biệt phía sau võng mạc, phản chiếu ánh sáng, nên trong bóng tối, chỉ một ngọn đèn nhỏ cũng làm mắt mèo sáng rực lên.
-cat_eyes|N|Mèo lại đi không một tiếng động, nhảy rất cao, và hay tìm đến chỗ ấm, chỗ có mùi lạ.
-cat_eyes|N|Một đôi mắt sáng quắc trong đêm canh xác, đã đủ để người ta nghĩ đến chuyện ma quỷ.
-study|N|Năm 2019, một nhóm nhà khoa học ở Úc, do bà Alyson Wilson dẫn đầu, đã đặt máy ảnh chụp một thi thể hiến tặng cho khoa học, cứ ba mươi phút một tấm, suốt mười bảy tháng.
-study|N|Kết quả khiến chính họ cũng bất ngờ. Hai cánh tay của thi thể ban đầu đặt sát người, về sau đã dịch chuyển hẳn sang hai bên.
-study|N|Các nhà khoa học cho rằng nguyên nhân là quá trình phân hủy, khi cơ thể khô dần và các dây chằng co rút lại.
-cant_sit|N|Nhưng có một điều mà xác chết không thể làm được, đó là ngồi dậy hay đứng lên.
-cant_sit|N|Để ngồi dậy, cơ thể cần năng lượng và tín hiệu từ não điều khiển hàng chục nhóm cơ cùng lúc. Người đã chết thì không còn những thứ đó.
-fear_night|N|Hãy tưởng tượng lại cảnh canh xác ngày xưa.
-fear_night|N|Đêm khuya, đèn dầu leo lét, người canh thì mệt mỏi, sợ hãi, có khi còn uống rượu cho đỡ lạnh.
-fear_night|N|Một tiếng khí thoát ra, một ngón tay co lại, một con mèo bất ngờ nhảy lên phản làm đổ đèn.
-fear_night|N|Chỉ chừng ấy thôi, cũng đủ để sáng hôm sau, cả làng có thêm một câu chuyện quỷ nhập tràng.
-meaning|N|Dù vậy, tục canh xác vẫn có ý nghĩa của nó.
-meaning|N|Nó giữ cho người đã khuất được yên ổn, và cho người ở lại một đêm cuối cùng ngồi bên nhau, nhớ về người ấy.
+last_cat|TH|Đêm canh người chết, đáng sợ không phải là cái xác. Mà là món nợ người chết còn mang theo.
 outro|N|Cảm ơn bạn đã nghe hết câu chuyện hôm nay.
 outro|N|Quê bạn có kiêng mèo đến gần người chết không? Hay có chuyện quỷ nhập tràng nào từng nghe? Hãy kể cho mình ở phần bình luận nhé.
 outro|N|Nhớ bấm đăng ký kênh Chuyện Đông Tây Kim Cổ và bật chuông, để không bỏ lỡ tập tiếp theo.

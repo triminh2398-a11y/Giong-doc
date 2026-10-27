@@ -41,8 +41,8 @@ def mask(keys, fi=0.3, fo=0.3):
 def loud_slice(x, a, b):
     m = env(a, b, 0.3, 0.3); return x * m
 STORY = [k for k, a, b, ls in TL['scenes']]
-night1 = ['night1_hall', 'night1_rain', 'night1_roof', 'night1_drink', 'night1_sound', 'night1_hand']
-night2 = ['night2_storm', 'night2_smell', 'lamp_out', 'dark_hall', 'relight', 'call_name', 'khoa_answer', 'cat_in', 'cat_jump', 'silence', 'finger', 'khoa_laugh', 'sit_up', 'corpse_face', 'corpse_stand', 'remember_rule', 'khoa_run', 'khoa_caught', 'hide_altar', 'corpse_near']
+night1 = ['night1_hall', 'night1_rain', 'night1_roof', 'night1_steps', 'night1_drink', 'night1_sound', 'night1_hand']
+night2 = ['night2_storm', 'night2_smell', 'lamp_out', 'dark_hall', 'relight', 'call_name', 'khoa_answer', 'cat_in', 'cat_jump', 'silence', 'finger', 'khoa_laugh', 'sit_up', 'corpse_face', 'corpse_stand', 'corpse_altar', 'remember_rule', 'khoa_run', 'khoa_caught', 'hide_altar', 'corpse_near']
 # rain beds
 rain = hp(lp(np.concatenate([nz(30)] * int(np.ceil(DUR / 30)))[:N], 9000), 400).astype(np.float32)
 drops = np.zeros(N, np.float32); idx = rng.integers(0, N, int(DUR * 25)); drops[idx] = rng.uniform(0.3, 1, len(idx)); drops = bp(drops, 2000, 7000).astype(np.float32)
@@ -63,10 +63,6 @@ add(d * dread * (0.8 + 0.2 * np.sin(2 * np.pi * 0.17 * t)), 0.06, 0, 0.15)
 cl_ = sum(np.sin(2 * np.pi * f * t) for f in (293.7, 311.1, 329.6, 349.2))
 a0 = sc('corpse_near')[0]; b0 = at('rooster', 0)
 add(bp(cl_, 150, 3000) * np.clip((t - a0) / (b0 - a0), 0, 1) ** 2 * (t < b0), 0.05, 0, 0.4)
-# explanation pad (calm)
-pad = sum(np.sin(2 * np.pi * f * t + i).astype(np.float32) for i, f in enumerate((110, 164.8, 220, 261.6)))
-ex = ['explain_title', 'vigil', 'vigil_why', 'belief_cat', 'linh_mieu', 'call_belief', 'china', 'science', 'twitch', 'rigor', 'gas', 'cat_eyes', 'study', 'cant_sit', 'fear_night', 'meaning', 'outro']
-add(lp(pad, 900) * mask(ex, 2, 2) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.05 * t)), 0.018, 0, 0.5)
 # stings
 place(boom(3.0, 44), 0.2, 0.6, 0, 0.6)
 place(boom(4.0, 38), sc('title')[0] + 0.2, 0.9, 0, 0.8)
@@ -74,7 +70,18 @@ place(boom(3.0, 50), at('cold_corpse', 1), 0.5, 0, 0.6)
 place(boom(4.0, 40), at('sit_up', 0), 0.8, 0, 0.7)
 place(boom(3.0, 44), at('corpse_face', 1), 0.6, 0, 0.6)
 place(boom(4.0, 36), at('cat_jump', 2, 1.6), 0.7, 0, 0.7)
-place(boom(4.0, 34), sc('explain_title')[0] + 0.2, 0.6, 0, 0.8)
+# v2 scenes
+cm2 = mask(['epilogue'], 1, 1) * 0.5
+add(bp(np.concatenate([nz(20)] * int(np.ceil(DUR / 20)))[:N], 4500, 4800, 2).astype(np.float32) * (np.sin(2 * np.pi * 24 * t) > 0.3) * cm2, 0.05, -0.4)
+for k in range(10):  # scratching on the door
+    tt = tt_(0.35); sc_ = bp(nz(0.35), 1500, 5000) * np.sin(np.pi * tt / 0.35) * (1 + 0.6 * np.sin(2 * np.pi * 30 * tt))
+    place(sc_, at('night1_steps', 4, 0.3 + k * 0.62), 0.22, 0.5, 0.2)
+for k in range(8):  # footsteps outside
+    tt = tt_(0.2); place(lp(nz(0.2), 400) * np.exp(-tt * 20), at('night1_steps', 0, 0.4 + k * 0.7), 0.25, -0.5 + k * 0.12, 0.3)
+place(boom(3.0, 46), at('ruin', 6, 0), 0.6, 0, 0.6)
+tt = tt_(1.2); place(bp(nz(1.2), 300, 3000) * np.exp(-tt * 4) * 1.5 + np.sin(2 * np.pi * 180 * tt) * np.exp(-tt * 9), at('corpse_altar', 1, 0.85), 0.5, 0.3, 0.4)
+place(boom(4.0, 40), at('corpse_altar', 2, 0), 0.6, 0, 0.7)
+place(boom(4.0, 36), at('epilogue', 7, 0.2), 0.7, 0, 0.8)
 # whoosh on cuts
 for k, a, b, ls in TL['scenes']:
     if a > 1: place(whoosh(0.45), a - 0.25, 0.035, rng.uniform(-.4, .4), 0.2)
