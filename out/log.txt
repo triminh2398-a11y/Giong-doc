@@ -330,3 +330,8 @@ loaded V3TurboVieNeuTTS
 09_ml_fix clone:refs/mada8.wav 7 ok 1.0
 09_ml_fix clone:refs/mada8.wav 8 ok 1.0
 09_ml_fix asr ok
+loaded V3TurboVieNeuTTS
+10_ml_fix6 clone:refs/mada8.wav 0 ok 28.9
+10_ml_fix6 clone:refs/mada8.wav 1 ok 1.4
+10_ml_fix6 clone:refs/mada8.wav 2 ok 1.3
+10_ml_fix6 asr ok
