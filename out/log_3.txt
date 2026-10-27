@@ -215,3 +215,19 @@ loaded V3TurboVieNeuTTS
 31_stv_giong_tre Thùy Dung 3 ok 1.2
 31_stv_giong_tre Ngọc Trân 3 ok 1.6
 31_stv_giong_tre Đoan Trang 3 ok 1.5
+loaded V3TurboVieNeuTTS
+17_qnt_v2_mada clone:refs/mada8.wav 3 ok 17.6
+17_qnt_v2_mada clone:refs/mada8.wav 7 ok 1.5
+17_qnt_v2_mada clone:refs/mada8.wav 11 ok 1.0
+17_qnt_v2_mada clone:refs/mada8.wav 15 ok 1.9
+17_qnt_v2_mada clone:refs/mada8.wav 19 ok 1.5
+17_qnt_v2_mada clone:refs/mada8.wav 23 ok 2.4
+17_qnt_v2_mada clone:refs/mada8.wav 27 ok 1.0
+17_qnt_v2_mada clone:refs/mada8.wav 31 ok 1.4
+17_qnt_v2_mada clone:refs/mada8.wav 35 ok 2.3
+17_qnt_v2_mada clone:refs/mada8.wav 39 ok 1.2
+17_qnt_v2_mada clone:refs/mada8.wav 43 ok 1.0
+17_qnt_v2_mada clone:refs/mada8.wav 47 ok 1.6
+17_qnt_v2_mada clone:refs/mada8.wav 51 ok 2.2
+17_qnt_v2_mada asr ok
+18_qnt_v2_t asr ok
