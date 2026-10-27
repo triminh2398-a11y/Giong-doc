@@ -319,3 +319,14 @@ loaded V3TurboVieNeuTTS
 08_ml_myduyen Mỹ Duyên 7 ok 2.0
 08_ml_myduyen Mỹ Duyên 8 ok 2.0
 08_ml_myduyen asr ok
+loaded V3TurboVieNeuTTS
+09_ml_fix clone:refs/mada8.wav 0 ok 18.4
+09_ml_fix clone:refs/mada8.wav 1 ok 0.8
+09_ml_fix clone:refs/mada8.wav 2 ok 0.8
+09_ml_fix clone:refs/mada8.wav 3 ok 0.5
+09_ml_fix clone:refs/mada8.wav 4 ok 0.6
+09_ml_fix clone:refs/mada8.wav 5 ok 0.6
+09_ml_fix clone:refs/mada8.wav 6 ok 1.0
+09_ml_fix clone:refs/mada8.wav 7 ok 1.0
+09_ml_fix clone:refs/mada8.wav 8 ok 1.0
+09_ml_fix asr ok
