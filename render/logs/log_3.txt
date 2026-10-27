@@ -1,0 +1,4 @@
++ fc-list
++ grep -ci dejavu
+22
++ which ffmpeg
