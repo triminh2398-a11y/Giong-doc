@@ -1,0 +1,11 @@
+{
+ "voices": [
+  "clone:refs/mada8.wav"
+ ],
+ "lines": [
+  "Ai hỏi đến, cô cũng chỉ cười.",
+  "Ai hỏi đến, cô cũng chỉ cười.",
+  "Ai hỏi đến, cô cũng chỉ cười."
+ ],
+ "asr": true
+}
