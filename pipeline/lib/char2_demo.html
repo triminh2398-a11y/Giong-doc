@@ -1,0 +1,13 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0}</style></head><body><canvas id="c" width="1920" height="1080"></canvas><script>
+const W=1920,H=1080;const cv=document.getElementById('c');const ctx=cv.getContext('2d');
+</script><script src="char2.js"></script><script>
+const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#3b2f26');g.addColorStop(1,'#1d1712');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+const r=ctx.createRadialGradient(960,500,50,960,500,900);r.addColorStop(0,'rgba(255,200,130,.35)');r.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=r;ctx.fillRect(0,0,W,H);
+ctx.fillStyle='#2a1e15';ctx.fillRect(0,900,W,180);
+ch('lam',220,940,1.45,{em:'fear',mouth:'o',look:0.6,pose:{la:[-0.6,-1.2],ra:[0.3,-0.4]},sweat:0.4});
+ch('khoa',520,940,1.5,{em:'calm',mouth:'grin',turn:0.4,look:0.5,pose:{ra:[-2.2,0.3],la:[0.1,-0.2]}});
+ch('thay',820,940,1.45,{em:'sad',mouth:'calm',eyes:0.6,turn:-0.3});
+ch('batu',1100,940,1.4,{em:'calm',mouth:'frown',look:-0.4,turn:0.2});
+ch('tham',1380,940,1.45,{em:'calm',mouth:'smile',look:-0.3,wind:0.3});
+ch('corpse',1700,940,1.5,{mouth:'o',pose:{la:[-0.9,-0.3],ra:[0.9,0.3]},tilt:0.12});
+</script></body></html>
