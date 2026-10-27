@@ -1,0 +1,51 @@
+# vis|text   (vis = tên cảnh; "big:CHỮ" = chữ lớn nhảy ra; "host:CHỮ" = nhân vật Bin nói kèm bong bóng)
+cut_start|Bạn cầm dao lên, đặt củ hành tây xuống thớt, và cắt nhát đầu tiên.
+eye_sting|Chưa đầy một phút sau, mắt bạn bắt đầu cay xè, nước mắt cứ thế chảy ra.
+big:HÀNH TÂY KHÔNG CÓ RĂNG|Hành tây không có răng, không có gai, cũng chẳng biết chạy.
+host:Vậy nó tấn công mình kiểu gì?|Vậy rốt cuộc, nó làm cách nào để khiến bạn khóc?
+title|Xin chào, đây là Sự Thật Thú Vị. Hôm nay mình cùng giải mã vì sao cắt hành tây lại chảy nước mắt.
+host:Câu trả lời là một cuộc chiến hóa học tí hon!|Câu trả lời là một cuộc chiến hóa học tí hon, diễn ra ngay trên chiếc thớt nhà bạn.
+chap:1|Phần một. Củ hành tự vệ như thế nào.
+onion_ground|Củ hành tây lớn lên dưới lòng đất, nơi có rất nhiều côn trùng và động vật muốn gặm nhấm nó.
+onion_ground|Nó không thể bỏ chạy, nên phải tự bảo vệ bằng một thứ khác.
+big:VŨ KHÍ HÓA HỌC|Đó là vũ khí hóa học.
+cells|Bên trong mỗi tế bào hành, có hai loại chất được cất ở hai ngăn riêng biệt.
+cells|Một bên là những phân tử chứa lưu huỳnh. Một bên là các enzym, những cỗ máy tí hon có thể biến đổi chất này thành chất khác.
+cells|Khi củ hành còn nguyên vẹn, hai bên không bao giờ gặp nhau. Mọi thứ đều yên bình.
+knife_cells|Nhưng khi lưỡi dao cắt xuống, hàng ngàn tế bào bị vỡ tung ra.
+knife_cells|Hai ngăn chứa bị phá, các phân tử lưu huỳnh và enzym lập tức trộn vào nhau.
+host:Và phản ứng bắt đầu!|Và đó là lúc phản ứng dây chuyền bắt đầu.
+chap:2|Phần hai. Chuyện gì xảy ra trong vài giây.
+step1|Bước một. Enzym đầu tiên tên là alliinase, nó cắt các phân tử lưu huỳnh thành một chất gọi là axit sulfenic.
+step2|Bước hai. Một enzym thứ hai biến axit sulfenic thành một chất khí có cái tên rất khó đọc.
+big:SYN-PROPANETHIAL-S-OXIDE|Syn propanethial S oxide. Các nhà khoa học gọi tắt nó là yếu tố gây chảy nước mắt.
+gas_rise|Chất khí này rất nhẹ, nó bay lên từ những lát hành vừa cắt, và tìm đường đến đôi mắt của bạn.
+eye_nerve|Trên bề mặt mắt có rất nhiều đầu dây thần kinh cảm nhận sự kích thích.
+eye_nerve|Khi chất khí chạm vào mắt, các dây thần kinh này lập tức báo động lên não.
+brain_signal|Não ra lệnh cho tuyến lệ: mau tiết nước mắt ra, rửa sạch thứ đang làm mắt khó chịu.
+eye_tears|Thế là nước mắt tuôn ra. Bạn không buồn, nhưng cơ thể bạn đang tự bảo vệ đôi mắt.
+host:Khóc vì hành là phản xạ bảo vệ!|Nói cách khác, khóc khi cắt hành là một phản xạ bảo vệ, giống như chớp mắt khi có bụi bay vào.
+recap|Tóm lại: dao cắt vỡ tế bào, enzym tạo ra chất khí, chất khí kích thích mắt, và mắt tiết nước mắt để rửa trôi nó.
+chap:3|Phần ba. Ai đã tìm ra bí mật này.
+lab_old|Trong nhiều năm, người ta tin rằng chỉ cần enzym alliinase là đủ để tạo ra chất khí gây cay mắt.
+nature_2002|Nhưng năm 2002, một nhóm nhà khoa học Nhật Bản, do ông Shinsuke Imai dẫn đầu, đã công bố một phát hiện trên tạp chí Nature.
+nature_2002|Họ tìm ra enzym thứ hai, enzym tạo yếu tố gây chảy nước mắt, mảnh ghép còn thiếu của cả quá trình.
+garlic_onion|Bằng chứng thú vị nhất nằm ngay trong căn bếp của bạn: củ tỏi.
+garlic_onion|Tỏi cũng có enzym alliinase, nhưng lại không có enzym thứ hai. Vì vậy, cắt tỏi thơm nồng, mà không làm bạn khóc.
+trophy|Năm 2013, nhóm nghiên cứu này còn được trao giải Ig Nobel, một giải thưởng vui dành cho những nghiên cứu khiến người ta bật cười, rồi phải suy nghĩ.
+chap:4|Phần bốn. Hành tây không làm bạn khóc.
+tearless|Khi đã biết thủ phạm là enzym nào, các nhà khoa học bắt đầu nghĩ cách vô hiệu hóa nó.
+tearless|Công ty House Foods của Nhật đã dùng chùm ion chiếu vào hạt giống, làm yếu đi các enzym gây cay, để tạo ra giống hành ít làm chảy nước mắt.
+tearless|Một số phòng thí nghiệm khác cũng thử tắt gen tạo enzym này, với hy vọng có loại hành vừa thơm vừa không cay mắt.
+host:Nhưng chưa có thì làm sao?|Nhưng trong lúc chờ loại hành ấy có mặt ở chợ, bạn có thể làm gì?
+chap:5|Phần năm. Mẹo cắt hành không khóc.
+tip_fridge|Mẹo thứ nhất: cho hành vào tủ lạnh khoảng ba mươi phút trước khi cắt. Hành lạnh thì chất khí bay hơi chậm hơn.
+tip_knife|Mẹo thứ hai: dùng dao thật sắc. Dao sắc cắt gọn, làm vỡ ít tế bào hơn, nên tạo ra ít khí hơn.
+tip_root|Mẹo thứ ba: cắt phần gốc sau cùng, vì người ta cho rằng gốc hành tập trung nhiều chất gây cay nhất.
+tip_fan|Mẹo thứ tư: cắt hành gần quạt hoặc máy hút mùi, để chất khí bị thổi đi trước khi đến mắt bạn.
+tip_goggles|Và mẹo cuối cùng, hơi buồn cười nhưng rất hiệu quả: đeo kính bơi khi cắt hành.
+myth|Còn những mẹo như ngậm bánh mì hay ngậm một ngụm nước, thì đến nay chưa có bằng chứng rõ ràng là có tác dụng.
+host:Mẹo nào bạn hay dùng nhất?|Còn bạn, bạn hay dùng mẹo nào? Hãy kể cho mình ở phần bình luận nhé.
+outro|Lần sau cắt hành mà mắt cay xè, bạn sẽ biết đó là một trận chiến hóa học vừa diễn ra ngay trước mắt mình.
+outro|Nếu thấy video thú vị, hãy bấm đăng ký kênh Sự Thật Thú Vị và bật chuông để không bỏ lỡ video tiếp theo.
+end|Hẹn gặp lại bạn ở sự thật thú vị tiếp theo!

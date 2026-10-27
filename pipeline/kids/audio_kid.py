@@ -16,17 +16,12 @@ def note(f, d=0.4, kind='pluck'):
     if kind == 'pluck': return (np.sin(2 * np.pi * f * tt) + 0.4 * np.sin(4 * np.pi * f * tt) + 0.2 * np.sin(6 * np.pi * f * tt)) * np.exp(-tt * 7)
     if kind == 'marimba': return (np.sin(2 * np.pi * f * tt) + 0.25 * np.sin(2 * np.pi * 4 * f * tt) * np.exp(-tt * 30)) * np.exp(-tt * 9)
     return np.sin(2 * np.pi * f * tt) * np.exp(-tt * 3)
-# background music: I–V–vi–IV in C, 104 bpm, marimba arpeggio + soft bass
-bpm = 104; beat = 60 / bpm
-prog = [(261.6, 329.6, 392.0), (196.0, 246.9, 293.7), (220.0, 261.6, 329.6), (174.6, 220.0, 261.6)]
-bar = 4 * beat; nb = int(DUR / bar) + 1
-mel = [0, 1, 2, 1, 2, 1, 0, 2]
-for b in range(nb):
-    ch = prog[b % 4]; t0 = b * bar
-    place(note(ch[0] / 2, bar * 0.9, 'pad'), t0, 0.10)
-    for k in range(8):
-        f = ch[mel[k]] * (2 if k in (3, 5) else 1)
-        place(note(f, 0.35, 'marimba'), t0 + k * beat / 2, 0.045, -0.3 + 0.6 * (k % 2))
+# background music: CC0 mp3 (GCompris "market_theme" by Geomancer, CC0), looped
+import subprocess
+MUS = os.environ.get('KID_MUSIC', '/home/claude/music/market_theme.mp3')
+raw = subprocess.run(['ffmpeg', '-v', 'error', '-stream_loop', '-1', '-i', MUS, '-t', str(DUR), '-ac', '2', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True).stdout
+m = np.frombuffer(raw, np.float32).reshape(-1, 2)[:N]
+L[:len(m)] += m[:, 0] * 0.22; R[:len(m)] += m[:, 1] * 0.22
 # duck music while counting down? keep; add ticks
 def tick(hi=False):
     tt = tt_(0.06); return np.sin(2 * np.pi * (1800 if hi else 1300) * tt) * np.exp(-tt * 80)
@@ -41,7 +36,6 @@ for q in TL['qs']:
 def fanfare(t0, g=0.2):
     for k, f in enumerate((523.3, 659.3, 784.0, 1046.5)): place(note(f, 0.6, 'pluck'), t0 + k * 0.12, g)
 if TL.get('mid'): fanfare(TL['mid'][0] + 0.1)
-fanfare(0.3, 0.15)
 # applause at outro
 tt = tt_(3.0); ap = np.zeros(len(tt))
 for _ in range(400):
