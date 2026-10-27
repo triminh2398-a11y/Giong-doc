@@ -1,107 +1,43 @@
 {
- "tag": "test2",
- "style": "anime style, 2D anime illustration, cel shading, clean lineart, dark horror anime, dramatic lighting, detailed background, beautiful composition",
- "neg": "photo, photorealistic, realistic, 3d render, text, watermark, logo, deformed, extra limbs, bad hands, blurry, lowres, nsfw, gore",
- "steps": 6,
- "cfg": 1.5,
+ "tag": "test3",
+ "style": "anime style, 2D anime illustration, cel shading, clean lineart, dark horror anime film still, dramatic lighting, detailed background, masterpiece, best quality",
+ "neg": "photo, photorealistic, 3d, text, watermark, logo, deformed, extra limbs, bad hands, bad anatomy, blurry, lowres, noise, grainy, nsfw, gore, japanese text",
+ "steps": 20,
+ "cfg": 7,
+ "lcm": false,
  "w": 912,
  "h": 512,
+ "model": "Meina/MeinaMix_V11",
  "items": [
   {
-   "id": "ds_flood",
-   "p": "old Vietnamese village in rainy season at dusk, flooded rice fields, tiled roof houses, coconut trees, heavy rain, gloomy sky",
-   "model": "Lykon/dreamshaper-8",
-   "seed": 7
+   "id": "mm20_hall",
+   "p": "inside a rustic Vietnamese wooden house at night, a dead elderly man lying on a wooden plank bed covered with white cloth up to his chest, ancestral altar with candles and incense smoke behind, oil lamp",
+   "seed": 11
   },
   {
-   "id": "ds_hall",
-   "p": "inside a traditional Vietnamese wooden house at night, body of an old bald man lying on a wooden plank bed covered with white cloth, ancestral altar with candles and incense smoke behind",
-   "model": "Lykon/dreamshaper-8",
-   "seed": 7
+   "id": "mm20_cat",
+   "p": "a black cat with glowing yellow eyes sitting on a dark wooden floor beside an oil lamp, creepy night",
+   "seed": 11
   },
   {
-   "id": "ds_cat",
-   "p": "a black cat with glowing yellow eyes sitting on a dark wooden floor, candle light, creepy",
-   "model": "Lykon/dreamshaper-8",
-   "seed": 7
+   "id": "mm20_lam",
+   "p": "a frightened young Vietnamese village man, 19 years old, short black hair, brown peasant shirt, holding an oil lamp in a dark room, upper body",
+   "seed": 11
   },
   {
-   "id": "ds_lam",
-   "p": "a frightened 19 year old Vietnamese village boy in brown peasant shirt holding an oil lamp in a dark room, upper body",
-   "model": "Lykon/dreamshaper-8",
-   "seed": 7
+   "id": "mm20_corpse",
+   "p": "a dead elderly man with grey skin standing stiffly with both arms stretched straight forward, long dark traditional robe, white blank eyes, open mouth, dark wooden hall with candles, horror",
+   "seed": 11
   },
   {
-   "id": "ds_corpse",
-   "p": "a pale old bald man corpse standing stiffly with both arms stretched straight forward, dark long robe, white blank eyes, open mouth, dark wooden hall with candles",
-   "model": "Lykon/dreamshaper-8",
-   "seed": 7
+   "id": "mm20_batu",
+   "p": "an elderly Vietnamese woman, 70 years old, wrinkled face, grey hair bun, brown blouse, whispering, rustic kitchen with clay stove at dawn",
+   "seed": 11
   },
   {
-   "id": "ds_batu",
-   "p": "an elderly Vietnamese woman with grey hair bun in brown blouse whispering, rustic kitchen at dawn",
-   "model": "Lykon/dreamshaper-8",
-   "seed": 7
-  },
-  {
-   "id": "ds_mango",
-   "p": "a big mango tree at the gate of an old Vietnamese house at night, a rope hanging from a branch, mist, full moon",
-   "model": "Lykon/dreamshaper-8",
-   "seed": 7
-  },
-  {
-   "id": "ds_cemetery",
-   "p": "rural Vietnamese cemetery with grave mounds, a black cat sitting on a low brick wall, grey cloudy day",
-   "model": "Lykon/dreamshaper-8",
-   "seed": 7
-  },
-  {
-   "id": "mm_flood",
-   "p": "old Vietnamese village in rainy season at dusk, flooded rice fields, tiled roof houses, coconut trees, heavy rain, gloomy sky",
-   "model": "Meina/MeinaMix_V11",
-   "seed": 7
-  },
-  {
-   "id": "mm_hall",
-   "p": "inside a traditional Vietnamese wooden house at night, body of an old bald man lying on a wooden plank bed covered with white cloth, ancestral altar with candles and incense smoke behind",
-   "model": "Meina/MeinaMix_V11",
-   "seed": 7
-  },
-  {
-   "id": "mm_cat",
-   "p": "a black cat with glowing yellow eyes sitting on a dark wooden floor, candle light, creepy",
-   "model": "Meina/MeinaMix_V11",
-   "seed": 7
-  },
-  {
-   "id": "mm_lam",
-   "p": "a frightened 19 year old Vietnamese village boy in brown peasant shirt holding an oil lamp in a dark room, upper body",
-   "model": "Meina/MeinaMix_V11",
-   "seed": 7
-  },
-  {
-   "id": "mm_corpse",
-   "p": "a pale old bald man corpse standing stiffly with both arms stretched straight forward, dark long robe, white blank eyes, open mouth, dark wooden hall with candles",
-   "model": "Meina/MeinaMix_V11",
-   "seed": 7
-  },
-  {
-   "id": "mm_batu",
-   "p": "an elderly Vietnamese woman with grey hair bun in brown blouse whispering, rustic kitchen at dawn",
-   "model": "Meina/MeinaMix_V11",
-   "seed": 7
-  },
-  {
-   "id": "mm_mango",
-   "p": "a big mango tree at the gate of an old Vietnamese house at night, a rope hanging from a branch, mist, full moon",
-   "model": "Meina/MeinaMix_V11",
-   "seed": 7
-  },
-  {
-   "id": "mm_cemetery",
-   "p": "rural Vietnamese cemetery with grave mounds, a black cat sitting on a low brick wall, grey cloudy day",
-   "model": "Meina/MeinaMix_V11",
-   "seed": 7
+   "id": "mm20_mango",
+   "p": "a huge old mango tree at the bamboo gate of a rural Vietnamese house at night, a rope hanging from a branch, mist, full moon",
+   "seed": 11
   }
  ]
 }

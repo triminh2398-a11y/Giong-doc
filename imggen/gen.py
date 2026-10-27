@@ -1,13 +1,17 @@
 import json, os, sys, time, torch
-from diffusers import StableDiffusionPipeline, LCMScheduler
+from diffusers import StableDiffusionPipeline, LCMScheduler, DPMSolverMultistepScheduler
 J = json.load(open('imggen/job.json')); SH = int(os.environ.get('SHARD', 0)); NS = int(os.environ.get('NSHARD', 1))
 torch.set_num_threads(os.cpu_count())
 PIPES = {}
 def get(m):
     if m not in PIPES:
         p = StableDiffusionPipeline.from_pretrained(m, torch_dtype=torch.float32, safety_checker=None)
-        p.scheduler = LCMScheduler.from_config(p.scheduler.config)
-        p.load_lora_weights('latent-consistency/lcm-lora-sdv1-5'); p.fuse_lora(); PIPES[m] = p
+        if J.get('lcm', True):
+            p.scheduler = LCMScheduler.from_config(p.scheduler.config)
+            p.load_lora_weights('latent-consistency/lcm-lora-sdv1-5'); p.fuse_lora()
+        else:
+            p.scheduler = DPMSolverMultistepScheduler.from_config(p.scheduler.config, use_karras_sigmas=True)
+        PIPES[m] = p
     return PIPES[m]
 out = f"imggen/out/{J['tag']}"; os.makedirs(out, exist_ok=True)
 style = J.get('style', ''); neg = J.get('neg', '')
