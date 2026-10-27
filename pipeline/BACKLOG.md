@@ -1,0 +1,27 @@
+# Danh sách tập
+
+## Đã làm
+| Nền tảng | Truyện | Chủ đề | Ngày làm | Thư mục |
+| --- | --- | --- | --- | --- |
+| TikTok | Ma Lai (cô dâu không đầu) | ma làng quê | 2026-10-27 | pipeline/tiktok_malai |
+| YouTube T1 | Quỷ Nhập Tràng (hai đêm canh xác) | cấm kỵ / ma | 2026-10-27 | pipeline/ep01_quy_nhap_trang |
+
+## Ý tưởng YouTube (chọn theo thứ tự, xoay vòng chủ đề; không trùng truyện TikTok)
+1. Ngải gọi hồn — bùa ngải Tây Nguyên (bùa ngải)
+2. Huýt sáo ban đêm — điều cấm kỵ (cấm kỵ)
+3. Trùng tang — giờ trùng, hình nhân thế mạng (ma làng quê)
+4. Thư ếm đất — hũ sành chôn dưới nền nhà (bùa ngải)
+5. Gương đối diện giường (cấm kỵ)
+6. Ma da — trưa nắng đừng ra sông (ma làng quê)
+7. Đám cưới ma / minh hôn (cấm kỵ)
+8. Ma gà Tây Bắc (bùa ngải)
+9. Ma trành — hồn người bị hổ vồ (ma làng quê)
+10. Tháng cô hồn — những điều kiêng tháng bảy (cấm kỵ)
+11. Ngải yêu (bùa ngải)
+12. Ma giếng làng (ma làng quê)
+
+## Ý tưởng TikTok (truyện ngắn 3–4 phút, khác YouTube)
+- Bóng người ở bến đò đêm
+- Cái võng tự đung đưa
+- Tiếng gõ cửa lúc 3 giờ sáng
+- Chiếc lược trên mộ
