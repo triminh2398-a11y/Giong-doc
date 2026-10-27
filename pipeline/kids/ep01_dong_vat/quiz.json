@@ -1,0 +1,599 @@
+{
+ "title": "Đố vui về động vật",
+ "questions": [
+  {
+   "q": "Con vật nào cao nhất trên cạn?",
+   "opts": [
+    "Sư tử",
+    "Con voi",
+    "Hươu cao cổ",
+    "Con ngựa"
+   ],
+   "ans": 2,
+   "explain": "Hươu cao cổ có thể cao gần sáu mét, cao hơn cả một ngôi nhà hai tầng!",
+   "art": "giraffe"
+  },
+  {
+   "q": "Con vật nào chạy nhanh nhất trên cạn?",
+   "opts": [
+    "Báo săn",
+    "Con thỏ",
+    "Con ngựa",
+    "Con chó"
+   ],
+   "ans": 0,
+   "explain": "Báo săn có thể chạy khoảng một trăm ki lô mét một giờ, nhanh như xe máy chạy trên đường cao tốc.",
+   "art": "cheetah"
+  },
+  {
+   "q": "Con vật nào lớn nhất thế giới?",
+   "opts": [
+    "Con voi",
+    "Cá mập",
+    "Cá voi xanh",
+    "Khủng long"
+   ],
+   "ans": 2,
+   "explain": "Cá voi xanh dài khoảng ba mươi mét, là con vật lớn nhất từng sống trên Trái Đất.",
+   "art": "whale"
+  },
+  {
+   "q": "Bạch tuộc có mấy trái tim?",
+   "opts": [
+    "Một",
+    "Hai",
+    "Ba",
+    "Bốn"
+   ],
+   "ans": 2,
+   "explain": "Bạch tuộc có ba trái tim, và máu của chúng có màu xanh lam đấy!",
+   "art": "octopus"
+  },
+  {
+   "q": "Loài chim nào không biết bay?",
+   "opts": [
+    "Đại bàng",
+    "Chim cánh cụt",
+    "Bồ câu",
+    "Chim sẻ"
+   ],
+   "ans": 1,
+   "explain": "Chim cánh cụt không bay được, nhưng lại bơi rất giỏi dưới nước lạnh.",
+   "art": "penguin"
+  },
+  {
+   "q": "Con vật nào là thú nhưng biết bay?",
+   "opts": [
+    "Con dơi",
+    "Con gà",
+    "Con chim",
+    "Con ong"
+   ],
+   "ans": 0,
+   "explain": "Dơi là loài thú duy nhất biết bay thật sự, nhờ đôi cánh bằng da mỏng.",
+   "art": "bat"
+  },
+  {
+   "q": "Bướu của lạc đà chứa gì?",
+   "opts": [
+    "Nước",
+    "Mỡ",
+    "Đá",
+    "Không khí"
+   ],
+   "ans": 1,
+   "explain": "Bướu lạc đà chứa mỡ, giúp chúng có năng lượng khi đi lâu trên sa mạc.",
+   "art": "camel"
+  },
+  {
+   "q": "Chuột túi sống ở nước nào?",
+   "opts": [
+    "Việt Nam",
+    "Nhật Bản",
+    "Nước Úc",
+    "Ai Cập"
+   ],
+   "ans": 2,
+   "explain": "Chuột túi, hay còn gọi là kangaroo, sống ở nước Úc và nhảy rất xa.",
+   "art": "kangaroo"
+  },
+  {
+   "q": "Nòng nọc lớn lên sẽ thành con gì?",
+   "opts": [
+    "Con cá",
+    "Con ếch",
+    "Con rắn",
+    "Con rùa"
+   ],
+   "ans": 1,
+   "explain": "Nòng nọc mọc chân, rụng đuôi, rồi lớn lên thành con ếch.",
+   "art": "frog"
+  },
+  {
+   "q": "Sâu bướm lớn lên sẽ thành con gì?",
+   "opts": [
+    "Con bướm",
+    "Con ong",
+    "Con kiến",
+    "Con chuồn chuồn"
+   ],
+   "ans": 0,
+   "explain": "Sâu bướm làm kén, rồi chui ra thành một chú bướm xinh đẹp.",
+   "art": "butterfly"
+  },
+  {
+   "q": "Con vật nào có thể đổi màu da?",
+   "opts": [
+    "Con mèo",
+    "Tắc kè hoa",
+    "Con gà",
+    "Con cá vàng"
+   ],
+   "ans": 1,
+   "explain": "Tắc kè hoa có thể đổi màu da để thể hiện cảm xúc và thay đổi theo nhiệt độ.",
+   "art": "chameleon"
+  },
+  {
+   "q": "Con voi dùng gì để uống nước?",
+   "opts": [
+    "Cái tai",
+    "Cái vòi",
+    "Cái đuôi",
+    "Cái chân"
+   ],
+   "ans": 1,
+   "explain": "Voi dùng vòi hút nước, rồi phun nước vào miệng để uống.",
+   "art": "elephant"
+  },
+  {
+   "q": "Cú mèo thường đi săn vào lúc nào?",
+   "opts": [
+    "Buổi sáng",
+    "Buổi trưa",
+    "Ban đêm",
+    "Buổi chiều"
+   ],
+   "ans": 2,
+   "explain": "Cú mèo đi săn vào ban đêm, nhờ đôi mắt to nhìn rõ trong bóng tối và đôi tai rất thính.",
+   "art": "owl"
+  },
+  {
+   "q": "Cá heo thở bằng gì?",
+   "opts": [
+    "Mang",
+    "Phổi",
+    "Da",
+    "Vây"
+   ],
+   "ans": 1,
+   "explain": "Cá heo là loài thú, chúng thở bằng phổi và phải ngoi lên mặt nước để lấy không khí.",
+   "art": "dolphin"
+  },
+  {
+   "q": "Con ong làm ra thứ gì?",
+   "opts": [
+    "Sữa",
+    "Mật ong",
+    "Đường",
+    "Nước ngọt"
+   ],
+   "ans": 1,
+   "explain": "Ong hút mật hoa, rồi biến nó thành mật ong cất trong tổ.",
+   "art": "bee"
+  },
+  {
+   "q": "Con vật nào được gọi là chúa sơn lâm?",
+   "opts": [
+    "Con hổ",
+    "Con khỉ",
+    "Con gấu",
+    "Con sói"
+   ],
+   "ans": 0,
+   "explain": "Ông cha ta gọi hổ là chúa sơn lâm, nghĩa là vua của núi rừng.",
+   "art": "tiger"
+  },
+  {
+   "q": "Con nhện có mấy cái chân?",
+   "opts": [
+    "Bốn",
+    "Sáu",
+    "Tám",
+    "Mười"
+   ],
+   "ans": 2,
+   "explain": "Nhện có tám cái chân, nên nhện không phải là côn trùng đâu nhé.",
+   "art": "spider"
+  },
+  {
+   "q": "Chim gõ kiến dùng mỏ để làm gì?",
+   "opts": [
+    "Hát",
+    "Đục thân cây tìm sâu",
+    "Bắt cá",
+    "Uống nước"
+   ],
+   "ans": 1,
+   "explain": "Chim gõ kiến dùng chiếc mỏ cứng đục vào thân cây để tìm sâu ăn.",
+   "art": "woodpecker"
+  },
+  {
+   "q": "Con rùa mang gì trên lưng?",
+   "opts": [
+    "Cái mai",
+    "Cái túi",
+    "Cái cánh",
+    "Cái gai"
+   ],
+   "ans": 0,
+   "explain": "Rùa có cái mai cứng trên lưng, gặp nguy hiểm thì rụt đầu vào để trốn.",
+   "art": "turtle"
+  },
+  {
+   "q": "Con vật nào ngủ đông suốt mùa đông lạnh giá?",
+   "opts": [
+    "Con gà",
+    "Con gấu",
+    "Con chó",
+    "Con mèo"
+   ],
+   "ans": 1,
+   "explain": "Nhiều loài gấu ngủ đông trong hang suốt mùa đông, sống nhờ lớp mỡ tích trữ từ trước.",
+   "art": "bear"
+  }
+ ],
+ "lines": [
+  [
+   "intro",
+   "Xin chào các bạn nhỏ! Mình là Cú Bon đây."
+  ],
+  [
+   "intro",
+   "Hôm nay chúng mình cùng chơi đố vui về các con vật nhé."
+  ],
+  [
+   "intro",
+   "Có tất cả hai mươi câu hỏi. Mỗi câu, các bạn có năm giây để suy nghĩ."
+  ],
+  [
+   "intro",
+   "Sẵn sàng chưa nào? Bắt đầu thôi!"
+  ],
+  [
+   "q0",
+   "Câu số 1. Con vật nào cao nhất trên cạn?"
+  ],
+  [
+   "o0",
+   "A, Sư tử. B, Con voi. C, Hươu cao cổ. D, Con ngựa."
+  ],
+  [
+   "a0",
+   "Đáp án đúng là C, Hươu cao cổ!"
+  ],
+  [
+   "e0",
+   "Hươu cao cổ có thể cao gần sáu mét, cao hơn cả một ngôi nhà hai tầng!"
+  ],
+  [
+   "q1",
+   "Câu số 2. Con vật nào chạy nhanh nhất trên cạn?"
+  ],
+  [
+   "o1",
+   "A, Báo săn. B, Con thỏ. C, Con ngựa. D, Con chó."
+  ],
+  [
+   "a1",
+   "Đáp án đúng là A, Báo săn!"
+  ],
+  [
+   "e1",
+   "Báo săn có thể chạy khoảng một trăm ki lô mét một giờ, nhanh như xe máy chạy trên đường cao tốc."
+  ],
+  [
+   "q2",
+   "Câu số 3. Con vật nào lớn nhất thế giới?"
+  ],
+  [
+   "o2",
+   "A, Con voi. B, Cá mập. C, Cá voi xanh. D, Khủng long."
+  ],
+  [
+   "a2",
+   "Đáp án đúng là C, Cá voi xanh!"
+  ],
+  [
+   "e2",
+   "Cá voi xanh dài khoảng ba mươi mét, là con vật lớn nhất từng sống trên Trái Đất."
+  ],
+  [
+   "q3",
+   "Câu số 4. Bạch tuộc có mấy trái tim?"
+  ],
+  [
+   "o3",
+   "A, một. B, hai. C, ba. D, bốn."
+  ],
+  [
+   "a3",
+   "Đáp án đúng là C, Ba!"
+  ],
+  [
+   "e3",
+   "Bạch tuộc có ba trái tim, và máu của chúng có màu xanh lam đấy!"
+  ],
+  [
+   "q4",
+   "Câu số 5. Loài chim nào không biết bay?"
+  ],
+  [
+   "o4",
+   "A, Đại bàng. B, Chim cánh cụt. C, Bồ câu. D, Chim sẻ."
+  ],
+  [
+   "a4",
+   "Đáp án đúng là B, Chim cánh cụt!"
+  ],
+  [
+   "e4",
+   "Chim cánh cụt không bay được, nhưng lại bơi rất giỏi dưới nước lạnh."
+  ],
+  [
+   "q5",
+   "Câu số 6. Con vật nào là thú nhưng biết bay?"
+  ],
+  [
+   "o5",
+   "A, Con dơi. B, Con gà. C, Con chim. D, Con ong."
+  ],
+  [
+   "a5",
+   "Đáp án đúng là A, Con dơi!"
+  ],
+  [
+   "e5",
+   "Dơi là loài thú duy nhất biết bay thật sự, nhờ đôi cánh bằng da mỏng."
+  ],
+  [
+   "q6",
+   "Câu số 7. Bướu của lạc đà chứa gì?"
+  ],
+  [
+   "o6",
+   "A, nước. B, mỡ. C, đá. D, Không khí."
+  ],
+  [
+   "a6",
+   "Đáp án đúng là B, Mỡ!"
+  ],
+  [
+   "e6",
+   "Bướu lạc đà chứa mỡ, giúp chúng có năng lượng khi đi lâu trên sa mạc."
+  ],
+  [
+   "q7",
+   "Câu số 8. Chuột túi sống ở nước nào?"
+  ],
+  [
+   "o7",
+   "A, Việt Nam. B, Nhật Bản. C, Nước Úc. D, Ai Cập."
+  ],
+  [
+   "a7",
+   "Đáp án đúng là C, Nước Úc!"
+  ],
+  [
+   "e7",
+   "Chuột túi, hay còn gọi là kangaroo, sống ở nước Úc và nhảy rất xa."
+  ],
+  [
+   "q8",
+   "Câu số 9. Nòng nọc lớn lên sẽ thành con gì?"
+  ],
+  [
+   "o8",
+   "A, Con cá. B, Con ếch. C, Con rắn. D, Con rùa."
+  ],
+  [
+   "a8",
+   "Đáp án đúng là B, Con ếch!"
+  ],
+  [
+   "e8",
+   "Nòng nọc mọc chân, rụng đuôi, rồi lớn lên thành con ếch."
+  ],
+  [
+   "q9",
+   "Câu số 10. Sâu bướm lớn lên sẽ thành con gì?"
+  ],
+  [
+   "o9",
+   "A, Con bướm. B, Con ong. C, Con kiến. D, Con chuồn chuồn."
+  ],
+  [
+   "a9",
+   "Đáp án đúng là A, Con bướm!"
+  ],
+  [
+   "e9",
+   "Sâu bướm làm kén, rồi chui ra thành một chú bướm xinh đẹp."
+  ],
+  [
+   "mid",
+   "Giỏi quá! Chúng mình đã đi được một nửa rồi đó. Tiếp tục nào!"
+  ],
+  [
+   "q10",
+   "Câu số 11. Con vật nào có thể đổi màu da?"
+  ],
+  [
+   "o10",
+   "A, Con mèo. B, Tắc kè hoa. C, Con gà. D, Con cá vàng."
+  ],
+  [
+   "a10",
+   "Đáp án đúng là B, Tắc kè hoa!"
+  ],
+  [
+   "e10",
+   "Tắc kè hoa có thể đổi màu da để thể hiện cảm xúc và thay đổi theo nhiệt độ."
+  ],
+  [
+   "q11",
+   "Câu số 12. Con voi dùng gì để uống nước?"
+  ],
+  [
+   "o11",
+   "A, Cái tai. B, Cái vòi. C, Cái đuôi. D, Cái chân."
+  ],
+  [
+   "a11",
+   "Đáp án đúng là B, Cái vòi!"
+  ],
+  [
+   "e11",
+   "Voi dùng vòi hút nước, rồi phun nước vào miệng để uống."
+  ],
+  [
+   "q12",
+   "Câu số 13. Cú mèo thường đi săn vào lúc nào?"
+  ],
+  [
+   "o12",
+   "A, buổi sáng. B, buổi trưa. C, ban đêm. D, buổi chiều."
+  ],
+  [
+   "a12",
+   "Đáp án đúng là C, Ban đêm!"
+  ],
+  [
+   "e12",
+   "Cú mèo đi săn vào ban đêm, nhờ đôi mắt to nhìn rõ trong bóng tối và đôi tai rất thính."
+  ],
+  [
+   "q13",
+   "Câu số 14. Cá heo thở bằng gì?"
+  ],
+  [
+   "o13",
+   "A, mang. B, phổi. C, da. D, vây."
+  ],
+  [
+   "a13",
+   "Đáp án đúng là B, Phổi!"
+  ],
+  [
+   "e13",
+   "Cá heo là loài thú, chúng thở bằng phổi và phải ngoi lên mặt nước để lấy không khí."
+  ],
+  [
+   "q14",
+   "Câu số 15. Con ong làm ra thứ gì?"
+  ],
+  [
+   "o14",
+   "A, sữa. B, Mật ong. C, đường. D, Nước ngọt."
+  ],
+  [
+   "a14",
+   "Đáp án đúng là B, Mật ong!"
+  ],
+  [
+   "e14",
+   "Ong hút mật hoa, rồi biến nó thành mật ong cất trong tổ."
+  ],
+  [
+   "q15",
+   "Câu số 16. Con vật nào được gọi là chúa sơn lâm?"
+  ],
+  [
+   "o15",
+   "A, Con hổ. B, Con khỉ. C, Con gấu. D, Con sói."
+  ],
+  [
+   "a15",
+   "Đáp án đúng là A, Con hổ!"
+  ],
+  [
+   "e15",
+   "Ông cha ta gọi hổ là chúa sơn lâm, nghĩa là vua của núi rừng."
+  ],
+  [
+   "q16",
+   "Câu số 17. Con nhện có mấy cái chân?"
+  ],
+  [
+   "o16",
+   "A, bốn. B, sáu. C, tám. D, mười."
+  ],
+  [
+   "a16",
+   "Đáp án đúng là C, Tám!"
+  ],
+  [
+   "e16",
+   "Nhện có tám cái chân, nên nhện không phải là côn trùng đâu nhé."
+  ],
+  [
+   "q17",
+   "Câu số 18. Chim gõ kiến dùng mỏ để làm gì?"
+  ],
+  [
+   "o17",
+   "A, hát. B, Đục thân cây tìm sâu. C, Bắt cá. D, Uống nước."
+  ],
+  [
+   "a17",
+   "Đáp án đúng là B, Đục thân cây tìm sâu!"
+  ],
+  [
+   "e17",
+   "Chim gõ kiến dùng chiếc mỏ cứng đục vào thân cây để tìm sâu ăn."
+  ],
+  [
+   "q18",
+   "Câu số 19. Con rùa mang gì trên lưng?"
+  ],
+  [
+   "o18",
+   "A, Cái mai. B, Cái túi. C, Cái cánh. D, Cái gai."
+  ],
+  [
+   "a18",
+   "Đáp án đúng là A, Cái mai!"
+  ],
+  [
+   "e18",
+   "Rùa có cái mai cứng trên lưng, gặp nguy hiểm thì rụt đầu vào để trốn."
+  ],
+  [
+   "q19",
+   "Câu số 20. Con vật nào ngủ đông suốt mùa đông lạnh giá?"
+  ],
+  [
+   "o19",
+   "A, Con gà. B, Con gấu. C, Con chó. D, Con mèo."
+  ],
+  [
+   "a19",
+   "Đáp án đúng là B, Con gấu!"
+  ],
+  [
+   "e19",
+   "Nhiều loài gấu ngủ đông trong hang suốt mùa đông, sống nhờ lớp mỡ tích trữ từ trước."
+  ],
+  [
+   "outro",
+   "Hết rồi! Bạn trả lời đúng được bao nhiêu câu?"
+  ],
+  [
+   "outro",
+   "Nếu đúng từ mười lăm câu trở lên, bạn là nhà thám hiểm động vật thật sự đấy!"
+  ],
+  [
+   "outro",
+   "Hẹn gặp lại các bạn ở video sau nhé. Nhớ đăng ký kênh Cú Con Đố Vui để học thêm thật nhiều điều hay. Tạm biệt!"
+  ]
+ ]
+}
