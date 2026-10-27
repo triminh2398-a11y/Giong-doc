@@ -240,3 +240,6 @@ loaded V3TurboVieNeuTTS
 17_qnt_v2_mada asr ok
 18_qnt_v2_t Mỹ Duyên 1 ok 2.0
 18_qnt_v2_t asr ok
+loaded V3TurboVieNeuTTS
+19_qnt_v2_title clone:refs/mada8.wav 1 ok 27.0
+19_qnt_v2_title asr ok
