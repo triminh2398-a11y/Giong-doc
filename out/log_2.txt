@@ -255,3 +255,13 @@ loaded V3TurboVieNeuTTS
 23_qnt_me Mai Anh 2 ok 2.7
 23_qnt_me Mai Anh 6 ok 1.8
 23_qnt_me asr ok
+loaded V3TurboVieNeuTTS
+24_qnt_bt2 Ngọc Huyền 2 ok 3.9
+24_qnt_bt2 Thùy Dung 2 ok 2.7
+24_qnt_bt2 asr ok
+25_qnt_k2 Hải Đăng 2 ok 0.8
+25_qnt_k2 asr ok
+26_qnt_n2 clone:refs/mada8.wav 2 ok 23.6
+26_qnt_n2 clone:refs/mada8.wav 6 ok 2.4
+26_qnt_n2 clone:refs/mada8.wav 10 ok 2.0
+26_qnt_n2 asr ok
