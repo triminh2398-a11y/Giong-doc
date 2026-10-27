@@ -1,0 +1,34 @@
+{
+ "voices": [
+  "clone:refs/mada.wav"
+ ],
+ "lines": [
+  "Người già trong làng vẫn sợ nhất một chữ: trùng tang.",
+  "Người già trong làng vẫn sợ nhất một chữ: trùng tang.",
+  "Người già trong làng vẫn sợ nhất một chữ: trùng tang.",
+  "Ông Tư mất lúc ba giờ sáng, đúng giờ Dần, lại rơi vào ngày trùng.",
+  "Ông Tư mất lúc ba giờ sáng, đúng giờ Dần, lại rơi vào ngày trùng.",
+  "Ông Tư mất lúc ba giờ sáng, đúng giờ Dần, lại rơi vào ngày trùng.",
+  "Thầy cúng xem lịch xong thì tái mặt.",
+  "Thầy cúng xem lịch xong thì tái mặt.",
+  "Thầy cúng xem lịch xong thì tái mặt.",
+  "Đêm thứ nhất, mọi chuyện yên ổn.",
+  "Đêm thứ nhất, mọi chuyện yên ổn.",
+  "Đêm thứ nhất, mọi chuyện yên ổn.",
+  "Ngoài sân, dưới ánh trăng, hình nhân giấy đang quay lưng lại, nhích từng bước về phía cổng.",
+  "Ngoài sân, dưới ánh trăng, hình nhân giấy đang quay lưng lại, nhích từng bước về phía cổng.",
+  "Ngoài sân, dưới ánh trăng, hình nhân giấy đang quay lưng lại, nhích từng bước về phía cổng.",
+  "Trùng tang không tha ai. Nó chỉ chịu nhận một người thế chỗ.",
+  "Trùng tang không tha ai. Nó chỉ chịu nhận một người thế chỗ.",
+  "Trùng tang không tha ai. Nó chỉ chịu nhận một người thế chỗ."
+ ],
+ "asr": true,
+ "idx": [
+  0,
+  2,
+  3,
+  5,
+  10,
+  17
+ ]
+}
