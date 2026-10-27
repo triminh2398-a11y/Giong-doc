@@ -4,22 +4,24 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=stv-ep1-v1
++ TAG=qnt-ep1-v3
 ++ jq -r .html job.json
-+ HTML=stv1.html
++ HTML=qnt3.html
 ++ jq -r .frames job.json
-+ N=8623
++ N=29323
 + S=16
-+ A=538
-+ B=1077
++ A=1832
++ B=3665
 ++ printf %02d 1
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js stv1.html seg_01.mp4 538 1077 1920 1080
-frame 600
++ node render_seg.js qnt3.html seg_01.mp4 1832 3665 1920 1080
+frame 2400
+frame 3000
+frame 3600
 + sleep 2
 + for k in 1 2 3 4 5 6
-+ gh release view stv-ep1-v1
++ gh release view qnt-ep1-v3
 ++ printf %02d 1
-+ gh release upload stv-ep1-v1 seg_01.mp4 --clobber
++ gh release upload qnt-ep1-v3 seg_01.mp4 --clobber
 + break
