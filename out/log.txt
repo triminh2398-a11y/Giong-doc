@@ -40,3 +40,23 @@ loaded V3TurboVieNeuTTS
 02_giong_tram Minh Triết 0 ok 3.3
 02_giong_tram Minh Triết 1 ok 3.7
 02_giong_tram Minh Triết 2 ok 3.6
+loaded V3TurboVieNeuTTS
+03_trung_tang clone:refs/mada.wav 0 ok 26.5
+03_trung_tang clone:refs/mada.wav 1 ok 5.7
+03_trung_tang clone:refs/mada.wav 2 ok 2.6
+03_trung_tang clone:refs/mada.wav 3 ok 1.5
+03_trung_tang clone:refs/mada.wav 4 ok 4.9
+03_trung_tang clone:refs/mada.wav 5 ok 1.3
+03_trung_tang clone:refs/mada.wav 6 ok 2.7
+03_trung_tang clone:refs/mada.wav 7 ok 2.7
+03_trung_tang clone:refs/mada.wav 8 ok 3.7
+03_trung_tang clone:refs/mada.wav 9 ok 3.2
+03_trung_tang clone:refs/mada.wav 10 ok 3.4
+03_trung_tang clone:refs/mada.wav 11 ok 3.1
+03_trung_tang clone:refs/mada.wav 12 ok 1.4
+03_trung_tang clone:refs/mada.wav 13 ok 3.6
+03_trung_tang clone:refs/mada.wav 14 ok 2.6
+03_trung_tang clone:refs/mada.wav 15 ok 1.6
+03_trung_tang clone:refs/mada.wav 16 ok 3.2
+03_trung_tang clone:refs/mada.wav 17 ok 2.3
+03_trung_tang asr ok
