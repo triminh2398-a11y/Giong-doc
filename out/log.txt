@@ -15,3 +15,28 @@ loaded V3TurboVieNeuTTS
 01_thu_giong_tung_cau Thái Sơn 0 ok 1.5
 01_thu_giong_tung_cau Thái Sơn 1 ok 1.9
 01_thu_giong_tung_cau Thái Sơn 2 ok 1.8
+loaded V3TurboVieNeuTTS
+02_giong_tram clone:refs/mada_tram.wav 0 ok 24.8
+02_giong_tram clone:refs/mada_tram.wav 1 ok 4.6
+02_giong_tram clone:refs/mada_tram.wav 2 ok 4.0
+02_giong_tram Hải Đăng 0 ok 3.0
+02_giong_tram Hải Đăng 1 ok 4.0
+02_giong_tram Hải Đăng 2 ok 3.2
+02_giong_tram Quang Sơn 0 ok 3.5
+02_giong_tram Quang Sơn 1 ok 5.0
+02_giong_tram Quang Sơn 2 ok 3.6
+02_giong_tram Phạm Tuyên 0 ok 3.4
+02_giong_tram Phạm Tuyên 1 ok 4.0
+02_giong_tram Phạm Tuyên 2 ok 3.7
+02_giong_tram Xuân Vĩnh 0 ok 3.3
+02_giong_tram Xuân Vĩnh 1 ok 3.9
+02_giong_tram Xuân Vĩnh 2 ok 3.4
+02_giong_tram Quốc Tuấn 0 ok 3.3
+02_giong_tram Quốc Tuấn 1 ok 3.5
+02_giong_tram Quốc Tuấn 2 ok 3.6
+02_giong_tram Adam 0 ok 2.9
+02_giong_tram Adam 1 ok 3.7
+02_giong_tram Adam 2 ok 3.6
+02_giong_tram Minh Triết 0 ok 3.3
+02_giong_tram Minh Triết 1 ok 3.7
+02_giong_tram Minh Triết 2 ok 3.6
