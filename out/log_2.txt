@@ -179,3 +179,30 @@ loaded V3TurboVieNeuTTS
 20_kid1_maianh Mai Anh 170 ok 1.5
 20_kid1_maianh Mai Anh 174 ok 3.9
 20_kid1_maianh asr ok
+loaded V3TurboVieNeuTTS
+30_stv1_mada clone:refs/mada8.wav 2 ok 26.5
+30_stv1_mada clone:refs/mada8.wav 6 ok 1.7
+30_stv1_mada clone:refs/mada8.wav 10 ok 3.0
+30_stv1_mada clone:refs/mada8.wav 14 ok 3.3
+30_stv1_mada clone:refs/mada8.wav 18 ok 0.9
+30_stv1_mada clone:refs/mada8.wav 22 ok 4.1
+30_stv1_mada clone:refs/mada8.wav 26 ok 2.0
+30_stv1_mada clone:refs/mada8.wav 30 ok 1.6
+30_stv1_mada clone:refs/mada8.wav 34 ok 4.3
+30_stv1_mada clone:refs/mada8.wav 38 ok 3.3
+30_stv1_mada clone:refs/mada8.wav 42 ok 2.1
+30_stv1_mada clone:refs/mada8.wav 46 ok 2.9
+30_stv1_mada clone:refs/mada8.wav 50 ok 3.4
+30_stv1_mada clone:refs/mada8.wav 54 ok 1.4
+30_stv1_mada clone:refs/mada8.wav 58 ok 5.1
+30_stv1_mada clone:refs/mada8.wav 62 ok 1.9
+30_stv1_mada clone:refs/mada8.wav 66 ok 5.7
+30_stv1_mada clone:refs/mada8.wav 70 ok 3.0
+30_stv1_mada clone:refs/mada8.wav 74 ok 3.7
+30_stv1_mada clone:refs/mada8.wav 78 ok 1.2
+30_stv1_mada clone:refs/mada8.wav 82 ok 3.5
+30_stv1_mada clone:refs/mada8.wav 86 ok 3.2
+30_stv1_mada clone:refs/mada8.wav 90 ok 3.8
+30_stv1_mada clone:refs/mada8.wav 94 ok 3.4
+30_stv1_mada clone:refs/mada8.wav 98 ok 1.5
+30_stv1_mada asr ok
