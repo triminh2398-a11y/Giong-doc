@@ -1,0 +1,22 @@
+{
+ "voices": [
+  "clone:refs/mada8.wav"
+ ],
+ "lines": [
+  "Có người tò mò hỏi, cô chỉ cười.",
+  "Có người tò mò hỏi, cô chỉ cười.",
+  "Có người tò mò hỏi, cô chỉ cười.",
+  "Anh không nỡ ra tay.",
+  "Anh không nỡ ra tay.",
+  "Anh không nỡ ra tay.",
+  "Hàng xóm sang gõ cửa, căn nhà trống trơn.",
+  "Hàng xóm sang gõ cửa, căn nhà trống trơn.",
+  "Hàng xóm sang gõ cửa, căn nhà trống trơn."
+ ],
+ "asr": true,
+ "idx": [
+  6,
+  36,
+  43
+ ]
+}
