@@ -10,6 +10,9 @@ jobs:
   tts:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: { shard: [0, 1, 2, 3] }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,13 +23,13 @@ jobs:
       - run: pip install -q vieneu "onnxruntime==1.22.1" faster-whisper
         timeout-minutes: 15
       - run: python tts.py
-        timeout-minutes: 60
+        timeout-minutes: 100
+        env: { SHARD: '${{ matrix.shard }}', NSHARD: '4' }
       - name: Commit audio
         if: always()
         run: |
           git config user.name "tao-giong-bot"
           git config user.email "bot@users.noreply.github.com"
           git add out
-          git commit -m "Giong doc moi" || echo "nothing to commit"
-          git pull --rebase -q || true
-          git push
+          git commit -m "Giong doc moi (shard ${{ matrix.shard }})" || echo "nothing to commit"
+          for i in 1 2 3 4 5; do git pull --rebase -q && git push && break; sleep $((RANDOM % 10 + 5)); done
