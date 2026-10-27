@@ -20,7 +20,7 @@ jobs:
       - name: Playwright
         timeout-minutes: 10
         run: |
-          cd render && npm init -y >/dev/null && npm i -q playwright@1.47.2 >/dev/null
+          cd render && npm init -y >/dev/null && npm i -q playwright@1.47.2 ffmpeg-static@5.2.0 >/dev/null
           npx playwright install chromium
       - name: Render shard
         timeout-minutes: 75
@@ -30,7 +30,7 @@ jobs:
           exec > >(tee log_${{ matrix.shard }}.txt) 2>&1
           set -x
           fc-list | grep -ci dejavu || true
-          which ffmpeg
+          node -e "console.log(require('ffmpeg-static'))"
           TAG=$(jq -r .tag job.json); HTML=$(jq -r .html job.json); N=$(jq -r .frames job.json); S=16
           A=$(( N * ${{ matrix.shard }} / S )); B=$(( N * (${{ matrix.shard }} + 1) / S ))
           node render_seg.js "$HTML" seg_$(printf %02d ${{ matrix.shard }}).mp4 $A $B $(jq -r .w job.json) $(jq -r .h job.json)
