@@ -60,3 +60,23 @@ loaded V3TurboVieNeuTTS
 03_trung_tang clone:refs/mada.wav 16 ok 3.2
 03_trung_tang clone:refs/mada.wav 17 ok 2.3
 03_trung_tang asr ok
+loaded V3TurboVieNeuTTS
+04_trung_tang_sua clone:refs/mada.wav 0 ok 25.1
+04_trung_tang_sua clone:refs/mada.wav 1 ok 2.0
+04_trung_tang_sua clone:refs/mada.wav 2 ok 1.9
+04_trung_tang_sua clone:refs/mada.wav 3 ok 2.8
+04_trung_tang_sua clone:refs/mada.wav 4 ok 2.5
+04_trung_tang_sua clone:refs/mada.wav 5 ok 2.5
+04_trung_tang_sua clone:refs/mada.wav 6 ok 1.5
+04_trung_tang_sua clone:refs/mada.wav 7 ok 1.4
+04_trung_tang_sua clone:refs/mada.wav 8 ok 1.4
+04_trung_tang_sua clone:refs/mada.wav 9 ok 1.4
+04_trung_tang_sua clone:refs/mada.wav 10 ok 1.3
+04_trung_tang_sua clone:refs/mada.wav 11 ok 1.3
+04_trung_tang_sua clone:refs/mada.wav 12 ok 3.2
+04_trung_tang_sua clone:refs/mada.wav 13 ok 3.4
+04_trung_tang_sua clone:refs/mada.wav 14 ok 3.2
+04_trung_tang_sua clone:refs/mada.wav 15 ok 2.2
+04_trung_tang_sua clone:refs/mada.wav 16 ok 2.3
+04_trung_tang_sua clone:refs/mada.wav 17 ok 2.3
+04_trung_tang_sua asr ok
