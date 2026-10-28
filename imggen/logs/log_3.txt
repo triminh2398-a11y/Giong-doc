@@ -1,7 +1,17 @@
-Fetching 13 files:   0%|          | 0/13 [00:00<?, ?it/s]Fetching 13 files:  62%|██████▏   | 8/13 [00:00<00:00, 40.49it/s]Fetching 13 files: 100%|██████████| 13/13 [00:14<00:00,  1.08s/it]
-Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/transformers/models/clip/feature_extraction_clip.py:28: FutureWarning: The class CLIPFeatureExtractor is deprecated and will be removed in version 5 of Transformers. Please use CLIPImageProcessor instead.
-  warnings.warn(
-Loading pipeline components...:  83%|████████▎ | 5/6 [00:00<00:00, 16.36it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:00<00:00, 13.97it/s]
-You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:21<06:42, 21.19s/it] 10%|█         | 2/20 [00:42<06:21, 21.21s/it] 15%|█▌        | 3/20 [01:03<06:00, 21.20s/it] 20%|██        | 4/20 [01:24<05:39, 21.21s/it] 25%|██▌       | 5/20 [01:46<05:18, 21.22s/it] 30%|███       | 6/20 [02:07<04:56, 21.20s/it] 35%|███▌      | 7/20 [02:28<04:35, 21.19s/it] 40%|████      | 8/20 [02:49<04:14, 21.18s/it] 45%|████▌     | 9/20 [03:10<03:53, 21.22s/it] 50%|█████     | 10/20 [03:32<03:32, 21.29s/it] 55%|█████▌    | 11/20 [03:53<03:11, 21.26s/it] 60%|██████    | 12/20 [04:14<02:49, 21.24s/it] 65%|██████▌   | 13/20 [04:35<02:28, 21.22s/it] 70%|███████   | 14/20 [04:57<02:07, 21.20s/it] 75%|███████▌  | 15/20 [05:18<01:45, 21.19s/it] 80%|████████  | 16/20 [05:39<01:24, 21.17s/it] 85%|████████▌ | 17/20 [06:00<01:03, 21.17s/it] 90%|█████████ | 18/20 [06:21<00:42, 21.21s/it] 95%|█████████▌| 19/20 [06:42<00:21, 21.18s/it]100%|██████████| 20/20 [07:03<00:00, 21.15s/it]100%|██████████| 20/20 [07:03<00:00, 21.20s/it]
-mm20_corpse 464.3
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files:  67%|██████▋   | 8/12 [00:00<00:00, 38.01it/s]Fetching 12 files:  92%|█████████▏| 11/12 [00:19<00:01,  1.81s/it]Fetching 12 files: 100%|██████████| 12/12 [00:28<00:00,  2.40s/it]Fetching 12 files: 100%|██████████| 12/12 [00:28<00:00,  2.40s/it]
+Loading pipeline components...:   0%|          | 0/5 [00:00<?, ?it/s]Loading pipeline components...:  60%|██████    | 3/5 [00:00<00:00, 14.83it/s]Loading pipeline components...: 100%|██████████| 5/5 [00:00<00:00, 19.01it/s]
+Traceback (most recent call last):
+  File "/home/runner/work/Giong-doc/Giong-doc/imggen/gen.py", line 24, in <module>
+    pipe = get(it.get('model', J.get('model', 'Lykon/dreamshaper-8')))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Giong-doc/Giong-doc/imggen/gen.py", line 13, in get
+    p.scheduler = DPMSolverMultistepScheduler.from_config(p.scheduler.config, use_karras_sigmas=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/diffusers/configuration_utils.py", line 260, in from_config
+    model = cls(**init_dict)
+            ^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/diffusers/configuration_utils.py", line 653, in inner_init
+    init(self, *args, **init_kwargs)
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/diffusers/schedulers/scheduling_dpmsolver_multistep.py", line 268, in __init__
+    raise ValueError(
+ValueError: `final_sigmas_type` zero is not supported for `algorithm_type` deis. Please choose `sigma_min` instead.
