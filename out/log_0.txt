@@ -353,3 +353,6 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 42_livefest clone:refs/mada8.wav 0 ok 20.9
 42_livefest asr ok
+loaded V3TurboVieNeuTTS
+43_livefest2 clone:refs/mada8.wav 0 ok 19.6
+43_livefest2 asr ok
