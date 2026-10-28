@@ -151,3 +151,44 @@ function draw(TT){const T=TT;ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#000';
  if(cur){octx.drawImage(cv,0,0);ctx.filter='saturate(0.85) contrast(1.05) brightness(1.06)';ctx.drawImage(OFF,0,0);ctx.filter='none'}
  if(cur){const d=Math.min(TT-cur[1],cur[2]-TT);if(d<0.1&&cur[1]>0){ctx.fillStyle=`rgba(0,0,0,${1-d/0.1})`;ctx.fillRect(0,0,W,H)}}
  if(!cur||cur[0]!=='title')subs(T)}
+
+// ===== Trành đáng sợ kiểu Ma Lai (thay tranh cũ) =====
+function scaryFace(T,o={}){const R0=58,skin=o.skin||'#b9c2b8';
+ if(o.woman){ctx.fillStyle='rgba(8,8,10,.97)';const sw=Math.sin(T*1.3)*8;ctx.beginPath();ctx.moveTo(-66,-20);ctx.quadraticCurveTo(-104,140,-86+sw,330);ctx.lineTo(86+sw,330);ctx.quadraticCurveTo(104,140,66,-20);ctx.fill()}
+ circ(0,0,R0,skin,INK,4);
+ // gò má hóp + vết nứt
+ ctx.fillStyle='rgba(40,60,50,.28)';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*34,26,12,20,sd*0.3,0,7);ctx.fill()}
+ ctx.strokeStyle='rgba(40,30,40,.55)';ctx.lineWidth=1.6;for(let k=0;k<5;k++){ctx.beginPath();ctx.moveTo(-44+k*20,-40+rnd(k)*10);ctx.lineTo(-38+k*20+rnd(k+3)*8,-20);ctx.lineTo(-42+k*21,-4);ctx.stroke()}
+ // hốc mắt đen sâu + đồng tử phát sáng
+ for(const sd of [-1,1]){ctx.fillStyle='#020202';ctx.beginPath();ctx.ellipse(sd*22,6,17,o.closed?3:21,sd*0.18,0,7);ctx.fill();
+  if(!o.closed){halo(sd*22,8,36,'190,255,200',0.6);circ(sd*22+(o.look||0)*5,9,3.4,'#eaffef')}
+  ctx.strokeStyle='rgba(10,10,10,.95)';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(sd*22,26);ctx.quadraticCurveTo(sd*24,44,sd*21,62+((T*12)%10));ctx.stroke()}
+ // miệng há răng nhọn + máu
+ const op=o.open??(0.6+0.25*Math.sin(T*2));ctx.fillStyle='#140404';ctx.beginPath();ctx.moveTo(-26,30);ctx.quadraticCurveTo(0,36,26,30);ctx.quadraticCurveTo(0,40+34*op,-26,30);ctx.fill();
+ ctx.fillStyle='#d8d4c2';for(let k=-3;k<=3;k++){ctx.beginPath();ctx.moveTo(k*7-3,32);ctx.lineTo(k*7+3,32);ctx.lineTo(k*7,40);ctx.fill();const yb=36+30*op;ctx.beginPath();ctx.moveTo(k*6-3,yb);ctx.lineTo(k*6+3,yb);ctx.lineTo(k*6,yb-7);ctx.fill()}
+ ctx.fillStyle='#5a0a0e';for(let k=0;k<2;k++){const x=-8+k*16,len=14+((T*24+k*13)%40);ctx.fillRect(x-2,44+20*op,4,len);circ(x,44+20*op+len,3.5,'#5a0a0e')}
+ // tóc ướt rủ xuống che mặt
+ ctx.fillStyle=HAIR;ctx.beginPath();ctx.arc(0,0,R0+3,Math.PI*0.95,Math.PI*2.05);ctx.quadraticCurveTo(26,-30,4,-20);ctx.quadraticCurveTo(-28,-32,-R0-3,6);ctx.fill();
+ ctx.strokeStyle='rgba(6,6,8,.95)';ctx.lineWidth=4;const nH=o.woman?11:7;for(let k=0;k<nH;k++){const x=-52+k*(104/(nH-1));if(!o.woman&&k>2&&k<5)continue;ctx.beginPath();ctx.moveTo(x*0.7,-56);ctx.quadraticCurveTo(x+Math.sin(T*1.8+k)*6,0,x*1.12+Math.sin(T*1.5+k)*8,(o.woman?120:50)+rnd(k)*60);ctx.stroke()}}
+function tranh(x,fy,s,T,o={}){const bob=Math.sin(T*1.4)*7,y=fy-22*s+bob*s/2.3;const a=o.a??0.95;ctx.save();ctx.globalAlpha=a;
+ halo(x,y-190*s,330*s,'120,255,160',0.2);ctx.translate(x,y);ctx.scale(s,s);ctx.lineJoin='round';ctx.lineCap='round';
+ const top=-236,hy=top-50,shirt=o.woman?'#3e3a36':'#3a4440',pants=o.woman?'#1c1d20':'#262c2c',skin=o.skin||'#b9c2b8';
+ // chân gầy, mũi chân thõng (lơ lửng)
+ if(!o.woman){for(const sd of [-1,1]){ctx.strokeStyle=INK;ctx.lineWidth=20;ctx.beginPath();ctx.moveTo(sd*14,-112);ctx.lineTo(sd*12+Math.sin(T+sd)*2,-8);ctx.stroke();ctx.strokeStyle=pants;ctx.lineWidth=13;ctx.stroke();ctx.fillStyle=skin;ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*12,0,8,12,0,0,7);ctx.fill();ctx.stroke()}}
+ // thân: áo rách tả tơi
+ ctx.save();ctx.rotate(o.woman?0:0.04);
+ ctx.fillStyle=shirt;ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-38,top+10);ctx.lineTo(38,top+10);ctx.lineTo(o.woman?60:44,o.woman?-20:-110);
+ const hem=o.woman?-20:-110;for(let k=0;k<=8;k++){const xx=(o.woman?60:44)-k*((o.woman?120:88)/8);ctx.lineTo(xx,hem+(k%2?18:0)+rnd(k)*8)}ctx.closePath();ctx.fill();ctx.stroke();
+ // vết cào cọp đẫm máu
+ ctx.strokeStyle='#5a0a0e';ctx.lineWidth=7;for(let k=0;k<3;k++){ctx.beginPath();ctx.moveTo(-26+k*14,top+40);ctx.lineTo(-4+k*14,top+120);ctx.stroke()}ctx.strokeStyle='rgba(160,20,24,.8)';ctx.lineWidth=2.5;for(let k=0;k<3;k++){ctx.beginPath();ctx.moveTo(-25+k*14,top+42);ctx.lineTo(-5+k*14,top+118);ctx.stroke()}
+ ctx.restore();
+ // cổ
+ ctx.fillStyle=skin;ctx.fillRect(-9,top-8,18,20);
+ // tay: một tay buông dài quá gối, một tay vẫy gọi với ngón dài cong
+ const arm=(sd,ang,len,beck)=>{ctx.save();ctx.translate(sd*36,top+20);ctx.rotate(ang);ctx.strokeStyle=INK;ctx.lineWidth=18;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,len);ctx.stroke();ctx.strokeStyle=shirt;ctx.lineWidth=12;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,len*0.55);ctx.stroke();ctx.strokeStyle=skin;ctx.beginPath();ctx.moveTo(0,len*0.55);ctx.lineTo(0,len);ctx.stroke();
+  ctx.translate(0,len);circ(0,0,9,skin,INK,3);const cr=beck?0.6+0.5*Math.sin(T*3.2):0.15;for(let f=0;f<4;f++){ctx.save();ctx.rotate((f-1.5)*0.22);ctx.strokeStyle=INK;ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(0,4);ctx.quadraticCurveTo(0,22,-cr*14,30+f%2*4);ctx.lineTo(-cr*22,34+f%2*4);ctx.stroke();ctx.strokeStyle=skin;ctx.lineWidth=2.6;ctx.stroke();ctx.restore()}ctx.restore()};
+ arm(-1,0.08+Math.sin(T*0.9)*0.03,150,false);
+ if(o.beckon)arm(1,-2.0+Math.sin(T*3.2)*0.3,118,true);else arm(1,-0.08,150,false);
+ // đầu nghiêng
+ ctx.save();ctx.translate(0,hy);ctx.rotate(o.tilt??(0.18+Math.sin(T*0.7)*0.05));scaryFace(T,{woman:o.woman,look:o.look});ctx.restore();
+ ctx.restore()}
