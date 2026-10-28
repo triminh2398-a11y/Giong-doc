@@ -4,24 +4,21 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=qnt-ep1-v4
++ TAG=tiktok-go-cua-v1
 ++ jq -r .html job.json
-+ HTML=qnt4.html
++ HTML=tt2.html
 ++ jq -r .frames job.json
-+ N=29323
++ N=5726
 + S=16
-+ A=21992
-+ B=23824
++ A=4294
++ B=4652
 ++ printf %02d 12
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js qnt4.html seg_12.mp4 21992 23824 1920 1080
-frame 22200
-frame 22800
-frame 23400
++ node render_seg.js tt2.html seg_12.mp4 4294 4652 1080 1920
 + sleep 24
 + for k in 1 2 3 4 5 6
-+ gh release view qnt-ep1-v4
++ gh release view tiktok-go-cua-v1
 ++ printf %02d 12
-+ gh release upload qnt-ep1-v4 seg_12.mp4 --clobber
++ gh release upload tiktok-go-cua-v1 seg_12.mp4 --clobber
 + break
