@@ -1,43 +1,74 @@
 {
- "tag": "test3",
- "style": "anime style, 2D anime illustration, cel shading, clean lineart, dark horror anime film still, dramatic lighting, detailed background, masterpiece, best quality",
- "neg": "photo, photorealistic, 3d, text, watermark, logo, deformed, extra limbs, bad hands, bad anatomy, blurry, lowres, noise, grainy, nsfw, gore, japanese text",
- "steps": 20,
- "cfg": 7,
+ "tag": "tranh_real",
+ "style": "",
+ "style_pre": "photorealistic horror movie still, 35mm film, cinematic lighting, high detail, dread, ",
+ "neg": "cartoon, anime, drawing, painting, illustration, 3d render, text, watermark, logo, deformed, extra limbs, extra fingers, bad anatomy, bad hands, blurry, lowres, nsfw, nude, blood, gore",
+ "steps": 25,
+ "cfg": 6,
  "lcm": false,
- "w": 912,
- "h": 512,
- "model": "Meina/MeinaMix_V11",
+ "w": 576,
+ "h": 1024,
+ "model": "SG161222/Realistic_Vision_V5.1_noVAE",
  "items": [
   {
-   "id": "mm20_hall",
-   "p": "inside a rustic Vietnamese wooden house at night, a dead elderly man lying on a wooden plank bed covered with white cloth up to his chest, ancestral altar with candles and incense smoke behind, oil lamp",
-   "seed": 11
+   "id": "tranh_full_7",
+   "p": "full body of a gaunt pale Vietnamese man ghost standing in a dark village yard at night, raising one hand slowly beckoning, hollow black eye sockets, grey cracked skin, wet black hair, torn old peasant shirt with three dark claw scratch marks, moonlight, thick fog, bamboo silhouettes behind",
+   "seed": 7
   },
   {
-   "id": "mm20_cat",
-   "p": "a black cat with glowing yellow eyes sitting on a dark wooden floor beside an oil lamp, creepy night",
-   "seed": 11
+   "id": "tranh_full_21",
+   "p": "full body of a gaunt pale Vietnamese man ghost standing in a dark village yard at night, raising one hand slowly beckoning, hollow black eye sockets, grey cracked skin, wet black hair, torn old peasant shirt with three dark claw scratch marks, moonlight, thick fog, bamboo silhouettes behind",
+   "seed": 21
   },
   {
-   "id": "mm20_lam",
-   "p": "a frightened young Vietnamese village man, 19 years old, short black hair, brown peasant shirt, holding an oil lamp in a dark room, upper body",
-   "seed": 11
+   "id": "tranh_face_7",
+   "p": "extreme close-up face of a pale Vietnamese man ghost, hollow pitch black eyes, grey cracked skin, wet black hair stuck to forehead, mouth slightly open, dark background, harsh cold light from below",
+   "seed": 7
   },
   {
-   "id": "mm20_corpse",
-   "p": "a dead elderly man with grey skin standing stiffly with both arms stretched straight forward, long dark traditional robe, white blank eyes, open mouth, dark wooden hall with candles, horror",
-   "seed": 11
+   "id": "tranh_face_21",
+   "p": "extreme close-up face of a pale Vietnamese man ghost, hollow pitch black eyes, grey cracked skin, wet black hair stuck to forehead, mouth slightly open, dark background, harsh cold light from below",
+   "seed": 21
   },
   {
-   "id": "mm20_batu",
-   "p": "an elderly Vietnamese woman, 70 years old, wrinkled face, grey hair bun, brown blouse, whispering, rustic kitchen with clay stove at dawn",
-   "seed": 11
+   "id": "me_full_7",
+   "p": "full body of a gaunt pale elderly Vietnamese woman ghost in a brown peasant blouse, long messy grey hair, hollow black eyes, standing at a bamboo village gate at night, one hand beckoning, moonlight, fog",
+   "seed": 7
   },
   {
-   "id": "mm20_mango",
-   "p": "a huge old mango tree at the bamboo gate of a rural Vietnamese house at night, a rope hanging from a branch, mist, full moon",
-   "seed": 11
+   "id": "me_full_21",
+   "p": "full body of a gaunt pale elderly Vietnamese woman ghost in a brown peasant blouse, long messy grey hair, hollow black eyes, standing at a bamboo village gate at night, one hand beckoning, moonlight, fog",
+   "seed": 21
+  },
+  {
+   "id": "me_face_7",
+   "p": "extreme close-up face of a pale elderly Vietnamese woman ghost, hollow pitch black eyes, long wet grey hair, cracked grey skin, mouth slightly open, dark background, cold moonlight",
+   "seed": 7
+  },
+  {
+   "id": "me_face_21",
+   "p": "extreme close-up face of a pale elderly Vietnamese woman ghost, hollow pitch black eyes, long wet grey hair, cracked grey skin, mouth slightly open, dark background, cold moonlight",
+   "seed": 21
+  },
+  {
+   "id": "tiger_7",
+   "p": "a huge tiger face emerging from darkness in a bamboo jungle at night, glowing yellow eyes, snarling with fangs, mist, cinematic",
+   "seed": 7
+  },
+  {
+   "id": "tiger_21",
+   "p": "a huge tiger face emerging from darkness in a bamboo jungle at night, glowing yellow eyes, snarling with fangs, mist, cinematic",
+   "seed": 21
+  },
+  {
+   "id": "tranh_door_7",
+   "p": "view through gaps of an old wooden plank door at night, a pale gaunt man ghost with hollow black eyes standing right outside staring in, moonlight",
+   "seed": 7
+  },
+  {
+   "id": "tranh_door_21",
+   "p": "view through gaps of an old wooden plank door at night, a pale gaunt man ghost with hollow black eyes standing right outside staring in, moonlight",
+   "seed": 21
   }
  ]
 }
