@@ -345,3 +345,21 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 43_livefest2 clone:refs/mada8.wav 2 ok 29.8
 43_livefest2 asr ok
+loaded V3TurboVieNeuTTS
+44_tr2_th Thái Sơn 2 ok 1.8
+44_tr2_th Thái Sơn 6 ok 2.5
+44_tr2_th Thái Sơn 10 ok 1.9
+44_tr2_th Thái Sơn 14 ok 2.0
+44_tr2_th Thái Sơn 18 ok 1.1
+44_tr2_th Thái Sơn 22 ok 2.2
+44_tr2_th asr ok
+45_tr2_k Adam 2 ok 1.3
+45_tr2_k asr ok
+46_tr2_me Mỹ Duyên 2 ok 1.3
+46_tr2_me Mỹ Duyên 6 ok 1.0
+46_tr2_me Mỹ Duyên 10 ok 1.3
+46_tr2_me Mỹ Duyên 14 ok 1.3
+46_tr2_me asr ok
+47_tr2_ti Đức Trí 2 ok 1.2
+47_tr2_ti Đức Trí 6 ok 1.7
+47_tr2_ti asr ok
