@@ -54,3 +54,4 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Mẫu ghép: `pipeline/tiktok_ma_tranh_25d/audio_real.py` (bed() phủ nền theo cảnh, place() đặt hiệu ứng). Jumpscare = 565 (trống) + 307/1965 (sinh vật rít). Cọp = 59/13/1957. Đêm = 2483/1227/2481/2475. Trong nhà = 1172 + 1330. Ngày làng = 1235 + 2462 (gà gáy).
 - Giọng ma (mã G*): kéo chậm ~0.78x và hạ trầm (asetrate 0.92 + atempo 0.82) TRƯỚC khi áp ghostfx — xem hàm slow() trong build_tr.py.
 - Bối cảnh 2.5D phải đầy đủ đồ vật (hàng rào, chum, rơm, gà, bụi chuối, cỏ; trong nhà: chum nước, bao gạo, rổ, dây phơi, mùng, nhang).
+- Jumpscare phải GIẬT MÌNH: 0,7s trước đó hạ nền gần im lặng, rồi track jumpscare riêng (788 impact + 1963 monster scream + 677 glass hit + 565 drum) cộng SAU loudnorm, +5dB, alimiter 0.98 (xem audio_real.py: JT, jump_real.wav). Tiêu đề lớn phải tự co cỡ chữ cho vừa khung (đo measureText, rộng tối đa ~85% khung).

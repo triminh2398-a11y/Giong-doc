@@ -44,8 +44,15 @@ place(2623,SC['wake'][0]+0.2,0.5);place(2623,SC['yard'][0]+SC['yard'][2][1]-0.5,
 # hits / sweeps for reveals
 place(2630,SC['hook2'][0],0.4,dur=3);place(1143,SC['title'][0],0.6);place(561,SC['final'][0],0.4,dur=4)
 place(773,SC['prints'][0]+0.3,0.4);place(773,SC['three'][0]+SC['three'][2][1],0.4);place(2484,SC['empty'][0],0.4)
-# jumpscares: impact + creature scream
-for at,g in [(6.08,0.7),(81.9,1.0),(158.6,1.0),(168.3,0.8)]:
-    place(565,at-0.02,0.9*g,dur=1.5);place(307,at,0.8*g,dur=1.2,fi=0.01);place(1965,at,0.6*g,dur=1.0,fi=0.01)
+# jumpscares go to a separate track (added after loudness normalisation so they hit hard)
+JT=[(6.08,0.8),(81.9,1.0),(158.6,1.0),(168.3,0.9)]
+for at,g in JT:
+    s0=int((at-0.7)*SR);s1=int(at*SR);out[s0:s1]*=np.linspace(1,0.05,s1-s0)[:,None];out[s1:s1+int(0.8*SR)]*=0.2
 out/=np.abs(out).max()*1.05
+jt=np.zeros((N,2));
+def jplace(i,at,g,dur,fi=0.0):
+    x=load(i);n=min(len(x),int(dur*SR));x=x[:n].copy();x[-int(0.25*SR):]*=np.linspace(1,0,int(0.25*SR))[:,None];s2=int(at*SR);m=min(n,N-s2);jt[s2:s2+m]+=x[:m]*g
+for at,g in JT:
+    jplace(788,at-0.03,1.0*g,1.6);jplace(1963,at,0.9*g,1.3);jplace(677,at,0.6*g,1.0);jplace(565,at-0.02,0.8*g,1.2)
+jt/=np.abs(jt).max()*1.02;wavfile.write('jump_real.wav',SR,(jt*32767).astype(np.int16))
 wavfile.write('sfx_real.wav',SR,(out*32767).astype(np.int16));print('ok')
