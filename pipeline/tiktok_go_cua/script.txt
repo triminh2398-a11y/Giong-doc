@@ -1,0 +1,44 @@
+hook|N|Nếu nửa đêm có ai gõ cửa nhà bạn đúng bốn tiếng, thì đừng bao giờ mở cửa.
+title|N|Tiếng gõ cửa lúc ba giờ sáng.
+rent|N|Hùng hai mươi lăm tuổi, lên thị trấn làm thợ hồ, thuê một căn nhà cấp bốn ở cuối xóm.
+rent|N|Giá rẻ đến lạ, chỉ bằng một nửa những nhà xung quanh.
+rent|N|Hôm giao chìa khóa, bà chủ nhà nắm chặt tay anh, dặn đi dặn lại một câu.
+rent|BC|Ba giờ sáng, ai gõ cửa cũng đừng mở. Người thì gõ ba tiếng. Còn thứ kia, nó gõ bốn.
+rent|N|Hùng cười, gật đầu cho qua. Anh nghĩ người già hay mê tín.
+night1|N|Đêm đầu tiên, anh ngủ say như chết.
+night1|N|Đến khi đồng hồ điểm đúng ba giờ, có tiếng gõ cửa.
+knock|SFX4|Cốc. Cốc. Cốc. Cốc.
+knock|N|Bốn tiếng. Chậm rãi, đều đặn, như ai đó đang đếm.
+knock|N|Hùng ngồi bật dậy. Rồi một giọng nói vang lên ngoài cửa.
+knock|GNA|Anh Hùng ơi. Mở cửa cho em với. Ngoài này lạnh lắm.
+door|N|Là giọng bé Na, em gái anh.
+door|N|Hùng bước tới cửa, tay đã chạm vào then cài.
+door|N|Rồi anh khựng lại. Bé Na đang ở nhà với mẹ, cách đây năm mươi cây số.
+phone|N|Anh run tay bấm điện thoại gọi về nhà. Chuông reo ba hồi, có người bắt máy.
+phone|NA|Alo, anh Hai hả? Khuya rồi anh gọi chi vậy?
+phone|HU|Na, em đang ở nhà thật hả?
+phone|NA|Dạ, em đang ngủ mà. Có chuyện gì vậy anh?
+phone|SFX4|Cốc. Cốc. Cốc. Cốc.
+phone|GNA|Anh Hùng, sao anh không mở? Em thấy anh rồi mà.
+crack|N|Hùng cúi xuống, nhìn qua khe hở dưới chân cửa.
+crack|N|Hai bàn chân trắng bệch đứng sát vào cửa. Những ngón chân quay ngược về phía sau.
+crack|N|Anh lùi vào góc nhà, ôm chặt điện thoại, ngồi run cho đến khi gà gáy.
+morning|N|Sáng ra, trên cánh cửa gỗ có bốn dấu bàn tay bùn đen, in từ trên cao xuống.
+morning|N|Hùng chạy sang nhà bà chủ, kể hết mọi chuyện.
+morning|BC|Người thuê trước cháu cũng nghe giọng mẹ nó gọi. Nó mở cửa. Sáng ra, người ta chỉ thấy đôi dép.
+morning|N|Hùng định dọn đi ngay, nhưng tiền nhà đã trả trước ba tháng, anh không còn đồng nào.
+night2|N|Đêm thứ hai, Hùng không dám ngủ. Anh ngồi đếm từng tiếng tích tắc của đồng hồ.
+night2|N|Ba giờ sáng. Có tiếng gõ cửa.
+knock2|SFX3|Cốc. Cốc. Cốc.
+knock2|N|Ba tiếng. Rồi im bặt. Hùng thở phào. Ba tiếng là người.
+knock2|HU|Ai đó?
+knock2|GBC|Hùng ơi, bà đây. Bà nấu nồi cháo, mang sang cho cháu ăn đêm.
+open|N|Là giọng bà chủ nhà. Hùng mừng rỡ, mở then cửa.
+open|N|Bà đứng đó, tay cầm bát cháo nóng, khói bốc lên nghi ngút.
+open|N|Nhưng Hùng chợt nhận ra, dưới ánh đèn hiên, bà không có bóng.
+open|N|Anh nhìn xuống chân bà. Những ngón chân quay ngược về phía sau.
+reveal|GBC|Lần này, bà gõ ba tiếng rồi đó.
+after|N|Sáng hôm sau, căn nhà cuối xóm lại trống không. Trước cửa chỉ còn đôi dép của Hùng.
+end|N|Có những thứ học được luật của người sống, nhanh hơn ta tưởng.
+end|N|Nếu là bạn, đêm thứ hai bạn có mở cửa không? Hãy để lại bình luận nhé.
+end|N|Theo dõi Chuyện Đông Tây Kim Cổ để nghe truyện ma mỗi ngày.
