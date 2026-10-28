@@ -291,3 +291,29 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 34_go_cua_n2 clone:refs/mada8.wav 3 ok 25.0
 34_go_cua_n2 asr ok
+loaded V3TurboVieNeuTTS
+35_tranh_n clone:refs/mada8.wav 3 ok 26.0
+35_tranh_n clone:refs/mada8.wav 7 ok 3.5
+35_tranh_n clone:refs/mada8.wav 11 ok 2.5
+35_tranh_n clone:refs/mada8.wav 15 ok 1.7
+35_tranh_n clone:refs/mada8.wav 19 ok 2.4
+35_tranh_n clone:refs/mada8.wav 23 ok 1.3
+35_tranh_n clone:refs/mada8.wav 27 ok 1.7
+35_tranh_n clone:refs/mada8.wav 31 ok 2.5
+35_tranh_n clone:refs/mada8.wav 35 ok 1.5
+35_tranh_n clone:refs/mada8.wav 39 ok 1.9
+35_tranh_n clone:refs/mada8.wav 43 ok 1.7
+35_tranh_n clone:refs/mada8.wav 47 ok 1.7
+35_tranh_n clone:refs/mada8.wav 51 ok 1.3
+35_tranh_n clone:refs/mada8.wav 55 ok 1.8
+35_tranh_n asr ok
+36_tranh_th Thiện Minh 3 ok 2.0
+36_tranh_th Thiện Minh 7 ok 1.6
+36_tranh_th Thiện Minh 11 ok 0.9
+36_tranh_th asr ok
+37_tranh_k asr ok
+38_tranh_me Mai Anh 3 ok 0.6
+38_tranh_me Mai Anh 7 ok 0.8
+38_tranh_me asr ok
+39_tranh_ti Minh Đức 3 ok 1.3
+39_tranh_ti asr ok
