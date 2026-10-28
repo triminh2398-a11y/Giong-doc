@@ -10,7 +10,7 @@ def get(m):
             p.scheduler = LCMScheduler.from_config(p.scheduler.config)
             p.load_lora_weights('latent-consistency/lcm-lora-sdv1-5'); p.fuse_lora()
         else:
-            p.scheduler = DPMSolverMultistepScheduler.from_config(p.scheduler.config, use_karras_sigmas=True)
+            p.scheduler = DPMSolverMultistepScheduler.from_config(p.scheduler.config, use_karras_sigmas=True, algorithm_type='dpmsolver++', solver_type='midpoint', final_sigmas_type='sigma_min')
         PIPES[m] = p
     return PIPES[m]
 out = f"imggen/out/{J['tag']}"; os.makedirs(out, exist_ok=True)
