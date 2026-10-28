@@ -5,7 +5,7 @@
 | --- | --- | --- | --- | --- |
 | TikTok | Ma Lai (cô dâu không đầu) | ma làng quê | 2026-10-27 | pipeline/tiktok_malai |
 | YouTube T1 | Quỷ Nhập Tràng (hai đêm canh xác) | cấm kỵ / ma | 2026-10-27 | pipeline/ep01_quy_nhap_trang |
-| TikTok | Tiếng gõ cửa lúc 3 giờ sáng (gõ 4 tiếng là ma) | lời đồn | 2026-10-28 | pipeline/tiktok_go_cua |
+| TikTok | Tiếng gõ cửa lúc 3 giờ sáng (gõ 4 tiếng là ma) | lời đồn | 2026-10-28 | pipeline/tiktok_go_cua_malai (bản đăng, nét Ma Lai) |
 
 ## Ý tưởng YouTube (chọn theo thứ tự, xoay vòng chủ đề; không trùng truyện TikTok)
 1. Ngải gọi hồn — bùa ngải Tây Nguyên (bùa ngải)
