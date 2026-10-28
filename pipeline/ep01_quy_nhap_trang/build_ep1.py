@@ -76,7 +76,7 @@ for i, ((shot, spk, txt), s0, d) in enumerate(zip(S, st, nd)):
 cuts = [s[1] for s in sc if s[0] in ('title', 'village_flood', 'midroll', 'night2_storm', 'ruin', 'epilogue', 'outro')]
 TL = dict(starts=st, durs=nd, dur=round(dur, 2), scenes=sc, subs=subs, cuts=cuts)
 json.dump(TL, open(D + 'tl.json', 'w'), ensure_ascii=False)
-parts = [open('/home/claude/ml/helpers.js').read(), open(D + 'lib_ml.js').read(), open(D + 'lib_clock.js').read(), open(D + 'shots169.js').read(), open('/home/claude/char5/char5.js').read(), open(D + 'adapt5.js').read(), open(D + 'shots_new.js').read(), open(D + 'closeups.js').read()]
+parts = [open('/home/claude/ml/helpers.js').read(), open(D + 'lib_ml.js').read(), open(D + 'lib_clock.js').read(), open(D + 'shots169_v1.js').read(), open(D + 'shots_new.js').read(), open(D + 'adapt0.js').read()]
 html = '<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style></head><body><canvas id="c" width="1920" height="1080"></canvas><script>\nconst TL=' + json.dumps(TL, ensure_ascii=False) + ';\nconst W=1920,H=1080;const cv=document.getElementById("c");const ctx=cv.getContext("2d");\n' + '\n'.join(parts) + '\n</script></body></html>'
 open(D + 'ep1.html', 'w').write(html)
 if real:
