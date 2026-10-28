@@ -28,15 +28,15 @@ SH.night1=(lt,D,T,ls)=>{const t1=L_(ls,1,D*0.5);
 SH.knock=(lt,D,T,ls)=>{const t2=L_(ls,2,D*0.6),k=TL.knocks.filter(x=>x[2]===4&&x[0]>=TL.sc.knock-0.1&&x[0]<TL.sc.knock+D).map(x=>x[0]-TL.sc.knock);
  if(lt>=t2){camera(540,880,1.6);nightRoom(T);bed(T);hung(540,1260,1.3,{sit:true,eyes:1.25,pupil:2,look:lt>L_(ls,3,D)?1:0,sweat:(lt*0.7)%1,mouth:'o'});halo(1000,1100,500,'160,190,255',0.25);return}
  const kf=knockM(lt,k);camera(540,880,1.05);nightRoom(T);doorM(300,520,480,740,{under:'190,210,255',shake:kf*4});ctx.setTransform(1,0,0,1,0,0);knockTxt(kf)};
-SH.door=(lt,D,T,ls)=>{camera(540,900,1.1+0.05*sm(lt/D));nightRoom(T);doorM(300,420,480,840,{under:'190,210,255'});hung(560,1320,1.3,{back:true,armUp:1,wave:0})};
+SH.door=(lt,D,T,ls)=>{camera(540,940,1.1+0.05*sm(lt/D));nightRoom(T);doorM(330,560,420,700,{under:'190,210,255'});hung(470,1262,1.84,{back:true,armA:[null,-1.36]})};
 SH.phone=(lt,D,T,ls)=>{const t3=L_(ls,2,D*0.4),t4=L_(ls,4,D*0.65),t5=L_(ls,5,D*0.8);
  if(lt>=t4&&lt<t5){const k=TL.knocks.filter(x=>x[2]===4&&x[0]>=TL.sc.phone).map(x=>x[0]-TL.sc.phone);const kf=knockM(lt,k);camera(540,880,1.05);nightRoom(T);doorM(300,520,480,740,{under:'190,210,255',shake:kf*4});ctx.setTransform(1,0,0,1,0,0);knockTxt(kf);return}
  if(lt>=t5){camera(540,900,1.1+0.08*sm(seg(lt,t5,D)));nightRoom(T);doorM(300,520,480,740,{under:'210,225,255'});halo(540,1270,300,'220,230,255',0.35+0.15*Math.sin(T*3));return}
- camera(560,860,1.9);nightRoom(T);hung(540,1300,1.3,{eyes:1.2,pupil:2,look:-0.5,sweat:(lt*0.7)%1,mouth:(lt>=t3&&lt<t3+1.8&&Math.sin(lt*12)>0)?'o':undefined});phoneM(625,950,0.75)};
+ camera(560,860,1.9);nightRoom(T);hung(540,1300,1.3,{eyes:1.2,pupil:2,look:-0.5,sweat:(lt*0.7)%1,mouth:(lt>=t3&&lt<t3+1.8&&Math.sin(lt*12)>0)?'o':undefined,phone:1})};
 SH.crack=(lt,D,T,ls)=>{const t1=L_(ls,1,D*0.3),t2=L_(ls,2,D*0.7);
  if(lt<t1){ctx.fillStyle='#0c0a08';ctx.fillRect(0,0,W,H);camera(540,1100,1.0);ctx.fillStyle='#3a2c1e';ctx.fillRect(-200,700,W+400,520);ctx.fillStyle='#d8e0f0';ctx.fillRect(-200,1220,W+400,24);halo(540,1232,600,'210,225,255',0.3);ctx.fillStyle='#1c1610';ctx.fillRect(-200,1244,W+400,800);return}
  if(lt<t2){ctx.fillStyle='#0a0a0e';ctx.fillRect(0,0,W,H);camera(540,800,1+0.06*sm(seg(lt,t1,t2)));halo(540,700,600,'200,215,255',0.25);feetM(540,700,1.6);ctx.fillStyle='#1c1610';ctx.fillRect(-200,860,W+400,1200);return}
- camera(540,900,1.7);nightRoom(T);hung(540,1290,1.25,{sit:true,eyes:1.25,pupil:2,look:1,sweat:(lt*0.7)%1,arms:'hold'});phoneM(470,1060,0.7)};
+ camera(540,900,1.7);nightRoom(T);hung(540,1290,1.25,{sit:true,eyes:1.25,pupil:2,look:1,sweat:(lt*0.7)%1,armA:[-0.5,0.5]});phoneM(540,1112,0.5)};
 SH.morning=(lt,D,T,ls)=>{const t1=L_(ls,1,D*0.2),t2=L_(ls,2,D*0.4),t3=L_(ls,3,D*0.8);
  if(lt<t1){camera(540,1050,2.2);dayVillage(T);house(540,1180,1.3,{});ctx.save();ctx.translate(540,1180);ctx.scale(1.3,1.3);doorM(-40,-130,80,130,{col:'#7a5a3e',prints:[[18,34,-0.2],[60,26,0.15],[22,84,0.1],[62,78,-0.1]],ps:0.32});ctx.restore();return}
  if(lt>=t2&&lt<t3){camera(540,900,1.9);dayVillage(T);house(540,1180,1.3,{});bachu(540,1300,1.5,{look:0,mouth:Math.sin(lt*12)>0?'o':undefined});return}
