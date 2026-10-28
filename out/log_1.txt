@@ -275,3 +275,32 @@ loaded V3TurboVieNeuTTS
 26_qnt_n2 clone:refs/mada8.wav 5 ok 2.0
 26_qnt_n2 clone:refs/mada8.wav 9 ok 1.3
 26_qnt_n2 asr ok
+loaded V3TurboVieNeuTTS
+30_go_cua_n clone:refs/mada8.wav 1 ok 25.3
+30_go_cua_n clone:refs/mada8.wav 5 ok 2.9
+30_go_cua_n clone:refs/mada8.wav 9 ok 2.4
+30_go_cua_n clone:refs/mada8.wav 13 ok 1.3
+30_go_cua_n clone:refs/mada8.wav 17 ok 1.7
+30_go_cua_n clone:refs/mada8.wav 21 ok 1.1
+30_go_cua_n clone:refs/mada8.wav 25 ok 2.4
+30_go_cua_n clone:refs/mada8.wav 29 ok 1.4
+30_go_cua_n clone:refs/mada8.wav 33 ok 2.2
+30_go_cua_n clone:refs/mada8.wav 37 ok 1.3
+30_go_cua_n clone:refs/mada8.wav 41 ok 2.4
+30_go_cua_n clone:refs/mada8.wav 45 ok 1.9
+30_go_cua_n clone:refs/mada8.wav 49 ok 1.7
+30_go_cua_n clone:refs/mada8.wav 53 ok 1.9
+30_go_cua_n clone:refs/mada8.wav 57 ok 1.7
+30_go_cua_n clone:refs/mada8.wav 61 ok 1.7
+30_go_cua_n asr ok
+31_go_cua_bc Ngọc Huyền 1 ok 2.7
+31_go_cua_bc Ngọc Huyền 5 ok 2.9
+31_go_cua_bc Ngọc Huyền 9 ok 1.1
+31_go_cua_bc asr ok
+32_go_cua_na Thùy Dung 1 ok 1.5
+32_go_cua_na Thùy Dung 5 ok 1.3
+32_go_cua_na Thùy Dung 9 ok 1.3
+32_go_cua_na asr ok
+33_go_cua_hu Hải Đăng 1 ok 0.9
+33_go_cua_hu Hải Đăng 5 ok 0.4
+33_go_cua_hu asr ok
