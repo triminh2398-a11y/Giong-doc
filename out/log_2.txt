@@ -292,3 +292,7 @@ loaded V3TurboVieNeuTTS
 32_go_cua_na asr ok
 33_go_cua_hu Hải Đăng 2 ok 0.9
 33_go_cua_hu asr ok
+loaded V3TurboVieNeuTTS
+34_go_cua_n2 clone:refs/mada8.wav 2 ok 25.2
+34_go_cua_n2 clone:refs/mada8.wav 6 ok 2.9
+34_go_cua_n2 asr ok
