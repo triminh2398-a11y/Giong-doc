@@ -1,0 +1,128 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{position:absolute;left:0;top:0}</style>
+<script>
+// 2D card painter shares the Ma Lai drawing library (expects globals W,H,cv,ctx,TL)
+const W=1080,H=1920;const cv=document.createElement('canvas');cv.width=512;cv.height=1024;let ctx=cv.getContext('2d');
+const TL={scenes:[],subs:[],dur:20};
+</script>
+<script src="helpers.js"></script><script src="shots.js"></script><script src="shots_tr.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script></head><body>
+<script type="module">
+import * as THREE from 'three';
+const RW=720,RH=1280;const T0=60.6;
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(1);renderer.setSize(RW,RH);
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;renderer.outputColorSpace=THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+const ov=document.createElement('canvas');ov.width=RW;ov.height=RH;document.body.appendChild(ov);const g2=ov.getContext('2d');
+const cam=new THREE.PerspectiveCamera(45,RW/RH,0.05,300);
+const R=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)};
+// ---------- textures ----------
+function ctex(w,h,fn,rep){const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;if(rep){t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rep[0],rep[1])}t.anisotropy=8;return t}
+const plank=(base,rep)=>ctex(512,512,(g,w,h)=>{g.fillStyle=base;g.fillRect(0,0,w,h);const n=8;for(let i=0;i<n;i++){const y=i*h/n;const k=R(i+3);g.fillStyle=`rgba(${k>0.5?255:0},${k>0.5?220:0},${k>0.5?180:0},${0.04+R(i)*0.06})`;g.fillRect(0,y,w,h/n);g.fillStyle='rgba(0,0,0,.45)';g.fillRect(0,y,w,3);
+ for(let j=0;j<40;j++){g.strokeStyle=`rgba(0,0,0,${0.06+R(i*50+j)*0.08})`;g.lineWidth=1+R(j)*2;g.beginPath();const yy=y+R(i*7+j)*h/n;g.moveTo(0,yy);g.bezierCurveTo(w*0.3,yy+(R(j)-0.5)*8,w*0.7,yy+(R(j+1)-0.5)*8,w,yy+(R(j+2)-0.5)*6);g.stroke()}
+ for(let j=0;j<2;j++){g.fillStyle='rgba(30,18,8,.5)';g.beginPath();g.ellipse(R(i*9+j)*w,y+h/n/2,10,5,0,0,7);g.fill()}}},rep);
+const floorT=plank('#6b4a2c',[3,3]),wallT=plank('#5a3f26',[2,2]);wallT.rotation=Math.PI/2;
+const bambooT=ctex(512,512,(g,w,h)=>{g.fillStyle='#7d6a44';g.fillRect(0,0,w,h);for(let i=0;i<w;i+=32){g.fillStyle=`rgba(0,0,0,${0.15+R(i)*0.15})`;g.fillRect(i,0,4,h);g.fillStyle='rgba(255,240,200,.08)';g.fillRect(i+6,0,10,h)}for(let k=0;k<200;k++){g.strokeStyle='rgba(40,28,10,.25)';g.beginPath();const x=R(k)*w,y=R(k+1)*h;g.moveTo(x,y);g.lineTo(x+(R(k+2)-0.5)*30,y+20);g.stroke()}},[3,2]);
+const thatchT=ctex(512,512,(g,w,h)=>{g.fillStyle='#5c4a2a';g.fillRect(0,0,w,h);for(let k=0;k<2500;k++){g.strokeStyle=`rgba(${R(k)>0.5?160:30},${R(k)>0.5?130:22},${R(k)>0.5?70:10},.35)`;g.lineWidth=1.5;const x=R(k*3)*w,y=R(k*5)*h;g.beginPath();g.moveTo(x,y);g.lineTo(x+(R(k)-0.5)*10,y+30+R(k+7)*30);g.stroke()}},[6,3]);
+const dustTex=ctex(64,64,(g)=>{const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,64,64)});
+const M=o=>new THREE.MeshStandardMaterial(Object.assign({roughness:0.9,metalness:0},o));
+function box(w,h,d,m,x,y,z,par,cast=true){const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);b.position.set(x,y,z);b.castShadow=cast;b.receiveShadow=true;par.add(b);return b}
+// ---------- character cards ----------
+function card(h,draw){const c=document.createElement('canvas');c.width=512;c.height=1024;const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;
+ const mat=new THREE.MeshStandardMaterial({map:t,transparent:true,alphaTest:0.4,side:THREE.DoubleSide,roughness:1});const m=new THREE.Mesh(new THREE.PlaneGeometry(h*0.5,h),mat);m.castShadow=true;m.receiveShadow=false;
+ m.customDepthMaterial=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,map:t,alphaTest:0.4});
+ m.userData.paint=(T)=>{const old=ctx;ctx=c.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,512,1024);draw(T);ctx=old;t.needsUpdate=true};return m}
+// ================= SCENE 1: interior of stilt house =================
+const inn=new THREE.Scene();inn.background=new THREE.Color(0x07080c);inn.fog=new THREE.FogExp2(0x0b0d12,0.05);
+box(9,0.2,8,M({map:floorT}),0,-0.1,0,inn);
+const back=box(9,4,0.2,M({map:bambooT,color:0x9a8a70}),0,2,-3.6,inn);const left=box(0.2,4,8,M({map:bambooT,color:0x9a8a70}),-4.4,2,0,inn);
+// right wall with door opening
+box(0.2,4,3.2,M({map:bambooT,color:0x9a8a70}),4.4,2,-2.2,inn);box(0.2,4,3.2,M({map:bambooT,color:0x9a8a70}),4.4,2,2.6,inn);box(0.2,1.2,1.6,M({map:bambooT,color:0x9a8a70}),4.4,3.4,0.2,inn);
+// door made of planks with gaps
+const doorG=new THREE.Group();inn.add(doorG);doorG.position.y=0.14;for(let i=0;i<6;i++){box(0.08,2.75,0.24,M({map:floorT,color:0x8a6a48}),4.38,1.375,-0.42+i*0.255,doorG)}box(0.1,0.12,1.6,M({color:0x3a2a18}),4.33,0.7,0.2,doorG);box(0.1,0.12,1.6,M({color:0x3a2a18}),4.33,2.1,0.2,doorG);
+// roof beams
+for(let i=-3;i<=3;i++)box(0.18,0.22,8.2,M({color:0x3a2818}),i*1.3,3.9,0,inn);box(9,0.25,0.25,M({color:0x3a2818}),0,3.75,-3.4,inn);
+// window on back wall (moonlight)
+box(1.6,0.12,0.3,M({color:0x3a2818}),-1.8,2.9,-3.5,inn);box(1.6,0.12,0.3,M({color:0x3a2818}),-1.8,1.7,-3.5,inn);for(let i=0;i<5;i++)box(0.06,1.2,0.12,M({color:0x3a2818}),-2.5+i*0.35,2.3,-3.5,inn);
+const winHole=new THREE.Mesh(new THREE.PlaneGeometry(1.5,1.1),new THREE.MeshBasicMaterial({color:0x22324a}));winHole.position.set(-1.8,2.3,-3.48);inn.add(winHole);back.material=back.material.clone();
+// mat, pillow, blanket, items
+const mat=box(2.6,0.03,1.8,M({color:0xa08a5a,map:bambooT}),-0.6,0.02,-0.6,inn);
+box(0.9,0.18,0.4,M({color:0xd8d0bc}),-1.6,0.12,-1.2,inn);
+box(1.6,0.06,0.9,M({color:0x4a5a72}),-0.7,0.06,-1.0,inn);
+// jars, altar shelf with photo
+box(1.4,0.08,0.4,M({color:0x3a2818}),2.2,1.9,-3.35,inn);const photo=box(0.35,0.45,0.04,M({color:0x222222}),2.2,2.18,-3.3,inn);
+for(let i=0;i<3;i++){const j=new THREE.Mesh(new THREE.SphereGeometry(0.22+R(i)*0.1,16,12),M({color:0x5a4030,roughness:0.6}));j.scale.y=1.2;j.position.set(-3.6+i*0.55,0.25,-3);j.castShadow=true;inn.add(j)}
+// oil lamp
+const lampG=new THREE.Group();inn.add(lampG);lampG.position.set(0.9,0,-0.3);
+{const b=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.13,0.12,16),M({color:0x6a5030,roughness:0.5,metalness:0.3}));b.position.y=0.06;const gl=new THREE.Mesh(new THREE.SphereGeometry(0.11,16,12),new THREE.MeshStandardMaterial({color:0xffe0a0,transparent:true,opacity:0.35,roughness:0.1}));gl.scale.y=1.6;gl.position.y=0.3;
+ const fl=new THREE.Mesh(new THREE.SphereGeometry(0.035,10,8),new THREE.MeshBasicMaterial({color:0xffd27a}));fl.scale.y=1.8;fl.position.y=0.28;lampG.add(b,gl,fl);lampG.userData.fl=fl}
+const lampL=new THREE.PointLight(0xffa850,14,9,1.6);lampL.position.set(0.9,0.45,-0.3);lampL.castShadow=true;lampL.shadow.mapSize.set(1024,1024);lampL.shadow.bias=-0.002;inn.add(lampL);
+const moonL=new THREE.SpotLight(0x8fb0ff,40,14,0.35,0.6,1.2);moonL.position.set(-1.8,3.2,-6);moonL.target.position.set(-0.5,0,0.5);moonL.castShadow=true;inn.add(moonL,moonL.target);
+const doorL=new THREE.SpotLight(0x9ab8ff,0,10,0.5,0.5,1);doorL.position.set(7,1.6,0.2);doorL.target.position.set(1,0,0.2);doorL.castShadow=true;doorL.shadow.mapSize.set(1024,1024);inn.add(doorL,doorL.target);
+inn.add(new THREE.AmbientLight(0x1a2030,0.6));
+// dust motes in moon beam
+const motes=[];for(let i=0;i<70;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTex,color:0xbcd0ff,transparent:true,opacity:0.5,depthWrite:false}));s.scale.setScalar(0.03+R(i)*0.03);inn.add(s);motes.push(s)}
+// cards: Tâm hugging knees, mother sleeping (lying card on floor)
+const TAMc=card(1.75,(T)=>{});inn.add(TAMc);
+let tamOpt={eyes:1,look:0};
+TAMc.userData.paint=((orig)=>(T)=>{const c=TAMc.material.map.image;const g=c.getContext('2d');const old=ctx;ctx=g;ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,512,1024);
+ // seated: hug knees pose built from shots_tr huddle2 but with custom eyes/look
+if(tamOpt.back){person(256,1180,2.2,{shirt:'#35485a',pants:'#22252b',sit:true,back:true});ctx=old;TAMc.material.map.needsUpdate=true;return}
+ ctx.save();ctx.beginPath();ctx.rect(0,0,512,960);ctx.clip();person(256,960+100*2.2,2.2,{shirt:'#35485a',pants:'#22252b',sit:true,eyes:tamOpt.eyes,pupil:2.4,look:tamOpt.look,sweat:tamOpt.sweat,mouth:tamOpt.mouth,armA:[-0.45,0.45]});ctx.restore();
+ ctx.save();ctx.translate(256,960);ctx.scale(2.2,2.2);for(const sd of [-1,1]){ctx.save();ctx.translate(sd*24,0);ctx.rotate(sd*0.08);ctx.fillStyle='#22252b';ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.beginPath();ctx.roundRect(-20,-100,40,100,18);ctx.fill();ctx.stroke();ctx.restore()}ctx.restore();
+ for(const sd of [-1,1])circ(256+sd*20*2.2,960-96*2.2,10*2.2,SKIN,INK,3);ctx=old;TAMc.material.map.needsUpdate=true})();
+TAMc.position.set(0.15,0.86,-0.1);
+const MOMc=card(1.7,(T)=>{woman(256,1000,2.4,{shirt:'#5a4636',pants:'#1c1c20',closed:true,eyes:0.05,smile:false})});MOMc.rotation.set(-Math.PI/2,0,Math.PI/2);MOMc.position.set(-1.0,0.06,-1.05);MOMc.userData.paint(0);
+// ================= SCENE 2: exterior night =================
+const ext=new THREE.Scene();ext.background=new THREE.Color(0x0a1220);ext.fog=new THREE.FogExp2(0x1a2638,0.045);
+const skyM=new THREE.Mesh(new THREE.SphereGeometry(120,32,16),new THREE.MeshBasicMaterial({side:THREE.BackSide,fog:false,map:ctex(512,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#02040a');gr.addColorStop(0.55,'#14223a');gr.addColorStop(1,'#2a3a52');g.fillStyle=gr;g.fillRect(0,0,w,h);for(let i=0;i<300;i++){g.fillStyle=`rgba(255,255,255,${R(i)*0.8})`;g.fillRect(R(i*3)*w,R(i*5)*h*0.5,1,1)}})}));ext.add(skyM);
+const moon=new THREE.Mesh(new THREE.SphereGeometry(2.2,24,16),new THREE.MeshBasicMaterial({color:0xf2f0e2,fog:false}));moon.position.set(-25,32,-70);ext.add(moon);
+const grd=new THREE.Mesh(new THREE.PlaneGeometry(200,200),M({color:0x2a2a1e}));grd.rotation.x=-Math.PI/2;grd.receiveShadow=true;ext.add(grd);
+// stilt house
+const house=new THREE.Group();ext.add(house);
+for(const x of [-3.2,-1,1,3.2])for(const z of [-2,2]){const p=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.14,2.2,10),M({color:0x3a2a1a}));p.position.set(x,1.1,z);p.castShadow=true;house.add(p)}
+box(7.2,0.25,4.6,M({map:floorT}),0,2.2,0,house);box(7,2.6,4.4,M({map:bambooT,color:0x8a7a60}),0,3.6,0,house);
+const roofG=new THREE.Group();house.add(roofG);for(const sd of [-1,1]){const r=new THREE.Mesh(new THREE.BoxGeometry(8.2,0.25,3.4),M({map:thatchT}));r.position.set(0,5.6,sd*1.25);r.rotation.x=sd*0.62;r.castShadow=true;roofG.add(r)}
+const warmM=new THREE.MeshBasicMaterial({color:0xffb860});for(const x of [-2,2]){const w=new THREE.Mesh(new THREE.PlaneGeometry(1.1,0.9),warmM);w.position.set(x,3.7,2.21);house.add(w)}
+const winGlow=new THREE.PointLight(0xffa850,10,10,1.5);winGlow.position.set(0,3.6,3);house.add(winGlow);
+// stairs
+for(let i=0;i<7;i++)box(1.2,0.08,0.3,M({color:0x4a3420}),0,0.3*i+0.2,3.2-i*0.18,house);
+house.position.set(4,0,-6);
+// bamboo clusters (cards)
+const bambooCard=(seed)=>{const c=document.createElement('canvas');c.width=256;c.height=1024;const g=c.getContext('2d');const old=ctx;ctx=g;bamboo(40,1024,5,900,0,seed,'#0e1a16');ctx=old;const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;const m=new THREE.Mesh(new THREE.PlaneGeometry(3,12),new THREE.MeshStandardMaterial({map:t,transparent:true,alphaTest:0.3,side:THREE.DoubleSide}));m.castShadow=true;return m};
+for(let i=0;i<9;i++){const b=bambooCard(i+2);b.position.set(-12+i*3+R(i)*2,6,-14-R(i+3)*6);ext.add(b)}
+for(let i=0;i<4;i++){const b=bambooCard(i+20);b.position.set(-9+R(i)*3,6,-2-i*2.5);ext.add(b)}
+const moonDir=new THREE.DirectionalLight(0x9ab4ff,2.2);moonDir.position.set(-20,25,-10);moonDir.castShadow=true;moonDir.shadow.mapSize.set(2048,2048);Object.assign(moonDir.shadow.camera,{left:-15,right:15,top:15,bottom:-15,far:80});ext.add(moonDir);ext.add(new THREE.HemisphereLight(0x3a4a6a,0x101010,0.7));
+// trành card + tiger eyes
+const TRc=card(1.9,(T)=>{tranh(256,1000,2.3,T,{beckon:true,a:1})});TRc.position.set(-1.5,0.95,0.5);ext.add(TRc);
+TRc.material.emissive=new THREE.Color(0x6a9a90);TRc.material.emissiveMap=TRc.material.map;TRc.material.emissiveIntensity=0.35;
+const eyes=[];for(const sd of [-1,1]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.07,12,8),new THREE.MeshBasicMaterial({color:0xffd23a}));e.scale.set(1.4,0.6,1);e.position.set(-5.2+sd*0.22,0.9,-5);ext.add(e);eyes.push(e)}
+const eyeL=new THREE.PointLight(0xffc040,2,3,2);eyeL.position.set(-5.2,0.9,-4.8);ext.add(eyeL);
+const fogS=[];for(let i=0;i<40;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTex,color:0x9aaac0,transparent:true,opacity:0.12,depthWrite:false}));s.scale.set(8,2.5,1);s.position.set(-15+R(i)*30,0.6+R(i+1)*0.8,-12+R(i+2)*16);ext.add(s);fogS.push(s)}
+// trành visible through door gaps (inside scene): a dark silhouette card outside the door
+const SILc=card(1.9,(T)=>{tranh(256,1000,2.3,T,{beckon:false,a:1})});SILc.position.set(5.3,0.95,0.2);SILc.rotation.y=-Math.PI/2;SILc.material.color=new THREE.Color(0x111111);inn.add(SILc);
+// ================= subtitles (word pop, Ricks-style) =================
+const SUBS=[[61.0,62.69,'Em trai của Tín là Tâm,'],[62.69,65.42,'sống với mẹ trong căn nhà sàn cuối làng.'],[65.86,67.56,'Đêm thứ bảy sau khi anh mất,'],[67.56,69.47,'Tâm nghe có tiếng gọi ngoài sân.'],[70.23,72.75,'“Tâm ơi. Anh về rồi nè.”',1],[75.36,77.04,'“Mở cửa cho anh.”',1],[77.04,79.05,'“Ngoài này lạnh quá.”',1]];
+const WORDS=[];for(const [a,b,s,gh] of SUBS){const ws=s.split(' ');const tot=ws.reduce((q,w)=>q+w.length+2,0);let t=a;for(const w of ws){const d=(b-a)*(w.length+2)/tot;WORDS.push([t-T0,t+d-T0,w,gh]);t+=d}}
+function subs(t){const T=t+T0;for(const [a,b,str,gh] of SUBS){if(T<a||T>=b)continue;const al=Math.min(sm((T-a)/0.12),sm((b-T)/0.12));g2.save();g2.globalAlpha=al;g2.textAlign='center';g2.lineJoin='round';g2.font='bold 39px "DejaVu Sans"';
+ const ws=str.split(' ');const L=[];let c='';for(const w of ws){const tt=c?c+' '+w:w;if(g2.measureText(tt).width>600&&c){L.push(c);c=w}else c=tt}if(c)L.push(c);const lh=50;const y0=1040-(L.length-1)*lh/2;
+ L.forEach((l,i)=>{g2.lineWidth=8;g2.strokeStyle='#000';g2.strokeText(l,RW/2,y0+i*lh);g2.fillStyle=gh?'#ff5050':'#ffffff';g2.fillText(l,RW/2,y0+i*lh)});g2.restore()}}
+function watermark(t){const k=Math.floor(t/6)%4;const pos=[[0.5,0.42],[0.72,0.2],[0.3,0.75],[0.68,0.6]][k];g2.save();g2.globalAlpha=0.16;g2.font='bold 26px "DejaVu Sans"';g2.textAlign='center';g2.fillStyle='#ffffff';g2.strokeStyle='rgba(0,0,0,.6)';g2.lineWidth=3;g2.translate(RW*pos[0],RH*pos[1]);g2.rotate(-0.12);g2.strokeText('@chuyendongtaykimco',0,0);g2.fillText('@chuyendongtaykimco',0,0);g2.restore()}
+// ================= shots =================
+window.draw=function(t){const T=t+T0;const fl=1+Math.sin(t*13)*0.08+Math.sin(t*7.3)*0.06+Math.sin(t*23)*0.04;lampL.intensity=14*fl;lampG.userData.fl.scale.set(1,1.8*fl,1);
+ motes.forEach((m,i)=>{const p=(t*0.04+R(i))%1;m.position.set(-1.8+(R(i+5)-0.5)*1.2+p*1.6,0.3+((R(i+9)*3+t*0.05*(R(i)-0.3))%2.6),-3+p*3.6);m.material.opacity=0.5*Math.sin(p*Math.PI)});
+ let scene,ca;const u=(a,b)=>sm(seg(t,a,b));
+ if(t<4.6){scene=ext;const p=u(0,4.6);cam.fov=40;cam.position.set(lerp(-9,-6,p),lerp(1.6,2.4,p),lerp(13,10,p));cam.lookAt(3,3.2,-6);TRc.visible=false;eyes.forEach(e=>e.visible=false);eyeL.intensity=0}
+ else if(t<9.2){scene=inn;const p=u(4.6,9.2);cam.fov=42;cam.position.set(lerp(1.8,1.2,p),lerp(1.5,1.25,p),lerp(4.2,2.6,p));cam.lookAt(-0.2,0.8,-0.6);tamOpt={eyes:t>7.2?1.2:0.9,look:t>8?1:0.2,sweat:t>8?(t*0.7)%1:0};doorL.intensity=0;SILc.visible=false}
+ else if(t<12.2){scene=inn;const p=u(9.2,12.2);cam.fov=35;cam.position.set(lerp(1.0,0.85,p),1.02,lerp(1.6,1.25,p));cam.lookAt(0.15,0.98,-0.1);tamOpt={eyes:1.3,look:1,sweat:(t*0.7)%1,mouth:t>10.5?'o':undefined};doorL.intensity=0;SILc.visible=false}
+ else if(t<17){scene=inn;const p=u(12.2,17);cam.fov=50;cam.position.set(lerp(-1.4,-1.15,p),1.25,lerp(-0.5,-0.35,p));cam.lookAt(4.4,1.0,0.2);doorL.intensity=140*(0.8+0.2*Math.sin(t*2));SILc.visible=true;SILc.position.z=0.2+Math.sin(t*0.9)*0.05;tamOpt={back:true}}
+ else{scene=ext;const p=u(17,20);cam.fov=38;cam.position.set(lerp(2.6,1.2,p),1.5,lerp(5.5,4.2,p));cam.lookAt(-1.5,1.2,0.4);TRc.visible=true;eyes.forEach(e=>e.visible=true);eyeL.intensity=2+Math.sin(t*3)}
+ cam.aspect=RW/RH;cam.updateProjectionMatrix();
+ if(scene===inn){TAMc.userData.paint(T);TAMc.lookAt(cam.position.x,TAMc.position.y,cam.position.z)}
+ if(scene===ext){TRc.userData.paint(T);TRc.lookAt(cam.position.x,TRc.position.y,cam.position.z);fogS.forEach((s,i)=>{s.position.x=-15+((R(i)*30+t*0.4)%30)})}
+ if(SILc.visible)SILc.userData.paint(T);
+ renderer.render(scene,cam);
+ g2.clearRect(0,0,RW,RH);const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.55)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH);
+ watermark(t);subs(t)};
+window.READY=true;
+</script></body></html>
