@@ -1,0 +1,18 @@
+name: tai-am-thanh
+on:
+  push:
+    paths: ['sfxlib/job.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  get:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: sfxlib }
+      - run: python sfxlib/fetch.py 2>&1 | tee sfxlib/log.txt
+      - run: |
+          git config user.name bot; git config user.email bot@users.noreply.github.com
+          git add sfxlib; git commit -qm "sfx lib" || true
+          for k in 1 2 3 4 5; do git pull -q --rebase && git push -q && break; sleep 5; done
