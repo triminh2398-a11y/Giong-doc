@@ -4,21 +4,21 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=whatif-ngung-quay-v2
++ TAG=matranh-25d
 ++ jq -r .html job.json
-+ HTML=wi2/index.html
++ HTML=d25/index.html
 ++ jq -r .frames job.json
-+ N=1800
++ N=5300
 + S=16
-+ A=225
-+ B=337
++ A=662
++ B=993
 ++ printf %02d 2
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js wi2/index.html seg_02.mp4 225 337 720 1280
++ node render_seg.js d25/index.html seg_02.mp4 662 993 720 1280
 + sleep 4
 + for k in 1 2 3 4 5 6
-+ gh release view whatif-ngung-quay-v2
++ gh release view matranh-25d
 ++ printf %02d 2
-+ gh release upload whatif-ngung-quay-v2 seg_02.mp4 --clobber
++ gh release upload matranh-25d seg_02.mp4 --clobber
 + break
