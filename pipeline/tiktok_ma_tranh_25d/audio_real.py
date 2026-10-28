@@ -45,7 +45,7 @@ place(2623,SC['wake'][0]+0.2,0.5);place(2623,SC['yard'][0]+SC['yard'][2][1]-0.5,
 place(2630,SC['hook2'][0],0.4,dur=3);place(1143,SC['title'][0],0.6);place(561,SC['final'][0],0.4,dur=4)
 place(773,SC['prints'][0]+0.3,0.4);place(773,SC['three'][0]+SC['three'][2][1],0.4);place(2484,SC['empty'][0],0.4)
 # jumpscares go to a separate track (added after loudness normalisation so they hit hard)
-JT=[(6.08,0.8),(81.9,1.0),(158.6,1.0),(168.3,0.9)]
+JT=[(6.08,0.8),(SC['mom'][0]-1.46,1.0),(SC['free'][0]-1.62,1.0),(SC['cta'][0]-0.59,0.9)];print('JT',JT)
 for at,g in JT:
     s0=int((at-0.7)*SR);s1=int(at*SR);out[s0:s1]*=np.linspace(1,0.05,s1-s0)[:,None];out[s1:s1+int(0.8*SR)]*=0.2
 out/=np.abs(out).max()*1.05

@@ -7,11 +7,11 @@ from ghostfx import ghost
 spec = importlib.util.spec_from_file_location('pace', '/home/claude/pace.py'); P = importlib.util.module_from_spec(spec); spec.loader.exec_module(P)
 SR = 48000; D = '/home/claude/tr/'
 S = json.load(open(D + 'script.json'))
-VS = {'N': 'clone_refs_mada8_wav', 'TH': 'thien_minh', 'K': 'hai_dang', 'ME': 'mai_anh', 'GME': 'mai_anh', 'GTI': 'minh_duc'}
+VS = {'N': 'clone_refs_mada8_wav', 'TH': 'thai_son', 'K': 'adam', 'ME': 'my_duyen', 'GME': 'my_duyen', 'GTI': 'duc_tri'}
 FEM = {'ME', 'GME'}
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 MAP = {}
-for job in ('35_tranh_n', '36_tranh_th', '37_tranh_k', '38_tranh_me', '39_tranh_ti', '40_tranh_fix'):
+for job in ('35_tranh_n', '40_tranh_fix', '44_tr2_th', '45_tr2_k', '46_tr2_me', '47_tr2_ti'):
     jf = f'/home/claude/giong-doc/jobs/{job}.json'
     if not os.path.exists(jf): continue
     J = json.load(open(jf)); vd = slug(J['voices'][0])
@@ -22,7 +22,7 @@ def l_far(i): return S[i][0] in ('yard', 'call') and (i == 0 or S[i-1][0] != S[i
 def slow(c):
     d = tempfile.mkdtemp(); a = d + '/a.wav'; b = d + '/b.wav'
     wavfile.write(a, SR, (c / max(1e-9, np.abs(c).max()) * 0.9 * 32767).astype(np.int16))
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', a, '-af', f'asetrate={int(SR*0.92)},aresample={SR},atempo=0.82', b], check=True)
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', a, '-af', f'asetrate={int(SR*0.92)},aresample={SR},atempo=0.9', b], check=True)
     r, y = wavfile.read(b); y = y.astype(np.float64) / 32768
     return y if y.ndim == 1 else y.mean(1)
 real = all(sp.startswith('SFX') or (tx, VS[sp]) in MAP for _, sp, tx in S)
@@ -30,10 +30,16 @@ clips = []; low = []
 for i, (sh, sp, tx) in enumerate(S):
     if sp.startswith('SFX'): clips.append(np.zeros(int(SR * (3.4 if sp == 'SFX4' else 2.6)))); continue
     if not real: clips.append(np.zeros(int(SR * (len(tx.split()) * 0.32 + 0.3)))); continue
-    best = None
+    cands = []
     for f in MAP[(tx, VS[sp])]:
         r = difflib.SequenceMatcher(None, norm(tx), norm(open(f + '.txt').read() if os.path.exists(f + '.txt') else '')).ratio()
-        if best is None or r > best[0] + 0.02: best = (r, f)
+        cands.append((r, f))
+    top = max(c[0] for c in cands)
+    def expr(f):
+        x = P.trim(P.load(f + '.wav')); n = int(0.03 * SR); e = np.array([np.sqrt(np.mean(x[k:k+n]**2)) + 1e-6 for k in range(0, len(x) - n, n)])
+        e = 20 * np.log10(e); e = e[e > e.max() - 35]; return float(np.std(e)) if len(e) > 5 else 0
+    ok = [c for c in cands if c[0] >= top - 0.06]
+    best = max(ok, key=lambda c: expr(c[1]) + 10 * c[0]) if sp != 'N' else max(cands)
     if best[0] < 0.75: low.append((i, round(best[0], 2), tx[:40]))
     c = P.stretch_pauses(P.trim(P.load(best[1] + '.wav')), factor=1.3 if sp not in FEM else 1.2, extra=0.05)
     if sp in ('GTI', 'GME'): c = ghost(slow(c), 'far' if l_far(i) else 'ghost')

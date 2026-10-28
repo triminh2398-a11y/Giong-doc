@@ -1,0 +1,40 @@
+hook|N|Nếu đêm khuya trong rừng, bạn nghe người thân đã chết gọi tên mình, thì tuyệt đối đừng trả lời.
+hook2|N|Vì đó có thể là ma trành. Và phía sau nó, là một con cọp.
+title|N|Ma trành. Hồn người dẫn cọp về làng.
+village|N|Ngày xưa, ở một làng nhỏ dưới chân núi Khánh Hòa, người ta truyền nhau câu: cọp Khánh Hòa, ma Bình Thuận.
+shrine|N|Dân làng không ai dám gọi thẳng tên con cọp. Họ chỉ kính cẩn gọi là ông Ba Mươi.
+loss|N|Mùa khô năm ấy, anh Tín vào rừng lấy mật ong, rồi không bao giờ trở về.
+clothes|N|Người ta chỉ tìm thấy bộ quần áo của anh, xếp gọn gàng bên bờ suối.
+prints|N|Cạnh đó là những dấu chân cọp, to bằng cái nón lá.
+oldman|N|Ông Sáu, người thợ săn già nhất làng, nhìn bộ quần áo rồi lắc đầu.
+oldman|TH|Cọp đâu có biết cởi áo người ta... Là trành làm đó!
+procession|TH|Người bị cọp vồ, hồn hổng siêu thoát được... phải làm trành, dẫn đường cho nó.
+procession|TH|Muốn đi đầu thai, trành phải dụ được một người khác... chết thế.
+oldman2|TH|Mà nó luôn tìm về... người thân nhất.
+stilt|N|Em trai của Tín là Tâm, sống với mẹ trong căn nhà sàn cuối làng.
+stilt|N|Đêm thứ bảy sau khi anh mất, Tâm nghe có tiếng gọi ngoài sân.
+yard|GTI|Tâm ơi... Anh về rồi nè...
+yard|GTI|Mở cửa cho anh... Ngoài này... lạnh quá...
+mom|N|Mẹ Tâm bật dậy, nước mắt giàn giụa.
+mom|ME|Thằng Tín! Con tui về rồi!
+hold|K|Má ơi, đừng! Anh Tín chết rồi mà!
+hold|N|Tâm giữ chặt mẹ, không cho bà mở cửa, cho đến khi gà gáy.
+tracks|N|Sáng ra, quanh nhà sàn có hai hàng dấu chân.
+tracks|N|Một hàng là chân cọp. Một hàng là chân người, đi trước, không mang dép.
+warn|TH|Nó tìm ra nhà rồi đó. Đêm nay, ai kêu cũng đừng có trả lời!
+ash|N|Chiều đó, ông Sáu rải tro bếp quanh nhà, rồi ôm cây giáo ngồi canh ngoài hiên.
+sleep|N|Tâm thức trắng, nhưng gần sáng thì thiếp đi lúc nào không hay.
+wake|N|Cậu giật mình tỉnh giấc, vì một cơn gió lạnh buốt.
+empty|N|Cánh cửa nhà mở toang. Chỗ mẹ nằm đã trống không.
+three|N|Ngoài ngõ, trên lớp tro bếp, có ba hàng dấu chân.
+three|N|Chân cọp, chân anh Tín, và chân của mẹ.
+porch|N|Ông Sáu ngồi gục bên hiên, ngủ say như bị bỏ bùa.
+clothes2|N|Bên bờ suối, bộ quần áo của mẹ được xếp gọn gàng, giống hệt của anh Tín.
+inside|N|Từ đó, Tâm không bao giờ ra khỏi nhà khi trời tối.
+inside|N|Vì đêm nào, ngoài ngõ cũng có tiếng gọi.
+call|GME|Tâm ơi... Má đây...
+call|GME|Ra đây... với má đi con...
+free|N|Anh Tín bây giờ đã được đi đầu thai.
+final|N|Còn trành mới của ông Ba Mươi, đang đứng ngoài ngõ, gọi chính con trai mình.
+cta|N|Nếu là bạn, nghe giọng mẹ gọi giữa đêm, bạn có ra không?
+cta|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ để nghe truyện ma mỗi ngày.
