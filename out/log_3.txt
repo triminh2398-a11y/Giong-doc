@@ -322,3 +322,11 @@ loaded V3TurboVieNeuTTS
 40_tranh_fix clone:refs/mada8.wav 7 ok 1.7
 40_tranh_fix clone:refs/mada8.wav 11 ok 1.8
 40_tranh_fix asr ok
+loaded V3TurboVieNeuTTS
+41_whatif_mau Minh Đức 3 ok 4.3
+41_whatif_mau Minh Đức 7 ok 6.3
+41_whatif_mau Minh Đức 11 ok 3.2
+41_whatif_mau Hải Đăng 3 ok 3.6
+41_whatif_mau Hải Đăng 7 ok 4.7
+41_whatif_mau Hải Đăng 11 ok 2.5
+41_whatif_mau asr ok
