@@ -55,3 +55,9 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Giọng ma (mã G*): kéo chậm ~0.78x và hạ trầm (asetrate 0.92 + atempo 0.82) TRƯỚC khi áp ghostfx — xem hàm slow() trong build_tr.py.
 - Bối cảnh 2.5D phải đầy đủ đồ vật (hàng rào, chum, rơm, gà, bụi chuối, cỏ; trong nhà: chum nước, bao gạo, rổ, dây phơi, mùng, nhang).
 - Jumpscare phải GIẬT MÌNH: 0,7s trước đó hạ nền gần im lặng, rồi track jumpscare riêng (788 impact + 1963 monster scream + 677 glass hit + 565 drum) cộng SAU loudnorm, +5dB, alimiter 0.98 (xem audio_real.py: JT, jump_real.wav). Tiêu đề lớn phải tự co cỡ chữ cho vừa khung (đo measureText, rộng tối đa ~85% khung).
+
+## Giọng thoại MIỀN NAM + biểu cảm (chủ kênh 28/10, thay bảng giọng cũ cho THOẠI; dẫn truyện vẫn MaDa)
+- Nam trẻ (Tâm…): **Adam** (Nam·Nam·tự nhiên). Nam già/thầy/ông (ông Sáu…): **Thái Sơn** (Nam·Nam·kể chuyện). Ma nam / nam trầm: **Đức Trí** (Nam·Nam·đọc truyện). Nam trung niên khác: **Minh Triết**.
+- Nữ: **Mỹ Duyên** (chủ kênh chọn) cho nhân vật nữ chính, mẹ, ma nữ. Nữ khác: **Kim Thanh**, **Thục Đoan**, **Thùy Dung** (đều miền Nam).
+- Lời thoại viết theo khẩu ngữ miền Nam (tui, má, hổng, kêu, đâu có…, nè, đó). Dùng dấu "..." để ngắt nhấn, "!" khi hốt hoảng/quả quyết; có thể chèn [thở dài] / [cười] (VieNeu hiểu các thẻ này).
+- Mỗi câu thoại 5 bản, kw temperature 1.1; chọn bản có ASR gần cao nhất (trong 0.06) VÀ biến thiên năng lượng lớn nhất (biểu cảm) — xem build_tr.py.
