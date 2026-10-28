@@ -7,27 +7,25 @@
 | YouTube T1 | Quỷ Nhập Tràng (hai đêm canh xác) | cấm kỵ / ma | 2026-10-27 | pipeline/ep01_quy_nhap_trang |
 | TikTok | Tiếng gõ cửa lúc 3 giờ sáng (gõ 4 tiếng là ma) | lời đồn | 2026-10-28 | pipeline/tiktok_go_cua_malai (bản đăng, nét Ma Lai) |
 
-## Ý tưởng YouTube (chọn theo thứ tự, xoay vòng chủ đề; không trùng truyện TikTok)
-1. Ngải gọi hồn — bùa ngải Tây Nguyên (bùa ngải)
-2. Huýt sáo ban đêm — điều cấm kỵ (cấm kỵ)
-3. Trùng tang — giờ trùng, hình nhân thế mạng (ma làng quê)
-4. Thư ếm đất — hũ sành chôn dưới nền nhà (bùa ngải)
-5. Gương đối diện giường (cấm kỵ)
-6. Ma da — trưa nắng đừng ra sông (ma làng quê)
-7. Đám cưới ma / minh hôn (cấm kỵ)
-8. Ma gà Tây Bắc (bùa ngải)
-9. Ma trành — hồn người bị hổ vồ (ma làng quê)
-10. Tháng cô hồn — những điều kiêng tháng bảy (cấm kỵ)
-11. Ngải yêu (bùa ngải)
-12. Ma giếng làng (ma làng quê)
+## QUY TẮC CHỌN TRUYỆN (chủ kênh 28/10: "chuyện đại trà đơn giản quá, mấy chuyện ít ai kể á")
+- KHÔNG làm kiểu lời đồn chung chung (gõ cửa, võng đung đưa, xe đò đêm, búp bê, nhà ma…) — kênh nào cũng có.
+- Ưu tiên tín ngưỡng/ma ÍT AI KỂ, có gốc dân gian cụ thể theo vùng hoặc dân tộc: tên con ma, tục lệ, luật lệ riêng, vùng đất cụ thể. Chi tiết dân tộc học thật làm truyện "lạ" và đáng tin.
+- Trước khi viết: tìm nguồn (WebSearch) để nắm đúng tục lệ, rồi tự hư cấu cốt truyện nhân vật riêng.
 
-## Ý tưởng TikTok (truyện ngắn 3–4 phút, khác YouTube)
-- Bóng người ở bến đò đêm
-- Cái võng tự đung đưa
-- Chiếc lược trên mộ
-- Đứa trẻ chơi một mình ngoài sân lúc nửa đêm
-- Người đàn bà gánh hàng trên đường làng không có bóng
-- Ngôi nhà ai mua cũng bán lại sau 3 tháng
-- Con búp bê trong hũ sành
-- Chuyến xe đò đêm cuối cùng
-- Lời nguyền cây đa đầu làng
+## Kho truyện ít ai kể (dùng chung YouTube + TikTok, gạch đi khi làm)
+1. Ma trành — hồn người bị hổ vồ thành nô lệ dẫn hổ về bắt người thân (rừng Trường Sơn)
+2. Con ranh con lộn — đứa con sinh ra rồi chết đi, đầu thai lại nhiều lần để đòi nợ mẹ; tục đánh dấu xác con
+3. Ma Hời giữ của — người bị yểm sống canh kho báu Chăm; kẻ đào trộm bị theo (Bình Thuận, Ninh Thuận)
+4. Thần giữ của — đứa trẻ bị yểm trong hầm của, chủ nhân đời sau phải "thả" đúng cách
+5. Ma cà rồng Tây Bắc — người trong bản bị nghi "có ma", đêm hồn rời xác đi hút máu, cả bản xua đuổi
+6. Ma gà (cầm ma) — nhà bị gán nuôi ma gà, con gái không ai dám cưới
+7. Bỏ mả Tây Nguyên — sau lễ bỏ mả tuyệt đối không quay lại nhà mồ; tượng gỗ nhà mồ
+8. Ngải Thất Sơn — nuôi ngải trên núi Cấm, ngải "đòi ăn" khi chủ bỏ bê
+9. Ma xó — vong người nhà ngồi ở góc bếp, phải cúng đúng ngày
+10. Cây gạo đầu làng — vì sao không ai trồng gạo trong vườn, hồn đậu trên cây gạo
+11. Thuồng luồng đòi người — khúc sông mỗi năm phải mất một người
+12. Trùng tang liên hoàn — giờ trùng, hình nhân thế mạng, bùa trấn trong quan tài
+13. Minh hôn — cưới vợ cho người đã chết, "cô dâu" là người sống
+14. Ma rú Nghệ Tĩnh — tiếng hú trong rú (rừng) gọi đúng tên người
+
+(Các danh sách ý tưởng cũ đã bỏ vì quá đại trà.)
