@@ -4,23 +4,21 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-ma-tranh
++ TAG=whatif-ngung-quay
 ++ jq -r .html job.json
-+ HTML=tr.html
++ HTML=wi2/index.html
 ++ jq -r .frames job.json
-+ N=5300
++ N=1800
 + S=16
-+ A=662
-+ B=993
++ A=225
++ B=337
 ++ printf %02d 2
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js tr.html seg_02.mp4 662 993 1080 1920
++ node render_seg.js wi2/index.html seg_02.mp4 225 337 720 1280
 + sleep 4
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-ma-tranh
-+ gh release create tiktok-ma-tranh -t tiktok-ma-tranh -n render
-https://github.com/triminh2398-a11y/Giong-doc/releases/tag/tiktok-ma-tranh
++ gh release view whatif-ngung-quay
 ++ printf %02d 2
-+ gh release upload tiktok-ma-tranh seg_02.mp4 --clobber
++ gh release upload whatif-ngung-quay seg_02.mp4 --clobber
 + break
