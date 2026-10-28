@@ -48,3 +48,9 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - MỌI video (TikTok, YouTube, Shorts) phải có watermark mờ `@chuyendongtaykimco` (độ mờ ~16%, chữ trắng viền đen nhẹ, nghiêng nhẹ), ĐỔI VỊ TRÍ mỗi 6 giây (4 vị trí luân phiên giữa màn hình) để khó cắt bỏ. Mẫu ffmpeg drawtext trong pipeline/tiktok_ma_tranh/watermark.sh; với video vẽ bằng canvas thì vẽ trực tiếp (hàm watermark trong pipeline/mau_25d/index.html).
 - Phụ đề: GIỮ kiểu video Ma Lai (cả câu/cụm chữ, chữ đậm trắng viền đen dày, ở phần dưới màn hình; màu theo người nói: dẫn truyện trắng, ma đỏ #ff5050, nữ hồng, nam vàng). KHÔNG dùng kiểu hiện từng chữ to.
 - Hướng 2.5D (nhân vật nét Ma Lai đặt trong bối cảnh 3D có đánh đèn) đang chờ chủ kênh duyệt — mẫu ở pipeline/mau_25d/.
+
+## Âm thanh hiệu ứng THẬT (chủ kênh 28/10: "hiệu ứng nghe tít tít như game", "lấy âm thanh hiệu ứng thật")
+- KHÔNG tự tổng hợp tiếng (sin/noise) nữa. Dùng kho `sfxlib/` (≈500 file Mixkit, Mixkit Free License: dùng được trong video kiếm tiền, không cần ghi nguồn). Tên từng file trong `sfxlib/titles.json` (id → nhóm, tên). Muốn thêm: sửa `sfxlib/job.json` (danh mục mixkit) và push → workflow `tai-am-thanh`.
+- Mẫu ghép: `pipeline/tiktok_ma_tranh_25d/audio_real.py` (bed() phủ nền theo cảnh, place() đặt hiệu ứng). Jumpscare = 565 (trống) + 307/1965 (sinh vật rít). Cọp = 59/13/1957. Đêm = 2483/1227/2481/2475. Trong nhà = 1172 + 1330. Ngày làng = 1235 + 2462 (gà gáy).
+- Giọng ma (mã G*): kéo chậm ~0.78x và hạ trầm (asetrate 0.92 + atempo 0.82) TRƯỚC khi áp ghostfx — xem hàm slow() trong build_tr.py.
+- Bối cảnh 2.5D phải đầy đủ đồ vật (hàng rào, chum, rơm, gà, bụi chuối, cỏ; trong nhà: chum nước, bao gạo, rổ, dây phơi, mùng, nhang).
