@@ -1,0 +1,233 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{position:absolute;left:0;top:0}</style>
+<script>
+// 2D card painter shares the Ma Lai drawing library (expects globals W,H,cv,ctx,TL)
+const W=1080,H=1920;const cv=document.createElement('canvas');cv.width=512;cv.height=1024;let ctx=cv.getContext('2d');
+const TL={scenes:[],subs:[],dur:20};const L_=(ls,i,d=0)=>ls[i]??d;
+</script>
+<script src="helpers.js"></script><script src="shots.js"></script><script src="shots_tr.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script></head><body>
+<script type="module">
+import * as THREE from 'three';
+const RW=720,RH=1280;const T0=0;
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(1);renderer.setSize(RW,RH);
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;renderer.outputColorSpace=THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+const ov=document.createElement('canvas');ov.width=RW;ov.height=RH;document.body.appendChild(ov);const g2=ov.getContext('2d');
+const cam=new THREE.PerspectiveCamera(45,RW/RH,0.05,300);
+const R=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)};
+// ---------- textures ----------
+function ctex(w,h,fn,rep){const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;if(rep){t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rep[0],rep[1])}t.anisotropy=8;return t}
+const plank=(base,rep)=>ctex(512,512,(g,w,h)=>{g.fillStyle=base;g.fillRect(0,0,w,h);const n=8;for(let i=0;i<n;i++){const y=i*h/n;const k=R(i+3);g.fillStyle=`rgba(${k>0.5?255:0},${k>0.5?220:0},${k>0.5?180:0},${0.04+R(i)*0.06})`;g.fillRect(0,y,w,h/n);g.fillStyle='rgba(0,0,0,.45)';g.fillRect(0,y,w,3);
+ for(let j=0;j<40;j++){g.strokeStyle=`rgba(0,0,0,${0.06+R(i*50+j)*0.08})`;g.lineWidth=1+R(j)*2;g.beginPath();const yy=y+R(i*7+j)*h/n;g.moveTo(0,yy);g.bezierCurveTo(w*0.3,yy+(R(j)-0.5)*8,w*0.7,yy+(R(j+1)-0.5)*8,w,yy+(R(j+2)-0.5)*6);g.stroke()}
+ for(let j=0;j<2;j++){g.fillStyle='rgba(30,18,8,.5)';g.beginPath();g.ellipse(R(i*9+j)*w,y+h/n/2,10,5,0,0,7);g.fill()}}},rep);
+const floorT=plank('#6b4a2c',[3,3]),wallT=plank('#5a3f26',[2,2]);wallT.rotation=Math.PI/2;
+const bambooT=ctex(512,512,(g,w,h)=>{g.fillStyle='#7d6a44';g.fillRect(0,0,w,h);for(let i=0;i<w;i+=32){g.fillStyle=`rgba(0,0,0,${0.15+R(i)*0.15})`;g.fillRect(i,0,4,h);g.fillStyle='rgba(255,240,200,.08)';g.fillRect(i+6,0,10,h)}for(let k=0;k<200;k++){g.strokeStyle='rgba(40,28,10,.25)';g.beginPath();const x=R(k)*w,y=R(k+1)*h;g.moveTo(x,y);g.lineTo(x+(R(k+2)-0.5)*30,y+20);g.stroke()}},[3,2]);
+const thatchT=ctex(512,512,(g,w,h)=>{g.fillStyle='#5c4a2a';g.fillRect(0,0,w,h);for(let k=0;k<2500;k++){g.strokeStyle=`rgba(${R(k)>0.5?160:30},${R(k)>0.5?130:22},${R(k)>0.5?70:10},.35)`;g.lineWidth=1.5;const x=R(k*3)*w,y=R(k*5)*h;g.beginPath();g.moveTo(x,y);g.lineTo(x+(R(k)-0.5)*10,y+30+R(k+7)*30);g.stroke()}},[6,3]);
+const dustTex=ctex(64,64,(g)=>{const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,64,64)});
+const M=o=>new THREE.MeshStandardMaterial(Object.assign({roughness:0.9,metalness:0},o));
+function box(w,h,d,m,x,y,z,par,cast=true){const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);b.position.set(x,y,z);b.castShadow=cast;b.receiveShadow=true;par.add(b);return b}
+// ---------- character cards ----------
+function card(h,draw){const c=document.createElement('canvas');c.width=512;c.height=1024;const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;
+ const mat=new THREE.MeshStandardMaterial({map:t,transparent:true,alphaTest:0.4,side:THREE.DoubleSide,roughness:1});const m=new THREE.Mesh(new THREE.PlaneGeometry(h*0.5,h),mat);m.castShadow=true;m.receiveShadow=false;
+ m.customDepthMaterial=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,map:t,alphaTest:0.4});
+ m.userData.paint=(T)=>{const old=ctx;ctx=c.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,512,1024);draw(T);ctx=old;t.needsUpdate=true};return m}
+// ================= SCENE 1: interior of stilt house =================
+const inn=new THREE.Scene();inn.background=new THREE.Color(0x07080c);inn.fog=new THREE.FogExp2(0x0b0d12,0.05);
+box(9,0.2,8,M({map:floorT}),0,-0.1,0,inn);
+const back=box(9,4,0.2,M({map:bambooT,color:0x9a8a70}),0,2,-3.6,inn);const left=box(0.2,4,8,M({map:bambooT,color:0x9a8a70}),-4.4,2,0,inn);
+// right wall with door opening
+box(0.2,4,3.2,M({map:bambooT,color:0x9a8a70}),4.4,2,-2.2,inn);box(0.2,4,3.2,M({map:bambooT,color:0x9a8a70}),4.4,2,2.6,inn);box(0.2,1.2,1.6,M({map:bambooT,color:0x9a8a70}),4.4,3.4,0.2,inn);
+// door made of planks with gaps
+const doorG=new THREE.Group();inn.add(doorG);doorG.position.y=0.14;for(let i=0;i<6;i++){box(0.08,2.75,0.24,M({map:floorT,color:0x8a6a48}),4.38,1.375,-0.42+i*0.255,doorG)}box(0.1,0.12,1.6,M({color:0x3a2a18}),4.33,0.7,0.2,doorG);box(0.1,0.12,1.6,M({color:0x3a2a18}),4.33,2.1,0.2,doorG);
+// roof beams
+for(let i=-3;i<=3;i++)box(0.18,0.22,8.2,M({color:0x3a2818}),i*1.3,3.9,0,inn);box(9,0.25,0.25,M({color:0x3a2818}),0,3.75,-3.4,inn);
+// window on back wall (moonlight)
+box(1.6,0.12,0.3,M({color:0x3a2818}),-1.8,2.9,-3.5,inn);box(1.6,0.12,0.3,M({color:0x3a2818}),-1.8,1.7,-3.5,inn);for(let i=0;i<5;i++)box(0.06,1.2,0.12,M({color:0x3a2818}),-2.5+i*0.35,2.3,-3.5,inn);
+const winHole=new THREE.Mesh(new THREE.PlaneGeometry(1.5,1.1),new THREE.MeshBasicMaterial({color:0x22324a}));winHole.position.set(-1.8,2.3,-3.48);inn.add(winHole);back.material=back.material.clone();
+// mat, pillow, blanket, items
+const mat=box(2.6,0.03,1.8,M({color:0xa08a5a,map:bambooT}),-0.6,0.02,-0.6,inn);
+box(0.9,0.18,0.4,M({color:0xd8d0bc}),-1.6,0.12,-1.2,inn);
+box(1.6,0.06,0.9,M({color:0x4a5a72}),-0.7,0.06,-1.0,inn);
+// jars, altar shelf with photo
+box(1.4,0.08,0.4,M({color:0x3a2818}),2.2,1.9,-3.35,inn);const photo=box(0.35,0.45,0.04,M({color:0x222222}),2.2,2.18,-3.3,inn);
+for(let i=0;i<3;i++){const j=new THREE.Mesh(new THREE.SphereGeometry(0.22+R(i)*0.1,16,12),M({color:0x5a4030,roughness:0.6}));j.scale.y=1.2;j.position.set(-3.6+i*0.55,0.25,-3);j.castShadow=true;inn.add(j)}
+// oil lamp
+const lampG=new THREE.Group();inn.add(lampG);lampG.position.set(0.9,0,-0.3);
+{const b=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.13,0.12,16),M({color:0x6a5030,roughness:0.5,metalness:0.3}));b.position.y=0.06;const gl=new THREE.Mesh(new THREE.SphereGeometry(0.11,16,12),new THREE.MeshStandardMaterial({color:0xffe0a0,transparent:true,opacity:0.35,roughness:0.1}));gl.scale.y=1.6;gl.position.y=0.3;
+ const fl=new THREE.Mesh(new THREE.SphereGeometry(0.035,10,8),new THREE.MeshBasicMaterial({color:0xffd27a}));fl.scale.y=1.8;fl.position.y=0.28;lampG.add(b,gl,fl);lampG.userData.fl=fl}
+const lampL=new THREE.PointLight(0xffa850,14,9,1.6);lampL.position.set(0.9,0.45,-0.3);lampL.castShadow=true;lampL.shadow.mapSize.set(1024,1024);lampL.shadow.bias=-0.002;inn.add(lampL);
+const moonL=new THREE.SpotLight(0x8fb0ff,40,14,0.35,0.6,1.2);moonL.position.set(-1.8,3.2,-6);moonL.target.position.set(-0.5,0,0.5);moonL.castShadow=true;inn.add(moonL,moonL.target);
+const doorL=new THREE.SpotLight(0x9ab8ff,0,10,0.5,0.5,1);doorL.position.set(7,1.6,0.2);doorL.target.position.set(1,0,0.2);doorL.castShadow=true;doorL.shadow.mapSize.set(1024,1024);inn.add(doorL,doorL.target);
+inn.add(new THREE.AmbientLight(0x1a2030,0.6));
+// dust motes in moon beam
+const motes=[];for(let i=0;i<70;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTex,color:0xbcd0ff,transparent:true,opacity:0.5,depthWrite:false}));s.scale.setScalar(0.03+R(i)*0.03);inn.add(s);motes.push(s)}
+// cards: Tâm hugging knees, mother sleeping (lying card on floor)
+const TAMc=card(1.75,(T)=>{});inn.add(TAMc);
+let tamOpt={eyes:1,look:0};
+TAMc.userData.paint=((orig)=>(T)=>{const c=TAMc.material.map.image;const g=c.getContext('2d');const old=ctx;ctx=g;ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,512,1024);
+ // seated: hug knees pose built from shots_tr huddle2 but with custom eyes/look
+if(tamOpt.back){person(256,1180,2.2,{shirt:'#35485a',pants:'#22252b',sit:true,back:true});ctx=old;TAMc.material.map.needsUpdate=true;return}
+ ctx.save();ctx.beginPath();ctx.rect(0,0,512,960);ctx.clip();person(256,960+100*2.2,2.2,{shirt:'#35485a',pants:'#22252b',sit:true,eyes:tamOpt.eyes,pupil:2.4,look:tamOpt.look,sweat:tamOpt.sweat,mouth:tamOpt.mouth,armA:[-0.45,0.45]});ctx.restore();
+ ctx.save();ctx.translate(256,960);ctx.scale(2.2,2.2);for(const sd of [-1,1]){ctx.save();ctx.translate(sd*24,0);ctx.rotate(sd*0.08);ctx.fillStyle='#22252b';ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.beginPath();ctx.roundRect(-20,-100,40,100,18);ctx.fill();ctx.stroke();ctx.restore()}ctx.restore();
+ for(const sd of [-1,1])circ(256+sd*20*2.2,960-96*2.2,10*2.2,SKIN,INK,3);ctx=old;TAMc.material.map.needsUpdate=true})();
+TAMc.position.set(0.15,0.86,-0.1);
+const MOMc=card(1.7,(T)=>{woman(256,1000,2.4,{shirt:'#5a4636',pants:'#1c1c20',closed:true,eyes:0.05,smile:false})});MOMc.rotation.set(-Math.PI/2,0,Math.PI/2);MOMc.position.set(-1.0,0.06,-1.05);MOMc.userData.paint(0);
+// ================= SCENE 2: exterior night =================
+const ext=new THREE.Scene();ext.background=new THREE.Color(0x0a1220);ext.fog=new THREE.FogExp2(0x1a2638,0.045);
+const skyM=new THREE.Mesh(new THREE.SphereGeometry(120,32,16),new THREE.MeshBasicMaterial({side:THREE.BackSide,fog:false,map:ctex(512,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#02040a');gr.addColorStop(0.55,'#14223a');gr.addColorStop(1,'#2a3a52');g.fillStyle=gr;g.fillRect(0,0,w,h);for(let i=0;i<300;i++){g.fillStyle=`rgba(255,255,255,${R(i)*0.8})`;g.fillRect(R(i*3)*w,R(i*5)*h*0.5,1,1)}})}));ext.add(skyM);
+const moon=new THREE.Mesh(new THREE.SphereGeometry(2.2,24,16),new THREE.MeshBasicMaterial({color:0xf2f0e2,fog:false}));moon.position.set(-25,32,-70);ext.add(moon);
+const grd=new THREE.Mesh(new THREE.PlaneGeometry(200,200),M({color:0x2a2a1e}));grd.rotation.x=-Math.PI/2;grd.receiveShadow=true;ext.add(grd);
+// stilt house
+const house=new THREE.Group();ext.add(house);
+for(const x of [-3.2,-1,1,3.2])for(const z of [-2,2]){const p=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.14,2.2,10),M({color:0x3a2a1a}));p.position.set(x,1.1,z);p.castShadow=true;house.add(p)}
+box(7.2,0.25,4.6,M({map:floorT}),0,2.2,0,house);box(7,2.6,4.4,M({map:bambooT,color:0x8a7a60}),0,3.6,0,house);
+const roofG=new THREE.Group();house.add(roofG);for(const sd of [-1,1]){const r=new THREE.Mesh(new THREE.BoxGeometry(8.2,0.25,3.4),M({map:thatchT}));r.position.set(0,5.6,sd*1.25);r.rotation.x=sd*0.62;r.castShadow=true;roofG.add(r)}
+const warmM=new THREE.MeshBasicMaterial({color:0xffb860});for(const x of [-2,2]){const w=new THREE.Mesh(new THREE.PlaneGeometry(1.1,0.9),warmM);w.position.set(x,3.7,2.21);house.add(w)}
+const winGlow=new THREE.PointLight(0xffa850,10,10,1.5);winGlow.position.set(0,3.6,3);house.add(winGlow);
+// stairs
+for(let i=0;i<7;i++)box(1.2,0.08,0.3,M({color:0x4a3420}),0,0.3*i+0.2,3.2-i*0.18,house);
+house.position.set(4,0,-6);
+// bamboo clusters (cards)
+const bambooCard=(seed)=>{const c=document.createElement('canvas');c.width=256;c.height=1024;const g=c.getContext('2d');const old=ctx;ctx=g;bamboo(40,1024,5,900,0,seed,'#0e1a16');ctx=old;const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;const m=new THREE.Mesh(new THREE.PlaneGeometry(3,12),new THREE.MeshStandardMaterial({map:t,transparent:true,alphaTest:0.3,side:THREE.DoubleSide}));m.castShadow=true;return m};
+for(let i=0;i<9;i++){const b=bambooCard(i+2);b.position.set(-12+i*3+R(i)*2,6,-14-R(i+3)*6);ext.add(b)}
+for(let i=0;i<4;i++){const b=bambooCard(i+20);b.position.set(-9+R(i)*3,6,-2-i*2.5);ext.add(b)}
+const moonDir=new THREE.DirectionalLight(0x9ab4ff,2.2);moonDir.position.set(-20,25,-10);moonDir.castShadow=true;moonDir.shadow.mapSize.set(2048,2048);Object.assign(moonDir.shadow.camera,{left:-15,right:15,top:15,bottom:-15,far:80});ext.add(moonDir);ext.add(new THREE.HemisphereLight(0x3a4a6a,0x101010,0.7));
+// trành card + tiger eyes
+const TRc=card(1.9,(T)=>{tranh(256,1000,2.3,T,{beckon:true,a:1})});TRc.position.set(-1.5,0.95,0.5);ext.add(TRc);
+TRc.material.emissive=new THREE.Color(0x6a9a90);TRc.material.emissiveMap=TRc.material.map;TRc.material.emissiveIntensity=0.35;
+const eyes=[];for(const sd of [-1,1]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.07,12,8),new THREE.MeshBasicMaterial({color:0xffd23a}));e.scale.set(1.4,0.6,1);e.position.set(-5.2+sd*0.22,0.9,-5);ext.add(e);eyes.push(e)}
+const eyeL=new THREE.PointLight(0xffc040,2,3,2);eyeL.position.set(-5.2,0.9,-4.8);ext.add(eyeL);
+const fogS=[];for(let i=0;i<40;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTex,color:0x9aaac0,transparent:true,opacity:0.12,depthWrite:false}));s.scale.set(8,2.5,1);s.position.set(-15+R(i)*30,0.6+R(i+1)*0.8,-12+R(i+2)*16);ext.add(s);fogS.push(s)}
+// trành visible through door gaps (inside scene): a dark silhouette card outside the door
+const SILc=card(1.9,(T)=>{tranh(256,1000,2.3,T,{beckon:false,a:1})});SILc.position.set(5.3,0.95,0.2);SILc.rotation.y=-Math.PI/2;SILc.material.color=new THREE.Color(0x111111);inn.add(SILc);
+
+// ================= extra sets =================
+const TLD={"scenes": [["hook", 0, 6.526, [0.4]], ["hook2", 6.526, 11.866, [0.2]], ["title", 11.866, 14.805, [0.2]], ["village", 14.805, 22.017, [0.2]], ["shrine", 22.017, 27.701, [0.2]], ["loss", 27.701, 33.154, [0.2]], ["clothes", 33.154, 38.284, [0.2]], ["prints", 38.284, 42.186, [0.2]], ["oldman", 42.186, 50.345, [0.2, 4.84]], ["procession", 50.345, 58.449, [0.2, 4.48]], ["oldman2", 58.449, 60.769, [0.2]], ["stilt", 60.769, 70.003, [0.2, 5.06]], ["yard", 70.003, 81.651, [0.2, 5.33]], ["mom", 81.651, 86.65, [0.2, 2.76]], ["hold", 86.65, 93.871, [0.2, 2.73]], ["tracks", 93.871, 101.963, [0.2, 3.64]], ["warn", 101.963, 105.95, [0.2]], ["ash", 105.95, 111.45, [0.2]], ["sleep", 111.45, 115.734, [0.2]], ["wake", 115.734, 119.75, [0.2]], ["empty", 119.75, 124.072, [0.2]], ["three", 124.072, 131.634, [0.2, 4.08]], ["porch", 131.634, 135.413, [0.2]], ["clothes2", 135.413, 140.97, [0.2]], ["inside", 140.97, 148.082, [0.2, 4.17]], ["call", 148.082, 157.549, [0.2, 4.54]], ["free", 157.549, 160.9, [0.2]], ["final", 160.9, 166.228, [0.2]], ["cta", 166.228, 176.669, [0.2, 4.0]]], "subs": [[0.43, 1.98, "Nếu đêm khuya trong rừng,", "N"], [1.98, 4.04, "bạn nghe người thân đã chết gọi tên", "N"], [4.04, 6.0, "mình, thì tuyệt đối đừng trả lời.", "N"], [6.76, 8.59, "Vì đó có thể là ma trành.", "N"], [8.59, 9.81, "Và phía sau nó,", "N"], [9.81, 11.04, "là một con cọp.", "N"], [12.1, 14.27, "Ma trành. Hồn người dẫn cọp về làng.", "N"], [15.03, 17.1, "Ngày xưa, ở một làng nhỏ dưới chân", "N"], [17.1, 18.1, "núi Khánh Hòa,", "N"], [18.1, 20.48, "người ta truyền nhau câu: cọp Khánh Hòa,", "N"], [20.48, 21.49, "ma Bình Thuận.", "N"], [22.25, 24.36, "Dân làng không ai dám gọi thẳng tên", "N"], [24.36, 26.27, "con cọp. Họ chỉ kính cẩn gọi là", "N"], [26.27, 27.17, "ông Ba Mươi.", "N"], [27.93, 29.05, "Mùa khô năm ấy,", "N"], [29.05, 30.95, "anh Tín vào rừng lấy mật ong,", "N"], [30.95, 32.62, "rồi không bao giờ trở về.", "N"], [33.38, 35.51, "Người ta chỉ tìm thấy bộ quần áo", "N"], [35.51, 37.75, "của anh, xếp gọn gàng bên bờ suối.", "N"], [38.51, 40.38, "Cạnh đó là những dấu chân cọp,", "N"], [40.38, 41.66, "to bằng cái nón lá.", "N"], [42.42, 44.77, "Ông Sáu, người thợ săn già nhất làng,", "N"], [44.77, 46.62, "nhìn bộ quần áo rồi lắc đầu.", "N"], [47.06, 48.8, "“Cọp không biết cởi áo người ta.”", "TH"], [48.8, 49.82, "“Là trành làm đó.”", "TH"], [50.58, 51.54, "“Người bị cọp vồ,”", "TH"], [51.54, 52.72, "“hồn không siêu thoát,”", "TH"], [52.72, 54.41, "“phải làm trành dẫn đường cho nó.”", "TH"], [54.85, 55.96, "“Muốn được đi đầu thai,”", "TH"], [55.96, 57.92, "“trành phải dụ được một người khác chết thế.”", "TH"], [58.68, 60.24, "“Và nó luôn tìm về người thân nhất.”", "TH"], [61.0, 62.69, "Em trai của Tín là Tâm,", "N"], [62.69, 65.42, "sống với mẹ trong căn nhà sàn cuối làng.", "N"], [65.86, 67.56, "Đêm thứ bảy sau khi anh mất,", "N"], [67.56, 69.47, "Tâm nghe có tiếng gọi ngoài sân.", "N"], [70.23, 72.75, "“Tâm ơi. Anh về rồi nè.”", "GTI"], [75.36, 77.04, "“Mở cửa cho anh.”", "GTI"], [77.04, 79.05, "“Ngoài này lạnh quá.”", "GTI"], [81.88, 82.84, "Mẹ Tâm bật dậy,", "N"], [82.84, 84.0, "nước mắt giàn giụa.", "N"], [84.44, 86.12, "“Thằng Tín! Con tôi về rồi!”", "ME"], [86.88, 88.97, "“Mẹ ơi, đừng! Anh Tín chết rồi mà!”", "K"], [89.41, 90.59, "Tâm giữ chặt mẹ,", "N"], [90.59, 91.99, "không cho bà mở cửa,", "N"], [91.99, 93.34, "cho đến khi gà gáy.", "N"], [94.1, 97.1, "Sáng ra, quanh nhà sàn có hai hàng dấu chân.", "N"], [97.54, 98.75, "Một hàng là chân cọp.", "N"], [98.75, 100.04, "Một hàng là chân người,", "N"], [100.04, 101.43, "đi trước, không mang dép.", "N"], [102.19, 103.39, "“Nó tìm ra nhà rồi.”", "TH"], [103.39, 105.42, "“Đêm nay, ai gọi cũng đừng trả lời.”", "TH"], [106.18, 108.36, "Chiều đó, ông Sáu rải tro bếp quanh", "N"], [108.36, 110.92, "nhà, rồi ôm cây giáo ngồi canh ngoài hiên.", "N"], [111.68, 112.67, "Tâm thức trắng,", "N"], [112.67, 115.2, "nhưng gần sáng thì thiếp đi lúc nào không hay.", "N"], [115.96, 117.56, "Cậu giật mình tỉnh giấc,", "N"], [117.56, 119.22, "vì một cơn gió lạnh buốt.", "N"], [119.98, 121.64, "Cánh cửa nhà mở toang.", "N"], [121.64, 123.54, "Chỗ mẹ nằm đã trống không.", "N"], [124.3, 126.26, "Ngoài ngõ, trên lớp tro bếp,", "N"], [126.26, 127.74, "có ba hàng dấu chân.", "N"], [128.18, 129.88, "Chân cọp, chân anh Tín,", "N"], [129.88, 131.1, "và chân của mẹ.", "N"], [131.86, 133.48, "Ông Sáu ngồi gục bên hiên,", "N"], [133.48, 134.88, "ngủ say như bị bỏ bùa.", "N"], [135.64, 136.6, "Bên bờ suối,", "N"], [136.6, 138.58, "bộ quần áo của mẹ được xếp gọn", "N"], [138.58, 140.44, "gàng, giống hệt của anh Tín.", "N"], [141.2, 143.41, "Từ đó, Tâm không bao giờ ra khỏi", "N"], [143.41, 144.73, "nhà khi trời tối.", "N"], [145.17, 145.95, "Vì đêm nào,", "N"], [145.95, 147.55, "ngoài ngõ cũng có tiếng gọi.", "N"], [148.31, 150.2, "“Tâm ơi. Mẹ đây.”", "GME"], [152.66, 155.09, "“Ra đây với mẹ đi con.”", "GME"], [157.78, 160.07, "Anh Tín bây giờ đã được đi đầu thai.", "N"], [161.13, 162.93, "Còn trành mới của ông Ba Mươi,", "N"], [162.93, 164.21, "đang đứng ngoài ngõ,", "N"], [164.21, 165.7, "gọi chính con trai mình.", "N"], [166.46, 167.24, "Nếu là bạn,", "N"], [167.24, 168.8, "nghe giọng mẹ gọi giữa đêm,", "N"], [168.8, 169.82, "bạn có ra không?", "N"], [170.26, 171.42, "Để lại bình luận,", "N"], [171.42, 173.46, "và theo dõi Chuyện Đông Tây Kim Cổ", "N"], [173.46, 175.14, "để nghe truyện ma mỗi ngày.", "N"]], "dur": 176.67};
+// small thatched houses
+function hut(x,z,s,rot){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=rot||0;g.scale.setScalar(s);ext.add(g);box(4,2.2,3,M({map:bambooT,color:0x8a7a60}),0,1.1,0,g);for(const sd of [-1,1]){const r=new THREE.Mesh(new THREE.BoxGeometry(4.8,0.2,2.3),M({map:thatchT}));r.position.set(0,2.75,sd*0.85);r.rotation.x=sd*0.62;r.castShadow=true;g.add(r)}const d=box(0.9,1.5,0.05,M({color:0x2a1e14}),0,0.75,1.52,g);return g}
+hut(-9,-10,1,0.3);hut(-15,-3,0.9,0.8);hut(12,-15,1.1,-0.4);hut(-4,-16,0.8,0);
+// shrine (miếu ông Ba Mươi)
+const shrineG=new THREE.Group();shrineG.position.set(-5,0,-1.5);shrineG.rotation.y=0.5;ext.add(shrineG);
+box(1.6,0.5,1.2,M({color:0x9a958a}),0,0.25,0,shrineG);box(1.3,1.2,1.0,M({color:0xb8b0a0}),0,1.1,0,shrineG);
+{const r=new THREE.Mesh(new THREE.ConeGeometry(1.15,0.7,4),M({color:0x7a2a20}));r.position.y=2.05;r.rotation.y=Math.PI/4;r.castShadow=true;shrineG.add(r)}
+const tigPaint=ctex(256,256,(g,w,h)=>{g.fillStyle='#7a1e1a';g.fillRect(0,0,w,h);const old=ctx;ctx=g;tigerHead(128,130,0.62,0,{glow:false});ctx=old});tigPaint.colorSpace=THREE.SRGBColorSpace;
+{const p=new THREE.Mesh(new THREE.PlaneGeometry(0.8,0.8),M({map:tigPaint}));p.position.set(0,1.15,0.51);shrineG.add(p)}
+const incL=new THREE.PointLight(0xff7030,0,3,2);incL.position.set(-5,0.9,-0.8);ext.add(incL);
+// forest + stream region at x=60
+const FX=60;
+for(let i=0;i<14;i++){const b=bambooCard(i+40);b.position.set(FX-20+i*3+R(i+60)*2,6,-12-R(i+61)*4);ext.add(b)}
+for(let i=0;i<6;i++){const b=bambooCard(i+80);b.position.set(FX-14+i*5.5,6,4+R(i+70)*3);ext.add(b)}
+const stream=new THREE.Mesh(new THREE.PlaneGeometry(60,3.2),new THREE.MeshStandardMaterial({color:0x2a4a58,roughness:0.15,metalness:0.4}));stream.rotation.x=-Math.PI/2;stream.position.set(FX,0.02,-5);ext.add(stream);
+for(let i=0;i<10;i++){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(0.3+R(i+5)*0.4,0),M({color:0x6a6a62}));r.position.set(FX-10+i*2.2,0.15,-3.3-R(i)*0.4);r.castShadow=true;ext.add(r)}
+const path=new THREE.Mesh(new THREE.PlaneGeometry(2.2,40),M({color:0x5a4a32}));path.rotation.x=-Math.PI/2;path.position.set(FX-25,0.01,0);ext.add(path);
+function pileMesh(c1,c2){const g=new THREE.Group();box(0.9,0.12,0.6,M({color:c2}),0,0.06,0,g);box(0.8,0.12,0.55,M({color:c1}),0,0.18,0,g);box(0.2,0.04,0.2,M({color:0xd8d0c0}),0,0.26,0.15,g);return g}
+const PILE1=pileMesh(0x6a5a3a,0x2e2a22);PILE1.position.set(FX,0,-2.9);ext.add(PILE1);
+const PILE2=pileMesh(0x5a4636,0x1c1c20);PILE2.position.set(FX+1.2,0,-2.9);ext.add(PILE2);
+// generic cards
+function mk(h,fn){const m=card(h,()=>{});m.userData.o={};m.userData.paint=(T)=>{const c=m.material.map.image;const old=ctx;ctx=c.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,512,1024);fn(T,m.userData.o);ctx=old;m.material.map.needsUpdate=true};return m}
+const C={};
+C.tin=mk(2.0,(T,o)=>{person(256,1000,2.6,Object.assign({shirt:'#6a5a3a',pants:'#2e2a22',back:o.back,phase:T*6},o));if(o.back){ctx.save();ctx.translate(256,1000);ctx.scale(2.6,2.6);poly([[-38,-250],[38,-250],[30,-130],[-30,-130]],'#8a6a3a',INK,4);ctx.restore()}});
+C.sau=mk(2.0,(T,o)=>{sau(256,1000,2.6,o)});
+C.tam=mk(2.0,(T,o)=>{tam(256,1000,2.6,o)});
+C.me=mk(2.0,(T,o)=>{me(256,1000,2.6,o)});
+C.oldw=mk(2.0,(T,o)=>{woman(256,1000,2.6,{old:true,shirt:'#4a4038',back:true})});
+for(const k in C){C[k].visible=false;ext.add(C[k])}
+C.tig=mk(3.0,(T,o)=>{tigerHead(256,430,1.55,T,{snarl:o.snarl,vis:o.vis??1})});C.metr=mk(2.0,(T,o)=>{tranh(256,1000,2.3,T,{woman:true,beckon:true,a:1})});C.tr=mk(2.0,(T,o)=>{tranh(256,1000,2.3,T,{beckon:o.beckon,a:1})});
+for(const k of ['tig','metr','tr']){C[k].visible=false;ext.add(C[k])}C.metr.material.emissive=new THREE.Color(0x6a9a90);C.metr.material.emissiveMap=C.metr.material.map;C.metr.material.emissiveIntensity=0.35;C.tr.material.emissive=new THREE.Color(0x6a9a90);C.tr.material.emissiveMap=C.tr.material.map;C.tr.material.emissiveIntensity=0.35;C.tig.material.emissive=new THREE.Color(0x553311);C.tig.material.emissiveMap=C.tig.material.map;C.tig.material.emissiveIntensity=0.75;
+const CI={tam2:mk(2.0,(T,o)=>{tam(256,1000,2.6,o)}),me2:mk(2.0,(T,o)=>{me(256,1000,2.6,o)}),sau2:mk(2.0,(T,o)=>{sau(256,1000,2.6,o)})};for(const k in CI){CI[k].visible=false;inn.add(CI[k])}
+function put(c,x,z,o,par){c.visible=true;c.position.set(x,0.98,z);c.userData.o=o||{};c.userData.active=true}
+// time of day for exterior
+const skyNight=skyM.material.map;const skyDay=ctex(512,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#6f8faa');gr.addColorStop(0.6,'#c9d2cc');gr.addColorStop(1,'#e2d6b8');g.fillStyle=gr;g.fillRect(0,0,w,h)});
+const skyDusk=ctex(512,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#1e2440');gr.addColorStop(0.6,'#7a4a4a');gr.addColorStop(1,'#d88a50');g.fillStyle=gr;g.fillRect(0,0,w,h)});
+const sunD=new THREE.DirectionalLight(0xfff0d8,0);sunD.position.set(20,30,15);sunD.castShadow=true;sunD.shadow.mapSize.set(2048,2048);Object.assign(sunD.shadow.camera,{left:-25,right:25,top:25,bottom:-25,far:120});ext.add(sunD);ext.add(sunD.target);
+const hemi=ext.children.find(o=>o.isHemisphereLight);
+function tod(m){const day=m==='day',dusk=m==='dusk',dawn=m==='dawn';skyM.material.map=day?skyDay:(dusk||dawn)?skyDusk:skyNight;skyM.material.needsUpdate=true;moon.visible=!(day);
+ sunD.intensity=day?2.6:(dusk||dawn)?1.2:0;sunD.color.set(dusk||dawn?0xffa060:0xfff0d8);moonDir.intensity=day?0:2.2;hemi.intensity=day?1.3:1.1;hemi.color.set(day?0xc8d8e8:0x3a4a6a);
+ ext.fog.color.set(day?0xb8c0b8:(dusk||dawn)?0x6a5050:0x1a2638);ext.fog.density=day?0.012:0.045;warmM.color.set(day?0x3a2e20:0xffb860);winGlow.intensity=day?0:10;fogS.forEach(f=>f.visible=!day);renderer.toneMappingExposure=day?1.0:1.15}
+// ground decal scene for tracks (2D drawing projected on lit ground)
+const gnd=new THREE.Scene();gnd.background=new THREE.Color(0x101010);
+const flat=document.createElement('canvas');flat.width=1080;flat.height=1920;const flatT=new THREE.CanvasTexture(flat);flatT.colorSpace=THREE.SRGBColorSpace;
+const gPlane=new THREE.Mesh(new THREE.PlaneGeometry(5.4,9.6),new THREE.MeshStandardMaterial({map:flatT,roughness:1}));gPlane.rotation.x=-Math.PI/2;gPlane.receiveShadow=true;gnd.add(gPlane);
+const gL=new THREE.DirectionalLight(0xfff0d8,3.6);gL.position.set(-6,3,-2);gnd.add(gL);gnd.add(new THREE.HemisphereLight(0xbfc8d0,0x302820,0.9));
+const gStones=[];for(let i=0;i<30;i++){const st=new THREE.Mesh(new THREE.DodecahedronGeometry(0.04+R(i)*0.06,0),M({color:0x5a5248}));st.position.set((R(i+1)-0.5)*5,0.02,(R(i+2)-0.5)*9);st.castShadow=true;gnd.add(st)}
+function paintFlat(k,lt,D,T,ls){const old=ctx;ctx=flat.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.save();SH[k](lt,D,T,ls);ctx.restore();ctx=old;flatT.needsUpdate=true}
+// ================= real photo shots =================
+const IMG={};for(const n of ['tranh_full','tranh_face','me_full','me_face','tiger','tranh_door']){const im=new Image();im.src='real/'+n+'.png';IMG[n]=im}
+function pshot(n,lt,D,o={}){const im=IMG[n];if(!im.complete||!im.naturalWidth){g2.fillStyle='#000';g2.fillRect(0,0,RW,RH);return}
+ const z=lerp(o.z0||1.05,o.z1||1.2,sm(lt/D)),iw=im.naturalWidth,ih=im.naturalHeight,sc=Math.max(RW/iw,RH/ih)*z;const dx=(o.px||0)*sm(lt/D)*40;
+ g2.save();g2.filter=`saturate(${o.sat??0.55}) contrast(1.15) brightness(${(o.br??0.85)*(1+(Math.random()-0.5)*0.06)})`;g2.drawImage(im,RW/2-iw*sc/2+dx,RH/2-ih*sc/2+(o.py||0),iw*sc,ih*sc);g2.restore();
+ if(o.tint){g2.fillStyle=o.tint;g2.fillRect(0,0,RW,RH)}grain()}
+const NOISE=document.createElement('canvas');NOISE.width=360;NOISE.height=640;{const g=NOISE.getContext('2d'),im=g.createImageData(360,640);for(let i=0;i<im.data.length;i+=4){const v=Math.random()*255;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255}g.putImageData(im,0,0)}
+function grain(){g2.save();g2.globalAlpha=0.07;g2.globalCompositeOperation='overlay';g2.drawImage(NOISE,(Math.random()*-80)|0,(Math.random()*-80)|0,RW+80,RH+80);g2.restore()}
+function jump(n,dt){const k=1-sm(dt/0.15);const sc=1+0.4*k;const sx=(Math.random()-0.5)*36*(dt<0.5?1:0.3),sy=(Math.random()-0.5)*36*(dt<0.5?1:0.3);
+ const old=ctx;ctx=flat.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#050505';ctx.fillRect(0,0,1080,1920);halo(540,820,900,'120,255,160',0.18);tranh(540,860+278*7,7,dt*3,{woman:n==='me',a:1});ctx=old;
+ g2.save();g2.translate(RW/2+sx,RH/2+sy);g2.scale(sc,sc);g2.drawImage(flat,-RW/2,-RH/2,RW,RH);g2.restore();g2.fillStyle='rgba(120,0,0,.15)';g2.fillRect(0,0,RW,RH);if(dt<0.07){g2.fillStyle='rgba(255,255,255,.85)';g2.fillRect(0,0,RW,RH)}}
+const JUMPS=[[6.08,0.42,'tr'],[79.3,0.9,'tr'],[155.3,0.9,'me'],[165.75,0.45,'me']];
+window.JUMPS=JUMPS;
+// ================= subtitles (Ma Lai style) + watermark =================
+function subs(t){for(const [a,b,str,sp] of TLD.subs){if(t<a||t>=b)continue;const al=Math.min(sm((t-a)/0.12),sm((b-t)/0.12));g2.save();g2.globalAlpha=al;g2.textAlign='center';g2.lineJoin='round';g2.font='bold 39px "DejaVu Sans"';
+ const ws=str.split(' ');const L=[];let c='';for(const w of ws){const tt=c?c+' '+w:w;if(g2.measureText(tt).width>600&&c){L.push(c);c=w}else c=tt}if(c)L.push(c);const lh=50;const y0=1040-(L.length-1)*lh/2;
+ const col=sp.startsWith('G')?'#ff5050':sp==='ME'?'#ff9a9a':sp==='N'?'#ffffff':'#ffd76a';
+ L.forEach((l,i)=>{g2.lineWidth=8;g2.strokeStyle='#000';g2.strokeText(l,RW/2,y0+i*lh);g2.fillStyle=col;g2.fillText(l,RW/2,y0+i*lh)});g2.restore()}}
+function watermark(t){const k=Math.floor(t/6)%4;const pos=[[0.5,0.42],[0.72,0.2],[0.3,0.75],[0.68,0.6]][k];g2.save();g2.globalAlpha=0.16;g2.font='bold 26px "DejaVu Sans"';g2.textAlign='center';g2.fillStyle='#ffffff';g2.strokeStyle='rgba(0,0,0,.6)';g2.lineWidth=3;g2.strokeText('@chuyendongtaykimco',RW*pos[0],RH*pos[1]);g2.fillText('@chuyendongtaykimco',RW*pos[0],RH*pos[1]);g2.restore()}
+function hookText(a){g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.lineJoin='round';g2.font='900 56px "DejaVu Sans"';g2.lineWidth=10;g2.strokeStyle='#000';g2.strokeText('NGƯỜI CHẾT GỌI TÊN',RW/2,170);g2.fillStyle='#fff';g2.fillText('NGƯỜI CHẾT GỌI TÊN',RW/2,170);g2.font='900 76px "DejaVu Sans"';g2.strokeText('ĐỪNG TRẢ LỜI!',RW/2,255);g2.fillStyle='#ff2a2a';g2.fillText('ĐỪNG TRẢ LỜI!',RW/2,255);g2.restore()}
+function titleTxt(lt,a){g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.font='bold 118px "DejaVu Serif"';g2.shadowColor='rgba(255,0,0,.7)';g2.shadowBlur=24;g2.fillStyle='#c41e24';g2.fillText('MA TRÀNH',RW/2,860);g2.shadowBlur=0;g2.fillStyle='#8a1418';for(let i=0;i<8;i++){const x=150+i*60,len=(20+R(i+3)*60)*sm(seg(lt,0.4,2.5));g2.fillRect(x,865,7,len);g2.beginPath();g2.arc(x+3.5,865+len,6,0,7);g2.fill()}g2.font='italic bold 38px "DejaVu Serif"';g2.fillStyle='#e8dcc0';g2.globalAlpha=sm(seg(lt,0.5,1.1));g2.fillText('Hồn người dẫn cọp về làng',RW/2,990);g2.restore()}
+function flat2D(k,lt,D,T,ls){const old=ctx;ctx=flat.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.save();SH[k](lt,D,T,ls);ctx.restore();ctx=old;g2.drawImage(flat,0,0,RW,RH)}
+// ================= shots =================
+function cm(P,L,fov){cam.fov=fov||45;cam.position.set(...P);cam.lookAt(...L)}
+function hideCards(){for(const k in C){C[k].visible=false;C[k].userData.active=false}for(const k in CI){CI[k].visible=false;CI[k].userData.active=false}TAMc.visible=false;SILc.visible=false;TRc.visible=false;eyes.forEach(e=>e.visible=false);eyeL.intensity=0;incL.intensity=0;doorL.intensity=0;PILE2.visible=false}
+const S={};
+S.hook=(lt,D,T)=>{tod('night');const p=sm(lt/D);cm([FX-18+p*3,1.5,6-p*2],[FX-25,1.2,-14],40);eyes.forEach((e,i)=>{e.visible=true;e.position.set(FX-26+(i?0.22:-0.22),1.0,-12)});eyeL.position.set(FX-26,1,-11.8);eyeL.intensity=2;return 'ext'};
+S.hook2=(lt,D,T,ls)=>{tod('night');put(C.tr,FX-24,-6,{beckon:true});const p=sm(lt/D);if(T>=9.81){put(C.tig,FX-24.6,-9.5,{snarl:T>10.2,vis:sm(seg(T,9.81,10.4))});C.tig.position.y=1.9}cm([FX-24+lerp(1.6,0.9,p),1.4,lerp(-1.5,-3,p)],[FX-24.2,1.4,-7],40);return 'ext'};
+S.title=(lt,D,T,ls)=>{tod('night');put(C.tig,FX-24.6,-9.5,{snarl:true});C.tig.position.y=1.9;cm([FX-24.6,1.9,-5.2],[FX-24.6,2.1,-9.5],40);const a=sm(seg(lt,0.1,0.6));titleTxt(lt,a);return 'ext+'};
+S.village=(lt,D,T)=>{tod('day');const p=sm(lt/D);cm([lerp(-14,-6,p),3.5,14],[2,2,-6],42);return 'ext'};
+S.shrine=(lt,D,T)=>{tod('day');put(C.oldw,-3.2,0.6);incL.intensity=1.5;const p=sm(lt/D);cm([lerp(-6.5,-6,p),1.5,lerp(4.5,3.6,p)],[-4.2,1.1,-0.8],40);return 'ext'};
+S.loss=(lt,D,T)=>{tod('day');const p=sm(lt/D);put(C.tin,FX-25,lerp(6,-6,p),{back:true});cm([FX-25,1.7,10],[FX-25,1.2,-4],40);return 'ext'};
+S.clothes=(lt,D,T)=>{tod('dusk');const p=sm(lt/D);cm([FX+lerp(-1.2,-0.6,p),lerp(2.2,1.7,p),lerp(1.4,0.6,p)],[FX+0.3,0.2,-2.9],42);return 'ext'};
+S.prints=(lt,D,T,ls)=>{paintFlat('prints',lt,D,T,ls);const p=sm(lt/D);cm([lerp(-1.8,-0.6,p),3.2,4.8],[0,0,lerp(1.5,-0.5,p)],50);return 'gnd'};
+S.oldman=(lt,D,T,ls)=>{tod('dusk');const t1=ls[1];put(C.sau,FX+2.4,-2.2,{look:-1,tilt:Math.sin(T*5)*0.05,mouth:lt>t1&&Math.sin(lt*13)>0?'o':undefined});
+ if(lt<t1)cm([FX+1.2,1.6,3.0],[FX+1.6,0.8,-2.6],46);else cm([FX+2.0,1.65,0.2],[FX+2.4,1.55,-2.2],32);return 'ext'};
+S.procession=(lt,D,T,ls)=>{tod('night');if(lt<ls[1]){const p=lt/ls[1];put(C.tr,FX-30+p*8,-6,{});eyes.forEach((e,i)=>{e.visible=true;e.position.set(FX-34+p*8+(i?0.22:-0.22),1.0,-8)});eyeL.position.set(FX-34+p*8,1,-7.8);eyeL.intensity=2;cm([FX-28+p*8,1.6,1.5],[FX-30+p*8,1.2,-6],42);return 'ext'}
+ put(C.tr,1.0,6.5,{beckon:true});eyes.forEach((e,i)=>{e.visible=true;e.position.set(-3+(i?0.22:-0.22),1.0,3)});eyeL.position.set(-3,1,3.2);eyeL.intensity=2;const p=sm(seg(lt,ls[1],D));cm([lerp(4,3,p),1.5,lerp(13,11.5,p)],[1.5,1.6,4],42);return 'ext'};
+S.oldman2=(lt,D,T)=>{tod('dusk');put(C.sau,FX+2.4,-2.2,{look:0,eyes:0.8,mouth:Math.sin(lt*13)>0?'o':undefined});cm([FX+2.1,1.65,0.0],[FX+2.4,1.55,-2.2],30);return 'ext'};
+S.stilt=(lt,D,T,ls)=>{if(lt<ls[1]){tod('night');const p=sm(lt/ls[1]);cm([lerp(-9,-6,p),lerp(1.6,2.4,p),lerp(13,10,p)],[3,3.2,-6],40);return 'ext'}
+ const p=sm(seg(lt,ls[1],D));TAMc.visible=true;tamOpt={eyes:lt>D-2?1.2:0.9,look:lt>D-1.2?1:0.2,sweat:lt>D-1.2?(T*0.7)%1:0};cm([lerp(1.8,1.2,p),lerp(1.5,1.25,p),lerp(4.2,2.6,p)],[-0.2,0.8,-0.6],42);return 'inn'};
+S.yard=(lt,D,T,ls)=>{if(lt<ls[1]){TAMc.visible=true;tamOpt={back:true};SILc.visible=true;SILc.userData.paint(T);doorL.intensity=140;const p=sm(lt/ls[1]);cm([lerp(-1.4,-1.15,p),1.25,lerp(-0.5,-0.35,p)],[4.4,1.0,0.2],50);return 'inn'}
+ tod('night');put(C.tr,3.6,4.6,{beckon:true});const p=sm(seg(lt,ls[1],D));cm([lerp(0.5,2.2,p),1.5,lerp(10,7.4,p)],[3.6,1.4,4.6],40);return 'ext'};
+S.mom=(lt,D,T,ls)=>{const s=1.3;put(CI.me2,-0.4,-0.8,lt<ls[1]?{sit:true,eyes:1.2}:{sit:true,eyes:1.25,mouth:'o',arm:[undefined,-1.5]});CI.me2.position.y=0.37;cm([0.9,1.0,1.6],[-0.4,0.75,-0.8],40);return 'inn'};
+S.hold=(lt,D,T,ls)=>{put(CI.me2,-0.1,-0.8,{sit:true,eyes:1.1,arm:[undefined,-1.4]});CI.me2.position.y=0.37;put(CI.tam2,-0.9,-0.6,{sit:true,eyes:1.2,pupil:2.4,look:1,mouth:lt<ls[1]&&Math.sin(lt*13)>0?'o':undefined,armA:[null,-1.15]});CI.tam2.position.y=0.37;
+ moonL.color.setHSL(0.1,0.3,lerp(0.6,0.75,sm(seg(lt,D*0.5,D))));cm([0.6,1.1,2.0],[-0.5,0.8,-0.7],42);return 'inn'};
+S.tracks=(lt,D,T,ls)=>{paintFlat('tracks',lt,D,T,ls);const p=sm(lt/D);cm([lerp(1.2,0.2,p),2.8,5.2],[0,0,lerp(1,-1.2,p)],52);return 'gnd'};
+S.warn=(lt,D,T)=>{tod('day');put(C.sau,1.2,4,{look:1,mouth:Math.sin(lt*13)>0?'o':undefined});put(C.tam,2.4,4.2,{look:-1,eyes:1.15});cm([1.8,1.5,8.5],[1.8,1.2,4],38);return 'ext'};
+S.ash=(lt,D,T)=>{tod('dusk');const p=lt/D;if(p<0.55){put(C.sau,lerp(0,7,p/0.55),3.6,{armA:[null,-1.1]})}else{put(C.sau,3.4,2.2,{sit:true,eyes:1});C.sau.position.y=0.37}cm([3.5,2.4,12],[3.5,1.6,0],42);return 'ext'};
+S.sleep=(lt,D,T)=>{const e=1-sm(seg(lt,D*0.3,D*0.9));TAMc.visible=true;tamOpt={eyes:Math.max(0.05,e)};lampL.intensity*=0.6;cm([1.2,1.2,2.6],[-0.2,0.8,-0.6],42);return 'inn'};
+S.wake=(lt,D,T)=>{TAMc.visible=true;tamOpt={eyes:1.3,pupil:2,look:1,sweat:(T*0.8)%1,mouth:'o'};lampL.intensity=lt<0.6?lampL.intensity:lampL.intensity*0.15;cm([1.0,1.02,1.6],[0.15,0.98,-0.1],35);return 'inn'};
+S.empty=(lt,D,T)=>{TAMc.visible=true;tamOpt={eyes:1.3,pupil:2,look:1,sweat:(T*0.8)%1};doorG.visible=false;doorL.intensity=160;const p=sm(lt/D);cm([lerp(-2.5,-2.0,p),1.6,lerp(2.6,2.2,p)],[3,1,-0.5],50);return 'inn'};
+S.three=(lt,D,T,ls)=>{paintFlat('three',lt,D,T,ls);const p=sm(lt/D);cm([0,lerp(3.6,3.0,p),5.0],[0,0,-0.5],50);return 'gnd'};
+S.porch=(lt,D,T)=>{tod('dawn');put(C.sau,2.6,2.4,{sit:true,eyes:0.05,tilt:0.5});C.sau.position.y=0.37;cm([1.0,1.6,7.5],[3,1.4,1],40);return 'ext'};
+S.clothes2=(lt,D,T)=>{tod('dusk');PILE2.visible=true;put(C.tam,FX+2.5,-1.6,{eyes:1.1,look:-1});const p=sm(lt/D);cm([FX+lerp(-0.5,0.3,p),1.5,2.4],[FX+2.2,0.6,-2.4],46);return 'ext'};
+S.inside=(lt,D,T,ls)=>{TAMc.visible=true;tamOpt={eyes:1.25,pupil:2.2,look:Math.sin(T*1.2),sweat:(T*0.7)%1};lampL.intensity*=0.7;const p=sm(lt/D);cm([lerp(2.2,1.6,p),1.3,lerp(3,2.2,p)],[0.1,0.8,-0.2],44);return 'inn'};
+S.call=(lt,D,T,ls)=>{tod('night');put(C.metr,1.8,7.5,{});const p=sm(lt/D);if(lt<ls[1])cm([-1.5,1.6,14],[1.8,1.4,7.5],38);else cm([lerp(0.6,1.4,seg(lt,ls[1],D)),1.45,lerp(10.5,9.0,seg(lt,ls[1],D))],[1.8,1.4,7.5],34);return 'ext'};
+S.free=(lt,D,T,ls)=>{flat2D('free',lt,D,T,ls);return 'flat'};
+S.final=(lt,D,T,ls)=>{tod('night');put(C.metr,1.8,7.5,{});put(C.tig,1.3,4.8,{snarl:true});C.tig.position.y=2.6;const p=sm(lt/D);cm([lerp(2,1.7,p),1.6,lerp(13,11.5,p)],[1.6,1.9,6],42);return 'ext'};
+S.cta=(lt,D,T,ls)=>{flat2D('cta',lt,D,T,ls);return 'flat'};
+let lastScene='';
+window.draw=function(t){const fl=1+Math.sin(t*13)*0.08+Math.sin(t*7.3)*0.06+Math.sin(t*23)*0.04;lampL.intensity=14*fl;lampG.userData.fl.scale.set(1,1.8*fl,1);doorG.visible=true;moonL.color.set(0x8fb0ff);
+ motes.forEach((m,i)=>{const p=(t*0.04+R(i))%1;m.position.set(-1.8+(R(i+5)-0.5)*1.2+p*1.6,0.3+((R(i+9)*3+t*0.05*(R(i)-0.3))%2.6),-3+p*3.6);m.material.opacity=0.5*Math.sin(p*Math.PI)});
+ fogS.forEach((s,i)=>{s.position.x=(s.userData.x0??(s.userData.x0=s.position.x))+((t*0.4+R(i)*10)%10)});
+ let sc=TLD.scenes.find(s=>t>=s[1]&&t<s[2])||TLD.scenes[TLD.scenes.length-1];const [k,a,b,ls]=sc;const lt=t-a,D=b-a;
+ hideCards();g2.clearRect(0,0,RW,RH);
+ const mode=S[k](lt,D,t,ls);cam.aspect=RW/RH;cam.updateProjectionMatrix();
+ const face=(c)=>{if(c.visible){c.userData.paint(t);c.lookAt(cam.position.x,c.position.y,cam.position.z)}};
+ if(mode==='ext'||mode==='ext+'){g2.save();const tmp=document.createElement('canvas');g2.restore();for(const kk in C)face(C[kk]);renderer.render(ext,cam);if(mode==='ext+'){const ov2=g2.getImageData(0,0,RW,RH);g2.clearRect(0,0,RW,RH);titleTxt(lt,sm(seg(lt,0.1,0.6)))}}
+ else if(mode==='inn'){if(TAMc.visible){TAMc.userData.paint(t);TAMc.lookAt(cam.position.x,TAMc.position.y,cam.position.z)}for(const kk in CI)face(CI[kk]);renderer.render(inn,cam)}
+ else if(mode==='gnd'){renderer.render(gnd,cam)}
+ else{renderer.setClearColor(0x000000,1);renderer.clear()}
+ if(mode==='ext'||mode==='ext+'||mode==='inn'||mode==='gnd'){const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.5)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH)}
+ if(k==='hook')hookText(sm(seg(lt,0.1,0.5)));
+ for(const [jt,jd,jn] of JUMPS)if(t>=jt&&t<jt+jd)jump(jn,t-jt);
+ const d=Math.min(t-a,b-t);if(d<0.08&&a>0){g2.fillStyle=`rgba(0,0,0,${1-d/0.08})`;g2.fillRect(0,0,RW,RH)}
+ watermark(t);if(k!=='title')subs(t)};
+window.READY=true;
+</script></body></html>
