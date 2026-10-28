@@ -133,6 +133,8 @@ C.tam=mk(2.0,(T,o)=>{tam(256,1000,2.6,o)});
 C.me=mk(2.0,(T,o)=>{me(256,1000,2.6,o)});
 C.oldw=mk(2.0,(T,o)=>{woman(256,1000,2.6,{old:true,shirt:'#4a4038',back:true})});
 for(const k in C){C[k].visible=false;ext.add(C[k])}
+C.tig=mk(3.0,(T,o)=>{tigerHead(256,430,1.55,T,{snarl:o.snarl,vis:o.vis??1})});C.metr=mk(2.0,(T,o)=>{tranh(256,1000,2.3,T,{woman:true,beckon:true,a:1})});C.tr=mk(2.0,(T,o)=>{tranh(256,1000,2.3,T,{beckon:o.beckon,a:1})});
+for(const k of ['tig','metr','tr']){C[k].visible=false;ext.add(C[k])}C.metr.material.emissive=new THREE.Color(0x6a9a90);C.metr.material.emissiveMap=C.metr.material.map;C.metr.material.emissiveIntensity=0.35;C.tr.material.emissive=new THREE.Color(0x6a9a90);C.tr.material.emissiveMap=C.tr.material.map;C.tr.material.emissiveIntensity=0.35;C.tig.material.emissive=new THREE.Color(0x553311);C.tig.material.emissiveMap=C.tig.material.map;C.tig.material.emissiveIntensity=0.75;
 const CI={tam2:mk(2.0,(T,o)=>{tam(256,1000,2.6,o)}),me2:mk(2.0,(T,o)=>{me(256,1000,2.6,o)}),sau2:mk(2.0,(T,o)=>{sau(256,1000,2.6,o)})};for(const k in CI){CI[k].visible=false;inn.add(CI[k])}
 function put(c,x,z,o,par){c.visible=true;c.position.set(x,0.98,z);c.userData.o=o||{};c.userData.active=true}
 // time of day for exterior
@@ -158,9 +160,10 @@ function pshot(n,lt,D,o={}){const im=IMG[n];if(!im.complete||!im.naturalWidth){g
  if(o.tint){g2.fillStyle=o.tint;g2.fillRect(0,0,RW,RH)}grain()}
 const NOISE=document.createElement('canvas');NOISE.width=360;NOISE.height=640;{const g=NOISE.getContext('2d'),im=g.createImageData(360,640);for(let i=0;i<im.data.length;i+=4){const v=Math.random()*255;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255}g.putImageData(im,0,0)}
 function grain(){g2.save();g2.globalAlpha=0.07;g2.globalCompositeOperation='overlay';g2.drawImage(NOISE,(Math.random()*-80)|0,(Math.random()*-80)|0,RW+80,RH+80);g2.restore()}
-function jump(n,dt){const k=1-sm(dt/0.15);const sc=1+0.35*k;const im=IMG[n];if(!im.naturalWidth)return;const iw=im.naturalWidth,ih=im.naturalHeight,s2=Math.max(RW/iw,RH/ih)*1.15*sc;const sx=(Math.random()-0.5)*40*(dt<0.5?1:0.3),sy=(Math.random()-0.5)*40*(dt<0.5?1:0.3);
- g2.save();g2.filter='saturate(0.4) contrast(1.4) brightness(1.05)';g2.drawImage(im,RW/2-iw*s2/2+sx,RH/2-ih*s2/2+sy,iw*s2,ih*s2);g2.restore();g2.fillStyle=`rgba(120,0,0,${0.18})`;g2.fillRect(0,0,RW,RH);if(dt<0.07){g2.fillStyle='rgba(255,255,255,.85)';g2.fillRect(0,0,RW,RH)}grain()}
-const JUMPS=[[6.08,0.42,'tranh_face'],[79.3,0.9,'tranh_face'],[155.3,0.9,'me_face'],[165.75,0.45,'me_face']];
+function jump(n,dt){const k=1-sm(dt/0.15);const sc=1+0.4*k;const sx=(Math.random()-0.5)*36*(dt<0.5?1:0.3),sy=(Math.random()-0.5)*36*(dt<0.5?1:0.3);
+ const old=ctx;ctx=flat.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#050505';ctx.fillRect(0,0,1080,1920);halo(540,820,900,'120,255,160',0.18);tranh(540,860+278*7,7,dt*3,{woman:n==='me',a:1});ctx=old;
+ g2.save();g2.translate(RW/2+sx,RH/2+sy);g2.scale(sc,sc);g2.drawImage(flat,-RW/2,-RH/2,RW,RH);g2.restore();g2.fillStyle='rgba(120,0,0,.15)';g2.fillRect(0,0,RW,RH);if(dt<0.07){g2.fillStyle='rgba(255,255,255,.85)';g2.fillRect(0,0,RW,RH)}}
+const JUMPS=[[6.08,0.42,'tr'],[79.3,0.9,'tr'],[155.3,0.9,'me'],[165.75,0.45,'me']];
 window.JUMPS=JUMPS;
 // ================= subtitles (Ma Lai style) + watermark =================
 function subs(t){for(const [a,b,str,sp] of TLD.subs){if(t<a||t>=b)continue;const al=Math.min(sm((t-a)/0.12),sm((b-t)/0.12));g2.save();g2.globalAlpha=al;g2.textAlign='center';g2.lineJoin='round';g2.font='bold 39px "DejaVu Sans"';
@@ -169,15 +172,15 @@ function subs(t){for(const [a,b,str,sp] of TLD.subs){if(t<a||t>=b)continue;const
  L.forEach((l,i)=>{g2.lineWidth=8;g2.strokeStyle='#000';g2.strokeText(l,RW/2,y0+i*lh);g2.fillStyle=col;g2.fillText(l,RW/2,y0+i*lh)});g2.restore()}}
 function watermark(t){const k=Math.floor(t/6)%4;const pos=[[0.5,0.42],[0.72,0.2],[0.3,0.75],[0.68,0.6]][k];g2.save();g2.globalAlpha=0.16;g2.font='bold 26px "DejaVu Sans"';g2.textAlign='center';g2.fillStyle='#ffffff';g2.strokeStyle='rgba(0,0,0,.6)';g2.lineWidth=3;g2.strokeText('@chuyendongtaykimco',RW*pos[0],RH*pos[1]);g2.fillText('@chuyendongtaykimco',RW*pos[0],RH*pos[1]);g2.restore()}
 function hookText(a){g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.lineJoin='round';g2.font='900 56px "DejaVu Sans"';g2.lineWidth=10;g2.strokeStyle='#000';g2.strokeText('NGƯỜI CHẾT GỌI TÊN',RW/2,170);g2.fillStyle='#fff';g2.fillText('NGƯỜI CHẾT GỌI TÊN',RW/2,170);g2.font='900 76px "DejaVu Sans"';g2.strokeText('ĐỪNG TRẢ LỜI!',RW/2,255);g2.fillStyle='#ff2a2a';g2.fillText('ĐỪNG TRẢ LỜI!',RW/2,255);g2.restore()}
+function titleTxt(lt,a){g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.font='bold 118px "DejaVu Serif"';g2.shadowColor='rgba(255,0,0,.7)';g2.shadowBlur=24;g2.fillStyle='#c41e24';g2.fillText('MA TRÀNH',RW/2,860);g2.shadowBlur=0;g2.fillStyle='#8a1418';for(let i=0;i<8;i++){const x=150+i*60,len=(20+R(i+3)*60)*sm(seg(lt,0.4,2.5));g2.fillRect(x,865,7,len);g2.beginPath();g2.arc(x+3.5,865+len,6,0,7);g2.fill()}g2.font='italic bold 38px "DejaVu Serif"';g2.fillStyle='#e8dcc0';g2.globalAlpha=sm(seg(lt,0.5,1.1));g2.fillText('Hồn người dẫn cọp về làng',RW/2,990);g2.restore()}
 function flat2D(k,lt,D,T,ls){const old=ctx;ctx=flat.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.save();SH[k](lt,D,T,ls);ctx.restore();ctx=old;g2.drawImage(flat,0,0,RW,RH)}
 // ================= shots =================
 function cm(P,L,fov){cam.fov=fov||45;cam.position.set(...P);cam.lookAt(...L)}
 function hideCards(){for(const k in C){C[k].visible=false;C[k].userData.active=false}for(const k in CI){CI[k].visible=false;CI[k].userData.active=false}TAMc.visible=false;SILc.visible=false;TRc.visible=false;eyes.forEach(e=>e.visible=false);eyeL.intensity=0;incL.intensity=0;doorL.intensity=0;PILE2.visible=false}
 const S={};
 S.hook=(lt,D,T)=>{tod('night');const p=sm(lt/D);cm([FX-18+p*3,1.5,6-p*2],[FX-25,1.2,-14],40);eyes.forEach((e,i)=>{e.visible=true;e.position.set(FX-26+(i?0.22:-0.22),1.0,-12)});eyeL.position.set(FX-26,1,-11.8);eyeL.intensity=2;return 'ext'};
-S.hook2=(lt,D,T,ls)=>{if(T<9.81){pshot('tranh_full',lt,3.3,{z0:1.05,z1:1.25});return 'photo'}pshot('tiger',T-9.81,2.1,{z0:1.3,z1:1.05,sat:0.7,br:0.9});return 'photo'};
-S.title=(lt,D,T,ls)=>{pshot('tiger',lt,D,{z0:1.1,z1:1.18,br:0.35,sat:0.6});const a=sm(seg(lt,0.1,0.6));g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.font='bold 118px "DejaVu Serif"';g2.shadowColor='rgba(255,0,0,.7)';g2.shadowBlur=24;g2.fillStyle='#c41e24';g2.fillText('MA TRÀNH',RW/2,700);g2.shadowBlur=0;g2.fillStyle='#8a1418';for(let i=0;i<8;i++){const x=150+i*60,len=(20+R(i+3)*60)*sm(seg(lt,0.4,2.5));g2.fillRect(x,705,7,len);g2.beginPath();g2.arc(x+3.5,705+len,6,0,7);g2.fill()}
- g2.font='italic bold 38px "DejaVu Serif"';g2.fillStyle='#e8dcc0';g2.globalAlpha=sm(seg(lt,0.5,1.1));g2.fillText('Hồn người dẫn cọp về làng',RW/2,830);g2.restore();return 'photo'};
+S.hook2=(lt,D,T,ls)=>{tod('night');put(C.tr,FX-24,-6,{beckon:true});const p=sm(lt/D);if(T>=9.81){put(C.tig,FX-24.6,-9.5,{snarl:T>10.2,vis:sm(seg(T,9.81,10.4))});C.tig.position.y=1.9}cm([FX-24+lerp(1.6,0.9,p),1.4,lerp(-1.5,-3,p)],[FX-24.2,1.4,-7],40);return 'ext'};
+S.title=(lt,D,T,ls)=>{tod('night');put(C.tig,FX-24.6,-9.5,{snarl:true});C.tig.position.y=1.9;cm([FX-24.6,1.9,-5.2],[FX-24.6,2.1,-9.5],40);const a=sm(seg(lt,0.1,0.6));titleTxt(lt,a);return 'ext+'};
 S.village=(lt,D,T)=>{tod('day');const p=sm(lt/D);cm([lerp(-14,-6,p),3.5,14],[2,2,-6],42);return 'ext'};
 S.shrine=(lt,D,T)=>{tod('day');put(C.oldw,-3.2,0.6);incL.intensity=1.5;const p=sm(lt/D);cm([lerp(-6.5,-6,p),1.5,lerp(4.5,3.6,p)],[-4.2,1.1,-0.8],40);return 'ext'};
 S.loss=(lt,D,T)=>{tod('day');const p=sm(lt/D);put(C.tin,FX-25,lerp(6,-6,p),{back:true});cm([FX-25,1.7,10],[FX-25,1.2,-4],40);return 'ext'};
@@ -185,12 +188,13 @@ S.clothes=(lt,D,T)=>{tod('dusk');const p=sm(lt/D);cm([FX+lerp(-1.2,-0.6,p),lerp(
 S.prints=(lt,D,T,ls)=>{paintFlat('prints',lt,D,T,ls);const p=sm(lt/D);cm([lerp(-1.8,-0.6,p),3.2,4.8],[0,0,lerp(1.5,-0.5,p)],50);return 'gnd'};
 S.oldman=(lt,D,T,ls)=>{tod('dusk');const t1=ls[1];put(C.sau,FX+2.4,-2.2,{look:-1,tilt:Math.sin(T*5)*0.05,mouth:lt>t1&&Math.sin(lt*13)>0?'o':undefined});
  if(lt<t1)cm([FX+1.2,1.6,3.0],[FX+1.6,0.8,-2.6],46);else cm([FX+2.0,1.65,0.2],[FX+2.4,1.55,-2.2],32);return 'ext'};
-S.procession=(lt,D,T,ls)=>{if(lt<ls[1]){pshot('tranh_full',lt,ls[1],{z0:1.15,z1:1.3,px:-1});return 'photo'}pshot('tiger',lt-ls[1],D-ls[1],{z0:1.0,z1:1.15,br:0.6});return 'photo'};
+S.procession=(lt,D,T,ls)=>{tod('night');if(lt<ls[1]){const p=lt/ls[1];put(C.tr,FX-30+p*8,-6,{});eyes.forEach((e,i)=>{e.visible=true;e.position.set(FX-34+p*8+(i?0.22:-0.22),1.0,-8)});eyeL.position.set(FX-34+p*8,1,-7.8);eyeL.intensity=2;cm([FX-28+p*8,1.6,1.5],[FX-30+p*8,1.2,-6],42);return 'ext'}
+ put(C.tr,1.0,6.5,{beckon:true});eyes.forEach((e,i)=>{e.visible=true;e.position.set(-3+(i?0.22:-0.22),1.0,3)});eyeL.position.set(-3,1,3.2);eyeL.intensity=2;const p=sm(seg(lt,ls[1],D));cm([lerp(4,3,p),1.5,lerp(13,11.5,p)],[1.5,1.6,4],42);return 'ext'};
 S.oldman2=(lt,D,T)=>{tod('dusk');put(C.sau,FX+2.4,-2.2,{look:0,eyes:0.8,mouth:Math.sin(lt*13)>0?'o':undefined});cm([FX+2.1,1.65,0.0],[FX+2.4,1.55,-2.2],30);return 'ext'};
 S.stilt=(lt,D,T,ls)=>{if(lt<ls[1]){tod('night');const p=sm(lt/ls[1]);cm([lerp(-9,-6,p),lerp(1.6,2.4,p),lerp(13,10,p)],[3,3.2,-6],40);return 'ext'}
  const p=sm(seg(lt,ls[1],D));TAMc.visible=true;tamOpt={eyes:lt>D-2?1.2:0.9,look:lt>D-1.2?1:0.2,sweat:lt>D-1.2?(T*0.7)%1:0};cm([lerp(1.8,1.2,p),lerp(1.5,1.25,p),lerp(4.2,2.6,p)],[-0.2,0.8,-0.6],42);return 'inn'};
 S.yard=(lt,D,T,ls)=>{if(lt<ls[1]){TAMc.visible=true;tamOpt={back:true};SILc.visible=true;SILc.userData.paint(T);doorL.intensity=140;const p=sm(lt/ls[1]);cm([lerp(-1.4,-1.15,p),1.25,lerp(-0.5,-0.35,p)],[4.4,1.0,0.2],50);return 'inn'}
- pshot('tranh_door',lt-ls[1],D-ls[1],{z0:1.05,z1:1.3,br:0.8});return 'photo'};
+ tod('night');put(C.tr,3.6,4.6,{beckon:true});const p=sm(seg(lt,ls[1],D));cm([lerp(0.5,2.2,p),1.5,lerp(10,7.4,p)],[3.6,1.4,4.6],40);return 'ext'};
 S.mom=(lt,D,T,ls)=>{const s=1.3;put(CI.me2,-0.4,-0.8,lt<ls[1]?{sit:true,eyes:1.2}:{sit:true,eyes:1.25,mouth:'o',arm:[undefined,-1.5]});CI.me2.position.y=0.37;cm([0.9,1.0,1.6],[-0.4,0.75,-0.8],40);return 'inn'};
 S.hold=(lt,D,T,ls)=>{put(CI.me2,-0.1,-0.8,{sit:true,eyes:1.1,arm:[undefined,-1.4]});CI.me2.position.y=0.37;put(CI.tam2,-0.9,-0.6,{sit:true,eyes:1.2,pupil:2.4,look:1,mouth:lt<ls[1]&&Math.sin(lt*13)>0?'o':undefined,armA:[null,-1.15]});CI.tam2.position.y=0.37;
  moonL.color.setHSL(0.1,0.3,lerp(0.6,0.75,sm(seg(lt,D*0.5,D))));cm([0.6,1.1,2.0],[-0.5,0.8,-0.7],42);return 'inn'};
@@ -204,9 +208,9 @@ S.three=(lt,D,T,ls)=>{paintFlat('three',lt,D,T,ls);const p=sm(lt/D);cm([0,lerp(3
 S.porch=(lt,D,T)=>{tod('dawn');put(C.sau,2.6,2.4,{sit:true,eyes:0.05,tilt:0.5});C.sau.position.y=0.37;cm([1.0,1.6,7.5],[3,1.4,1],40);return 'ext'};
 S.clothes2=(lt,D,T)=>{tod('dusk');PILE2.visible=true;put(C.tam,FX+2.5,-1.6,{eyes:1.1,look:-1});const p=sm(lt/D);cm([FX+lerp(-0.5,0.3,p),1.5,2.4],[FX+2.2,0.6,-2.4],46);return 'ext'};
 S.inside=(lt,D,T,ls)=>{TAMc.visible=true;tamOpt={eyes:1.25,pupil:2.2,look:Math.sin(T*1.2),sweat:(T*0.7)%1};lampL.intensity*=0.7;const p=sm(lt/D);cm([lerp(2.2,1.6,p),1.3,lerp(3,2.2,p)],[0.1,0.8,-0.2],44);return 'inn'};
-S.call=(lt,D,T,ls)=>{if(lt<ls[1]){pshot('me_full',lt,ls[1],{z0:1.02,z1:1.15,br:0.75});return 'photo'}pshot('me_full',lt-ls[1]+ls[1],D,{z0:1.15,z1:1.35,br:0.8});return 'photo'};
+S.call=(lt,D,T,ls)=>{tod('night');put(C.metr,1.8,7.5,{});const p=sm(lt/D);if(lt<ls[1])cm([-1.5,1.6,14],[1.8,1.4,7.5],38);else cm([lerp(0.6,1.4,seg(lt,ls[1],D)),1.45,lerp(10.5,9.0,seg(lt,ls[1],D))],[1.8,1.4,7.5],34);return 'ext'};
 S.free=(lt,D,T,ls)=>{flat2D('free',lt,D,T,ls);return 'flat'};
-S.final=(lt,D,T,ls)=>{if(lt<1.6){pshot('tiger',lt,1.6,{z0:1.2,z1:1.0,br:0.7});return 'photo'}pshot('me_full',lt-1.6,D-1.6,{z0:1.0,z1:1.25,br:0.7,tint:'rgba(20,40,40,.15)'});return 'photo'};
+S.final=(lt,D,T,ls)=>{tod('night');put(C.metr,1.8,7.5,{});put(C.tig,1.3,4.8,{snarl:true});C.tig.position.y=2.6;const p=sm(lt/D);cm([lerp(2,1.7,p),1.6,lerp(13,11.5,p)],[1.6,1.9,6],42);return 'ext'};
 S.cta=(lt,D,T,ls)=>{flat2D('cta',lt,D,T,ls);return 'flat'};
 let lastScene='';
 window.draw=function(t){const fl=1+Math.sin(t*13)*0.08+Math.sin(t*7.3)*0.06+Math.sin(t*23)*0.04;lampL.intensity=14*fl;lampG.userData.fl.scale.set(1,1.8*fl,1);doorG.visible=true;moonL.color.set(0x8fb0ff);
@@ -216,11 +220,11 @@ window.draw=function(t){const fl=1+Math.sin(t*13)*0.08+Math.sin(t*7.3)*0.06+Math
  hideCards();g2.clearRect(0,0,RW,RH);
  const mode=S[k](lt,D,t,ls);cam.aspect=RW/RH;cam.updateProjectionMatrix();
  const face=(c)=>{if(c.visible){c.userData.paint(t);c.lookAt(cam.position.x,c.position.y,cam.position.z)}};
- if(mode==='ext'){for(const kk in C)face(C[kk]);renderer.render(ext,cam)}
+ if(mode==='ext'||mode==='ext+'){g2.save();const tmp=document.createElement('canvas');g2.restore();for(const kk in C)face(C[kk]);renderer.render(ext,cam);if(mode==='ext+'){const ov2=g2.getImageData(0,0,RW,RH);g2.clearRect(0,0,RW,RH);titleTxt(lt,sm(seg(lt,0.1,0.6)))}}
  else if(mode==='inn'){if(TAMc.visible){TAMc.userData.paint(t);TAMc.lookAt(cam.position.x,TAMc.position.y,cam.position.z)}for(const kk in CI)face(CI[kk]);renderer.render(inn,cam)}
  else if(mode==='gnd'){renderer.render(gnd,cam)}
  else{renderer.setClearColor(0x000000,1);renderer.clear()}
- if(mode==='ext'||mode==='inn'||mode==='gnd'){const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.5)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH)}
+ if(mode==='ext'||mode==='ext+'||mode==='inn'||mode==='gnd'){const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.5)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH)}
  if(k==='hook')hookText(sm(seg(lt,0.1,0.5)));
  for(const [jt,jd,jn] of JUMPS)if(t>=jt&&t<jt+jd)jump(jn,t-jt);
  const d=Math.min(t-a,b-t);if(d<0.08&&a>0){g2.fillStyle=`rgba(0,0,0,${1-d/0.08})`;g2.fillRect(0,0,RW,RH)}
