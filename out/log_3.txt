@@ -330,3 +330,6 @@ loaded V3TurboVieNeuTTS
 41_whatif_mau Hải Đăng 7 ok 4.7
 41_whatif_mau Hải Đăng 11 ok 2.5
 41_whatif_mau asr ok
+loaded V3TurboVieNeuTTS
+42_livefest clone:refs/mada8.wav 3 ok 29.8
+42_livefest asr ok
