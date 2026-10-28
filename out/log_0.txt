@@ -300,3 +300,7 @@ loaded V3TurboVieNeuTTS
 33_go_cua_hu Hải Đăng 0 ok 0.8
 33_go_cua_hu Hải Đăng 4 ok 0.4
 33_go_cua_hu asr ok
+loaded V3TurboVieNeuTTS
+34_go_cua_n2 clone:refs/mada8.wav 0 ok 25.8
+34_go_cua_n2 clone:refs/mada8.wav 4 ok 3.2
+34_go_cua_n2 asr ok
