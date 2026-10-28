@@ -15,6 +15,8 @@ const path = require('path');
   let FF='ffmpeg';try{FF=require('ffmpeg-static')||'ffmpeg'}catch(e){}
   const ff = spawn(FF, ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', String(fps), '-i', '-',
     '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-r', String(fps), out], { stdio: ['pipe', 'inherit', 'inherit'] });
+  // warm-up: first WebGL frame can be black
+  for (let k = 0; k < 3; k++) { await page.evaluate(t => draw(t), +i0 / fps); await page.screenshot({ type: 'jpeg', quality: 10 }); }
   for (let i = +i0; i < +i1; i++) {
     await page.evaluate(t => draw(t), i / fps);
     const buf = await page.screenshot({ type: 'jpeg', quality: 90 });
