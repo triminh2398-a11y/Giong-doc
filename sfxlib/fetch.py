@@ -8,6 +8,7 @@ for cat in J['mixkit']:
         u=f'https://mixkit.co/free-sound-effects/{cat}/'+(f'?page={page}' if page>1 else '')
         try: h=get(u).decode('utf8','ignore')
         except Exception as e: print('ERR',u,e); continue
+        os.makedirs('sfxlib/html',exist_ok=True);open(f'sfxlib/html/{cat}_{page}.html','w').write(h)
         items=re.findall(r'<div[^>]+class="[^"]*item-grid-sfx-preview[^"]*"(.*?)</div>\s*</div>\s*</div>',h,re.S)
         urls=re.findall(r'https://assets\.mixkit\.co/active_storage/sfx/\d+/\d+-preview\.mp3',h)
         titles=re.findall(r'<h2[^>]*class="[^"]*item-grid-sfx-preview__title[^"]*"[^>]*>\s*(.*?)\s*</h2>',h,re.S)
