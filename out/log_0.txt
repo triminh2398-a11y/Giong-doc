@@ -335,3 +335,8 @@ loaded V3TurboVieNeuTTS
 39_tranh_ti Minh Đức 0 ok 1.6
 39_tranh_ti Minh Đức 4 ok 1.9
 39_tranh_ti asr ok
+loaded V3TurboVieNeuTTS
+40_tranh_fix clone:refs/mada8.wav 0 ok 23.0
+40_tranh_fix clone:refs/mada8.wav 4 ok 1.3
+40_tranh_fix clone:refs/mada8.wav 8 ok 1.5
+40_tranh_fix asr ok
