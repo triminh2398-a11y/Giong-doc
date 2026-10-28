@@ -1,0 +1,97 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000;overflow:hidden}canvas{position:absolute;left:0;top:0;width:1920px;height:1080px}</style></head><body>
+<script src="three.min.js"></script><script>
+const W=1920,H=1080;
+let TL=window.TL||{scenes:[['A',0,6],['B',6,13],['C',13,22],['D',22,28],['E',28,32]],subs:[],dur:32};
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(1);renderer.setSize(W,H,false);
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+document.body.appendChild(renderer.domElement);
+const ov=document.createElement('canvas');ov.width=W;ov.height=H;document.body.appendChild(ov);const g2=ov.getContext('2d');
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),sm=x=>{x=cl(x);return x*x*(3-2*x)},seg=(t,a,b)=>cl((t-a)/(b-a)),lerp=(a,b,k)=>a+(b-a)*k;
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+// value noise
+function hash(x,y){const s=Math.sin(x*127.1+y*311.7)*43758.5453;return s-Math.floor(s)}
+function vnoise(x,y,per){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;const w=(a)=>((a%per)+per)%per;const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+ const a=hash(w(xi),yi),b=hash(w(xi+1),yi),c=hash(w(xi),yi+1),d=hash(w(xi+1),yi+1);return lerp(lerp(a,b,u),lerp(c,d,u),v)}
+function fbm(x,y,per){let s=0,a=0.5,f=1;for(let i=0;i<6;i++){s+=a*vnoise(x*f,y*f,per*f);a*=0.5;f*=2}return s}
+const M=(o)=>new THREE.MeshStandardMaterial(Object.assign({roughness:0.85,metalness:0},o));
+// ---------- textures ----------
+function earthTex(){const w=1024,h=512,c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');const im=g.createImageData(w,h);
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){const lat=Math.abs(y/h-0.5)*2;const n=fbm(x/w*6,y/h*3+0.3,6);const land=n-0.08*Math.cos(lat*3)>0.53;let r,gg,b;
+  if(lat>0.86){r=240;gg=246;b=250}else if(land){const k=fbm(x/w*20,y/h*10,20);const dry=lat<0.4&&k>0.66;r=dry?196:lerp(70,110,k);gg=dry?170:lerp(150,180,k);b=dry?110:lerp(70,90,k)}
+  else{const d=cl((0.53-n)*5);r=lerp(60,20,d);gg=lerp(170,90,d);b=lerp(220,190,d)}
+  const i=(y*w+x)*4;im.data[i]=r;im.data[i+1]=gg;im.data[i+2]=b;im.data[i+3]=255}
+ g.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t}
+function cloudTex(){const w=1024,h=512,c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');const im=g.createImageData(w,h);
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){const n=fbm(x/w*8+5,y/h*4+2,8);const a=cl((n-0.55)*4);const i=(y*w+x)*4;im.data[i]=im.data[i+1]=im.data[i+2]=255;im.data[i+3]=a*200}
+ g.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);return t}
+// ---------- SPACE scene ----------
+const space=new THREE.Scene();space.background=new THREE.Color(0x04060d);
+const scam=new THREE.PerspectiveCamera(35,W/H,0.1,200);
+{const n=1600,p=new Float32Array(n*3);for(let i=0;i<n;i++){const u=rnd(i)*2-1,th=rnd(i+9)*Math.PI*2,r=80;p[i*3]=r*Math.sqrt(1-u*u)*Math.cos(th);p[i*3+1]=r*u;p[i*3+2]=r*Math.sqrt(1-u*u)*Math.sin(th)}
+ const gm=new THREE.BufferGeometry();gm.setAttribute('position',new THREE.BufferAttribute(p,3));space.add(new THREE.Points(gm,new THREE.PointsMaterial({color:0xffffff,size:0.18,sizeAttenuation:true})))}
+const earthG=new THREE.Group();space.add(earthG);earthG.rotation.z=0.41;
+const earth=new THREE.Mesh(new THREE.SphereGeometry(3,96,64),M({map:earthTex(),roughness:0.75}));earthG.add(earth);
+const clouds=new THREE.Mesh(new THREE.SphereGeometry(3.05,96,64),new THREE.MeshStandardMaterial({map:cloudTex(),transparent:true,depthWrite:false}));earthG.add(clouds);
+const atm=new THREE.Mesh(new THREE.SphereGeometry(3.35,64,48),new THREE.ShaderMaterial({transparent:true,side:THREE.BackSide,depthWrite:false,uniforms:{},vertexShader:'varying vec3 vN;varying vec3 vP;void main(){vN=normalize(normalMatrix*normal);vec4 mv=modelViewMatrix*vec4(position,1.0);vP=mv.xyz;gl_Position=projectionMatrix*mv;}',fragmentShader:'varying vec3 vN;varying vec3 vP;void main(){float k=pow(0.75-dot(vN,normalize(-vP))*-1.0,3.0);gl_FragColor=vec4(0.35,0.65,1.0,1.0)*clamp(k,0.0,1.0)*0.9;}'}));space.add(atm);
+// pin
+const pin=new THREE.Group();{const head=new THREE.Mesh(new THREE.SphereGeometry(0.09,16,12),M({color:0xff3344,emissive:0x661018}));head.position.y=0.28;const st=new THREE.Mesh(new THREE.CylinderGeometry(0.018,0.018,0.28,8),M({color:0xeeeeee}));st.position.y=0.14;pin.add(head,st)}
+{const lat=16*Math.PI/180,lon=0.9;const v=new THREE.Vector3(Math.cos(lat)*Math.cos(lon),Math.sin(lat),-Math.cos(lat)*Math.sin(lon)).multiplyScalar(3.0);pin.position.copy(v);pin.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),v.clone().normalize());earth.add(pin)}
+const sunL=new THREE.DirectionalLight(0xffffff,3.2);sunL.position.set(-8,3,6);space.add(sunL);space.add(new THREE.AmbientLight(0x334466,0.35));
+// ---------- TOWN scene ----------
+const town=new THREE.Scene();town.background=new THREE.Color(0x9fd3f2);town.fog=new THREE.Fog(0x9fd3f2,30,90);
+const tcam=new THREE.PerspectiveCamera(38,W/H,0.1,200);
+const hemi=new THREE.HemisphereLight(0xcfe9ff,0x6a8a4a,1.1);town.add(hemi);
+const tsun=new THREE.DirectionalLight(0xfff2d8,2.4);tsun.position.set(-12,20,14);tsun.castShadow=true;tsun.shadow.mapSize.set(2048,2048);Object.assign(tsun.shadow.camera,{left:-30,right:30,top:20,bottom:-20,far:80});town.add(tsun);
+const groundM=new THREE.Mesh(new THREE.PlaneGeometry(400,120),M({color:0x7fb05a}));groundM.rotation.x=-Math.PI/2;groundM.receiveShadow=true;town.add(groundM);
+const road=new THREE.Mesh(new THREE.PlaneGeometry(400,5),M({color:0x55585e}));road.rotation.x=-Math.PI/2;road.position.set(0,0.01,3);road.receiveShadow=true;town.add(road);
+const flyers=[];
+function addFly(obj,x,z,mass){obj.position.x=x;obj.position.z=z;obj.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true}});town.add(obj);flyers.push({o:obj,x0:x,y0:obj.position.y,z0:z,m:mass,spin:(rnd(flyers.length)-0.5)*6,lift:0.4+rnd(flyers.length+3)*1.2})}
+function house(col,roof,w=3,h=2.4,d=3){const gr=new THREE.Group();const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),M({color:col}));b.position.y=h/2;const r=new THREE.Mesh(new THREE.ConeGeometry(w*0.82,1.5,4),M({color:roof}));r.position.y=h+0.75;r.rotation.y=Math.PI/4;
+ const door=new THREE.Mesh(new THREE.BoxGeometry(0.7,1.2,0.05),M({color:0x6b4a2e}));door.position.set(0,0.6,d/2+0.02);const win=new THREE.Mesh(new THREE.BoxGeometry(0.6,0.5,0.05),M({color:0xbfe6ff,emissive:0x223344}));win.position.set(w*0.28,1.5,d/2+0.02);const win2=win.clone();win2.position.x=-w*0.28;gr.add(b,r,door,win,win2);return gr}
+function tree(){const gr=new THREE.Group();const tr=new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.2,1.2,8),M({color:0x7a5230}));tr.position.y=0.6;const c=new THREE.Mesh(new THREE.IcosahedronGeometry(0.9,0),M({color:0x3f8f3a,flatShading:true}));c.position.y=1.7;gr.add(tr,c);return gr}
+function car(col){const gr=new THREE.Group();const b=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.6,1.1),M({color:col,roughness:0.4}));b.position.y=0.5;const t=new THREE.Mesh(new THREE.BoxGeometry(1.2,0.5,1.0),M({color:0xd8eef8,roughness:0.2}));t.position.set(-0.1,1.0,0);gr.add(b,t);
+ for(const [x,z] of [[-0.7,0.55],[0.7,0.55],[-0.7,-0.55],[0.7,-0.55]]){const w=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.25,0.15,14),M({color:0x222222}));w.rotation.x=Math.PI/2;w.position.set(x,0.25,z);gr.add(w)}return gr}
+function guy(shirt){const gr=new THREE.Group();const body=new THREE.Mesh(new THREE.CapsuleGeometry(0.22,0.6,6,12),M({color:shirt}));body.position.y=0.75;const head=new THREE.Mesh(new THREE.SphereGeometry(0.2,16,12),M({color:0xf1c9a0}));head.position.y=1.45;
+ const hair=new THREE.Mesh(new THREE.SphereGeometry(0.205,16,12,0,Math.PI*2,0,Math.PI/2),M({color:0x222222}));hair.position.y=1.47;
+ const eyeM=M({color:0x111111});for(const s of [-1,1]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.03,8,6),eyeM);e.position.set(s*0.07,1.48,0.18);gr.add(e)}gr.add(body,head,hair);return gr}
+addFly(house(0xf2e2c4,0xc0503a),-9,-4,3);addFly(house(0xe8d0a0,0x3a6ea5,3.4,2.8),-3,-5,3);addFly(house(0xf6f0e6,0xd08030,2.6,2.2),3.5,-4.5,3);addFly(house(0xd8e8d0,0xa04040,3,3),9.5,-5,3);
+for(const [x,z] of [[-6,-1],[0.5,-1.5],[6.5,-1.2],[12,-1],[-12,-1.5]])addFly(tree(),x,z,1.5);
+addFly(car(0xe23b3b),-4,3.5,1);addFly(car(0x2f6fd6),5,2.4,1);
+const me=guy(0xffc93c);addFly(me,0.8,5.5,0.6);me.rotation.y=0.3;
+const g2b=guy(0x3cc4a8);addFly(g2b,-7.5,5,0.6);
+// ---------- OCEAN scene ----------
+const ocean=new THREE.Scene();ocean.background=new THREE.Color(0x8fb8d6);ocean.fog=new THREE.Fog(0x8fb8d6,160,420);
+const ocam=new THREE.PerspectiveCamera(40,W/H,0.1,300);
+ocean.add(new THREE.HemisphereLight(0xd8ecff,0x335566,1.0));const osun=new THREE.DirectionalLight(0xffeedd,2.2);osun.position.set(-20,30,10);ocean.add(osun);
+const seaGeo=new THREE.PlaneGeometry(260,200,200,120);seaGeo.rotateX(-Math.PI/2);seaGeo.setAttribute('color',new THREE.BufferAttribute(new Float32Array(seaGeo.attributes.position.count*3),3));const sea=new THREE.Mesh(seaGeo,M({color:0xffffff,vertexColors:true,roughness:0.6,metalness:0,flatShading:true}));ocean.add(sea);const seaBase=seaGeo.attributes.position.array.slice();
+const shore=new THREE.Mesh(new THREE.BoxGeometry(260,2,60),M({color:0xe2cf98}));shore.position.set(0,-0.2,-60);ocean.add(shore);
+const land2=new THREE.Mesh(new THREE.BoxGeometry(260,3,80),M({color:0x6fa04e}));land2.position.set(0,0.3,-100);ocean.add(land2);
+for(let i=0;i<14;i++){const hh=house(0xf2e2c4+((i*997)%5)*0x050505,[0xc0503a,0x3a6ea5,0xd08030][i%3],3,2.4+rnd(i)*2);hh.position.set(-60+i*9+rnd(i)*3,1.8,-70-rnd(i+4)*12);ocean.add(hh)}
+for(let i=0;i<10;i++){const tt=tree();tt.scale.setScalar(1.6);tt.position.set(-55+i*11,1.8,-58);ocean.add(tt)}
+function seaUpdate(t,wave){const p=seaGeo.attributes.position.array;for(let i=0;i<p.length;i+=3){const x=seaBase[i],z=seaBase[i+2];let y=Math.sin(x*0.3+t*1.5)*0.25+Math.cos(z*0.35+t*1.2)*0.25;
+ if(wave>0){const front=lerp(60,-52,wave);const d=z-front;y+=Math.exp(-d*d/50)*14*sm(wave*3)+(d>0?Math.exp(-d/18)*2*sm(wave*3):0)}p[i+1]=y;const cc=seaGeo.attributes.color.array,f=cl((y-6)/7);cc[i]=lerp(0.015,0.95,f);cc[i+1]=lerp(0.12,0.97,f);cc[i+2]=lerp(0.3,1,f)}seaGeo.attributes.position.needsUpdate=true;seaGeo.attributes.color.needsUpdate=true;seaGeo.computeVertexNormals()}
+// ---------- overlay helpers ----------
+function T2(s,x,y,size,col,a=1,o={}){g2.save();g2.globalAlpha=a;g2.font=`${o.w||'900'} ${size}px ${o.f||'"DejaVu Sans"'}`;g2.textAlign=o.al||'center';g2.lineJoin='round';if(o.st!==0){g2.lineWidth=o.st||size*0.16;g2.strokeStyle=o.sc||'rgba(10,14,30,.95)';g2.strokeText(s,x,y)}g2.fillStyle=col;g2.fillText(s,x,y);g2.restore()}
+function wrap(s,maxW,font){g2.font=font;const ws=s.split(' ');const L=[];let c='';for(const w of ws){const t=c?c+' '+w:w;if(g2.measureText(t).width>maxW&&c){L.push(c);c=w}else c=t}if(c)L.push(c);return L}
+function subs(t){for(const [a,b,s] of TL.subs){if(t<a||t>=b)continue;const al=Math.min(sm((t-a)/0.12),sm((b-t)/0.12));const L=wrap(s,1500,'bold 52px "DejaVu Sans"');L.forEach((l,i)=>T2(l,W/2,980-(L.length-1-i)*66,52,'#ffffff',al,{w:'bold',st:11,sc:'#000'}))}}
+function speedo(x,y,v,a){g2.save();g2.globalAlpha=a;g2.fillStyle='rgba(10,20,40,.75)';g2.beginPath();g2.roundRect(x-260,y-90,520,180,30);g2.fill();g2.restore();T2(Math.round(v).toLocaleString('vi-VN')+' km/h',x,y+30,86,'#ffd23c',a,{st:0});T2('TỐC ĐỘ CỦA BẠN',x,y-40,34,'#bfe3ff',a,{st:0,w:'bold'})}
+// ---------- draw ----------
+let lastT=-1;
+function draw(t){g2.clearRect(0,0,W,H);let sc=TL.scenes.find(s=>t>=s[1]&&t<s[2])||TL.scenes[TL.scenes.length-1];const k=sc[0],lt=t-sc[1],D=sc[2]-sc[1];
+ if(k==='A'){const rot=t*0.35;earth.rotation.y=rot;clouds.rotation.y=rot*1.08;pin.visible=false;scam.position.set(0,1.6,lerp(17,13,sm(lt/D)));scam.lookAt(0,1.6,0);renderer.render(space,scam);
+  const a=sm(seg(lt,0.2,0.8));T2('NẾU TRÁI ĐẤT',W/2,170,96,'#ffffff',a);T2('NGỪNG QUAY?',W/2,300,140,'#ffd23c',a)}
+ else if(k==='B'){const rot=sc[1]*0.35+lt*0.35;earth.rotation.y=rot;clouds.rotation.y=rot*1.08;pin.visible=true;const p=sm(seg(lt,0,2.5));scam.position.set(lerp(0,-2.2,p),lerp(0.3,1.2,p),lerp(13,8.5,p));scam.lookAt(0,0.3,0);renderer.render(space,scam);
+  const v=1600*sm(seg(lt,0.5,2.5));speedo(W-360,200,v,sm(seg(lt,0.3,0.8)));
+  const a=sm(seg(lt,1.2,1.8));const pv=new THREE.Vector3();pin.getWorldPosition(pv);pv.project(scam);const px=(pv.x+1)/2*W,py=(1-pv.y)/2*H;g2.save();g2.globalAlpha=a;g2.strokeStyle='#ffd23c';g2.lineWidth=12;g2.lineCap='round';g2.beginPath();g2.moveTo(px+40,py+70);g2.lineTo(px+300,py+70);g2.moveTo(px+260,py+40);g2.lineTo(px+300,py+70);g2.lineTo(px+260,py+100);g2.stroke();g2.restore();T2('BẠN Ở ĐÂY',px,py-70,40,'#ffffff',a);T2('PHÍA ĐÔNG',px+170,py+140,40,'#ffd23c',a)}
+ else if(k==='C'){const ts=Math.min(2.6,D*0.33),f=seg(lt,ts,D);// before stop: everything moves with ground (camera moves too); after: ground stops, objects keep moving +x
+  const fl=f*f;for(const q of flyers){const tt=Math.max(0,lt-ts);const dx=tt*(1.2/q.m+0.8)+tt*tt*(0.8/q.m+0.4);const up=Math.max(0,Math.sin(Math.min(tt*0.9,Math.PI))*q.lift*4/q.m);
+   q.o.position.x=q.x0+(tt>0?dx:0);q.o.position.y=q.y0+(tt>0?up:0);q.o.rotation.z=-(tt>0?tt*q.spin*0.25:0);q.o.rotation.x=tt>0?tt*q.spin*0.15:0}
+  const shake=lt>ts&&lt<ts+0.6?(1-(lt-ts)/0.6):0;tcam.position.set(lerp(-2,9,sm(lt/D))+Math.sin(t*60)*0.25*shake,4.2+Math.cos(t*53)*0.2*shake,17);tcam.lookAt(lerp(-1,12,sm(lt/D)),2.2,0);
+  for(const q of flyers)q.o.visible=q.o.position.x<60;renderer.render(town,tcam);
+  if(lt>ts){const a=sm(seg(lt,ts,ts+0.3))*(1-sm(seg(lt,ts+1.6,ts+2.2)));T2('KÉT!',W/2,240,170,'#ff4b3a',a)}
+  if(lt<ts)T2('→ 1.600 km/h',W-300,140,60,'#ffd23c',1)}
+ else if(k==='D'){const w=sm(seg(lt,0.8,D));seaUpdate(t,w);ocam.position.set(-30,48,105);ocam.lookAt(0,0,-45);renderer.render(ocean,ocam)}
+ else if(k==='E'){earth.rotation.y=sc[1]*0.0+2.2;clouds.rotation.y=2.3;pin.visible=false;sunL.position.set(-8,0,-2);scam.position.set(0,0.3,lerp(11,13,sm(lt/D)));scam.lookAt(0,0,0);renderer.render(space,scam);sunL.position.set(-8,3,6);
+  const a=sm(seg(lt,0.6,1.2));T2('MỚI CHỈ LÀ',W/2,200,70,'#ffffff',a);T2('GIÂY ĐẦU TIÊN',W/2,320,130,'#ff4b3a',a)}
+ subs(t)}
+</script></body></html>
