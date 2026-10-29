@@ -6,7 +6,7 @@
 | TikTok | Ma Lai (cô dâu không đầu) | ma làng quê | 2026-10-27 | pipeline/tiktok_malai |
 | YouTube T1 | Quỷ Nhập Tràng (hai đêm canh xác) | cấm kỵ / ma | 2026-10-27 | pipeline/ep01_quy_nhap_trang |
 | TikTok | Tiếng gõ cửa lúc 3 giờ sáng (gõ 4 tiếng là ma) — KHÔNG đăng, thay bằng Ma trành | lời đồn | 2026-10-28 | pipeline/tiktok_go_cua_malai |
-| TikTok | Ma trành (hồn người dẫn cọp về làng) — bản đăng 28/10 | ma ít ai kể | 2026-10-28 | pipeline/tiktok_ma_tranh |
+| TikTok | Ma trành (hồn người dẫn cọp về làng) — bản đăng 28/10 là bản 2.5D v6 | ma ít ai kể | 2026-10-28 | pipeline/tiktok_ma_tranh_25d |
 
 ## QUY TẮC CHỌN TRUYỆN (chủ kênh 28/10: "chuyện đại trà đơn giản quá, mấy chuyện ít ai kể á")
 - KHÔNG làm kiểu lời đồn chung chung (gõ cửa, võng đung đưa, xe đò đêm, búp bê, nhà ma…) — kênh nào cũng có.

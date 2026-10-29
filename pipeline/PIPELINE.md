@@ -61,3 +61,5 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Nữ: **Mỹ Duyên** (chủ kênh chọn) cho nhân vật nữ chính, mẹ, ma nữ. Nữ khác: **Kim Thanh**, **Thục Đoan**, **Thùy Dung** (đều miền Nam).
 - Lời thoại viết theo khẩu ngữ miền Nam (tui, má, hổng, kêu, đâu có…, nè, đó). Dùng dấu "..." để ngắt nhấn, "!" khi hốt hoảng/quả quyết; có thể chèn [thở dài] / [cười] (VieNeu hiểu các thẻ này).
 - Mỗi câu thoại 5 bản, kw temperature 1.1; chọn bản có ASR gần cao nhất (trong 0.06) VÀ biến thiên năng lượng lớn nhất (biểu cảm) — xem build_tr.py.
+
+## Lịch TikTok (chủ kênh 29/10): 2 NGÀY 1 VIDEO (lịch tự động chạy các ngày chẵn 9:37 sáng), đăng 20:00. Kiểu 2.5D theo pipeline/tiktok_ma_tranh_25d.
