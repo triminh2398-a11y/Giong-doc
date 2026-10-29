@@ -62,7 +62,7 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Lời thoại viết theo khẩu ngữ miền Nam (tui, má, hổng, kêu, đâu có…, nè, đó). Dùng dấu "..." để ngắt nhấn, "!" khi hốt hoảng/quả quyết; có thể chèn [thở dài] / [cười] (VieNeu hiểu các thẻ này).
 - Mỗi câu thoại 5 bản, kw temperature 1.1; chọn bản có ASR gần cao nhất (trong 0.06) VÀ biến thiên năng lượng lớn nhất (biểu cảm) — xem build_tr.py.
 
-## Lịch TikTok (chủ kênh 29/10): 2 NGÀY 1 VIDEO (lịch tự động chạy các ngày chẵn 9:37 sáng), đăng 20:00. Kiểu 2.5D theo pipeline/tiktok_ma_tranh_25d.
+## Lịch TikTok (chủ kênh 29/10): MỖI NGÀY 1 VIDEO (đổi lại 29/10; lịch tự động chạy 9:37 sáng mỗi ngày), đăng 20:00. Kiểu 2.5D theo pipeline/tiktok_ma_tranh_25d.
 
 ## Mẫu YouTube 2.5D 16:9 (tập 2, 29/10): pipeline/ep02_con_ranh/
 - Engine three.js viết lại cho khung ngang: main1–6.js (main1 nền/card, main2 nội thất nhà lá miền Tây, main3 ngoại cảnh xóm rạch + gò mả + đồng lúa + ngã ba sông, main4 engine (put/lie/cams/subs/watermark/jump), main5 = các cảnh S[key], main6 vòng vẽ). chars_main.js = nhân vật nét Ma Lai (hien, loi, batu, batho, thayBay, kid, ranh), flat.js = cận cảnh 2D (vai dấu chàm, bàn tay, mặt em bé, thẻ chương, CTA).
