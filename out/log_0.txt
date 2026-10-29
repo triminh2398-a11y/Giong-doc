@@ -647,3 +647,43 @@ loaded V3TurboVieNeuTTS
 60_cr_fixnam Minh Triết 0 ok 1.2
 60_cr_fixnam Minh Triết 4 ok 1.2
 60_cr_fixnam asr ok
+loaded V3TurboVieNeuTTS
+61_tx_n clone:refs/mada8.wav 0 ok 28.0
+61_tx_n clone:refs/mada8.wav 4 ok 1.7
+61_tx_n clone:refs/mada8.wav 8 ok 3.5
+61_tx_n clone:refs/mada8.wav 12 ok 2.5
+61_tx_n clone:refs/mada8.wav 16 ok 2.7
+61_tx_n clone:refs/mada8.wav 20 ok 2.3
+61_tx_n clone:refs/mada8.wav 24 ok 3.3
+61_tx_n clone:refs/mada8.wav 28 ok 1.8
+61_tx_n clone:refs/mada8.wav 32 ok 1.6
+61_tx_n clone:refs/mada8.wav 36 ok 2.7
+61_tx_n clone:refs/mada8.wav 40 ok 2.3
+61_tx_n clone:refs/mada8.wav 44 ok 4.3
+61_tx_n clone:refs/mada8.wav 48 ok 1.7
+61_tx_n clone:refs/mada8.wav 52 ok 2.6
+61_tx_n clone:refs/mada8.wav 56 ok 1.7
+61_tx_n asr ok
+62_tx_th Thái Sơn 0 ok 2.9
+62_tx_th Thái Sơn 4 ok 2.9
+62_tx_th Thái Sơn 8 ok 3.7
+62_tx_th Thái Sơn 12 ok 1.2
+62_tx_th Thái Sơn 16 ok 2.0
+62_tx_th Thái Sơn 20 ok 2.3
+62_tx_th Thái Sơn 24 ok 2.1
+62_tx_th Thái Sơn 28 ok 4.0
+62_tx_th Thái Sơn 32 ok 3.4
+62_tx_th asr ok
+63_tx_k Adam 0 ok 1.4
+63_tx_k Adam 4 ok 1.4
+63_tx_k Adam 8 ok 0.4
+63_tx_k asr ok
+64_tx_me Mỹ Duyên 0 ok 1.1
+64_tx_me Mỹ Duyên 4 ok 1.2
+64_tx_me Mỹ Duyên 8 ok 1.6
+64_tx_me Mỹ Duyên 12 ok 2.2
+64_tx_me Mỹ Duyên 16 ok 1.7
+64_tx_me asr ok
+65_tx_ch Đức Trí 0 ok 1.6
+65_tx_ch Đức Trí 4 ok 0.8
+65_tx_ch asr ok
