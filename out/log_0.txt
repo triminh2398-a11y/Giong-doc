@@ -758,3 +758,7 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 79_tx_phuc_ts_ba Thái Sơn 0 ok 0.3
 79_tx_phuc_ts_ba asr ok
+loaded V3TurboVieNeuTTS
+80_tx_mai_anhoi Mỹ Duyên 0 ok 2.8
+80_tx_mai_anhoi Mỹ Duyên 4 ok 0.8
+80_tx_mai_anhoi asr ok
