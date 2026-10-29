@@ -80,3 +80,8 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 ## Mở đầu video: KHÔNG chèn dòng chữ móc lớn (29/10)
 - Chủ kênh so sánh: Ma Lai (312K view) mở bằng hình ma + tiêu đề lớn; Ma Trành (3,6K) có dòng chữ lớn che màn hình 2 giây đầu → nghi bị TikTok bóp. Từ nay: KHÔNG hookText ở đầu. 2 giây đầu = hình ảnh đáng sợ/ly kỳ nhất + lời dẫn; tiêu đề lớn (kiểu Ma Lai) vẫn giữ ở cảnh title.
 - Khung đầu tiên phải dùng được làm ảnh bìa TikTok: có nhân vật/ma rõ, không chữ to.
+
+## Jumpscare kiểu Ma Lai, KHÔNG lộ liễu (29/10 — chủ kênh: Ma Trành flop vì jumpscare lộ liễu)
+- BỎ hẳn kiểu chèn mặt ma phóng to full màn hình + chớp trắng + tiếng hét. (Ở bản mẫu: vòng lặp JUMPS đã tắt.)
+- Thay bằng: ma hiện ra NGAY TRONG CẢNH (ló sau cửa, mở mắt, quay đầu, đứng xa trong bóng tối), máy quay đẩy chậm vào, ánh sáng nháy nhẹ; âm thanh chỉ là hit nhẹ (565 drum 0.55 + 677 glass 0.3 + 2630 sweep 0.25), cộng -3dB, không tiếng hét/impact lớn.
+- Vẫn giữ khoảng lặng ngắn trước khoảnh khắc ma hiện.
