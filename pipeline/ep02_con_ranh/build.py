@@ -6,12 +6,21 @@ from ghostfx import ghost
 import pace as P
 SR = 48000; D = '/home/claude/ep2/'; G = '/home/claude/giong-doc/'
 S = [l.rstrip('\n').split('|', 2) for l in open(G + 'pipeline/ep02_con_ranh/script.txt') if l.strip()]
-VS = {'N': 'clone_refs_mada8_wav', 'H': 'my_duyen', 'GH': 'my_duyen', 'L': 'adam', 'BT': 'thuy_dung', 'BA': 'kim_thanh', 'TH': 'thai_son', 'NAM': 'minh_triet', 'BE': 'thuc_doan', 'GBE': 'thuc_doan'}
+VS = {'N': 'clone_refs_mada8_wav', 'H': 'my_duyen', 'GH': 'my_duyen', 'L': 'duc_tri', 'BT': 'thuy_dung', 'BA': 'kim_thanh', 'TH': 'thai_son', 'NAM': 'minh_triet', 'BE': 'thuc_doan', 'GBE': 'thuc_doan'}
 FEM = {'H', 'GH', 'BT', 'BA', 'BE', 'GBE'}
-norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
+clean = lambda s: re.sub(r'\s*\[[^\]]*\]\s*', ' ', s).strip()
+norm = lambda s: re.sub(r'[^\w\s]', '', clean(s).lower()).split()
+EMO = json.load(open(G + 'pipeline/ep02_con_ranh/emo.json'))
+TEMPO = {'happy': 0.95, 'worry': 0.9, 'fear': 0.93, 'angry': 0.95, 'sad': 0.82, 'cry': 0.85}
+def tempo(c, f):
+    d = tempfile.mkdtemp(); a = d + '/a.wav'; b = d + '/b.wav'
+    wavfile.write(a, SR, (c / max(1e-9, np.abs(c).max()) * 0.9 * 32767).astype(np.int16))
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', a, '-af', f'atempo={f}', b], check=True)
+    r, y = wavfile.read(b); y = y.astype(np.float64) / 32768
+    return (y if y.ndim == 1 else y.mean(1)) * np.abs(c).max() / 0.9
 MAP = {}
 for jf in sorted(os.listdir(G + 'jobs')):
-    if not re.match(r'(5\d_cr_|6\d_cr_)', jf): continue
+    if not re.match(r'(5\d_cr_|6\d_cr_|8\d_cr_)', jf): continue
     job = jf[:-5]; J = json.load(open(G + 'jobs/' + jf)); vd = slug(J['voices'][0])
     for k, line in enumerate(J['lines']):
         f = f'{G}out/{job}/{vd}/{k:02d}'
@@ -44,6 +53,7 @@ for i, (sh, sp, tx) in enumerate(S):
     if best[0] < 0.75: low.append((i, sp, round(best[0], 2), tx[:50]))
     pick.append(best[1])
     c = P.stretch_pauses(P.trim(P.load(best[1] + '.wav')), factor=1.3 if sp not in FEM else 1.2, extra=0.05)
+    if str(i) in EMO: c = P.stretch_pauses(c, factor=1.35, extra=0.12); c = tempo(c, TEMPO[EMO[str(i)]])
     if sp.startswith('G'): c = ghost(slow(c), 'far' if sp == 'GH' else 'ghost')
     elif sp in FEM: c = c * 0.9
     clips.append(c)
@@ -56,6 +66,7 @@ st = [0.5]
 for i in range(len(S) - 1):
     a, b = S[i][0], S[i + 1][0]
     g = 0.4 if a == b else 0.75
+    if str(i) in EMO or str(i + 1) in EMO: g += 0.3
     if b.startswith('jump') or i + 1 in JXI: g = 1.7
     if b.startswith('chap') or b in ('title', 'ctamid', 'cta0', 'final'): g = 1.3
     if a.startswith('chap') or a == 'title': g = 1.1
@@ -73,7 +84,7 @@ for j, (k, a, b) in enumerate(runs):
     sc.append([k, round(t0, 3), round(t1, 3), [round(st[q] - t0, 2) for q in range(a, b + 1)], a])
 subs = []
 for i, ((sh, sp, tx), s0, d) in enumerate(zip(S, st, nd)):
-    toks = tx.split(); chunks = []; cur = []
+    tx = clean(tx); toks = tx.split(); chunks = []; cur = []
     for k, t in enumerate(toks):
         cur.append(t)
         if (t[-1] in '.,?!' and len(cur) >= 3) or len(cur) >= 9 or k == len(toks) - 1: chunks.append(cur); cur = []

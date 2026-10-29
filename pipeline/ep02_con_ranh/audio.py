@@ -92,15 +92,26 @@ place(2484,SC['final'][0]+SC['final'][2][1],0.45);place(773,at('final',1,0.6),0.
 place(2630,SC['hook'][0]+0.2,0.25,dur=5)
 # im lặng ở tra3 "gió ngừng"
 a0=int(at('tra3',0,0.3)*SR);a1=int(at('tra3',1,0)*SR);out[a0:a1]*=np.linspace(1,0.15,a1-a0)[:,None]
+
+# --- bổ sung 29/10: âm thanh theo lời kể + lớp cảm xúc dưới thoại
+S=[l.rstrip('\n').split('|',2) for l in open('/home/claude/giong-doc/pipeline/ep02_con_ranh/script.txt') if l.strip()]
+EMO=json.load(open('/home/claude/giong-doc/pipeline/ep02_con_ranh/emo.json'));STL=T['starts']
+place(1241,at('xom',1,0.2),0.28,dur=6,fo=1.5)                 # ếch nhái
+place(474,at('sanh2',2,1.8),0.16,dur=2.2,rate=1.35)           # khóc nhỏ như mèo con
+place(392,at('jump1',0,0.9),0.3,dur=1.2)                       # Lợi hét
+for i,e in EMO.items():
+    i=int(i);t0=STL[i];t1=STL[i+1] if i+1<len(STL) else t0+4
+    if e=='cry':place(469,t0-0.2,0.13,dur=t1-t0+0.3,fi=0.4,fo=0.6)
+    if e=='fear':place(2232 if S[i][1]=='BT' else 379,t0-0.3,0.16,dur=min(3,t1-t0),fi=0.2,fo=0.5)
 # jumpscare
 JT=[j[0] for j in T['jumps']];print('JT',JT)
 for t in JT:
-    s0=int((t-0.7)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,0.04,s1-s0)[:,None];out[s1:s1+int(0.9*SR)]*=0.2
+    s0=int((t-0.7)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,0.3,s1-s0)[:,None];out[s1:s1+int(0.9*SR)]*=0.5
 out/=np.abs(out).max()*1.05
 jt=np.zeros((N,2))
 def jplace(i,t,g,dur,rate=1.0):
     x=load(i,rate);n=min(len(x),int(dur*SR));x=x[:n].copy();x[-int(0.25*SR):]*=np.linspace(1,0,int(0.25*SR))[:,None];s2=int(t*SR);m=min(n,N-s2);jt[s2:s2+m]+=x[:m]*g
 for t in JT:
-    jplace(788,t-0.03,1.0,1.6);jplace(1963,t,0.9,1.3);jplace(677,t,0.6,1.0);jplace(565,t-0.02,0.8,1.2);jplace(431,t+0.05,0.5,1.2,rate=0.7)
+    jplace(565,t-0.02,0.55,1.4);jplace(677,t,0.3,1.2);jplace(2630,t,0.25,2.0);jplace(431,t+0.05,0.25,1.2,rate=0.7)  # kiểu Ma Lai: nhẹ
 jt/=np.abs(jt).max()*1.02;wavfile.write('/home/claude/ep2/jump_real.wav',SR,(jt*32767).astype(np.int16))
 wavfile.write('/home/claude/ep2/sfx_real.wav',SR,(out*32767).astype(np.int16));print('ok')
