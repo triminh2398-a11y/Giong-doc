@@ -751,3 +751,7 @@ loaded V3TurboVieNeuTTS
 77_tx_cha_mt Minh Triết 0 ok 0.4
 77_tx_cha_mt Minh Triết 4 ok 0.4
 77_tx_cha_mt asr ok
+loaded V3TurboVieNeuTTS
+78_demo_ts Thái Sơn 0 ok 1.5
+78_demo_ts Thái Sơn 4 ok 1.2
+78_demo_ts asr ok
