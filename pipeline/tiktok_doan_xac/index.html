@@ -304,7 +304,7 @@ window.draw=function(t){const fl=1+Math.sin(t*13)*0.08+Math.sin(t*7.3)*0.06;lamp
  const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.5)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH);
  if(mode==='ext+sepia'){tint('rgba(150,110,50,.22)');grain(0.12)}
  if(mode==='ext+'&&k==='title')titleTxt(lt,sm(seg(lt,0.1,0.6)));
- if(k==='hook')hookText(sm(seg(lt,0.1,0.5)));
+
  if(ctaFlag)ctaTxt(sm(seg(lt,0.1,0.6)));
  for(const [jt,jd,jn] of JUMPS)if(t>=jt&&t<jt+jd)jump(jn,t-jt);
  const d=Math.min(t-a,b-t);if(d<0.08&&a>0){g2.fillStyle=`rgba(0,0,0,${1-d/0.08})`;g2.fillRect(0,0,RW,RH)}
