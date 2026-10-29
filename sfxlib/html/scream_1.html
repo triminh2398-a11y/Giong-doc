@@ -55,7 +55,7 @@
           client: {
             javascript: {
               source_map_enabled: true,
-              code_version: "v1881",
+              code_version: "v1882",
               guess_uncaught_frames: true
             }
           }
@@ -239,7 +239,7 @@
 
     var pageAttributes = {
       app_name: 'mixkit',
-      app_version: 'v1881',
+      app_version: 'v1882',
       app_env: 'production',
       page_type: 'tag',
       category: 'sfx',
@@ -1944,6 +1944,82 @@
       <div
   data-test-id="audio-player"
   data-controller="audio-player"
+  data-audio-player-waveform-url-value="https://assets.mixkit.co/active_storage/sfx/1966/1966-waveform.json"
+  data-audio-player-preview-url-value="https://assets.mixkit.co/active_storage/sfx/1966/1966-preview.mp3"
+  data-audio-player-item-id-value="1966"
+  data-audio-player-item-type-value="sfx"
+  data-audio-player-wave-color-value="#000000"
+  data-audio-player-read-data-from-db-value="true"
+>
+  <div data-test-id="audio-player-wave-wrapper" class="audio-player__wave-wrapper audio-player--sfx">
+    <div class="audio-player__wave" data-audio-player-target="wave" data-action="click->audio-player#userInteraction"></div>
+    <button class="audio-player__button" data-action="click->audio-player#handleTogglePlay" aria-label="play">
+      <div class="audio-player__button-icon"></div>
+    </button>
+    <div class="audio-player__progress" data-audio-player-target="progress"></div>
+  </div>
+</div>
+
+
+    <div class="item-grid-card__meta">
+      <h2 class="item-grid-card__title">
+          Monster growl
+      </h2>
+          <div class="item-grid-sfx-preview__meta">
+      <div class="item-grid-sfx-preview__meta-links">
+        <div class="meta-links__wrapper"
+     data-controller="global--meta-links"
+     data-action="resize@window->global--meta-links#layout"
+     data-global--meta-links-target="metaWrapper"
+     data-global--meta-links-show-dropdown-value="false"
+     data-global--meta-links-row-number-value="1"
+     data-analytics-context-detail="meta links"
+>
+  <div class="meta-links__links" >
+      <a class="meta-links__link" data-global--meta-links-target="link" href="/free-sound-effects/monster/">Monster</a>
+      <a class="meta-links__link" data-global--meta-links-target="link" href="/free-sound-effects/scream/">Scream</a>
+    <div class="meta-links__links--ellipsis" data-global--meta-links-target="more">
+      <span class="meta-links__link meta-links__link--ellipsis"></span>
+      <div class="meta-links__link-children-outer">
+        <div class="meta-links__link-children-inner" data-global--meta-links-target="moreLinks">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      <div class="item-grid-sfx-preview__meta-time" data-test-id="duration">
+        0:01
+      </div>
+      <div class="item-grid-sfx-preview__meta-download">
+        <button
+  class="download-button--icon"
+  data-controller="download--button"
+  data-algolia-analytics-item-type="sfx"
+  data-algolia-analytics-item-id="1966"
+  data-action="click->download--button#openDownloadModal click->algolia-analytics#trackConversion"
+  data-download--button-modal-url-value="/free-sound-effects/download/1966/?context=item+grid"
+  aria-label="Download Free SFX"
+>
+  Download Free SFX
+</button>
+
+      </div>
+    </div>
+
+    </div>
+</div>
+
+
+        </div>
+        <div class="item-grid__item">
+          
+          <div class="item-grid-card item-grid-card--show-meta"
+>
+      <div
+  data-test-id="audio-player"
+  data-controller="audio-player"
   data-audio-player-waveform-url-value="https://assets.mixkit.co/active_storage/sfx/2097/2097-waveform.json"
   data-audio-player-preview-url-value="https://assets.mixkit.co/active_storage/sfx/2097/2097-preview.mp3"
   data-audio-player-item-id-value="2097"
@@ -2001,82 +2077,6 @@
   data-algolia-analytics-item-id="2097"
   data-action="click->download--button#openDownloadModal click->algolia-analytics#trackConversion"
   data-download--button-modal-url-value="/free-sound-effects/download/2097/?context=item+grid"
-  aria-label="Download Free SFX"
->
-  Download Free SFX
-</button>
-
-      </div>
-    </div>
-
-    </div>
-</div>
-
-
-        </div>
-        <div class="item-grid__item">
-          
-          <div class="item-grid-card item-grid-card--show-meta"
->
-      <div
-  data-test-id="audio-player"
-  data-controller="audio-player"
-  data-audio-player-waveform-url-value="https://assets.mixkit.co/active_storage/sfx/1966/1966-waveform.json"
-  data-audio-player-preview-url-value="https://assets.mixkit.co/active_storage/sfx/1966/1966-preview.mp3"
-  data-audio-player-item-id-value="1966"
-  data-audio-player-item-type-value="sfx"
-  data-audio-player-wave-color-value="#000000"
-  data-audio-player-read-data-from-db-value="true"
->
-  <div data-test-id="audio-player-wave-wrapper" class="audio-player__wave-wrapper audio-player--sfx">
-    <div class="audio-player__wave" data-audio-player-target="wave" data-action="click->audio-player#userInteraction"></div>
-    <button class="audio-player__button" data-action="click->audio-player#handleTogglePlay" aria-label="play">
-      <div class="audio-player__button-icon"></div>
-    </button>
-    <div class="audio-player__progress" data-audio-player-target="progress"></div>
-  </div>
-</div>
-
-
-    <div class="item-grid-card__meta">
-      <h2 class="item-grid-card__title">
-          Monster growl
-      </h2>
-          <div class="item-grid-sfx-preview__meta">
-      <div class="item-grid-sfx-preview__meta-links">
-        <div class="meta-links__wrapper"
-     data-controller="global--meta-links"
-     data-action="resize@window->global--meta-links#layout"
-     data-global--meta-links-target="metaWrapper"
-     data-global--meta-links-show-dropdown-value="false"
-     data-global--meta-links-row-number-value="1"
-     data-analytics-context-detail="meta links"
->
-  <div class="meta-links__links" >
-      <a class="meta-links__link" data-global--meta-links-target="link" href="/free-sound-effects/monster/">Monster</a>
-      <a class="meta-links__link" data-global--meta-links-target="link" href="/free-sound-effects/scream/">Scream</a>
-    <div class="meta-links__links--ellipsis" data-global--meta-links-target="more">
-      <span class="meta-links__link meta-links__link--ellipsis"></span>
-      <div class="meta-links__link-children-outer">
-        <div class="meta-links__link-children-inner" data-global--meta-links-target="moreLinks">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-      </div>
-      <div class="item-grid-sfx-preview__meta-time" data-test-id="duration">
-        0:01
-      </div>
-      <div class="item-grid-sfx-preview__meta-download">
-        <button
-  class="download-button--icon"
-  data-controller="download--button"
-  data-algolia-analytics-item-type="sfx"
-  data-algolia-analytics-item-id="1966"
-  data-action="click->download--button#openDownloadModal click->algolia-analytics#trackConversion"
-  data-download--button-modal-url-value="/free-sound-effects/download/1966/?context=item+grid"
   aria-label="Download Free SFX"
 >
   Download Free SFX
@@ -2175,6 +2175,82 @@
       <div
   data-test-id="audio-player"
   data-controller="audio-player"
+  data-audio-player-waveform-url-value="https://assets.mixkit.co/active_storage/sfx/392/392-waveform.json"
+  data-audio-player-preview-url-value="https://assets.mixkit.co/active_storage/sfx/392/392-preview.mp3"
+  data-audio-player-item-id-value="392"
+  data-audio-player-item-type-value="sfx"
+  data-audio-player-wave-color-value="#000000"
+  data-audio-player-read-data-from-db-value="true"
+>
+  <div data-test-id="audio-player-wave-wrapper" class="audio-player__wave-wrapper audio-player--sfx">
+    <div class="audio-player__wave" data-audio-player-target="wave" data-action="click->audio-player#userInteraction"></div>
+    <button class="audio-player__button" data-action="click->audio-player#handleTogglePlay" aria-label="play">
+      <div class="audio-player__button-icon"></div>
+    </button>
+    <div class="audio-player__progress" data-audio-player-target="progress"></div>
+  </div>
+</div>
+
+
+    <div class="item-grid-card__meta">
+      <h2 class="item-grid-card__title">
+          Male falling scream
+      </h2>
+          <div class="item-grid-sfx-preview__meta">
+      <div class="item-grid-sfx-preview__meta-links">
+        <div class="meta-links__wrapper"
+     data-controller="global--meta-links"
+     data-action="resize@window->global--meta-links#layout"
+     data-global--meta-links-target="metaWrapper"
+     data-global--meta-links-show-dropdown-value="false"
+     data-global--meta-links-row-number-value="1"
+     data-analytics-context-detail="meta links"
+>
+  <div class="meta-links__links" >
+      <a class="meta-links__link" data-global--meta-links-target="link" href="/free-sound-effects/scream/">Scream</a>
+      <a class="meta-links__link" data-global--meta-links-target="link" href="/free-sound-effects/falling/">Falling</a>
+    <div class="meta-links__links--ellipsis" data-global--meta-links-target="more">
+      <span class="meta-links__link meta-links__link--ellipsis"></span>
+      <div class="meta-links__link-children-outer">
+        <div class="meta-links__link-children-inner" data-global--meta-links-target="moreLinks">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      <div class="item-grid-sfx-preview__meta-time" data-test-id="duration">
+        0:03
+      </div>
+      <div class="item-grid-sfx-preview__meta-download">
+        <button
+  class="download-button--icon"
+  data-controller="download--button"
+  data-algolia-analytics-item-type="sfx"
+  data-algolia-analytics-item-id="392"
+  data-action="click->download--button#openDownloadModal click->algolia-analytics#trackConversion"
+  data-download--button-modal-url-value="/free-sound-effects/download/392/?context=item+grid"
+  aria-label="Download Free SFX"
+>
+  Download Free SFX
+</button>
+
+      </div>
+    </div>
+
+    </div>
+</div>
+
+
+        </div>
+        <div class="item-grid__item">
+          
+          <div class="item-grid-card item-grid-card--show-meta"
+>
+      <div
+  data-test-id="audio-player"
+  data-controller="audio-player"
   data-audio-player-waveform-url-value="https://assets.mixkit.co/active_storage/sfx/510/510-waveform.json"
   data-audio-player-preview-url-value="https://assets.mixkit.co/active_storage/sfx/510/510-preview.mp3"
   data-audio-player-item-id-value="510"
@@ -2232,82 +2308,6 @@
   data-algolia-analytics-item-id="510"
   data-action="click->download--button#openDownloadModal click->algolia-analytics#trackConversion"
   data-download--button-modal-url-value="/free-sound-effects/download/510/?context=item+grid"
-  aria-label="Download Free SFX"
->
-  Download Free SFX
-</button>
-
-      </div>
-    </div>
-
-    </div>
-</div>
-
-
-        </div>
-        <div class="item-grid__item">
-          
-          <div class="item-grid-card item-grid-card--show-meta"
->
-      <div
-  data-test-id="audio-player"
-  data-controller="audio-player"
-  data-audio-player-waveform-url-value="https://assets.mixkit.co/active_storage/sfx/392/392-waveform.json"
-  data-audio-player-preview-url-value="https://assets.mixkit.co/active_storage/sfx/392/392-preview.mp3"
-  data-audio-player-item-id-value="392"
-  data-audio-player-item-type-value="sfx"
-  data-audio-player-wave-color-value="#000000"
-  data-audio-player-read-data-from-db-value="true"
->
-  <div data-test-id="audio-player-wave-wrapper" class="audio-player__wave-wrapper audio-player--sfx">
-    <div class="audio-player__wave" data-audio-player-target="wave" data-action="click->audio-player#userInteraction"></div>
-    <button class="audio-player__button" data-action="click->audio-player#handleTogglePlay" aria-label="play">
-      <div class="audio-player__button-icon"></div>
-    </button>
-    <div class="audio-player__progress" data-audio-player-target="progress"></div>
-  </div>
-</div>
-
-
-    <div class="item-grid-card__meta">
-      <h2 class="item-grid-card__title">
-          Male falling scream
-      </h2>
-          <div class="item-grid-sfx-preview__meta">
-      <div class="item-grid-sfx-preview__meta-links">
-        <div class="meta-links__wrapper"
-     data-controller="global--meta-links"
-     data-action="resize@window->global--meta-links#layout"
-     data-global--meta-links-target="metaWrapper"
-     data-global--meta-links-show-dropdown-value="false"
-     data-global--meta-links-row-number-value="1"
-     data-analytics-context-detail="meta links"
->
-  <div class="meta-links__links" >
-      <a class="meta-links__link" data-global--meta-links-target="link" href="/free-sound-effects/scream/">Scream</a>
-      <a class="meta-links__link" data-global--meta-links-target="link" href="/free-sound-effects/falling/">Falling</a>
-    <div class="meta-links__links--ellipsis" data-global--meta-links-target="more">
-      <span class="meta-links__link meta-links__link--ellipsis"></span>
-      <div class="meta-links__link-children-outer">
-        <div class="meta-links__link-children-inner" data-global--meta-links-target="moreLinks">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-      </div>
-      <div class="item-grid-sfx-preview__meta-time" data-test-id="duration">
-        0:03
-      </div>
-      <div class="item-grid-sfx-preview__meta-download">
-        <button
-  class="download-button--icon"
-  data-controller="download--button"
-  data-algolia-analytics-item-type="sfx"
-  data-algolia-analytics-item-id="392"
-  data-action="click->download--button#openDownloadModal click->algolia-analytics#trackConversion"
-  data-download--button-modal-url-value="/free-sound-effects/download/392/?context=item+grid"
   aria-label="Download Free SFX"
 >
   Download Free SFX
