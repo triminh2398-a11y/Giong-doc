@@ -4,22 +4,26 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=matranh-25d-v6
++ TAG=ep02-conranh-v1
 ++ jq -r .html job.json
-+ HTML=d25/index.html
++ HTML=ep2/index.html
 ++ jq -r .frames job.json
-+ N=5571
++ N=50456
 + S=16
-+ A=2089
-+ B=2437
++ A=18921
++ B=22074
 ++ printf %02d 6
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js d25/index.html seg_06.mp4 2089 2437 720 1280
-frame 2400
++ node render_seg.js ep2/index.html seg_06.mp4 18921 22074 1280 720
+frame 19200
+frame 19800
+frame 20400
+frame 21000
+frame 21600
 + sleep 12
 + for k in 1 2 3 4 5 6
-+ gh release view matranh-25d-v6
++ gh release view ep02-conranh-v1
 ++ printf %02d 6
-+ gh release upload matranh-25d-v6 seg_06.mp4 --clobber
++ gh release upload ep02-conranh-v1 seg_06.mp4 --clobber
 + break
