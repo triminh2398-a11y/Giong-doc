@@ -664,3 +664,9 @@ loaded V3TurboVieNeuTTS
 64_tx_me asr ok
 65_tx_ch Đức Trí 2 ok 0.7
 65_tx_ch asr ok
+loaded V3TurboVieNeuTTS
+66_tx_nfix clone:refs/mada8.wav 2 ok 25.1
+66_tx_nfix clone:refs/mada8.wav 6 ok 1.6
+66_tx_nfix clone:refs/mada8.wav 10 ok 2.5
+66_tx_nfix clone:refs/mada8.wav 14 ok 2.4
+66_tx_nfix asr ok
