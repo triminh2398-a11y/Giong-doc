@@ -4,6 +4,7 @@ title|N|Đoàn xác Tương Tây. Ban đêm, đừng đếm xác.
 inn|N|Dưới chân núi Tương Tây, có một quán trọ lạ. Cửa trước, không bao giờ đóng.
 inn2|N|Quán của hai anh em A Phúc và Tiểu Mai. Ba tụi nhỏ đi làm mỏ xa, ba năm rồi chưa về.
 thread|N|Trước khi đi, Mai buộc cho ba một sợi chỉ đỏ ở cổ tay, dặn ba đeo hoài để nhớ đường về.
+thread2|N|Còn lá số tử vi của ba, con bé cất kỹ trên bàn thờ, chờ ngày ba về.
 bell|N|Đêm đó trời mưa lớn. Ngoài đường núi vang lên tiếng chuông leng keng.
 bell|N|Một ông thầy áo vàng đi trước. Phía sau là ba cái bóng đội nón, mặt dán bùa vàng, nhảy từng bước.
 herder|TH|Mưa sạt đường rồi. Cho tui gửi khách ở đậu một bữa, tối mai tụi tui đi tiếp.
@@ -12,8 +13,6 @@ rules|TH|Một, đừng đụng vô lá bùa. Hai, đi ngang thì nín thở, đ
 rules2|TH|Ba... ban đêm, đừng có đếm xác.
 mai|ME|Sao đếm hổng được vậy ông?
 rules2|TH|Vì lỡ đếm... mà nó dư ra, thì con tính sao?
-rooster|N|Mai sợ, nép sau lưng anh. Phúc cười, giả tiếng gà gáy chọc em, y như mọi khi.
-rooster|ME|Anh Phúc! Giờ này mà còn giỡn!
 midnight|N|Nửa đêm, Phúc xuống bếp uống nước, phải đi ngang qua cánh cửa.
 count|N|Cậu nín thở. Nhưng mắt cậu, lại vô tình đếm. Một... hai... ba... bốn.
 count|K|Bốn? Hồi tối... rõ ràng là ba mà!
@@ -28,16 +27,25 @@ maicome|ME|Ba ơi! Ba về rồi! Con nhớ ba quá!
 breath|N|Hơi thở của Mai, phả thẳng vô mặt cái xác.
 grab|N|Cái xác mở mắt. Hai cánh tay cứng đơ chụp lấy cổ con bé.
 grab|GCH|Mai... con...
-fight|N|Ông thầy lắc chuông, dán bùa, nhưng lá bùa cứ cháy xèo xèo rồi rớt xuống.
-fight|TH|Hổng biết tên tuổi nó, bùa của tui hổng ăn! Chỉ có gà gáy, mới ép nó nằm xuống được!
-idea|N|Còn cả canh giờ nữa trời mới sáng. Phúc chợt nhớ ra một chuyện.
-crow|N|Cậu ưỡn ngực, gáy lên một tiếng thật dài, giống y con gà trống.
-fall|N|Cái xác khựng lại. Rồi đổ ập xuống sàn, như một khúc gỗ.
-dusk|N|Chiều tối hôm sau, ông thầy dán cho ba một lá bùa mới, ghi đúng tên tuổi, rồi dắt ông đi chung đoàn về quê.
-mark|N|Trên cổ Mai còn hằn năm vết móng tay tím bầm. Con bé chỉ ngồi im, nhìn theo ba.
-mark|ME|Anh Phúc... em muốn đi theo ba.
-mark2|N|Phúc tưởng em nói dại, nên ôm em vô lòng.
-empty|N|Nhưng nửa đêm đó, giường của Mai trống trơn. Trên gối, chỉ còn lại sợi chỉ đỏ.
+fight|N|Ông thầy lắc chuông, dán bùa trấn, nhưng lá bùa cứ cháy xèo xèo rồi rớt xuống.
+fight|TH|Bùa trấn hổng ăn! Phải có tên tuổi, ngày giờ sinh của nó, tui mới viết được bùa sai khiến!
+idea|K|Lá số của ba... Mai để trên bàn thờ!
+chaos|N|Nhưng ông thầy vừa ngưng lắc chuông, ba cái xác sau cánh cửa đồng loạt quay đầu lại.
+chaos|TH|Đừng thở! Tui mà buông chuông là tụi nó xổng hết! Con tự đi lấy đi!
+cross|N|Ba cái xác nhảy ra giữa nhà, chắn ngang lối đi. Phúc nín thở, lách qua từng cái một.
+altar|N|Cậu chụp được lá số. Ngực cậu nóng ran như bị lửa đốt.
+write|N|Ông thầy một tay lắc chuông, một tay cắn đầu ngón tay, viết bùa bằng máu.
+write|TH|Xác nhà ai, người nhà đó dán, nó mới chịu nhận! Dán lên trán ba con... mà hổng được thở!
+face|N|Phúc đứng sát mặt ba. Mai đã tím tái, hết giãy. Còn cậu thì không nín thở thêm được nữa.
+gasp|N|Một hơi thở hắt ra. Cái xác buông Mai, quay phắt qua cậu.
+slap|N|Bàn tay khô quắt vừa bóp lấy cổ Phúc, thì lá bùa máu cũng dán chặt lên trán.
+still|N|Cái xác khựng lại. Rồi đứng im, thẳng đơ như một khúc gỗ.
+dusk|N|Chiều tối hôm sau, ông thầy cho ba nhập đoàn, dắt về quê an táng.
+mark|N|Trước khi đi, ông nhìn năm vết móng tím bầm trên cổ Mai, rồi lặng lẽ dúi vô tay Phúc một nắm gạo nếp.
+mark|TH|Tối nay đắp lên vết thương cho con nhỏ. Gạo đen thì thay. Đừng để nó ngủ một mình!
+mark2|ME|Anh Phúc... em muốn đi theo ba.
+mark2|N|Phúc ôm em, ngồi canh bên giường. Nhưng cả đêm qua không ngủ, cậu thiếp đi lúc nào không hay.
+empty|N|Khi giật mình tỉnh dậy, giường của Mai trống trơn. Nắm gạo nếp trên gối, đã đen thui như than.
 final|N|Phúc chạy ra cửa. Trên đường núi xa xa, tiếng chuông vẫn còn leng keng.
 final2|N|Và cậu lỡ đếm. Một, hai, ba, bốn... năm.
 cta|N|Nếu là bạn, bạn có dám đếm đoàn xác đó không?

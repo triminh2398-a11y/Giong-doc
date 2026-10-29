@@ -70,3 +70,8 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - cams(lt,ls,[...]) đổi góc máy theo TỪNG CÂU; mỗi cảnh trả 'inn' | 'ext' | 'flat'. Thẻ nhân vật có emissive 0.16 để không bị đen khi ngược sáng; đèn dầu đặt bằng lampAt(x,z) (có ghế đẩu) và luôn ở PHÍA TRƯỚC nhân vật.
 - Bài học rà hình: camera không được đặt trong nhà lá (x -4..4, z -3..3) khi quay ngoại cảnh; tránh tàu dừa nước dọc bờ z≈11; nằm dùng lie() có nghiêng 0.6 rad để thấy từ camera thấp; ngồi bệt dưới đất = put(..., base -0.42).
 - build.py: chọn bản giọng theo ASR, nhảy dọa (jumps) tự sinh ở cảnh jump* + JX; audio.py dùng sfxlib (đã thêm baby/laugh/water/kids/boat: 431 tiếng trẻ cười làm chậm 0.78 = cười ma, 3076 = võng kẽo kẹt, 700 = hộp nhạc ru).
+
+## Card nhân vật luôn để RỘNG (29/10)
+- Mọi card (người lẫn ma) dùng card rộng 1024px (`card(h,draw,true)`), vẽ ở x=256 sau translate(256): tay giơ ngang/giơ lên không bị cắt mất bàn tay. Chủ kênh đã bắt lỗi "mất bàn tay khi đưa lên đưa xuống" 2 lần — soát ảnh tĩnh mọi cảnh có tay giơ.
+- Cảnh cận mặt: đầu nhân vật nét Ma Lai rất to (≈0,6m) → máy quay cách ≥2,4m (hàm close() đã +0,8m).
+- Chữ Hán (biển quán, câu đối): máy render không có font CJK → vẽ sẵn thành ảnh data URL (mkcjk.js → cjk.js), chờ ảnh decode xong mới READY.

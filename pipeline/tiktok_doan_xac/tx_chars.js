@@ -1,6 +1,6 @@
 // ===== ĐOÀN XÁC TƯƠNG TÂY — nhân vật nét Ma Lai =====
 const PHUC={shirt:'#2f4a5e',pants:'#1e2228'};
-function phuc(x,y,s,o={}){person(x,y,s,Object.assign({},PHUC,o));if(o.lamp){ctx.save();ctx.translate(x,y);ctx.scale(s,s);const sd=o.lamp;ctx.translate(sd*44,-140);halo(0,0,120,'255,170,80',0.45);ctx.fillStyle='#3a2a18';ctx.fillRect(-3,-36,6,22);ctx.fillStyle='#ffcf70';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(0,0,14,18,0,0,7);ctx.fill();ctx.stroke();ctx.restore()}}
+function phuc(x,y,s,o={}){person(x,y,s,Object.assign({},PHUC,o));if(o.paper){ctx.save();ctx.translate(x,y);ctx.scale(s,s);const side=o.armA&&o.armA[1]!=null&&o.armA[0]==null?1:-1;const a=o.armA?(o.armA[side>0?1:0]??side*0.1):side*0.1;ctx.translate(side*40,-210);ctx.rotate(a);ctx.translate(0,104);ctx.rotate(-a);ctx.fillStyle=o.paper==='bua'?'#e8c23a':'#e8d8a8';ctx.strokeStyle='#a01818';ctx.lineWidth=3;ctx.fillRect(-16,-22,32,44);ctx.strokeRect(-16,-22,32,44);if(o.blood){}ctx.restore()}if(o.lamp){ctx.save();ctx.translate(x,y);ctx.scale(s,s);const sd=o.lamp;ctx.translate(sd*44,-140);halo(0,0,120,'255,170,80',0.45);ctx.fillStyle='#3a2a18';ctx.fillRect(-3,-36,6,22);ctx.fillStyle='#ffcf70';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(0,0,14,18,0,0,7);ctx.fill();ctx.stroke();ctx.restore()}}
 // Mai: bím tóc, áo hồng; o.scratch = vết móng tím trên cổ
 function mai(x,y,s,o={}){woman(x,y,s,Object.assign({shirt:'#9a4a5a',pants:'#2a1e24',skin:'#e4ddd2',smile:false},o));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){for(const sd of [-1,1]){ctx.strokeStyle=HAIR;ctx.lineWidth=12;ctx.beginPath();ctx.moveTo(sd*52,-262);ctx.quadraticCurveTo(sd*64,-215,sd*56,-180);ctx.stroke();circ(sd*56,-176,6,'#c03040')}}
@@ -43,7 +43,7 @@ function cuongthi(x,fy,s,T,o={}){ctx.save();ctx.translate(x,fy);ctx.scale(s,s);c
  // nón rộng vành
  if(!o.nohat){ctx.save();ctx.translate(0,-28);ctx.fillStyle='#4a3a22';ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.beginPath();ctx.ellipse(0,0,104,22,0,0,7);ctx.fill();ctx.stroke();ctx.fillStyle='#5a4628';ctx.beginPath();ctx.moveTo(-50,-4);ctx.quadraticCurveTo(0,-70,50,-4);ctx.closePath();ctx.fill();ctx.stroke();ctx.strokeStyle='rgba(20,12,4,.5)';ctx.lineWidth=2;for(let k=-4;k<=4;k++){ctx.beginPath();ctx.moveTo(k*10,-4);ctx.lineTo(k*4,-38);ctx.stroke()}ctx.restore()}
  // bùa vàng rủ trước mặt
- if(!o.back&&!o.nobua&&!o.nohat){bua(0,-14,40,96,o.burn,T)}
+ if(!o.back&&((!o.nobua&&!o.nohat)||o.forceBua)){bua(0,o.forceBua&&o.nohat?-46:-14,o.forceBua?46:40,o.forceBua?104:96,o.burn,T);if(o.forceBua){ctx.fillStyle='rgba(160,10,14,.9)';ctx.fillRect(-12,-36,24,4);ctx.fillRect(-4,-30,4,40)}}
  ctx.restore();ctx.restore()}
 // cha khi còn sống (thợ mỏ)
 function cha(x,y,s,o={}){person(x,y,s,Object.assign({shirt:'#5a5040',pants:'#2a2620',khan:false},o));if(o.thread){ctx.save();ctx.translate(x,y);ctx.scale(s,s);const a=o.armA?o.armA[1]:0.1;ctx.translate(40,-210);ctx.rotate(a);ctx.strokeStyle='#e01e2a';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-10,84);ctx.lineTo(10,86);ctx.stroke();ctx.restore()}

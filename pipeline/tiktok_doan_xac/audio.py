@@ -28,11 +28,11 @@ def span(k):a,b,ls=SC[k];return a,b
 # --- nền: mưa lớn ngoài trời đêm đầu, mưa nhỏ ngoài vách khi ở trong quán
 storm=['hook','hook2','title','bell']
 bed(2400,storm,0.42);bed(2413,storm,0.18)
-inside_night=['herder','rules','rules2','mai','rooster','midnight','count','fourth','hat','father','herder2','herder3','maicome','breath','grab','fight','idea','crow','fall']
+inside_night=['thread2','herder','rules','rules2','mai','midnight','count','fourth','hat','father','herder2','herder3','maicome','breath','grab','fight','idea','chaos','cross','altar','write','face','gasp','slap','still','empty']
 bed(1253,inside_night,0.16);bed(3081,inside_night,0.22)
-bed(2746,['count','fourth','hat','father','breath','grab'],0.16)
+bed(2746,['count','fourth','hat','father','breath','grab','chaos','cross','altar','write','face','gasp','slap'],0.16);bed(493,['cross','altar','face','gasp'],0.32)
 bed(1238,['inn','thread'],0.18);place(2472,span('thread')[0]+0.2,0.12,dur=5)
-bed(1157,['dusk','mark','mark2','final','final2','cta'],0.24);bed(1162,['empty','final2'],0.22)
+bed(1157,['dusk','mark','final','final2','cta'],0.24);bed(1789,['mark2'],0.12);bed(1162,['empty','final2'],0.22)
 bed(1789,['final','cta'],0.12);place(2466,span('final')[0]+1.0,0.3)
 place(2405,span('title')[0]+0.05,0.6,dur=4);place(2395,span('bell')[0]+0.5,0.35,dur=5)
 # --- chuông leng keng của thầy dắt xác
@@ -53,13 +53,17 @@ for sc,g in [('hook',0.3),('hook2',0.35),('bell',0.3),('dusk',0.2),('final2',0.1
 place(195,span('herder')[0]+0.1,0.4,dur=3);place(337,span('midnight')[0]+0.4,0.4);place(337,span('midnight')[0]+2.6,0.35)
 place(337,span('count')[0]+0.5,0.3);bed(494,['count','fourth','hat'],0.35);bed(493,['breath'],0.4)
 place(773,span('fourth')[0]+SC['fourth'][2][-1]+2.6,0.5);place(2630,span('hook2')[0]+0.1,0.4,dur=3);place(1143,span('title')[0],0.6)
-place(2462,span('rooster')[0]+1.2,0.35,dur=1.6)  # Phúc giả tiếng gà chọc em
+place(2462,lend('still')+0.4,0.0,dur=0.1)
 place(2234,span('grab')[0]+1.3,0.45,dur=3);place(2623,span('herder2')[0]+0.1,0.4)
 fa,fb=span('fight')
 for t in np.arange(fa+0.9,fb,2.2):place(1340,t,0.45,dur=1.2);place(1330,t,0.3,dur=1.3)
 bells(fa+0.2,fb,0.3,0.9)
-place(2462,lend('crow')+0.15,0.85,dur=2.0)  # tiếng gáy của Phúc
-place(2498,span('fall')[0]+0.45,0.8,dur=1.5);place(2182,span('fall')[0]+0.5,0.6,dur=1.0)
+ca,cb=span('chaos');cl=SC['chaos'][2];place(1973,ca+cl[1]*0.55,0.45,dur=2.5);place(2623,ca+cl[1]*0.5,0.4);bells(ca+cl[1],cb,0.32,0.8)
+xa,xb=span('cross');hops(xa,xa+1.3,0.35);bells(xa,xb,0.22,0.8);bells(span('altar')[0],span('altar')[1],0.2,0.8);bells(span('write')[0],span('write')[1],0.26,0.8)
+place(1973,xa+2.0,0.25,dur=2);place(2234,span('face')[0]+0.3,0.35,dur=3)
+ga,gb=span('gasp');place(2623,ga+0.8,0.5);place(2231,ga+0.9,0.4,dur=2.5)
+sa,sb=span('slap');place(2167,sa+(sb-sa)*0.55,0.9,dur=0.6);place(1143,sa+(sb-sa)*0.55,0.6);place(1340,sa+(sb-sa)*0.55+0.05,0.35,dur=1.2)
+place(2182,span('still')[0]+0.3,0.4,dur=0.8)
 place(195,span('empty')[0]+0.1,0.4,dur=3);place(561,span('final2')[0],0.4,dur=4)
 # --- jumpscare: hạ nền 0,7s trước, track riêng cộng sau loudnorm (khớp JUMPS trong index.html)
 JT=[(lend('hook2')+0.05,0.8),(SC['father'][0]-0.75,1.0),(SC['grab'][0]+1.2,1.0),(lend('final2')+0.05,0.95)];print('JT',[round(a,2) for a,_ in JT])
