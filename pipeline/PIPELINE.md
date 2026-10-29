@@ -87,6 +87,6 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Vẫn giữ khoảng lặng ngắn trước khoảnh khắc ma hiện.
 
 ## Giọng nhân vật chính nam (29/10)
-- Chủ kênh chê Adam "khó nghe, vô hồn". Nam chính trẻ dùng ĐỨC TRÍ (temp 1.0, 6 bản/câu) — ASR rõ nhất. Minh Triết đọc không rõ chữ (ASR kém ở cả temp 0.85–1.2) → chỉ dùng cho giọng ma (ghostfx che bớt). Ông già: Thái Sơn. Nữ: Mỹ Duyên.
+- (CẬP NHẬT 29/10 tối) Chủ kênh nghe demo và CHỌN THÁI SƠN cho nhân vật chính nam ("giọng miền Nam tự nhiên như ông thầy pháp"). Ưu tiên Thái Sơn cho nam chính; nếu truyện có thêm ông già/thầy pháp nói nhiều thì cân nhắc đổi người kia sang giọng khác để không lẫn. Trước đó: chủ kênh chê Adam "khó nghe, vô hồn"; Đức Trí rõ chữ (temp 1.0, 6 bản/câu) — ASR rõ nhất. Minh Triết đọc không rõ chữ (ASR kém ở cả temp 0.85–1.2) → chỉ dùng cho giọng ma (ghostfx che bớt). Ông già: Thái Sơn. Nữ: Mỹ Duyên.
 - Thay giọng sau khi đã render hình: dùng patch_voice.py (giữ nguyên timeline, chèn bản mới vào đúng ô, khớp âm lượng RMS, nén nhẹ nếu dài hơn) → không phải render lại.
 - Tiếng chuông/hiệu ứng nền: vừa đủ nghe, luôn sidechain dưới giọng kể.
