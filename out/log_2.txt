@@ -702,3 +702,9 @@ loaded V3TurboVieNeuTTS
 72_tx4_n asr ok
 73_tx4_gme Mỹ Duyên 2 ok 1.0
 73_tx4_gme asr ok
+loaded V3TurboVieNeuTTS
+74_tx_phuc_mt Minh Triết 2 ok 0.6
+74_tx_phuc_mt Minh Triết 6 ok 0.2
+74_tx_phuc_mt Minh Triết 10 ok 0.2
+74_tx_phuc_mt Minh Triết 14 ok 0.8
+74_tx_phuc_mt asr ok
