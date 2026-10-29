@@ -85,3 +85,8 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - BỎ hẳn kiểu chèn mặt ma phóng to full màn hình + chớp trắng + tiếng hét. (Ở bản mẫu: vòng lặp JUMPS đã tắt.)
 - Thay bằng: ma hiện ra NGAY TRONG CẢNH (ló sau cửa, mở mắt, quay đầu, đứng xa trong bóng tối), máy quay đẩy chậm vào, ánh sáng nháy nhẹ; âm thanh chỉ là hit nhẹ (565 drum 0.55 + 677 glass 0.3 + 2630 sweep 0.25), cộng -3dB, không tiếng hét/impact lớn.
 - Vẫn giữ khoảng lặng ngắn trước khoảnh khắc ma hiện.
+
+## Giọng nhân vật chính nam (29/10)
+- Chủ kênh chê Adam "khó nghe, vô hồn". Nam chính trẻ dùng ĐỨC TRÍ (temp 1.0, 6 bản/câu) — ASR rõ nhất. Minh Triết đọc không rõ chữ (ASR kém ở cả temp 0.85–1.2) → chỉ dùng cho giọng ma (ghostfx che bớt). Ông già: Thái Sơn. Nữ: Mỹ Duyên.
+- Thay giọng sau khi đã render hình: dùng patch_voice.py (giữ nguyên timeline, chèn bản mới vào đúng ô, khớp âm lượng RMS, nén nhẹ nếu dài hơn) → không phải render lại.
+- Tiếng chuông/hiệu ứng nền: vừa đủ nghe, luôn sidechain dưới giọng kể.

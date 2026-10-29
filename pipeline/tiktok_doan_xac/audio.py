@@ -39,7 +39,7 @@ place(2405,span('title')[0]+0.05,0.6,dur=4);place(2395,span('bell')[0]+0.5,0.35,
 def bells(t0,t1,g,step=1.7):
     t=t0
     while t<t1-0.4:place(936,t,g,dur=1.2,fo=0.5);t+=step
-bells(0.3,span('hook2')[1],0.32);bells(span('bell')[0]+0.4,span('bell')[1],0.36);bells(span('dusk')[0]+0.3,span('dusk')[1],0.22)
+bells(0.3,span('hook2')[1],0.448);bells(span('bell')[0]+0.4,span('bell')[1],0.504);bells(span('dusk')[0]+0.3,span('dusk')[1],0.308)
 
 # --- tiếng nhảy "bịch" theo nhịp hop() (chạm đất mỗi pi/3.4 s)
 def hops(t0,t1,g,n=3):
@@ -61,9 +61,9 @@ place(2462,lend('still')+0.4,0.0,dur=0.1)
 place(2234,span('grab')[0]+1.3,0.45,dur=3);place(2623,span('herder2')[0]+0.1,0.4)
 fa,fb=span('fight')
 for t in np.arange(fa+0.9,fb,2.2):place(1340,t,0.45,dur=1.2);place(1330,t,0.3,dur=1.3)
-bells(fa+0.2,fb,0.3,0.9)
-ca,cb=span('chaos');cl=SC['chaos'][2];place(1973,ca+cl[1]*0.55,0.45,dur=2.5);place(2623,ca+cl[1]*0.5,0.4);bells(ca+cl[1],cb,0.32,0.8)
-xa,xb=span('cross');hops(xa,xa+1.3,0.35);bells(xa,xb,0.22,0.8);bells(span('altar')[0],span('altar')[1],0.2,0.8);bells(span('write')[0],span('write')[1],0.26,0.8)
+bells(fa+0.2,fb,0.42,0.9)
+ca,cb=span('chaos');cl=SC['chaos'][2];place(1973,ca+cl[1]*0.55,0.45,dur=2.5);place(2623,ca+cl[1]*0.5,0.4);bells(ca+cl[1],cb,0.448,0.8)
+xa,xb=span('cross');hops(xa,xa+1.3,0.35);bells(xa,xb,0.308,0.8);bells(span('altar')[0],span('altar')[1],0.28,0.8);bells(span('write')[0],span('write')[1],0.364,0.8)
 place(1973,xa+2.0,0.25,dur=2);place(2234,span('face')[0]+0.3,0.35,dur=3)
 ga,gb=span('gasp');place(2623,ga+0.8,0.5);place(2231,ga+0.9,0.4,dur=2.5)
 sa,sb=span('slap');place(2167,sa+(sb-sa)*0.55,0.9,dur=0.6);place(1143,sa+(sb-sa)*0.55,0.6);place(1340,sa+(sb-sa)*0.55+0.05,0.35,dur=1.2)
