@@ -1,0 +1,44 @@
+hook|N|Ở Tương Tây, Trung Quốc, có những người dắt xác chết đi bộ hàng trăm dặm về quê.
+hook2|N|Và có một đêm... đoàn xác đó, dư ra một người.
+title|N|Đoàn xác Tương Tây. Ban đêm, đừng đếm xác.
+inn|N|Dưới chân núi Tương Tây, có một quán trọ lạ. Cửa trước, không bao giờ đóng.
+inn2|N|Quán của hai anh em A Phúc và Tiểu Mai. Ba tụi nhỏ đi làm mỏ xa, ba năm rồi chưa về.
+thread|N|Trước khi đi, Mai buộc cho ba một sợi chỉ đỏ ở cổ tay, dặn ba đeo hoài để nhớ đường về.
+bell|N|Đêm đó trời mưa lớn. Ngoài đường núi vang lên tiếng chuông leng keng.
+bell|N|Một ông thầy áo vàng đi trước. Phía sau là ba cái bóng đội nón, mặt dán bùa vàng, nhảy từng bước.
+herder|TH|Mưa sạt đường rồi. Cho tui gửi khách ở đậu một bữa, tối mai tụi tui đi tiếp.
+rules|N|Ông thầy xếp ba cái xác đứng sau cánh cửa, mặt quay vô vách, rồi dặn.
+rules|TH|Một, đừng đụng vô lá bùa. Hai, đi ngang thì nín thở, đừng để hơi người phả vô mặt tụi nó.
+rules2|TH|Ba... ban đêm, đừng có đếm xác.
+mai|ME|Sao đếm hổng được vậy ông?
+rules2|TH|Vì lỡ đếm... mà nó dư ra, thì con tính sao?
+rooster|N|Mai sợ, nép sau lưng anh. Phúc cười, giả tiếng gà gáy chọc em, y như mọi khi.
+rooster|ME|Anh Phúc! Giờ này mà còn giỡn!
+midnight|N|Nửa đêm, Phúc xuống bếp uống nước, phải đi ngang qua cánh cửa.
+count|N|Cậu nín thở. Nhưng mắt cậu, lại vô tình đếm. Một... hai... ba... bốn.
+count|K|Bốn? Hồi tối... rõ ràng là ba mà!
+fourth|N|Cái xác thứ tư đứng sát góc, mặt không có bùa. Trên cổ tay khô quắt, có một sợi chỉ đỏ.
+hat|N|Tay Phúc run run, nhấc cái nón lên.
+father|K|Ba...?
+herder2|N|Ông thầy bật dậy, mặt cắt không còn giọt máu.
+herder2|TH|Xác này đâu phải của tui! Nó... tự đi theo đoàn về đây!
+herder3|TH|Chắc ổng chết ngoài mỏ, nhớ nhà quá nên xác tự đi về. Mà xác không bùa... là đi tìm hơi người thân!
+maicome|N|Đúng lúc đó, Mai chạy xuống. Thấy ba, con bé òa khóc, quên sạch lời dặn.
+maicome|ME|Ba ơi! Ba về rồi! Con nhớ ba quá!
+breath|N|Hơi thở của Mai, phả thẳng vô mặt cái xác.
+grab|N|Cái xác mở mắt. Hai cánh tay cứng đơ chụp lấy cổ con bé.
+grab|GCH|Mai... con...
+fight|N|Ông thầy lắc chuông, dán bùa, nhưng lá bùa cứ cháy xèo xèo rồi rớt xuống.
+fight|TH|Hổng biết tên tuổi nó, bùa của tui hổng ăn! Chỉ có gà gáy, mới ép nó nằm xuống được!
+idea|N|Còn cả canh giờ nữa trời mới sáng. Phúc chợt nhớ ra một chuyện.
+crow|N|Cậu ưỡn ngực, gáy lên một tiếng thật dài, giống y con gà trống.
+fall|N|Cái xác khựng lại. Rồi đổ ập xuống sàn, như một khúc gỗ.
+dusk|N|Chiều tối hôm sau, ông thầy dán cho ba một lá bùa mới, ghi đúng tên tuổi, rồi dắt ông đi chung đoàn về quê.
+mark|N|Trên cổ Mai còn hằn năm vết móng tay tím bầm. Con bé chỉ ngồi im, nhìn theo ba.
+mark|ME|Anh Phúc... em muốn đi theo ba.
+mark2|N|Phúc tưởng em nói dại, nên ôm em vô lòng.
+empty|N|Nhưng nửa đêm đó, giường của Mai trống trơn. Trên gối, chỉ còn lại sợi chỉ đỏ.
+final|N|Phúc chạy ra cửa. Trên đường núi xa xa, tiếng chuông vẫn còn leng keng.
+final2|N|Và cậu lỡ đếm. Một, hai, ba, bốn... năm.
+cta|N|Nếu là bạn, bạn có dám đếm đoàn xác đó không?
+cta|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ để nghe truyện ma mỗi ngày.
