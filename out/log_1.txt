@@ -714,3 +714,11 @@ loaded V3TurboVieNeuTTS
 71_tx3_th Thái Sơn 5 ok 3.7
 71_tx3_th Thái Sơn 9 ok 3.4
 71_tx3_th asr ok
+loaded V3TurboVieNeuTTS
+72_tx4_n clone:refs/mada8.wav 1 ok 17.6
+72_tx4_n clone:refs/mada8.wav 5 ok 1.1
+72_tx4_n clone:refs/mada8.wav 9 ok 1.1
+72_tx4_n clone:refs/mada8.wav 13 ok 0.8
+72_tx4_n asr ok
+73_tx4_gme Mỹ Duyên 1 ok 1.0
+73_tx4_gme asr ok
