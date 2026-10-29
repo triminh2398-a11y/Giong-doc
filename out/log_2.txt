@@ -732,3 +732,56 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 80_tx_mai_anhoi Mỹ Duyên 2 ok 0.8
 80_tx_mai_anhoi asr ok
+loaded V3TurboVieNeuTTS
+81_cr_bt2 Thùy Dung 2 ok 2.0
+81_cr_bt2 Thùy Dung 6 ok 1.9
+81_cr_bt2 Thùy Dung 10 ok 1.9
+81_cr_bt2 Thùy Dung 14 ok 1.3
+81_cr_bt2 Thùy Dung 18 ok 0.8
+81_cr_bt2 Thùy Dung 22 ok 0.8
+81_cr_bt2 Thùy Dung 26 ok 0.5
+81_cr_bt2 Thùy Dung 30 ok 1.2
+81_cr_bt2 Thùy Dung 34 ok 1.5
+81_cr_bt2 Thùy Dung 38 ok 0.8
+81_cr_bt2 Thùy Dung 42 ok 1.6
+81_cr_bt2 Thùy Dung 46 ok 1.6
+81_cr_bt2 Thùy Dung 50 ok 1.4
+81_cr_bt2 Thùy Dung 54 ok 1.7
+81_cr_bt2 Thùy Dung 58 ok 1.6
+81_cr_bt2 Thùy Dung 62 ok 0.7
+81_cr_bt2 Thùy Dung 66 ok 1.9
+81_cr_bt2 Thùy Dung 70 ok 1.8
+81_cr_bt2 Thùy Dung 74 ok 1.1
+81_cr_bt2 Thùy Dung 78 ok 1.1
+81_cr_bt2 Thùy Dung 82 ok 1.0
+81_cr_bt2 Thùy Dung 86 ok 1.3
+81_cr_bt2 Thùy Dung 90 ok 1.9
+81_cr_bt2 Thùy Dung 94 ok 1.9
+81_cr_bt2 Thùy Dung 98 ok 1.0
+81_cr_bt2 Thùy Dung 102 ok 1.2
+81_cr_bt2 Thùy Dung 106 ok 1.2
+81_cr_bt2 Thùy Dung 110 ok 0.9
+81_cr_bt2 Thùy Dung 114 ok 1.4
+81_cr_bt2 Thùy Dung 118 ok 1.5
+81_cr_bt2 Thùy Dung 122 ok 0.7
+81_cr_bt2 asr ok
+82_cr_l2 Đức Trí 2 ok 1.9
+82_cr_l2 Đức Trí 6 ok 2.5
+82_cr_l2 Đức Trí 10 ok 2.4
+82_cr_l2 Đức Trí 14 ok 1.1
+82_cr_l2 Đức Trí 18 ok 2.5
+82_cr_l2 Đức Trí 22 ok 2.6
+82_cr_l2 Đức Trí 26 ok 1.5
+82_cr_l2 Đức Trí 30 ok 2.3
+82_cr_l2 Đức Trí 34 ok 2.1
+82_cr_l2 Đức Trí 38 ok 1.2
+82_cr_l2 Đức Trí 42 ok 2.5
+82_cr_l2 Đức Trí 46 ok 2.3
+82_cr_l2 Đức Trí 50 ok 2.0
+82_cr_l2 Đức Trí 54 ok 1.7
+82_cr_l2 Đức Trí 58 ok 1.7
+82_cr_l2 Đức Trí 62 ok 2.8
+82_cr_l2 Đức Trí 66 ok 1.4
+82_cr_l2 Đức Trí 70 ok 1.4
+82_cr_l2 Đức Trí 74 ok 1.7
+82_cr_l2 asr ok
