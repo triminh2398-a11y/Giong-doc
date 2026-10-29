@@ -711,3 +711,12 @@ loaded V3TurboVieNeuTTS
 69_tx2_k Adam 0 ok 1.6
 69_tx2_k Adam 4 ok 1.7
 69_tx2_k asr ok
+loaded V3TurboVieNeuTTS
+70_tx3_n clone:refs/mada8.wav 0 ok 22.0
+70_tx3_n clone:refs/mada8.wav 4 ok 2.0
+70_tx3_n clone:refs/mada8.wav 8 ok 1.3
+70_tx3_n asr ok
+71_tx3_th Thái Sơn 0 ok 2.5
+71_tx3_th Thái Sơn 4 ok 2.4
+71_tx3_th Thái Sơn 8 ok 3.1
+71_tx3_th asr ok
