@@ -75,3 +75,4 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Mọi card (người lẫn ma) dùng card rộng 1024px (`card(h,draw,true)`), vẽ ở x=256 sau translate(256): tay giơ ngang/giơ lên không bị cắt mất bàn tay. Chủ kênh đã bắt lỗi "mất bàn tay khi đưa lên đưa xuống" 2 lần — soát ảnh tĩnh mọi cảnh có tay giơ.
 - Cảnh cận mặt: đầu nhân vật nét Ma Lai rất to (≈0,6m) → máy quay cách ≥2,4m (hàm close() đã +0,8m).
 - Chữ Hán (biển quán, câu đối): máy render không có font CJK → vẽ sẵn thành ảnh data URL (mkcjk.js → cjk.js), chờ ảnh decode xong mới READY.
+- KHÔNG đặt card nằm bẹp (nhân vật nằm trông như tờ giấy). Người nằm giường: card đứng ở đầu giường + khối chăn 3D che thân, máy quay từ cuối giường.

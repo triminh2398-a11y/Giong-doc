@@ -8,7 +8,7 @@
 | TikTok | Tiếng gõ cửa lúc 3 giờ sáng (gõ 4 tiếng là ma) — KHÔNG đăng, thay bằng Ma trành | lời đồn | 2026-10-28 | pipeline/tiktok_go_cua_malai |
 | TikTok | Ma trành (hồn người dẫn cọp về làng) — bản đăng 28/10 là bản 2.5D v6 | ma ít ai kể | 2026-10-28 | pipeline/tiktok_ma_tranh_25d |
 | YouTube T2 | Con ranh con lộn (Đứa con đòi nợ, sông Ông Đốc, twist đổi mạng) — 28 phút, 2.5D 16:9, 2 Shorts | ma ít ai kể / tục lệ Nam Bộ | 2026-10-29 | pipeline/ep02_con_ranh |
-| TikTok | Đoàn xác Tương Tây v2 (đuổi xác, đừng đếm xác — xác thứ 4 là cha; cao trào: lấy lá số, nín thở qua 3 xác, bùa máu người nhà dán; twist Mai thành xác thứ 5 vì gạo nếp) | D – nước ngoài (Trung Quốc) | 2026-10-29 | pipeline/tiktok_doan_xac |
+| TikTok | Đoàn xác Tương Tây v3 (đừng đếm xác — xác thứ 4 là cha lần theo chuông; cao trào: lá số, nín thở qua 3 xác, bùa máu người nhà dán; chôn ba sau quán; Mai thành xác lảng vãng bên mộ, đêm nào cũng nhảy xuống tới cửa) |
 
 ## QUY TẮC CHỌN TRUYỆN (cập nhật 29/10 — chủ kênh: "nhiều truyền thuyết, bí ẩn, lời đồn, câu chuyện vào chứ đừng loanh quanh vài con ma ai cũng biết, kể cả ma, tâm linh, chuyện nước ngoài... phải đáng sợ, hấp dẫn, li kì, tình tiết hợp lý")
 - XOAY VÒNG THỂ LOẠI, không 2 tập liền nhau cùng nhóm: (A) ma/tục lệ Việt ít ai kể · (B) truyền thuyết – bí ẩn Việt (vùng đất, di tích, vụ việc lạ) · (C) lời đồn/chuyện kể đô thị Việt có tình tiết riêng · (D) ma/truyền thuyết NƯỚC NGOÀI (Nhật, Thái, Phi, Indo, Hàn, Trung, Âu, Mỹ, Mỹ Latinh) · (E) tâm linh – nhân quả – bùa ngải.
@@ -21,6 +21,7 @@
   4. Twist có gài manh mối từ trước (người xem coi lại thấy hợp lý), không xuất hiện từ trên trời.
   5. Không sạn thời gian/không gian (đêm–ngày, ai biết gì, ai thấy gì, đồ vật từ đâu ra).
   6. Kết để lại dư âm + câu hỏi cho bình luận.
+  8. (chủ kênh 29/10: "dắt ba về quê an táng trong khi ba đã về nhà rồi") Soát lại MỌI câu kết về địa điểm/quan hệ: nhân vật đang ở đâu, nhà ai, chôn ở đâu — không để câu chữ mâu thuẫn bối cảnh.
   7. (chủ kênh 29/10: "giải quyết đơn giản quá, giả tiếng gà cũng hiệu nghiệm sao?") CAO TRÀO KHÔNG ĐƯỢC DỄ DÃI: cách thoát phải nhiều bước, nguy hiểm, có cái giá (bị thương, mất người, đánh đổi), và dùng ĐÚNG luật đã nêu trước (không mẹo vặt/trùng hợp). Mỗi bước có một trở ngại mới (vd: phải lấy được thứ A → đi ngang mối nguy B → điều kiện C chỉ người nhà làm được → luật D vẫn phải giữ). Cái kết bi kịch nên do chính nhân vật lỡ tay/sơ suất (có gài trước), không phải tự nhiên xảy ra.
 - Trước khi viết: WebSearch nắm đúng gốc truyền thuyết/tục lệ, rồi tự hư cấu cốt truyện, nhân vật riêng (không chép truyện của kênh khác).
 

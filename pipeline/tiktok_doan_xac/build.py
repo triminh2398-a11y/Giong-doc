@@ -7,7 +7,7 @@ from ghostfx import ghost
 spec = importlib.util.spec_from_file_location('pace', '/home/claude/pace.py'); P = importlib.util.module_from_spec(spec); spec.loader.exec_module(P)
 SR = 48000; D = '/home/claude/tx/'
 S = json.load(open(D + 'script.json'))
-VS = {'N': 'clone_refs_mada8_wav', 'TH': 'thai_son', 'K': 'adam', 'ME': 'my_duyen', 'GCH': 'duc_tri'}
+VS = {'N': 'clone_refs_mada8_wav', 'TH': 'thai_son', 'K': 'adam', 'ME': 'my_duyen', 'GCH': 'duc_tri', 'GME': 'my_duyen'}
 FEM = {'ME'}
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 MAP = {}
@@ -42,7 +42,7 @@ for i, (sh, sp, tx) in enumerate(S):
     best = max(ok, key=lambda c: expr(c[1]) + 10 * c[0]) if sp != 'N' else max(cands)
     if best[0] < 0.75: low.append((i, round(best[0], 2), tx[:40]))
     c = P.stretch_pauses(P.trim(P.load(best[1] + '.wav')), factor=1.3 if sp not in FEM else 1.2, extra=0.05)
-    if sp == 'GCH': c = ghost(slow(c), 'far' if l_far(i) else 'ghost')
+    if sp in ('GCH', 'GME'): c = ghost(slow(c), 'far' if l_far(i) else 'ghost')
     elif sp in FEM: c = c * 0.9
     clips.append(c)
 nd = [len(c) / SR for c in clips]
@@ -50,7 +50,8 @@ st = [0.4]
 for i in range(len(S) - 1):
     g = 0.38 if S[i][0] == S[i + 1][0] else 0.7
     if S[i + 1][1].startswith('SFX') or S[i][1].startswith('SFX'): g = 0.25
-    if S[i + 1][0] in ('title', 'final2', 'grab', 'father'): g = 1.0
+    if S[i + 1][0] in ('title', 'final2', 'grab', 'father', 'haunt'): g = 1.0
+    if S[i][0] == 'haunt2': g = 2.2
     if S[i + 1][0] == 'crow': g = 0.8
     if S[i][0] == 'crow': g = 2.0
     st.append(st[i] + nd[i] + g)

@@ -31,8 +31,8 @@ bed(2400,storm,0.42);bed(2413,storm,0.18)
 inside_night=['thread2','herder','rules','rules2','mai','midnight','count','fourth','hat','father','herder2','herder3','maicome','breath','grab','fight','idea','chaos','cross','altar','write','face','gasp','slap','still','empty']
 bed(1253,inside_night,0.16);bed(3081,inside_night,0.22)
 bed(2746,['count','fourth','hat','father','breath','grab','chaos','cross','altar','write','face','gasp','slap'],0.16);bed(493,['cross','altar','face','gasp'],0.32)
-bed(1238,['inn','thread'],0.18);place(2472,span('thread')[0]+0.2,0.12,dur=5)
-bed(1157,['dusk','mark','final','final2','cta'],0.24);bed(1789,['mark2'],0.12);bed(1162,['empty','final2'],0.22)
+bed(1238,['inn','thread','grave'],0.18);place(2472,span('grave')[0]+0.2,0.12,dur=4);place(2472,span('thread')[0]+0.2,0.12,dur=5)
+bed(1157,['dusk','mark','final','final2','haunt','cta'],0.24);bed(3081,['haunt','haunt2'],0.25);bed(493,['haunt2'],0.4);bed(1789,['mark2'],0.12);bed(1162,['empty','final','final2'],0.22)
 bed(1789,['final','cta'],0.12);place(2466,span('final')[0]+1.0,0.3)
 place(2405,span('title')[0]+0.05,0.6,dur=4);place(2395,span('bell')[0]+0.5,0.35,dur=5)
 # --- chuông leng keng của thầy dắt xác
@@ -40,7 +40,7 @@ def bells(t0,t1,g,step=1.7):
     t=t0
     while t<t1-0.4:place(936,t,g,dur=1.2,fo=0.5);t+=step
 bells(0.3,span('hook2')[1],0.32);bells(span('bell')[0]+0.4,span('bell')[1],0.36);bells(span('dusk')[0]+0.3,span('dusk')[1],0.22)
-bells(span('final')[0]+1.5,span('final')[1],0.1,2.4);bells(span('final2')[0],span('final2')[1]-0.8,0.14,2.0)
+
 # --- tiếng nhảy "bịch" theo nhịp hop() (chạm đất mỗi pi/3.4 s)
 def hops(t0,t1,g,n=3):
     k=int(np.ceil(t0*3.4/np.pi))
@@ -48,7 +48,11 @@ def hops(t0,t1,g,n=3):
         t=k*np.pi/3.4
         for j in range(n):place(3058,t+j*0.06,g*(0.8**j),dur=0.35,fo=0.15)
         k+=1
-for sc,g in [('hook',0.3),('hook2',0.35),('bell',0.3),('dusk',0.2),('final2',0.16)]:a,b=span(sc);hops(a,b,g)
+for sc,g in [('hook',0.3),('hook2',0.35),('bell',0.3),('dusk',0.2)]:a,b=span(sc);hops(a,b,g)
+ha,hb=span('haunt');hl=SC['haunt'][2][1]
+for k,t in enumerate(np.arange(ha+hl+1.6,hb,1.25)):place(3058,t,0.12+0.03*k,dur=0.4,fo=0.15)
+h2a,h2b=span('haunt2');tt=list(np.arange(h2a+0.2,h2a+(h2b-h2a)*0.45,0.9))
+for k,t in enumerate(tt):place(3058,t,0.3+0.08*k,dur=0.4,fo=0.15);place(2182,t,0.15+0.05*k,dur=0.3)
 # --- trong quán
 place(195,span('herder')[0]+0.1,0.4,dur=3);place(337,span('midnight')[0]+0.4,0.4);place(337,span('midnight')[0]+2.6,0.35)
 place(337,span('count')[0]+0.5,0.3);bed(494,['count','fourth','hat'],0.35);bed(493,['breath'],0.4)
@@ -64,9 +68,9 @@ place(1973,xa+2.0,0.25,dur=2);place(2234,span('face')[0]+0.3,0.35,dur=3)
 ga,gb=span('gasp');place(2623,ga+0.8,0.5);place(2231,ga+0.9,0.4,dur=2.5)
 sa,sb=span('slap');place(2167,sa+(sb-sa)*0.55,0.9,dur=0.6);place(1143,sa+(sb-sa)*0.55,0.6);place(1340,sa+(sb-sa)*0.55+0.05,0.35,dur=1.2)
 place(2182,span('still')[0]+0.3,0.4,dur=0.8)
-place(195,span('empty')[0]+0.1,0.4,dur=3);place(561,span('final2')[0],0.4,dur=4)
+place(195,span('empty')[0]+0.1,0.4,dur=3);place(561,span('final2')[0],0.4,dur=4);place(2234,span('final2')[0]+0.5,0.3,dur=3)
 # --- jumpscare: hạ nền 0,7s trước, track riêng cộng sau loudnorm (khớp JUMPS trong index.html)
-JT=[(lend('hook2')+0.05,0.8),(SC['father'][0]-0.75,1.0),(SC['grab'][0]+1.2,1.0),(lend('final2')+0.05,0.95)];print('JT',[round(a,2) for a,_ in JT])
+JT=[(lend('hook2')+0.05,0.8),(SC['father'][0]-0.75,1.0),(SC['grab'][0]+1.2,1.0),(lend('haunt2')+1.2,0.95)];print('JT',[round(a,2) for a,_ in JT])
 for at,g in JT:
     s0=int((at-0.7)*SR);s1=int(at*SR);out[s0:s1]*=np.linspace(1,0.05,s1-s0)[:,None];out[s1:s1+int(0.8*SR)]*=0.2
 out/=np.abs(out).max()*1.05
