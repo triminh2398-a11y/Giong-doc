@@ -120,6 +120,7 @@ const motes=[];for(let i=0;i<60;i++){const s=new THREE.Sprite(new THREE.SpriteMa
 const CI=cast(inn);
 const IL={H:lying(()=>hien(256,1010,2.9,{eyes:0.05,closed:true})),BM:lying(()=>bamuoi(256,1010,2.9,{eyes:0.05,closed:true})),L:lying(()=>loi(256,1010,2.9,{eyes:0.05,sick:true})),KID:lying(()=>kid(256,1010,3.6,{eyes:0.05}),1.1)};for(const k in IL)inn.add(IL[k]);
 const IB=[babyMesh(),babyMesh()];IB.forEach(b=>inn.add(b));
+const BLK=new THREE.Mesh(new THREE.CapsuleGeometry(0.3,0.9,6,14),new THREE.MeshStandardMaterial({color:0x5a3a4a,roughness:0.95}));BLK.rotation.z=Math.PI/2;BLK.scale.set(1,1.2,0.75);BLK.castShadow=true;BLK.receiveShadow=true;BLK.visible=false;inn.add(BLK);
 function innMode(m){const day=m==='day';dayL.intensity=day?2.4:0;innHemi.intensity=day?1.1:0;moonL.intensity=day?0:30;winOut.material.color.set(day?0xe8e8d8:0x1a2a44);backOut.material.color.set(day?0x8a9a78:0x0c1422);inn.fog.density=day?0.01:0.035;inn.background.set(day?0x2a2a24:0x07080c);
  lampL.visible=!day;lampG.visible=true;renderer.toneMappingExposure=day?1.0:1.15;innAmb.intensity=day?0.3:0.6}
 function bowls(n){BOWLS.forEach((b,i)=>b.visible=i<n);STICKS.forEach((b,i)=>b.visible=i<n)}
@@ -205,7 +206,7 @@ function lightIncense(idx){(idx==='all'?[0,1,2,3,4]:idx).forEach(i=>GRAVES[i].st
 // ================= engine =================
 const ACT=[];
 function put(c,x,z,o,base=0){c.visible=true;c.userData.o=o||{};c.position.set(x,c.userData.h*0.4766+base,z);ACT.push(c);return c}
-function lie(m,x,y,z,ry=0,tilt=0.6){m.visible=true;m.position.set(x,y+0.44*Math.sin(tilt)*0.9,z);m.rotation.set(-Math.PI/2+tilt,0,Math.PI/2+ry);return m}
+function lie(m,x,y,z,ry=0,tilt=0.6){m.visible=true;if(typeof BLK!=='undefined'&&y>0.4&&y<0.8){BLK.visible=true;BLK.position.set(x+0.5,y+0.12,z)}m.position.set(x,y+0.44*Math.sin(tilt)*0.9,z);m.rotation.set(-Math.PI/2+tilt,0,Math.PI/2+ry);return m}
 let SI=0;
 function siOf(lt,ls){let s=0;for(let i=0;i<ls.length;i++)if(lt>=ls[i]-0.05)s=i;return s}
 function cams(lt,ls,list,D){const si=siOf(lt,ls);const c=list[si%list.length];const t0=si===0?0:ls[si],t1=si+1<ls.length?ls[si+1]:D;const p=sm((lt-t0)/Math.max(0.5,t1-t0));
@@ -216,7 +217,7 @@ function spk(si){return (TLD.spk||[])[SI_BASE+si]}
 let SI_BASE=0;
 function flat2(fn,...a){const old=ctx;ctx=flat.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.save();fn(...a);ctx.restore();ctx=old;g2.drawImage(flat,0,0,RW,RH);return 'flat'}
 function resetAll(t){for(const c of ACT)c.visible=false;ACT.length=0;for(const k in C)C[k].visible=false;for(const k in CI)CI[k].visible=false;
- for(const k in IL)IL[k].visible=false;for(const k in EL)EL[k].visible=false;EB.visible=false;IB.forEach(b=>b.visible=false);VBABY.visible=false;
+ for(const k in IL)IL[k].visible=false;BLK.visible=false;for(const k in EL)EL[k].visible=false;EB.visible=false;IB.forEach(b=>b.visible=false);VBABY.visible=false;
  bowls(3);COFFIN.visible=false;NET.visible=true;MAT.visible=false;HOLE.visible=false;OFFER.visible=false;graves(5);graveL.intensity=0;ghostL.intensity=0;innG.intensity=0;DEADCHK.visible=false;rvL.intensity=0;bthL.intensity=0;doorL.intensity=0;
  VONG.rotation.x=0;ALT.visible=true;lampG.position.set(2.3,0.78,1.0);STOOL.visible=false;XUONG.position.set(4.5,0.04,13.2);XUONG.rotation.set(0,0,0);XUONG2.rotation.set(0,0,0);RAIN=0;TINT=null;moonL.color.set(0x8fb0ff);
  const fl=1+Math.sin(t*13)*0.08+Math.sin(t*7.3)*0.06+Math.sin(t*23)*0.04;lampL.intensity=14*fl;lampG.userData.fl.scale.set(1,1.8*fl,1);lampL.position.set(lampG.position.x,lampG.position.y+0.27,lampG.position.z)}
@@ -448,7 +449,7 @@ window.draw=function(t){resetAll(t);
  else{renderer.setClearColor(0x000000,1);renderer.clear()}
  if(mode!=='flat'){if(TINT){g2.fillStyle=TINT;g2.fillRect(0,0,RW,RH)}if(RAIN)rain(t,RAIN);const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.3,RW/2,RH/2,RH*0.95);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.55)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH)}
  if(k==='hook3')hookText(sm(seg(lt,0.2,0.7)),'CON RANH CON LỘN','ĐỨA CON ĐÒI NỢ');
- for(const [jt,jn] of TLD.jumps)if(t>=jt&&t<jt+0.9)jump(t-jt,t);
+ //no full-screen jumpscare
  const d=Math.min(t-a,b-t);if(d<0.1&&a>0){g2.fillStyle=`rgba(0,0,0,${1-d/0.1})`;g2.fillRect(0,0,RW,RH)}
  watermark(t);if(k!=='title')subs(t)};
 window.READY=true;
