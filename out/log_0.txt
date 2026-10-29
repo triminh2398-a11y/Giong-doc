@@ -632,3 +632,18 @@ loaded V3TurboVieNeuTTS
 57_cr_be Thục Đoan 32 ok 1.8
 57_cr_be Thục Đoan 36 ok 0.8
 57_cr_be asr ok
+loaded V3TurboVieNeuTTS
+58_cr_fixn clone:refs/mada8.wav 0 ok 16.7
+58_cr_fixn clone:refs/mada8.wav 4 ok 0.5
+58_cr_fixn clone:refs/mada8.wav 8 ok 1.0
+58_cr_fixn clone:refs/mada8.wav 12 ok 1.0
+58_cr_fixn clone:refs/mada8.wav 16 ok 2.1
+58_cr_fixn clone:refs/mada8.wav 20 ok 0.8
+58_cr_fixn clone:refs/mada8.wav 24 ok 0.9
+58_cr_fixn asr ok
+59_cr_fixbt Thùy Dung 0 ok 0.9
+59_cr_fixbt Thùy Dung 4 ok 0.8
+59_cr_fixbt asr ok
+60_cr_fixnam Minh Triết 0 ok 1.2
+60_cr_fixnam Minh Triết 4 ok 1.2
+60_cr_fixnam asr ok
