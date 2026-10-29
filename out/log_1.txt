@@ -747,3 +747,6 @@ loaded V3TurboVieNeuTTS
 78_demo_ts Thái Sơn 1 ok 1.4
 78_demo_ts Thái Sơn 5 ok 1.2
 78_demo_ts asr ok
+loaded V3TurboVieNeuTTS
+79_tx_phuc_ts_ba Thái Sơn 1 ok 0.2
+79_tx_phuc_ts_ba asr ok
