@@ -736,3 +736,9 @@ loaded V3TurboVieNeuTTS
 74_tx_phuc_mt Minh Triết 12 ok 0.7
 74_tx_phuc_mt Minh Triết 16 ok 0.7
 74_tx_phuc_mt asr ok
+loaded V3TurboVieNeuTTS
+75_tx_phuc_mt2 Minh Triết 0 ok 1.5
+75_tx_phuc_mt2 Minh Triết 4 ok 1.2
+75_tx_phuc_mt2 Minh Triết 8 ok 0.3
+75_tx_phuc_mt2 Minh Triết 12 ok 1.1
+75_tx_phuc_mt2 asr ok
