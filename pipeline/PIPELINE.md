@@ -76,3 +76,7 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Cảnh cận mặt: đầu nhân vật nét Ma Lai rất to (≈0,6m) → máy quay cách ≥2,4m (hàm close() đã +0,8m).
 - Chữ Hán (biển quán, câu đối): máy render không có font CJK → vẽ sẵn thành ảnh data URL (mkcjk.js → cjk.js), chờ ảnh decode xong mới READY.
 - KHÔNG đặt card nằm bẹp (nhân vật nằm trông như tờ giấy). Người nằm giường: card đứng ở đầu giường + khối chăn 3D che thân, máy quay từ cuối giường.
+
+## Mở đầu video: KHÔNG chèn dòng chữ móc lớn (29/10)
+- Chủ kênh so sánh: Ma Lai (312K view) mở bằng hình ma + tiêu đề lớn; Ma Trành (3,6K) có dòng chữ lớn che màn hình 2 giây đầu → nghi bị TikTok bóp. Từ nay: KHÔNG hookText ở đầu. 2 giây đầu = hình ảnh đáng sợ/ly kỳ nhất + lời dẫn; tiêu đề lớn (kiểu Ma Lai) vẫn giữ ở cảnh title.
+- Khung đầu tiên phải dùng được làm ảnh bìa TikTok: có nhân vật/ma rõ, không chữ to.
