@@ -4,22 +4,27 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-doanxac-v3
++ TAG=ep02-conranh-v2
 ++ jq -r .html job.json
-+ HTML=tx/index.html
++ HTML=ep2/index.html
 ++ jq -r .frames job.json
-+ N=8631
++ N=53505
 + S=16
-+ A=4315
-+ B=4854
++ A=26752
++ B=30096
 ++ printf %02d 8
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js tx/index.html seg_08.mp4 4315 4854 720 1280
-frame 4800
++ node render_seg.js ep2/index.html seg_08.mp4 26752 30096 1280 720
+frame 27000
+frame 27600
+frame 28200
+frame 28800
+frame 29400
+frame 30000
 + sleep 16
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-doanxac-v3
++ gh release view ep02-conranh-v2
 ++ printf %02d 8
-+ gh release upload tiktok-doanxac-v3 seg_08.mp4 --clobber
++ gh release upload ep02-conranh-v2 seg_08.mp4 --clobber
 + break
