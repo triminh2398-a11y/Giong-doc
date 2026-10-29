@@ -21,13 +21,13 @@ mamuoi|N|Bà nói: đừng về nhà đó con. Nhà đó còn thiếu má một 
 mamuoi|N|Hiền hỏi nợ gì, bà Mười chỉ lắc đầu, nước mắt chảy dài, rồi quay mặt vô vách.
 mamuoi|N|Một tháng sau đám cưới, bà Mười mất. Món nợ đó, bà mang theo xuống mồ.
 nhangay|N|Về nhà chồng, Hiền được bà Tư thương như con ruột. Bà dạy cô nấu canh chua, kho cá, đan đệm.
-nhangay|BT|Con dâu nhà này thì hổng phải làm lụng cực nhọc đâu. Lo đẻ cho má một thằng cháu nội là được rồi!
+nhangay|BT|[cười] Con dâu nhà này thì hổng phải làm lụng cực nhọc đâu... Lo đẻ cho má một thằng cháu nội là được rồi!
 nhangay|H|Má nói gì kỳ vậy má... con mắc cỡ quá trời.
-nhangay|BT|Mắc cỡ gì mà mắc cỡ! Nhà này ba đời có một mụn con trai. Má trông cháu muốn mòn con mắt luôn đó.
+nhangay|BT|[cười] Mắc cỡ gì mà mắc cỡ! Nhà này ba đời... có một mụn con trai. Má trông cháu muốn mòn con mắt luôn đó.
 nhangay|N|Hiền cười, nhưng cô để ý, mỗi lần nhắc tới chuyện cháu, bà Tư lại liếc lên bàn thờ.
 bantho|N|Trên bàn thờ nhà bà Tư, ngoài ảnh ông Tư, còn có ba cái bát nhang nhỏ xíu, không có hình, không có tên.
 bantho|H|Má ơi, ba bát nhang nhỏ này là của ai vậy má?
-bantho|BT|Con đừng hỏi. Tới ngày rằm thì đốt nhang cho tụi nó là được rồi.
+bantho|BT|[thở dài] Con đừng hỏi... Tới ngày rằm... thì đốt nhang cho tụi nó là được rồi.
 bantho|N|Bà nói xong, quay đi rất nhanh. Hiền thấy tay bà run run.
 bau|N|Một năm sau, Hiền có bầu. Cả nhà mừng quýnh. Bà Tư đi chùa Phật Tổ cầu an mấy lần liền.
 bau|N|Người đỡ đẻ cho Hiền là bà mụ Ba Thơm, bà mụ già nhất xóm, đỡ đẻ cho nửa xóm Rạch Mây.
@@ -41,7 +41,7 @@ sanh2|N|Bà Ba Thơm vỗ vô mông nó hai cái. Lúc đó nó mới khóc, mà
 vongngay|N|Hai vợ chồng đặt tên con là thằng Bé. Nó lớn nhanh, bụ bẫm, ai thấy cũng muốn bế.
 vongngay|N|Nhưng thằng Bé có một tật lạ. Nó không chịu cho ai bế, trừ Hiền.
 vongngay|N|Bà nội bế thì nó khóc thét. Ba nó bế thì nó gồng cứng người, mắt trợn ngược.
-vongngay|L|Thằng nhỏ này kỳ quá... sao nó nhìn tui như nhìn người lạ vậy em?
+vongngay|L|Thằng nhỏ này... kỳ quá. Sao nó nhìn tui... như nhìn người lạ vậy em?
 vongngay|H|Con nít mà anh... lớn chút là nó quen hà.
 vongdem|N|Đêm nào Hiền cũng ru con trên cái võng treo giữa nhà. Võng đưa kẽo kẹt, kẽo kẹt.
 vongdem|H|Ầu ơ... ví dầu cầu ván đóng đinh... cầu tre lắc lẻo, gập ghềnh khó đi...
@@ -58,7 +58,7 @@ chet2|N|Bà Ba Thơm vuốt mắt cho nó ba lần, mà mắt nó không chịu 
 chet2|BA|Bà Tư... bà ra đây tui nói chuyện chút.
 chet2b|N|Đám tang thằng Bé làm gọn trong một ngày. Con nít chết yểu, theo lệ, không được để lâu trong nhà.
 chet2b|N|Hiền ngồi bên cái hòm gỗ nhỏ xíu, tay vẫn còn cầm cái áo con đang may dở. Cô không khóc nổi nữa.
-chet2b|L|Em ơi... em ăn miếng cháo đi em. Em mà ngã bệnh nữa thì anh biết làm sao.
+chet2b|L|[thở dài] Em ơi... em ăn miếng cháo đi em. Em mà ngã bệnh nữa... thì anh biết làm sao...
 chet2b|H|Anh có thấy hông anh... lúc con đi, nó nhìn em... như nó biết trước vậy đó.
 batho|N|Ngoài hiên, bà Ba Thơm hạ giọng, nói nhỏ với bà Tư.
 batho|BA|Tui đỡ đẻ năm chục năm nay rồi. Đứa nhỏ này... có dấu hiệu của con ranh đó bà.
@@ -66,18 +66,18 @@ batho|BT|Bà nói bậy! Cháu tui... cháu tui sao là ranh được!
 batho|BA|Hổng khóc lúc ra đời. Hổng cho ai bế ngoài má nó.
 batho|BA|Chết đúng đêm rằm, mắt mở, miệng cười. Bà còn muốn đợi đứa thứ hai sao?
 batho|N|Bà Tư đứng sững. Rất lâu sau, bà mới nói một câu, giọng như hụt hơi.
-batho|BT|Vậy... vậy phải làm sao?
+batho|BT|Vậy... vậy... phải làm sao?
 batho|BA|Làm dấu. Để nó có quay về, mình còn nhận ra nó.
 dauchàm|N|Tối đó, trước khi liệm, bà Ba Thơm lấy một cây kim may, chấm vô chén mực chàm.
 dauchàm|N|Bà rạch một dấu chữ thập nhỏ lên vai trái của xác đứa nhỏ, rồi xoa chàm vô cho thấm.
 dauchàm|H|Bà làm gì con tui vậy! Nó chết rồi mà bà còn làm nó đau!
-dauchàm|BT|Hiền! Để bà làm đi con! Má xin con... để bà làm đi!
+dauchàm|BT|Hiền! Để bà làm đi con! Má xin con... má xin con mà... để bà làm đi!
 dauchàm|N|Bà Tư ôm chặt Hiền. Hiền thấy rõ, má chồng cô đang khóc, nhưng không phải khóc thương cháu.
 dauchàm|N|Bà khóc như người đang sợ. Sợ một thứ gì đó mà bà đã biết từ lâu.
 moday|N|Thằng Bé được chôn ở gò mả sau vườn, dưới bụi tre gai, cạnh ba nấm mộ nhỏ xíu không có bia.
 moday|N|Hiền đứng nhìn ba nấm mộ đó, rồi nhìn lên má chồng.
 moday|H|Má... ba cái mộ này... cũng là con nít hả má?
-moday|BT|Về đi con. Trời sắp tối rồi.
+moday|BT|[thở dài] Về đi con... Trời sắp tối rồi.
 modem|N|Đêm đó, Lợi thức dậy đi tiểu. Anh nhìn ra phía gò mả, và đứng chết trân.
 modem|N|Dưới bụi tre gai, bên nấm mộ mới, có một bóng con nít đang ngồi, hai tay bới đất.
 modem|L|Ai... ai đó? Ai ngồi ngoài mả vậy?
@@ -87,8 +87,8 @@ modem2|N|Tới khi cả nhà cầm đèn chạy ra, thì gò mả vắng tanh.
 modem2|N|Chỉ có đất trên nấm mộ mới, bị bới lên một lỗ nhỏ, cỡ bàn tay con nít.
 sangmo|N|Sáng ra, Lợi kể lại cho má nghe. Bà Tư không nói một lời, chỉ lặng lẽ cầm cái cuốc ra gò mả.
 sangmo|N|Bà lấp cái lỗ nhỏ lại, đặt lên trên một chén cơm trắng, một quả trứng luộc, rồi cắm ba cây nhang.
-sangmo|L|Má... đêm qua con thấy rõ ràng mà. Có thằng nhỏ ngồi bới mả. Nó quay lại cười với con!
-sangmo|BT|Con thấy lộn rồi. Chó hoang nó bới đó. Từ nay tối đừng có ra sau vườn nữa nghe hông!
+sangmo|L|Má! Đêm qua con thấy rõ ràng mà! Có thằng nhỏ ngồi bới mả... Nó quay lại... cười với con!
+sangmo|BT|Con thấy lộn rồi! Chó hoang nó bới đó. Từ nay... tối đừng có ra sau vườn nữa, nghe hông!
 sangmo|N|Nhưng Lợi để ý, chén cơm má đặt lên mộ, không phải đặt ở mộ thằng Bé.
 sangmo|N|Mà đặt ở nấm mộ cũ nhất, nấm mộ đầu tiên.
 chap2|N|Chương hai. Đứa thứ hai.
@@ -101,14 +101,14 @@ vai2|N|Hiền ôm con vô lòng. Cô không sợ. Cô chỉ thấy mừng.
 vai2|H|Con tui về rồi... Con tui về với tui rồi! Lần này má hổng để con đi đâu hết!
 vai2|N|Nhưng bà Tư thì đứng tựa cột nhà, mặt trắng bệch như tờ giấy.
 ten2|N|Hiền đặt tên đứa thứ hai là thằng Lại, nghĩa là quay lại. Bà Tư nghe cái tên đó thì giận tím mặt.
-ten2|BT|Con đặt tên gì kỳ cục vậy! Đặt vậy là kêu nó về hoài hoài, con biết hông!
+ten2|BT|Con đặt tên gì kỳ cục vậy! Đặt vậy là kêu nó về hoài hoài... con biết hông!
 ten2|H|Con hổng sợ. Nó là con của con, nó về bao nhiêu lần con cũng nuôi!
 ten2|N|Bà Tư bỏ ra sau bếp. Đêm đó, Hiền nghe tiếng bà khấn rất lâu trước bàn thờ. Bà khấn ba cái bát nhang nhỏ.
 lai|N|Thằng Lại giống thằng Bé như đúc. Cũng không khóc, cũng không cho ai bế, cũng nhìn người lớn bằng cặp mắt sâu hoắm.
 lai|N|Nhưng nó còn lạ hơn anh nó. Hễ bà nội bước tới gần, nó lại quay mặt về phía bà, nhìn không chớp.
-lai|BT|Lợi... con biểu vợ con đem nó ra sau đi. Má... má hổng chịu nổi cái cặp mắt đó.
-lai|L|Má sao vậy má? Nó là cháu nội của má mà...
-lai|BT|Cháu nội... Ờ... cháu nội...
+lai|BT|Lợi... con biểu vợ con đem nó ra sau đi. Má... má hổng chịu nổi... cái cặp mắt đó.
+lai|L|Má... má sao vậy má? Nó là cháu nội của má mà...
+lai|BT|[thở dài] Cháu nội... Ờ... cháu nội...
 xom2|N|Rồi chuyện lạ bắt đầu lan ra khắp xóm.
 xom2|N|Con gà mái nhà bên cạnh, đang ấp, sáng ra chết cứng trong ổ, cả mười hai cái trứng đều bể.
 xom2|N|Thằng con của ông Năm Cò, hàng xóm, đang chơi trước sân thì lên cơn sốt, miệng cứ lảm nhảm một câu.
@@ -121,7 +121,7 @@ matlai|N|Một đêm cuối tháng tư, Hiền giật mình thức giấc lúc n
 matlai|H|Lại ơi! Con đâu rồi! Anh Lợi, dậy đi anh! Con mình đâu mất rồi!
 matlai|N|Hai vợ chồng cầm đèn dầu lục khắp nhà. Cuối cùng, họ thấy thằng Lại nằm sấp dưới đất, ngay cửa sau.
 matlai|N|Đầu nó quay về phía gò mả. Và trên lưng nó, có năm dấu tay con nít, in bằng bùn non, còn ướt nhẹp.
-matlai|L|Trời ơi... nó mới có bốn tháng, nó đâu có biết bò! Ai đem nó ra đây vậy?
+matlai|L|Trời ơi! Nó mới có bốn tháng... nó đâu có biết bò! Ai đem nó ra đây vậy?
 matlai|H|Có người bế nó ra đây anh ơi... một bàn tay nhỏ... nhỏ cỡ tay thằng Bé...
 matlai|N|Bà Tư đứng trong bóng tối, nhìn năm dấu tay trên lưng cháu. Môi bà mấp máy, đếm thầm. Một, hai, ba, bốn, năm.
 thay|N|Bà Tư lén đi qua tận xã bên, rước thầy Bảy Cò.
@@ -136,7 +136,7 @@ thay2|TH|Trời đất... cái con ranh này dữ quá!
 thaynoi|N|Thầy Bảy kéo vợ chồng Hiền ra ngoài hiên, nói nhỏ.
 thaynoi|TH|Con ranh là đứa nhỏ kiếp trước bị người ta làm hại.
 thaynoi|TH|Nó đầu thai vô nhà người đó, ở được ít tháng rồi đi, để cha mẹ đau như nó đã đau.
-thaynoi|L|Nhưng vợ chồng con có làm hại ai đâu thầy!
+thaynoi|L|Nhưng vợ chồng con... có làm hại ai đâu thầy!
 thaynoi|TH|Hổng phải tụi bây thì là người trong nhà. Nợ của ông bà, con cháu trả. Đó là luật.
 thaynoi|N|Nghe tới đó, bà Tư đang đứng trong cửa, bỗng làm rớt cái chén. Chén bể tan.
 cach|TH|Giờ chỉ còn một cách. Phải bỏ đứa nhỏ.
@@ -174,7 +174,7 @@ chet3|N|Mắt mở. Miệng cười. Giống hệt anh nó.
 rach|N|Lúc đó, ngoài sông, Lợi đang gồng mình chèo xuồng trong mưa. Nước lớn, sóng đánh chòng chành.
 rach|N|Tới khúc ngã ba, anh thấy mũi xuồng bỗng nặng trĩu, như có ai mới bước xuống ngồi.
 rach|N|Lợi đưa đèn lên. Ở đầu mũi xuồng, có một đứa con nít ngồi quay lưng lại, người ướt sũng, vai có dấu xanh.
-rach|L|Bé... Bé hả con? Con... con muốn gì? Con tha cho em con đi con!
+rach|L|Bé... Bé hả con? Con... con muốn gì? Con tha cho em con đi con... ba lạy con!
 rach|GBE|Ba về đi... Em con đi rồi.
 rach|N|Lợi chớp mắt một cái, mũi xuồng trống trơn. Anh quay xuồng chèo về như điên, nhưng đã trễ.
 lóng|N|Lần này thầy Bảy nói, dấu chàm không đủ. Phải làm dấu nặng hơn, để con ranh không dám quay về.
@@ -186,13 +186,13 @@ lóng2|N|Nhưng đêm đó, khi Hiền ngất đi vì kiệt sức, bà Tư lén
 lóng2|N|Hiền tỉnh dậy, thấy trên ngón tay út bên trái của con mình, một vòng vải trắng quấn chặt.
 lóng2|N|Ngoài bến, có tiếng xuồng của thầy Bảy, chèo ra hướng ngã ba sông.
 lóng2|H|Má... má làm gì con tui? Má làm gì con tui vậy má!
-lóng2|BT|Má xin lỗi con! Má xin lỗi... nhưng má không thể để nó về nữa! Nó về là để bắt má đó, con biết hông!
+lóng2|BT|Má xin lỗi con! Má xin lỗi... Nhưng má không thể để nó về nữa! Nó về... là để bắt má đó, con biết hông!
 lóng2|N|Câu nói đó, bà Tư buột miệng nói ra, rồi bà ôm mặt khóc. Hiền nghe rõ từng chữ. Nó về là để bắt má.
 mo2|N|Thằng Lại được chôn cạnh thằng Bé, dưới bụi tre gai. Giờ gò mả sau vườn có năm nấm mộ nhỏ.
 mo2|N|Hiền không khóc nữa. Cô đứng nhìn năm nấm mộ, rồi quay sang hỏi chồng.
 mo2|H|Anh Lợi... anh có biết ba cái mộ cũ kia là của ai hông?
-mo2|L|Anh... anh hổng biết. Hồi anh còn nhỏ đã thấy tụi nó ở đó rồi.
-mo2|L|Má nói là mộ của mấy đứa em anh, chết từ hồi trong bụng.
+mo2|L|[thở dài] Anh... anh hổng biết. Hồi anh còn nhỏ... đã thấy tụi nó ở đó rồi.
+mo2|L|Má nói... là mộ của mấy đứa em anh... chết từ hồi trong bụng.
 mo2|H|Hổng phải. Mấy đứa đó... là anh của anh. Anh là đứa thứ tư, phải hông?
 mo2|N|Lợi đứng im. Gió lùa qua bụi tre, kẽo kẹt, kẽo kẹt.
 chap4|N|Chương bốn. Món nợ ba mươi năm.
@@ -238,7 +238,7 @@ twist|BA|Mấy đứa nhỏ của con... không phải con ranh của con đâu 
 twist|BA|Nó là anh hai của con. Nó tìm về nhà kẻ đã lấy mạng nó.
 twist|BA|Nó mượn bụng con để vô nhà đó. Mỗi lần nó đi, là nó lấy theo một phần mạng của thằng Lợi.
 twist2|N|Hiền chạy về nhà. Lợi đang nằm trên võng, người gầy rộc từ hồi nào cô không để ý, môi tím tái.
-twist2|L|Em về rồi hả... Anh thấy mệt quá... Mấy bữa nay anh cứ nằm mơ thấy có thằng nhỏ ngồi trên ngực anh.
+twist2|L|Em về rồi hả... Anh thấy mệt quá... Mấy bữa nay... anh cứ nằm mơ thấy có thằng nhỏ... ngồi trên ngực anh.
 twist2|N|Hiền vạch áo chồng ra. Trên vai trái của Lợi, có một vết bầm xanh mờ mờ, hình chữ thập.
 jump3|N|Và ngón út bàn tay trái của anh, đã thâm đen lại từ hồi nào.
 chap5|N|Chương năm. Người trả nợ.
@@ -247,24 +247,24 @@ doi|H|Má... con biết hết rồi. Ba mươi năm trước, má đổi mạng 
 doi|BT|Ai nói với con? Con Ba Thơm nói phải hông? Nó nói bậy đó!
 doi|H|Má nhìn thằng nhỏ đi! Nhìn bàn tay nó đi má! Má nhìn cái vai của anh Lợi đi!
 doi2|N|Bà Tư nhìn đứa nhỏ. Đứa nhỏ cũng nhìn lại bà, không chớp mắt. Rồi bà Tư sụp xuống, ôm lấy chân Hiền.
-doi2|BT|Má có tội! Má có tội với má con, với anh hai con!
-doi2|BT|Mà má sợ quá con ơi... má mất ba đứa rồi, má hổng muốn mất đứa thứ tư!
-doi2|BT|Ông thầy nói, đổi mạng thì phải giữ kín suốt đời. Ngày nào bí mật lộ ra, nợ sẽ đòi lại gấp ba.
+doi2|BT|Má có tội! Má có tội... với má con, với anh hai con...
+doi2|BT|Mà má sợ quá con ơi... má mất ba đứa rồi... má hổng muốn mất đứa thứ tư!
+doi2|BT|[thở dài] Ông thầy nói... đổi mạng thì phải giữ kín suốt đời. Ngày nào bí mật lộ ra... nợ sẽ đòi lại gấp ba.
 doi2|N|Lợi đứng sau lưng, nghe hết. Anh dựa vô cột nhà, ho sặc sụa, ho ra cả máu.
 goi|N|Đêm đó, Lợi nằm trên võng, người nóng như lửa. Hiền ngồi kế bên, quạt cho chồng.
 goi|N|Gần nửa đêm, Lợi bỗng mở mắt, ngồi bật dậy, nhìn ra hướng bến sông.
 goi|GH|Anh Lợi ơi... xuống đây với em nè anh... nước mát lắm...
-goi|L|Hiền... em kêu anh hả? Em ra bến chi giờ này vậy?
+goi|L|Hiền... em kêu anh hả? Em ra bến chi... giờ này vậy?
 goi|H|Anh Lợi! Em ở đây nè! Em ngồi kế bên anh nè! Anh đừng đi!
 goi2|N|Nhưng Lợi như người mộng du, gạt tay vợ ra, đi thẳng xuống bến. Nước rạch đen ngòm, lặng như tờ.
 goi2|N|Hiền chạy theo, thấy chồng đã lội xuống nước tới ngực. Phía trước anh, một cái bóng nhỏ đang đứng trên mặt nước, vẫy tay.
 goi2|H|Anh Lợi! Quay lại! Đó hổng phải em! Đó là nó đó anh!
 goi2|N|Hiền nhảy xuống, níu được tóc chồng, lôi vô bờ. Lợi ho sặc sụa, nước rạch trào ra từ miệng.
-goi2|L|Anh nghe giọng em... rõ ràng là giọng em mà... sao lại là nó...
+goi2|L|Anh nghe giọng em... rõ ràng là giọng em mà... Sao... sao lại là nó...
 goi2|N|Trên mặt nước, cái bóng nhỏ đã biến mất. Chỉ còn tiếng cười khúc khích, vọng lại từ phía ngã ba sông.
 thay3|N|Thầy Bảy được rước tới lần nữa. Nghe hết đầu đuôi, thầy lắc đầu rất lâu.
 thay3|TH|Đổi mạng là tội lớn nhứt. Con ranh này hổng phải ranh thường. Nó là oan hồn, nó đòi đúng người, đúng mạng.
-thay3|BT|Thầy ơi, cứu con tui với! Thầy muốn gì tui cũng chịu!
+thay3|BT|Thầy ơi! Cứu con tui với! Thầy muốn gì... tui cũng chịu!
 thay3|TH|Hổng phải tui muốn. Là nó muốn. Ai lấy mạng của nó, thì người đó phải trả.
 thay3|TH|Thằng Lợi chỉ là cái mạng được đổi. Còn người đổi... là bà.
 thay3|N|Cả nhà im lặng. Chỉ có ngọn đèn dầu lập lòe, và tiếng thằng nhỏ trong võng, cười khúc khích.
@@ -272,9 +272,9 @@ tra|N|Khuya đó, khi cả nhà đã ngủ, bà Tư lặng lẽ thay bộ bà ba
 tra|N|đốt ba cây nhang, đi ra gò mả sau vườn.
 tra|N|Hiền không ngủ được. Cô thấy bóng má chồng đi qua cửa sổ, liền ôm con đi theo.
 tra2|N|Dưới bụi tre gai, bà Tư quỳ trước năm nấm mộ nhỏ. Bà cắm nhang, rồi lạy ba lạy.
-tra2|BT|Con ơi... bà biết bà có tội. Bà lấy mạng con để đổi cho con bà.
-tra2|BT|Ba mươi năm nay, bà không ngủ được một đêm.
-tra2|BT|Con đừng bắt thằng Lợi. Đừng bắt mấy đứa nhỏ nữa. Con muốn bắt ai... thì bắt bà đây nè.
+tra2|BT|Con ơi... bà biết bà có tội. Bà lấy mạng con... để đổi cho con bà.
+tra2|BT|[thở dài] Ba mươi năm nay... bà không ngủ được một đêm.
+tra2|BT|Con đừng bắt thằng Lợi... Đừng bắt mấy đứa nhỏ nữa. Con muốn bắt ai... thì bắt bà đây nè.
 tra3|N|Gió tự nhiên ngừng thổi. Bụi tre gai im phăng phắc.
 tra3|N|Rồi từ trong mấy nấm mộ nhỏ, đất từ từ nứt ra. Năm cái bóng con nít, trắng bệch, ướt sũng, bò lên.
 tra3|N|Đứa đi đầu lớn nhất, trên vai có dấu chữ thập, tay trái thiếu một ngón út.
