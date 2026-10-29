@@ -817,3 +817,8 @@ loaded V3TurboVieNeuTTS
 82_cr_l2 Đức Trí 72 ok 2.5
 82_cr_l2 Đức Trí 76 ok 2.6
 82_cr_l2 asr ok
+loaded V3TurboVieNeuTTS
+83_tx_safe_n clone:refs/mada8.wav 0 ok 27.3
+83_tx_safe_n clone:refs/mada8.wav 4 ok 2.0
+83_tx_safe_n clone:refs/mada8.wav 8 ok 1.5
+83_tx_safe_n asr ok
