@@ -7,6 +7,7 @@
 | YouTube T1 | Quỷ Nhập Tràng (hai đêm canh xác) | cấm kỵ / ma | 2026-10-27 | pipeline/ep01_quy_nhap_trang |
 | TikTok | Tiếng gõ cửa lúc 3 giờ sáng (gõ 4 tiếng là ma) — KHÔNG đăng, thay bằng Ma trành | lời đồn | 2026-10-28 | pipeline/tiktok_go_cua_malai |
 | TikTok | Ma trành (hồn người dẫn cọp về làng) — bản đăng 28/10 là bản 2.5D v6 | ma ít ai kể | 2026-10-28 | pipeline/tiktok_ma_tranh_25d |
+| YouTube T2 | Con ranh con lộn (Đứa con đòi nợ, sông Ông Đốc, twist đổi mạng) — 28 phút, 2.5D 16:9, 2 Shorts | ma ít ai kể / tục lệ Nam Bộ | 2026-10-29 | pipeline/ep02_con_ranh |
 
 ## QUY TẮC CHỌN TRUYỆN (chủ kênh 28/10: "chuyện đại trà đơn giản quá, mấy chuyện ít ai kể á")
 - KHÔNG làm kiểu lời đồn chung chung (gõ cửa, võng đung đưa, xe đò đêm, búp bê, nhà ma…) — kênh nào cũng có.
@@ -15,7 +16,7 @@
 
 ## Kho truyện ít ai kể (dùng chung YouTube + TikTok, gạch đi khi làm)
 1. ~~Ma trành~~ (TikTok 28/10; YouTube vẫn có thể làm bản dài) — hồn người bị hổ vồ thành nô lệ dẫn hổ về bắt người thân (rừng Trường Sơn)
-2. Con ranh con lộn — đứa con sinh ra rồi chết đi, đầu thai lại nhiều lần để đòi nợ mẹ; tục đánh dấu xác con
+2. ~~Con ranh con lộn~~ (YouTube T2 29/10) — đứa con sinh ra rồi chết đi, đầu thai lại nhiều lần để đòi nợ mẹ; tục đánh dấu xác con
 3. Ma Hời giữ của — người bị yểm sống canh kho báu Chăm; kẻ đào trộm bị theo (Bình Thuận, Ninh Thuận)
 4. Thần giữ của — đứa trẻ bị yểm trong hầm của, chủ nhân đời sau phải "thả" đúng cách
 5. Ma cà rồng Tây Bắc — người trong bản bị nghi "có ma", đêm hồn rời xác đi hút máu, cả bản xua đuổi

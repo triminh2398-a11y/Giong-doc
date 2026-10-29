@@ -63,3 +63,10 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Mỗi câu thoại 5 bản, kw temperature 1.1; chọn bản có ASR gần cao nhất (trong 0.06) VÀ biến thiên năng lượng lớn nhất (biểu cảm) — xem build_tr.py.
 
 ## Lịch TikTok (chủ kênh 29/10): 2 NGÀY 1 VIDEO (lịch tự động chạy các ngày chẵn 9:37 sáng), đăng 20:00. Kiểu 2.5D theo pipeline/tiktok_ma_tranh_25d.
+
+## Mẫu YouTube 2.5D 16:9 (tập 2, 29/10): pipeline/ep02_con_ranh/
+- Engine three.js viết lại cho khung ngang: main1–6.js (main1 nền/card, main2 nội thất nhà lá miền Tây, main3 ngoại cảnh xóm rạch + gò mả + đồng lúa + ngã ba sông, main4 engine (put/lie/cams/subs/watermark/jump), main5 = các cảnh S[key], main6 vòng vẽ). chars_main.js = nhân vật nét Ma Lai (hien, loi, batu, batho, thayBay, kid, ranh), flat.js = cận cảnh 2D (vai dấu chàm, bàn tay, mặt em bé, thẻ chương, CTA).
+- assemble.py ghép ra render/ep2/index.html (+main.js). Tham số URL: ?v=1 khung dọc (Shorts), &t0= giây bắt đầu, &d= độ dài (thẻ “Xem bản đầy đủ” 3,2 giây cuối), ?nosub=1 (làm thumbnail).
+- cams(lt,ls,[...]) đổi góc máy theo TỪNG CÂU; mỗi cảnh trả 'inn' | 'ext' | 'flat'. Thẻ nhân vật có emissive 0.16 để không bị đen khi ngược sáng; đèn dầu đặt bằng lampAt(x,z) (có ghế đẩu) và luôn ở PHÍA TRƯỚC nhân vật.
+- Bài học rà hình: camera không được đặt trong nhà lá (x -4..4, z -3..3) khi quay ngoại cảnh; tránh tàu dừa nước dọc bờ z≈11; nằm dùng lie() có nghiêng 0.6 rad để thấy từ camera thấp; ngồi bệt dưới đất = put(..., base -0.42).
+- build.py: chọn bản giọng theo ASR, nhảy dọa (jumps) tự sinh ở cảnh jump* + JX; audio.py dùng sfxlib (đã thêm baby/laugh/water/kids/boat: 431 tiếng trẻ cười làm chậm 0.78 = cười ma, 3076 = võng kẽo kẹt, 700 = hộp nhạc ru).
