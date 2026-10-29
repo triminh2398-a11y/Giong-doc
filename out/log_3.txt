@@ -353,3 +353,252 @@ loaded V3TurboVieNeuTTS
 47_tr2_ti Đức Trí 3 ok 0.9
 47_tr2_ti Đức Trí 7 ok 1.2
 47_tr2_ti asr ok
+loaded V3TurboVieNeuTTS
+50_cr_n clone:refs/mada8.wav 3 ok 15.3
+50_cr_n clone:refs/mada8.wav 7 ok 1.4
+50_cr_n clone:refs/mada8.wav 11 ok 1.1
+50_cr_n clone:refs/mada8.wav 15 ok 1.3
+50_cr_n clone:refs/mada8.wav 19 ok 0.6
+50_cr_n clone:refs/mada8.wav 23 ok 1.9
+50_cr_n clone:refs/mada8.wav 27 ok 1.4
+50_cr_n clone:refs/mada8.wav 31 ok 1.7
+50_cr_n clone:refs/mada8.wav 35 ok 2.1
+50_cr_n clone:refs/mada8.wav 39 ok 1.6
+50_cr_n clone:refs/mada8.wav 43 ok 1.4
+50_cr_n clone:refs/mada8.wav 47 ok 1.6
+50_cr_n clone:refs/mada8.wav 51 ok 1.3
+50_cr_n clone:refs/mada8.wav 55 ok 1.9
+50_cr_n clone:refs/mada8.wav 59 ok 1.3
+50_cr_n clone:refs/mada8.wav 63 ok 1.7
+50_cr_n clone:refs/mada8.wav 67 ok 1.6
+50_cr_n clone:refs/mada8.wav 71 ok 1.5
+50_cr_n clone:refs/mada8.wav 75 ok 2.0
+50_cr_n clone:refs/mada8.wav 79 ok 1.4
+50_cr_n clone:refs/mada8.wav 83 ok 2.1
+50_cr_n clone:refs/mada8.wav 87 ok 2.1
+50_cr_n clone:refs/mada8.wav 91 ok 1.8
+50_cr_n clone:refs/mada8.wav 95 ok 1.1
+50_cr_n clone:refs/mada8.wav 99 ok 1.6
+50_cr_n clone:refs/mada8.wav 103 ok 1.7
+50_cr_n clone:refs/mada8.wav 107 ok 1.9
+50_cr_n clone:refs/mada8.wav 111 ok 1.5
+50_cr_n clone:refs/mada8.wav 115 ok 1.2
+50_cr_n clone:refs/mada8.wav 119 ok 1.1
+50_cr_n clone:refs/mada8.wav 123 ok 2.2
+50_cr_n clone:refs/mada8.wav 127 ok 1.5
+50_cr_n clone:refs/mada8.wav 131 ok 0.6
+50_cr_n clone:refs/mada8.wav 135 ok 1.6
+50_cr_n clone:refs/mada8.wav 139 ok 1.6
+50_cr_n clone:refs/mada8.wav 143 ok 1.2
+50_cr_n clone:refs/mada8.wav 147 ok 2.3
+50_cr_n clone:refs/mada8.wav 151 ok 2.0
+50_cr_n clone:refs/mada8.wav 155 ok 1.7
+50_cr_n clone:refs/mada8.wav 159 ok 1.9
+50_cr_n clone:refs/mada8.wav 163 ok 2.0
+50_cr_n clone:refs/mada8.wav 167 ok 2.3
+50_cr_n clone:refs/mada8.wav 171 ok 1.4
+50_cr_n clone:refs/mada8.wav 175 ok 1.7
+50_cr_n clone:refs/mada8.wav 179 ok 1.3
+50_cr_n clone:refs/mada8.wav 183 ok 1.6
+50_cr_n clone:refs/mada8.wav 187 ok 0.9
+50_cr_n clone:refs/mada8.wav 191 ok 0.5
+50_cr_n clone:refs/mada8.wav 195 ok 2.1
+50_cr_n clone:refs/mada8.wav 199 ok 1.2
+50_cr_n clone:refs/mada8.wav 203 ok 2.4
+50_cr_n clone:refs/mada8.wav 207 ok 1.8
+50_cr_n clone:refs/mada8.wav 211 ok 0.8
+50_cr_n clone:refs/mada8.wav 215 ok 0.9
+50_cr_n clone:refs/mada8.wav 219 ok 1.3
+50_cr_n clone:refs/mada8.wav 223 ok 1.8
+50_cr_n clone:refs/mada8.wav 227 ok 1.8
+50_cr_n clone:refs/mada8.wav 231 ok 2.2
+50_cr_n clone:refs/mada8.wav 235 ok 1.9
+50_cr_n clone:refs/mada8.wav 239 ok 1.8
+50_cr_n clone:refs/mada8.wav 243 ok 1.4
+50_cr_n clone:refs/mada8.wav 247 ok 1.7
+50_cr_n clone:refs/mada8.wav 251 ok 1.2
+50_cr_n clone:refs/mada8.wav 255 ok 1.7
+50_cr_n clone:refs/mada8.wav 259 ok 1.2
+50_cr_n clone:refs/mada8.wav 263 ok 1.2
+50_cr_n clone:refs/mada8.wav 267 ok 1.3
+50_cr_n clone:refs/mada8.wav 271 ok 1.8
+50_cr_n clone:refs/mada8.wav 275 ok 1.6
+50_cr_n clone:refs/mada8.wav 279 ok 2.2
+50_cr_n clone:refs/mada8.wav 283 ok 1.8
+50_cr_n clone:refs/mada8.wav 287 ok 0.9
+50_cr_n clone:refs/mada8.wav 291 ok 2.1
+50_cr_n clone:refs/mada8.wav 295 ok 1.8
+50_cr_n clone:refs/mada8.wav 299 ok 0.5
+50_cr_n clone:refs/mada8.wav 303 ok 2.0
+50_cr_n clone:refs/mada8.wav 307 ok 1.5
+50_cr_n clone:refs/mada8.wav 311 ok 1.9
+50_cr_n clone:refs/mada8.wav 315 ok 1.7
+50_cr_n clone:refs/mada8.wav 319 ok 1.4
+50_cr_n clone:refs/mada8.wav 323 ok 1.4
+50_cr_n clone:refs/mada8.wav 327 ok 1.4
+50_cr_n clone:refs/mada8.wav 331 ok 1.0
+50_cr_n clone:refs/mada8.wav 335 ok 1.5
+50_cr_n clone:refs/mada8.wav 339 ok 1.8
+50_cr_n clone:refs/mada8.wav 343 ok 1.6
+50_cr_n clone:refs/mada8.wav 347 ok 1.7
+50_cr_n clone:refs/mada8.wav 351 ok 1.6
+50_cr_n clone:refs/mada8.wav 355 ok 1.3
+50_cr_n clone:refs/mada8.wav 359 ok 2.0
+50_cr_n clone:refs/mada8.wav 363 ok 1.4
+50_cr_n clone:refs/mada8.wav 367 ok 1.6
+50_cr_n clone:refs/mada8.wav 371 ok 1.9
+50_cr_n clone:refs/mada8.wav 375 ok 2.3
+50_cr_n asr ok
+51_cr_h Mỹ Duyên 3 ok 1.1
+51_cr_h Mỹ Duyên 7 ok 1.1
+51_cr_h Mỹ Duyên 11 ok 1.1
+51_cr_h Mỹ Duyên 15 ok 1.8
+51_cr_h Mỹ Duyên 19 ok 1.7
+51_cr_h Mỹ Duyên 23 ok 0.8
+51_cr_h Mỹ Duyên 27 ok 1.3
+51_cr_h Mỹ Duyên 31 ok 1.9
+51_cr_h Mỹ Duyên 35 ok 1.6
+51_cr_h Mỹ Duyên 39 ok 1.4
+51_cr_h Mỹ Duyên 43 ok 1.2
+51_cr_h Mỹ Duyên 47 ok 2.0
+51_cr_h Mỹ Duyên 51 ok 1.7
+51_cr_h Mỹ Duyên 55 ok 1.7
+51_cr_h Mỹ Duyên 59 ok 1.8
+51_cr_h Mỹ Duyên 63 ok 1.9
+51_cr_h Mỹ Duyên 67 ok 1.7
+51_cr_h Mỹ Duyên 71 ok 1.0
+51_cr_h Mỹ Duyên 75 ok 0.5
+51_cr_h Mỹ Duyên 79 ok 0.6
+51_cr_h Mỹ Duyên 83 ok 1.7
+51_cr_h Mỹ Duyên 87 ok 1.8
+51_cr_h Mỹ Duyên 91 ok 2.4
+51_cr_h Mỹ Duyên 95 ok 1.5
+51_cr_h Mỹ Duyên 99 ok 1.4
+51_cr_h Mỹ Duyên 103 ok 1.3
+51_cr_h Mỹ Duyên 107 ok 1.8
+51_cr_h Mỹ Duyên 111 ok 1.5
+51_cr_h Mỹ Duyên 115 ok 0.9
+51_cr_h Mỹ Duyên 119 ok 0.9
+51_cr_h Mỹ Duyên 123 ok 2.0
+51_cr_h Mỹ Duyên 127 ok 2.3
+51_cr_h Mỹ Duyên 131 ok 0.7
+51_cr_h Mỹ Duyên 135 ok 0.8
+51_cr_h Mỹ Duyên 139 ok 0.9
+51_cr_h Mỹ Duyên 143 ok 2.6
+51_cr_h Mỹ Duyên 147 ok 2.0
+51_cr_h Mỹ Duyên 151 ok 1.3
+51_cr_h Mỹ Duyên 155 ok 1.7
+51_cr_h Mỹ Duyên 159 ok 1.5
+51_cr_h Mỹ Duyên 163 ok 1.5
+51_cr_h Mỹ Duyên 167 ok 0.9
+51_cr_h asr ok
+52_cr_l Adam 3 ok 1.2
+52_cr_l Adam 7 ok 1.2
+52_cr_l Adam 11 ok 0.6
+52_cr_l Adam 15 ok 1.6
+52_cr_l Adam 19 ok 1.6
+52_cr_l Adam 23 ok 0.8
+52_cr_l Adam 27 ok 1.3
+52_cr_l Adam 31 ok 0.8
+52_cr_l Adam 35 ok 1.1
+52_cr_l Adam 39 ok 1.1
+52_cr_l Adam 43 ok 1.0
+52_cr_l Adam 47 ok 0.9
+52_cr_l Adam 51 ok 1.6
+52_cr_l Adam 55 ok 1.0
+52_cr_l Adam 59 ok 0.9
+52_cr_l Adam 63 ok 1.1
+52_cr_l asr ok
+53_cr_bt Thùy Dung 3 ok 1.5
+53_cr_bt Thùy Dung 7 ok 1.7
+53_cr_bt Thùy Dung 11 ok 1.0
+53_cr_bt Thùy Dung 15 ok 0.8
+53_cr_bt Thùy Dung 19 ok 0.8
+53_cr_bt Thùy Dung 23 ok 0.4
+53_cr_bt Thùy Dung 27 ok 1.1
+53_cr_bt Thùy Dung 31 ok 0.6
+53_cr_bt Thùy Dung 35 ok 1.5
+53_cr_bt Thùy Dung 39 ok 1.4
+53_cr_bt Thùy Dung 43 ok 1.2
+53_cr_bt Thùy Dung 47 ok 1.3
+53_cr_bt Thùy Dung 51 ok 0.5
+53_cr_bt Thùy Dung 55 ok 1.7
+53_cr_bt Thùy Dung 59 ok 1.7
+53_cr_bt Thùy Dung 63 ok 0.9
+53_cr_bt Thùy Dung 67 ok 0.9
+53_cr_bt Thùy Dung 71 ok 1.2
+53_cr_bt Thùy Dung 75 ok 1.5
+53_cr_bt Thùy Dung 79 ok 1.6
+53_cr_bt Thùy Dung 83 ok 1.0
+53_cr_bt Thùy Dung 87 ok 1.1
+53_cr_bt Thùy Dung 91 ok 0.6
+53_cr_bt Thùy Dung 95 ok 1.3
+53_cr_bt Thùy Dung 99 ok 1.4
+53_cr_bt Thùy Dung 103 ok 0.6
+53_cr_bt asr ok
+54_cr_ba Kim Thanh 3 ok 1.6
+54_cr_ba Kim Thanh 7 ok 1.2
+54_cr_ba Kim Thanh 11 ok 1.0
+54_cr_ba Kim Thanh 15 ok 2.1
+54_cr_ba Kim Thanh 19 ok 2.2
+54_cr_ba Kim Thanh 23 ok 1.3
+54_cr_ba Kim Thanh 27 ok 1.9
+54_cr_ba Kim Thanh 31 ok 1.4
+54_cr_ba Kim Thanh 35 ok 1.4
+54_cr_ba Kim Thanh 39 ok 1.4
+54_cr_ba Kim Thanh 43 ok 2.1
+54_cr_ba Kim Thanh 47 ok 1.2
+54_cr_ba Kim Thanh 51 ok 2.3
+54_cr_ba Kim Thanh 55 ok 2.6
+54_cr_ba Kim Thanh 59 ok 2.6
+54_cr_ba Kim Thanh 63 ok 2.7
+54_cr_ba Kim Thanh 67 ok 2.7
+54_cr_ba Kim Thanh 71 ok 2.6
+54_cr_ba Kim Thanh 75 ok 2.7
+54_cr_ba Kim Thanh 79 ok 2.7
+54_cr_ba Kim Thanh 83 ok 2.0
+54_cr_ba Kim Thanh 87 ok 1.7
+54_cr_ba Kim Thanh 91 ok 1.3
+54_cr_ba Kim Thanh 95 ok 1.5
+54_cr_ba Kim Thanh 99 ok 1.5
+54_cr_ba Kim Thanh 103 ok 1.6
+54_cr_ba Kim Thanh 107 ok 2.4
+54_cr_ba asr ok
+55_cr_th Thái Sơn 3 ok 1.2
+55_cr_th Thái Sơn 7 ok 0.8
+55_cr_th Thái Sơn 11 ok 0.7
+55_cr_th Thái Sơn 15 ok 1.1
+55_cr_th Thái Sơn 19 ok 1.0
+55_cr_th Thái Sơn 23 ok 1.7
+55_cr_th Thái Sơn 27 ok 1.6
+55_cr_th Thái Sơn 31 ok 0.8
+55_cr_th Thái Sơn 35 ok 1.3
+55_cr_th Thái Sơn 39 ok 1.3
+55_cr_th Thái Sơn 43 ok 1.1
+55_cr_th Thái Sơn 47 ok 1.7
+55_cr_th Thái Sơn 51 ok 1.5
+55_cr_th Thái Sơn 55 ok 1.4
+55_cr_th Thái Sơn 59 ok 1.3
+55_cr_th Thái Sơn 63 ok 0.9
+55_cr_th Thái Sơn 67 ok 2.1
+55_cr_th Thái Sơn 71 ok 1.5
+55_cr_th Thái Sơn 75 ok 1.1
+55_cr_th Thái Sơn 79 ok 1.2
+55_cr_th Thái Sơn 83 ok 1.7
+55_cr_th Thái Sơn 87 ok 1.2
+55_cr_th asr ok
+56_cr_nam Minh Triết 3 ok 1.3
+56_cr_nam Minh Triết 7 ok 0.8
+56_cr_nam Minh Triết 11 ok 1.0
+56_cr_nam asr ok
+57_cr_be Thục Đoan 3 ok 0.7
+57_cr_be Thục Đoan 7 ok 0.6
+57_cr_be Thục Đoan 11 ok 1.6
+57_cr_be Thục Đoan 15 ok 0.8
+57_cr_be Thục Đoan 19 ok 1.0
+57_cr_be Thục Đoan 23 ok 0.6
+57_cr_be Thục Đoan 27 ok 1.3
+57_cr_be Thục Đoan 31 ok 1.7
+57_cr_be Thục Đoan 35 ok 0.7
+57_cr_be Thục Đoan 39 ok 0.7
+57_cr_be asr ok
