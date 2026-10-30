@@ -1,0 +1,81 @@
+// ================= cảnh =================
+const S={};let ctaFlag=false,SEPIA=false,BLACK=0,TITLE=false,VIDEO=0;
+// góc dưới chân cầu thang nhìn lên
+const lowCam=(p,fov=44)=>cm([lerp(0.35,0.1,p),1.1,lerp(3.4,2.6,p)],[0,1.6,-2.5],fov);
+const fill=(x,y,z,i=1.2)=>{fillL.intensity=i;fillL.position.set(x,y,z)};
+S.hook=(lt,D,T)=>{const p=sm(lt/D);onStep(CI.vy,6,{candle:true,mirror:true,eyes:1.15,look:0});vyCandle(CI.vy,true,0.9+0.1*Math.sin(T*11));put(CI.ma,0.15,zst(13)-0.6,{a:0.8},yst(13));moonSpot.intensity=14;fill(0,1.2,1.5,0.8);cm([0.2,lerp(1.0,1.15,p),lerp(3.0,2.2,p)],[0,1.75,-2.2],42);return 'inn'};
+S.hook2=(lt,D,T)=>{onStep(CI.vy,6,{candle:true,mirror:true,eyes:1.2});vyCandle(CI.vy,true);const p=sm(lt/D);cm([0.35,yst(6)+1.35,zst(6)+1.3],[0.1,yst(6)+1.35,zst(6)],40);mirShot('change',lerp(0.15,0.5,p),T,0,0.02,lerp(1.15,0.95,p),-0.08);return 'inn'};
+S.title=(lt,D,T)=>{const p=sm(lt/D);candleL.intensity=2.4*(0.9+0.1*Math.sin(T*12));candleL.position.set(0,yst(3)+0.3,zst(3));moonSpot.intensity=8;TITLE=true;cm([0,lerp(1.0,1.3,p),lerp(3.2,2.4,p)],[0,1.6,-2],46);return 'inn'};
+S.origin=(lt,D,T)=>{SEPIA=true;const p=sm(lt/D);onStep(CI.og,lerp(2,6,p)|0,{eyes:0.9,look:0});vyCandle(CI.og,true);moonSpot.intensity=6;fill(0,1.4,2,0.7);lowCam(p,46);return 'inn'};
+S.origin2=(lt,D,T)=>{SEPIA=true;onStep(CI.og,7,{eyes:1});vyCandle(CI.og,true);const p=sm(lt/D);cm([0.35,yst(7)+1.35,zst(7)+1.3],[0.1,yst(7)+1.35,zst(7)],40);mirShot('groom',1,T,0,0,lerp(1.2,1.0,p),-0.05);return 'inn'};
+S.skull=(lt,D,T)=>{SEPIA=true;onStep(CI.og,7,{eyes:1.3,mouth:'o'});vyCandle(CI.og,true,0.8);const p=sm(lt/D);cm([0.35,yst(7)+1.35,zst(7)+1.3],[0.1,yst(7)+1.35,zst(7)],40);mirShot('skull',1,T,0,0,lerp(1.15,0.9,p),-0.05);return 'inn'};
+S.dorm=(lt,D,T)=>{const p=sm(lt/D);cm([lerp(-4,-2,p),1.6,lerp(16,13,p)],[0,4.5,-12],46);return 'ext'};
+S.thao=(lt,D,T)=>{power(true);put(CI.th,0.55,1.4,{phone:true,laugh:true,mouth:talk(lt),look:-1});put(CI.vy,-0.55,1.5,{look:1,eyes:1.05});cm([lerp(0.6,0.3,sm(lt/D)),1.4,4.4],[0,1.15,1.2],40);return 'inn'};
+S.vy=(lt,D,T)=>{power(true);put(CI.vy,-0.55,1.5,{look:1,eyes:1.2,mouth:talk(lt)});close(CI.vy,1.3,36,0.3);return 'inn'};
+S.rules=(lt,D,T)=>{power(true);put(CI.th,0.55,1.4,{phone:true,mouth:talk(lt),look:0,eyes:1.05});put(CI.vy,-0.55,1.5,{look:1,eyes:1.1});const p=sm(lt/D);close(CI.th,lerp(1.9,1.5,p),38,-0.5);return 'inn'};
+S.rules2=(lt,D,T)=>{power(true);put(CI.th,0.55,1.4,{phone:true,mouth:talk(lt),look:-1,eyes:1.1});put(CI.vy,-0.55,1.5,{look:1,eyes:1.2});if(lt<D*0.55)cm([-1.4,1.45,3.6],[0.3,1.2,1.3],40);else close(CI.vy,1.3,36,-0.2);return 'inn'};
+S.rules3=(lt,D,T)=>{power(true);put(CI.th,0.55,1.4,{laugh:true,mouth:talk(lt),look:-1});close(CI.th,1.3,36,0.3);return 'inn'};
+S.stairs=(lt,D,T)=>{const off=lt>D*0.22;power(!off);if(off){moonSpot.intensity=6}const p=sm(lt/D);put(CI.th,1.3,1.6,{phone:true,look:-1});onStep(CI.vy,lt>D*0.7?1:0,{candle:off,mirror:off,eyes:1.1},0);if(lt<D*0.7)CI.vy.position.z=0.5;vyCandle(CI.vy,off);if(off&&lt<D*0.3)BLACK=0.8;cm([lerp(-0.8,-0.4,p),1.5,4.6],[0,1.2,0],42);return 'inn'};
+S.step=(lt,D,T,ls)=>{const s2=lt>(ls[1]||D*0.4);onStep(CI.vy,s2?2:1,{candle:true,mirror:true,eyes:1.1});vyCandle(CI.vy,true);moonSpot.intensity=6;
+ if(lt<D*0.6){fill(0,1.2,2,0.6);lowCam(sm(lt/D),44)}else{cm([0.35,yst(2)+1.35,zst(2)+1.3],[0.1,yst(2)+1.35,zst(2)],40);mirShot('vy',0,T,0,0,1.1,-0.06)}return 'inn'};
+S.man=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,mirror:true,eyes:1.1});vyCandle(CI.vy,true);moonSpot.intensity=6;if(lt<D*0.3){fill(0,1.6,1,0.6);lowCam(0.8,40)}else{const p=sm(seg(lt,D*0.3,D));cm([0.35,yst(7)+1.35,zst(7)+1.3],[0.1,yst(7)+1.35,zst(7)],40);mirShot('man',p,T,0,0,lerp(1.15,1.0,p),-0.06)}return 'inn'};
+S.vy2=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,mirror:true,eyes:1.35,pupil:2.5,mouth:talk(lt),tears:true});vyCandle(CI.vy,true,0.9+0.1*Math.sin(T*17));fill(0,yst(7)+1.3,zst(7)+1.4,0.5);close(CI.vy,1.2,36,0.25);return 'inn'};
+S.thaolaugh=(lt,D,T)=>{put(CI.th,0.3,1.0,{phone:true,flash:true,laugh:true,look:0,eyes:0.8});fillL.intensity=3;fillL.position.set(0.5,1.7,0.8);const p=sm(lt/D);cm([lerp(-0.3,0,p),yst(9)+1.2,zst(9)],[0.3,1.0,1.0],lerp(44,38,p));return 'inn'};
+S.change=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,mirror:true});vyCandle(CI.vy,true,0.8+0.2*Math.sin(T*19));const p=sm(lt/D);cm([0.35,yst(7)+1.35,zst(7)+1.3],[0.1,yst(7)+1.35,zst(7)],40);mirShot('change',sm(seg(lt,0,D*0.85)),T,0,0,lerp(1.15,0.85,p),-0.06);return 'inn'};
+S.change2=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,mirror:true,eyes:1.4,pupil:2,tears:true});vyCandle(CI.vy,true,0.8+0.2*Math.sin(T*19));if(lt<D*0.5){cm([0.35,yst(7)+1.35,zst(7)+1.3],[0.1,yst(7)+1.35,zst(7)],40);mirShot('mary',0.1,T,0,0,0.9,-0.06)}else{fill(0,yst(7)+1.3,zst(7)+1.4,0.5);close(CI.vy,1.2,36,0.25)}return 'inn'};
+S.prank=(lt,D,T,ls)=>{const sh=lt>ls[1]-0.2;put(CI.th,0.3,1.0,{phone:!sh,shout:sh,mouth:sh?(Math.sin(lt*9)>-0.3?'o':undefined):undefined,laugh:!sh,eyes:1.1});onStep(CI.vy,7,{candle:true,mirror:true});vyCandle(CI.vy,true);fill(0.3,1.6,2.0,1.4);
+ if(!sh)cm([-0.6,1.5,3.6],[0.3,1.2,1.0],40);else{const p=sm(seg(lt,ls[1],D));close(CI.th,lerp(1.5,1.1,p),36,0.2)}return 'inn'};
+S.candle=(lt,D,T)=>{const out=lt>D*0.3;onStep(CI.vy,7,{candle:true,out,mirror:true,mglow:out?1:0,eyes:1.3});vyCandle(CI.vy,!out,1.4);if(out){blueL.intensity=1.6;blueL.position.set(CI.vy.position.x+0.3,CI.vy.position.y+0.6,CI.vy.position.z+1.0);moonSpot.intensity=2}else moonSpot.intensity=6;
+ if(lt>D*0.3&&lt<D*0.38)BLACK=0.95;lowCam(0.6,40);return 'inn'};
+S.closer=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,out:true,mirror:true,mglow:1,eyes:1.4,pupil:2,hand:lt>D*0.55,hairOver:lt>D*0.55});blueL.intensity=1.6;blueL.position.set(CI.vy.position.x+0.3,CI.vy.position.y+0.6,CI.vy.position.z+1.0);
+ if(lt<D*0.5){cm([0.35,yst(7)+1.35,zst(7)+1.3],[0.1,yst(7)+1.35,zst(7)],40);mirShot('mary2',sm(seg(lt,0,D*0.5)),T,0,0,0.95,-0.06)}else close(CI.vy,lerp(1.4,1.2,sm(seg(lt,D*0.5,D))),36,0.2);return 'inn'};
+S.whisper=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,out:true,mirror:true,mglow:1,eyes:0.05,closed:true,tears:true,hand:true,hairOver:true});blueL.intensity=1.6;blueL.position.set(CI.vy.position.x+0.3,CI.vy.position.y+0.6,CI.vy.position.z+1.0);const p=sm(lt/D);close(CI.vy,lerp(1.15,0.95,p),34,lerp(0.2,0.05,p));return 'inn'};
+S.rule1=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,out:true,mirror:true,mglow:1,eyes:0.05,closed:true,tears:true,hand:true});blueL.intensity=1.6;blueL.position.set(CI.vy.position.x+0.3,CI.vy.position.y+0.6,CI.vy.position.z+1.0);close(CI.vy,1.35,36,-0.3);return 'inn'};
+S.scream=(lt,D,T)=>{const gone=lt>D*0.5;if(!gone)put(CI.th,0.3,1.0,{phone:true,flash:true,eyes:1.4,pupil:2,mouth:'o',shout:true});const fx=gone?sm(seg(lt,D*0.5,D*0.7)):0;phone(true,lerp(0.45,0.7,fx),lerp(1.0,1.5,fx),lerp(0,2.5,fx),gone?20:0);
+ if(!gone){fillL.intensity=3;fillL.position.set(0.5,1.7,0.8)}if(gone&&lt<D*0.56)BLACK=0.7;cm([0.1,yst(7)+1.3,zst(7)],[0.4,0.6,1.3],42);return 'inn'};
+S.phone=(lt,D,T)=>{phone(true,0.7,1.5,2.5+Math.sin(lt*2)*0.05*(1-sm(lt/D)),20);const p=sm(lt/D);cm([lerp(1.3,1.0,p),0.25,lerp(2.3,2.0,p)],[0.7,0.02,1.5],40);return 'inn'};
+S.plan=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,out:true,mirror:true,mglow:1,eyes:1.2,tears:true,hand:true});blueL.intensity=1.6;blueL.position.set(CI.vy.position.x+0.3,CI.vy.position.y+0.6,CI.vy.position.z+1.0);close(CI.vy,1.2,36,0.2);return 'inn'};
+S.flip=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,out:true,mirror:true,mglow:1});blueL.intensity=3;blueL.position.set(0.3,yst(7)+0.6,zst(7)+0.4);const p=sm(lt/D);cm([0.2,yst(7)+1.1,zst(7)+1.3],[0.1,yst(7)+1.1,zst(7)],40);const r=sm(seg(lt,0,D*0.4));mirShot(lt<D*0.3?'blue':'thao',1,T,0.0,lerp(-0.5,0,r),lerp(1.3,1.0,p),lerp(Math.PI*0.5,0,r));return 'inn'};
+S.thaoin=(lt,D,T)=>{cm([0.2,yst(7)+1.1,zst(7)+1.3],[0.1,yst(7)+1.1,zst(7)],40);blueL.intensity=3;blueL.position.set(0.3,yst(7)+0.9,zst(7)+0.6);const sh=Math.sin(T*31)*0.006;mirShot('thao',1,T,sh,sh,0.95,-0.03);return 'inn'};
+S.choice=(lt,D,T)=>{cm([0.2,yst(7)+1.1,zst(7)+1.3],[0.1,yst(7)+1.1,zst(7)],40);blueL.intensity=3;blueL.position.set(0.3,yst(7)+0.9,zst(7)+0.6);const p=sm(lt/D);mirShot('crawl',sm(seg(lt,D*0.35,D)),T,0,0,lerp(1.0,0.85,p),-0.03);return 'inn'};
+S.choice2=(lt,D,T)=>{onStep(CI.vy,7,{candle:true,out:true,mirror:true,mglow:1,eyes:1.3,tears:true,mouth:'o'});blueL.intensity=1.6;blueL.position.set(CI.vy.position.x+0.3,CI.vy.position.y+0.6,CI.vy.position.z+1.0);
+ if(lt<D*0.45){cm([0.2,yst(7)+1.1,zst(7)+1.3],[0.1,yst(7)+1.1,zst(7)],40);mirShot('crawl',lerp(0.85,1,sm(lt/D)),T,0,0,0.85,-0.03)}else close(CI.vy,1.15,34,0.15);return 'inn'};
+S.name=(lt,D,T,ls)=>{const fade=lt>ls[1]?1-sm(seg(lt,ls[1],D)):1;onStep(CI.vy,7,{hug:true,mglow:fade,eyes:0.05,closed:true,tears:true,mouth:lt>ls[1]?talk(lt):undefined});blueL.intensity=3*fade;blueL.position.set(CI.vy.position.x,CI.vy.position.y+0.5,CI.vy.position.z+0.5);fill(0,yst(7)+1.3,zst(7)+1.5,0.4);const p=sm(lt/D);close(CI.vy,lerp(1.5,1.1,p),36,lerp(0.3,0.1,p));return 'inn'};
+S.silence=(lt,D,T)=>{const on=lt>D*0.35;power(on);if(!on)BLACK=0.85*(1-sm(seg(lt,D*0.25,D*0.35)));onStep(CI.vy,6,{hug:true,sit:true,eyes:0.9,tears:true},0);CI.vy.position.y-=0.45;lowCam(0.5,44);return 'inn'};
+S.gone=(lt,D,T)=>{power(true);phone(true,0.7,1.5,2.5,0);const p=sm(lt/D);cm([lerp(-0.6,-0.3,p),0.6,lerp(3.6,3.0,p)],[0.6,0.2,1.2],42);return 'inn'};
+S.video=(lt,D,T)=>{VIDEO=Math.max(0.001,sm(seg(lt,0,0.4)));phone(true,0.7,1.5,2.5,0);power(true);cm([1.0,0.6,2.3],[0.7,0.0,1.5],40);return 'inn'};
+S.keep=(lt,D,T)=>{rmMoon.intensity=14;put(CI.vy,20.6,0.5,{hug:true,eyes:0.9,look:-1});fill(20.8,1.6,1.4,3);const p=sm(lt/D);cm([lerp(21.4,21.0,p),1.4,lerp(2.6,2.2,p)],[19.8,0.6,-0.6],44);return 'inn'};
+S.yearly=(lt,D,T)=>{rmMoon.intensity=10;const kn=Math.abs(Math.sin(lt*Math.PI/0.8))>0.95&&lt>D*0.4;BUN.position.x=0.1+(kn?0.01:0);bunGlow.intensity=0.6;const p=sm(lt/D);fill(19.5,0.5,0.8,0.8);cm([19.45,0.32,lerp(1.3,0.8,p)],[19.5,0.1,-0.8],42);return 'inn'};
+S.final=(lt,D,T)=>{rmMoon.intensity=8;gap.visible=true;fing.visible=lt>D*0.55;bunGlow.intensity=1.2+0.4*Math.sin(T*3);const p=sm(lt/D);fill(19.6,0.4,0.6,0.5);cm([lerp(19.55,19.7,p),lerp(0.3,0.22,p),lerp(0.7,0.2,p)],[19.62,0.1,-0.62],lerp(40,32,p));return 'inn'};
+S.cta=(lt,D,T)=>{candleL.intensity=2.2*(0.9+0.1*Math.sin(T*12));candleL.position.set(0,yst(3)+0.3,zst(3));moonSpot.intensity=8;const p=sm(lt/D);cm([0,lerp(1.2,1.0,p),lerp(2.6,3.2,p)],[0,1.4,-2],44);ctaFlag=true;return 'inn'};
+// 3D: nến + gương đặt trên bậc 3 (cho title/cta)
+const STILL=new THREE.Group();inn.add(STILL);{const c=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.03,0.2,10),M({color:0xece4cc}));c.position.y=0.1;STILL.add(c);const f=new THREE.Mesh(new THREE.SphereGeometry(0.022,10,8),new THREE.MeshBasicMaterial({color:0xffd27a}));f.scale.y=1.8;f.position.y=0.24;STILL.add(f);
+ const m=new THREE.Mesh(new THREE.CircleGeometry(0.14,32),M({color:0x9ab0c8,metalness:0.9,roughness:0.15}));m.scale.y=1.33;m.rotation.x=-Math.PI/2+0.2;m.position.set(0.3,0.02,0.02);STILL.add(m);const r=new THREE.Mesh(new THREE.TorusGeometry(0.15,0.015,8,32),M({color:0x3a2416}));r.scale.y=1.33;r.rotation.x=-Math.PI/2+0.2;r.position.set(0.3,0.02,0.02);STILL.add(r)}
+STILL.position.set(-0.2,yst(3),zst(3));
+// ---------- video trên điện thoại (overlay) ----------
+function phoneVideo(a,lt,T){g2.save();g2.globalAlpha=a;g2.fillStyle='rgba(0,0,0,.75)';g2.fillRect(0,0,RW,RH);const pw=440,ph=820,px=(RW-pw)/2,py=150;g2.fillStyle='#0c0d10';g2.beginPath();g2.roundRect(px-14,py-14,pw+28,ph+28,40);g2.fill();g2.save();g2.beginPath();g2.roundRect(px,py,pw,ph,26);g2.clip();
+ g2.fillStyle='#08090c';g2.fillRect(px,py,pw,ph);const old=ctx;ctx=g2;ctx.save();ctx.translate(px,py);
+ ctx.strokeStyle='rgba(150,130,110,.35)';ctx.lineWidth=5;for(let k=0;k<12;k++){const y=ph*0.95-k*52;ctx.beginPath();ctx.moveTo(pw*0.15+k*6,y);ctx.lineTo(pw*0.85-k*6,y);ctx.stroke()}
+ halo(pw*0.5,ph*0.4,260,'255,190,110',0.25);const p=sm(lt/2.6);vy(pw*0.5,ph*0.78-p*120,0.95-p*0.15,{candle:true,mirror:true,T,back:false,eyes:1.1});
+ const late=lt>2.4;if(late){const [hx,hy]=HP(1,-2.67);const s=0.95-p*0.15;const mx=pw*0.5+(hx+6)*s,my=ph*0.78-p*120+(hy-46)*s;halo(mx,my,160,'80,150,255',0.6);for(const sd of [-1,1]){ctx.save();ctx.translate(mx+sd*14,my-20);ctx.scale(0.9,0.9);paleHand(0,0,sd*0.5-0.2,T);ctx.restore()}}
+ ctx.restore();ctx=old;g2.globalAlpha=a*0.25;grain(0.2);g2.globalAlpha=a;
+ g2.fillStyle='#ff3030';g2.beginPath();g2.arc(px+34,py+40,9,0,7);g2.fill();g2.fillStyle='#fff';g2.font='bold 24px "DejaVu Sans"';g2.fillText('REC  00:0'+Math.min(9,Math.floor(lt+3)),px+52,py+48);
+ g2.restore();g2.restore()}
+window.draw=function(t){const sc=TLD.scenes.find(s=>t>=s[1]&&t<s[2])||TLD.scenes[TLD.scenes.length-1];const [k,a,b,ls]=sc;const lt=t-a,D=b-a;
+ hideAll();ctaFlag=false;SEPIA=false;BLACK=0;TITLE=false;VIDEO=0;moonSpot.intensity=10;rmMoon.intensity=10;g2.clearRect(0,0,RW,RH);
+ PUMP.forEach((g,i)=>{g.userData.L.intensity=1.2*(0.85+0.15*Math.sin(t*11+i))});STILL.visible=(k==='title'||k==='cta');
+ motes.forEach((m,i)=>{const p=(t*0.04+R(i))%1;m.position.set((R(i+5)-0.5)*1.8,0.3+((R(i+9)*3+t*0.05)%3),-3+p*5);m.material.opacity=0.35*Math.sin(p*Math.PI)});
+ const mode=S[k](lt,D,t,ls);cam.aspect=RW/RH;cam.updateProjectionMatrix();
+ if(MIR.visible){const f=new THREE.Vector3();cam.getWorldDirection(f)}
+ const face=c=>{if(!c.visible)return;c.userData.paint(t);c.lookAt(cam.position.x,c.position.y,cam.position.z)};
+ if(mode.startsWith('ext')){for(const kk in C)face(C[kk]);renderer.render(ext,cam)}else{for(const kk in CI)face(CI[kk]);renderer.render(inn,cam)}
+ const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.55)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH);
+ if(SEPIA){tint('rgba(150,110,50,.25)');grain(0.12)}
+ if(BLACK){g2.fillStyle=`rgba(0,0,0,${BLACK})`;g2.fillRect(0,0,RW,RH)}
+ if(VIDEO)phoneVideo(VIDEO,lt,t);
+ if(TITLE)titleTxt(lt,sm(seg(lt,0.1,0.6)));
+ if(ctaFlag)ctaTxt(sm(seg(lt,0.1,0.6)));
+ const d=Math.min(t-a,b-t);if(d<0.08&&a>0){g2.fillStyle=`rgba(0,0,0,${1-d/0.08})`;g2.fillRect(0,0,RW,RH)}
+ watermark(t);if(k!=='title')subs(t)};
+Promise.all(IMGS).then(()=>{window.READY=true});
+</script></body></html>

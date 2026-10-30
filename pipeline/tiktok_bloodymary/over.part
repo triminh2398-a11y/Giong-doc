@@ -1,0 +1,25 @@
+// ================= overlay: chữ, phụ đề, watermark, jumpscare =================
+const NOISE=document.createElement('canvas');NOISE.width=360;NOISE.height=640;{const g=NOISE.getContext('2d'),im=g.createImageData(360,640);for(let i=0;i<im.data.length;i+=4){const v=Math.random()*255;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255}g.putImageData(im,0,0)}
+function grain(a=0.07){g2.save();g2.globalAlpha=a;g2.globalCompositeOperation='overlay';g2.drawImage(NOISE,(R(Math.floor(performance.now()))*-80)|0,(R(Math.floor(performance.now())+1)*-80)|0,RW+80,RH+80);g2.restore()}
+const flat=document.createElement('canvas');flat.width=1080;flat.height=1920;
+function jump(n,dt){const k=1-sm(dt/0.15);const sc=1+0.4*k;const jit=dt<0.5?1:0.3;const sx=(R(dt*997)-0.5)*36*jit,sy=(R(dt*631)-0.5)*36*jit;
+ const old=ctx;ctx=flat.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#050505';ctx.fillRect(0,0,1080,1920);halo(540,820,900,'120,255,160',0.18);ctx.save();ctx.translate(540,820);ctx.scale(7.5,7.5);ctx.rotate(0.12);
+ if(n==='cha'){scaryFace(dt*3,{open:0.75});ctx.save();ctx.translate(0,-28);ctx.fillStyle='#4a3a22';ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.beginPath();ctx.ellipse(0,-30,104,22,0,0,7);ctx.fill();ctx.stroke();ctx.restore()}
+ else if(n==='mai'){scaryFace(dt*3,{woman:true,open:0.75});for(const sd of [-1,1]){ctx.strokeStyle=HAIR;ctx.lineWidth=12;ctx.beginPath();ctx.moveTo(sd*50,8);ctx.quadraticCurveTo(sd*62,78,sd*54,128);ctx.stroke();circ(sd*54,132,6,'#c03040')}}
+ else{scaryFace(dt*3,{open:0.75});bua(0,-20,40,70,false,dt)}
+ ctx.restore();ctx=old;g2.save();g2.translate(RW/2+sx,RH/2+sy);g2.scale(sc,sc);g2.drawImage(flat,-RW/2,-RH/2,RW,RH);g2.restore();g2.fillStyle='rgba(120,0,0,.15)';g2.fillRect(0,0,RW,RH);if(dt<0.07){g2.fillStyle='rgba(255,255,255,.85)';g2.fillRect(0,0,RW,RH)}}
+function subs(t){for(const [a,b,str,sp] of TLD.subs){if(t<a||t>=b)continue;const al=Math.min(sm((t-a)/0.12),sm((b-t)/0.12));g2.save();g2.globalAlpha=al;g2.textAlign='center';g2.lineJoin='round';g2.font='bold 39px "DejaVu Sans"';
+ const ws=str.split(' ');const L=[];let c='';for(const w of ws){const tt=c?c+' '+w:w;if(g2.measureText(tt).width>600&&c){L.push(c);c=w}else c=tt}if(c)L.push(c);const lh=50;const y0=1040-(L.length-1)*lh/2;
+ const col=sp.startsWith('G')?'#ff5050':(sp==='TT')?'#ff9a9a':sp==='N'?'#ffffff':'#ffd76a';
+ L.forEach((l,i)=>{g2.lineWidth=8;g2.strokeStyle='#000';g2.strokeText(l,RW/2,y0+i*lh);g2.fillStyle=col;g2.fillText(l,RW/2,y0+i*lh)});g2.restore()}}
+function watermark(t){const k=Math.floor(t/6)%4;const pos=[[0.5,0.42],[0.72,0.2],[0.3,0.75],[0.68,0.6]][k];g2.save();g2.globalAlpha=0.16;g2.font='bold 26px "DejaVu Sans"';g2.textAlign='center';g2.fillStyle='#ffffff';g2.strokeStyle='rgba(0,0,0,.6)';g2.lineWidth=3;g2.strokeText('@chuyendongtaykimco',RW*pos[0],RH*pos[1]);g2.fillText('@chuyendongtaykimco',RW*pos[0],RH*pos[1]);g2.restore()}
+function fitText(s,maxW,size,font){g2.font=`${font} ${size}px "DejaVu Sans"`;const w=g2.measureText(s).width;const f=Math.min(size,size*maxW/w);g2.font=`${font} ${f}px "DejaVu Sans"`;return f}
+function hookText(a){g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.lineJoin='round';g2.lineWidth=10;g2.strokeStyle='#000';fitText('XÁC CHẾT TỰ ĐI VỀ QUÊ',640,54,'900');g2.strokeText('XÁC CHẾT TỰ ĐI VỀ QUÊ',RW/2,170);g2.fillStyle='#fff';g2.fillText('XÁC CHẾT TỰ ĐI VỀ QUÊ',RW/2,170);
+ fitText('ĐỪNG ĐẾM!',640,92,'900');g2.strokeText('ĐỪNG ĐẾM!',RW/2,268);g2.fillStyle='#ff2a2a';g2.fillText('ĐỪNG ĐẾM!',RW/2,268);g2.restore()}
+function titleTxt(lt,a){g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.shadowColor='rgba(255,0,0,.7)';g2.shadowBlur=24;g2.fillStyle='#c41e24';
+ for(const [s,y] of [['BLOODY',720],['MARY',840]]){g2.font='bold 112px "DejaVu Serif"';const tw=g2.measureText(s).width;const fs=Math.min(112,112*620/tw);g2.font=`bold ${fs}px "DejaVu Serif"`;g2.fillText(s,RW/2,y)}
+ g2.shadowBlur=0;g2.fillStyle='#8a1418';for(let i=0;i<9;i++){const x=120+i*60,len=(20+R(i+3)*60)*sm(seg(lt,0.4,2.5));g2.fillRect(x,848,7,len);g2.beginPath();g2.arc(x+3.5,848+len,6,0,7);g2.fill()}
+ g2.font='italic bold 40px "DejaVu Serif"';g2.fillStyle='#e8dcc0';g2.globalAlpha=a*sm(seg(lt,0.5,1.1));g2.fillText('Đêm Halloween, đừng soi gương',RW/2,990);g2.restore()}
+function countTxt(n,a){g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.font='900 150px "DejaVu Serif"';g2.lineWidth=12;g2.strokeStyle='#000';g2.strokeText(String(n),RW/2,420);g2.fillStyle=n>=4?'#ff2a2a':'#f0e8d8';g2.fillText(String(n),RW/2,420);g2.restore()}
+function ctaTxt(a){g2.save();g2.globalAlpha=a;g2.textAlign='center';g2.lineJoin='round';g2.lineWidth=10;g2.strokeStyle='#000';fitText('BẠN CÓ DÁM SOI GƯƠNG?',640,70,'900');g2.strokeText('BẠN CÓ DÁM SOI GƯƠNG?',RW/2,250);g2.fillStyle='#ff2a2a';g2.fillText('BẠN CÓ DÁM SOI GƯƠNG?',RW/2,250);
+ fitText('Theo dõi @chuyendongtaykimco',600,34,'bold');g2.lineWidth=6;g2.strokeText('Theo dõi @chuyendongtaykimco',RW/2,320);g2.fillStyle='#fff';g2.fillText('Theo dõi @chuyendongtaykimco',RW/2,320);g2.restore()}function tint(c){g2.fillStyle=c;g2.fillRect(0,0,RW,RH)}
