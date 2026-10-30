@@ -861,3 +861,39 @@ loaded V3TurboVieNeuTTS
 88_hw_gli Minh Triết 0 ok 1.4
 88_hw_gli Minh Triết 4 ok 1.5
 88_hw_gli asr ok
+loaded V3TurboVieNeuTTS
+89_bm_n clone:refs/mada8.wav 0 ok 25.6
+89_bm_n clone:refs/mada8.wav 4 ok 2.1
+89_bm_n clone:refs/mada8.wav 8 ok 6.2
+89_bm_n clone:refs/mada8.wav 12 ok 5.0
+89_bm_n clone:refs/mada8.wav 16 ok 4.3
+89_bm_n clone:refs/mada8.wav 20 ok 3.7
+89_bm_n clone:refs/mada8.wav 24 ok 2.9
+89_bm_n clone:refs/mada8.wav 28 ok 1.9
+89_bm_n clone:refs/mada8.wav 32 ok 5.3
+89_bm_n clone:refs/mada8.wav 36 ok 2.7
+89_bm_n clone:refs/mada8.wav 40 ok 3.4
+89_bm_n clone:refs/mada8.wav 44 ok 2.9
+89_bm_n clone:refs/mada8.wav 48 ok 4.0
+89_bm_n clone:refs/mada8.wav 52 ok 2.8
+89_bm_n clone:refs/mada8.wav 56 ok 6.3
+89_bm_n clone:refs/mada8.wav 60 ok 5.0
+89_bm_n clone:refs/mada8.wav 64 ok 3.7
+89_bm_n asr ok
+90_bm_vy Mỹ Duyên 0 ok 3.2
+90_bm_vy Mỹ Duyên 4 ok 3.5
+90_bm_vy Mỹ Duyên 8 ok 2.1
+90_bm_vy Mỹ Duyên 12 ok 0.9
+90_bm_vy asr ok
+91_bm_tt Thùy Dung 0 ok 4.4
+91_bm_tt Thùy Dung 4 ok 4.1
+91_bm_tt Thùy Dung 8 ok 2.3
+91_bm_tt Thùy Dung 12 ok 1.8
+91_bm_tt asr ok
+92_bm_gma Kim Thanh 0 ok 1.9
+92_bm_gma Kim Thanh 4 ok 1.7
+92_bm_gma asr ok
+93_bm_gtt Thùy Dung 0 ok 2.0
+93_bm_gtt Thùy Dung 4 ok 2.0
+93_bm_gtt Thùy Dung 8 ok 1.5
+93_bm_gtt asr ok
