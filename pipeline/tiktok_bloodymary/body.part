@@ -63,6 +63,10 @@ function mirShot(mode,q,T,mx=0,my=0,dist=1.3,tilt=0){MIR.visible=true;cam.update
 const RM=new THREE.Group();RM.position.set(20,0,0);inn.add(RM);
 {const f=new THREE.Mesh(new THREE.PlaneGeometry(4,4),mfl);f.rotation.x=-Math.PI/2;f.receiveShadow=true;RM.add(f)}
 box(4,3,0.2,mw,0,1.5,-2,RM);box(0.2,3,4,mw,-2,1.5,0,RM);box(0.2,3,4,mw,2,1.5,0,RM);
+box(2.6,3,0.2,mw,-0.7,1.5,2,RM);box(0.5,3,0.2,mw,1.75,1.5,2,RM);box(0.9,0.8,0.2,mw,1.05,2.6,2,RM);
+{const c=new THREE.Mesh(new THREE.PlaneGeometry(4,3),M({map:paintT}));c.position.set(1,1.5,3.4);c.rotation.y=Math.PI;RM.add(c);const f=new THREE.Mesh(new THREE.PlaneGeometry(4,1.6),mfl);f.rotation.x=-Math.PI/2;f.position.set(1,0.001,2.7);RM.add(f)}
+const rDoor=box(0.85,2.15,0.05,M({map:doorT}),1.05,1.08,2.0,RM);function roomDoor(q){const r=-q*1.35;rDoor.rotation.y=r;rDoor.position.set(0.625+0.425*Math.cos(r),1.08,2.0-0.425*Math.sin(r))}
+const hallL=new THREE.PointLight(0xffd8a0,0,6,1.4);hallL.position.set(21.05,2.2,2.9);inn.add(hallL);
 const bed=new THREE.Group();RM.add(bed);bed.position.set(-0.6,0,-0.9);
 box(1.1,0.08,2.0,M({color:0x5a3a20}),0,0.5,0,bed);for(const [a,b] of [[-0.5,-0.95],[0.5,-0.95],[-0.5,0.95],[0.5,0.95]])box(0.07,0.5,0.07,M({color:0x4a2a16}),a,0.25,b,bed);
 box(1.05,0.14,1.95,M({color:0x6a7a9a}),0,0.61,0,bed);box(0.7,0.12,0.4,M({color:0xe8e4d8}),0,0.73,-0.7,bed);box(1.08,0.03,1.3,M({color:0x8a3a4a}),0,0.69,0.3,bed);
@@ -103,7 +107,7 @@ for(const k in defs){const [h,f]=defs[k];CI[k]=card(h,f,true);CI[k].visible=fals
 CI.ma.material.emissive=new THREE.Color(0x3a5a6a);CI.ma.material.emissiveMap=CI.ma.material.map;CI.ma.material.emissiveIntensity=0.35;
 function put(c,x,z,o,y){c.visible=true;c.position.set(x,(y||0)+(c.geometry.parameters.height/2)-0.02,z);c.userData.o=o||{}}
 const onStep=(c,n,o,x=0)=>put(c,x,zst(n),o,yst(n));
-function hideAll(){for(const k in CI)CI[k].visible=false;for(const k in C)C[k].visible=false;MIR.visible=false;power(false);candleL.intensity=0;blueL.intensity=0;fillL.intensity=0;phone(false);bunGlow.intensity=0;gap.visible=false;fing.visible=false;BUN.position.x=0.1}
+function hideAll(){for(const k in CI)CI[k].visible=false;for(const k in C)C[k].visible=false;MIR.visible=false;power(false);candleL.intensity=0;blueL.intensity=0;fillL.intensity=0;phone(false);bunGlow.intensity=0;hallL.intensity=0;roomDoor(0);gap.visible=false;fing.visible=false;BUN.position.x=0.1}
 function cm(P,L,fov){cam.fov=fov||45;cam.position.set(...P);cam.lookAt(...L)}
 function close(c,dist,fov=36,side=0.3,dy=0){const k=Object.keys(CI).find(q=>CI[q]===c);const hy=HY[k]+(c.position.y-(c.geometry.parameters.height/2-0.02));const x=c.position.x,z=c.position.z;dist+=0.8;cm([x+side,hy+0.05+dy,z+dist],[x,hy-0.12+dy,z],fov)}
 // nến trong tay Vy (tay trái, trước ngực)

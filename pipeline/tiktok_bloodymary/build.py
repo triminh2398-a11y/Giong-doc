@@ -7,8 +7,18 @@ from ghostfx import ghost
 spec = importlib.util.spec_from_file_location('pace', '/home/claude/pace.py'); P = importlib.util.module_from_spec(spec); spec.loader.exec_module(P)
 SR = 48000; D = '/home/claude/bm/'
 S = json.load(open(D + 'script.json'))
-VS = {'N':'clone_refs_mada8_wav','VY':'my_duyen','TT':'thuy_dung','GMA':'kim_thanh','GTT':'thuy_dung'}
-FEM = {'VY', 'TT', 'GTT'}
+VS = {'N':'clone_refs_mada8_wav','VY':'my_duyen','TT':'thuy_dung','FT':'thuy_dung','GMA':'kim_thanh','GTT':'thuy_dung'}
+FEM = {'VY', 'TT', 'GTT', 'FT'}
+clean = lambda s: re.sub(r'\s*\[[^\]]*\]\s*', ' ', s).strip()
+EMO = {('thao','TT'):'happy',('vy','VY'):'worry',('rules3','TT'):'happy',('vy2','VY'):'fear',('thaoin','GTT'):'cry',('name','VY'):'cry',('found2','TT'):'worry',('final','GTT'):'cry',('behind2','FT'):'calm'}
+TEMPO = {'happy':0.93,'worry':0.88,'fear':0.9,'cry':0.85,'calm':0.82}
+def tempo(c, f, rate=1.0):
+    d = tempfile.mkdtemp(); a = d + '/a.wav'; o = d + '/b.wav'
+    wavfile.write(a, SR, (c / max(1e-9, np.abs(c).max()) * 0.9 * 32767).astype(np.int16))
+    af = (f'asetrate={int(SR*rate)},aresample={SR},' if rate != 1.0 else '') + f'atempo={f}'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', a, '-af', af, o], check=True)
+    r, y = wavfile.read(o); y = y.astype(np.float64) / 32768
+    return y if y.ndim == 1 else y.mean(1)
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 MAP = {}
 for job in tuple(json.load(open(D+'jobs.json'))):
@@ -32,7 +42,7 @@ for i, (sh, sp, tx) in enumerate(S):
     if not real: clips.append(np.zeros(int(SR * (len(tx.split()) * 0.32 + 0.3)))); continue
     cands = []
     for f in MAP[(tx, VS[sp])]:
-        r = difflib.SequenceMatcher(None, norm(tx), norm(open(f + '.txt').read() if os.path.exists(f + '.txt') else '')).ratio()
+        r = difflib.SequenceMatcher(None, norm(clean(tx)), norm(open(f + '.txt').read() if os.path.exists(f + '.txt') else '')).ratio()
         cands.append((r, f))
     top = max(c[0] for c in cands)
     def expr(f):
@@ -42,6 +52,10 @@ for i, (sh, sp, tx) in enumerate(S):
     best = max(ok, key=lambda c: expr(c[1]) + 10 * c[0]) if sp != 'N' else max(cands)
     if best[0] < 0.75: low.append((i, round(best[0], 2), tx[:40]))
     c = P.stretch_pauses(P.trim(P.load(best[1] + '.wav')), factor=1.3 if sp not in FEM else 1.2, extra=0.05)
+    em = EMO.get((sh, sp))
+    if em: c = P.stretch_pauses(c, factor=1.35, extra=0.12)
+    if sp == 'FT': c = tempo(c, TEMPO['calm'], 0.96)
+    elif sp in ('TT', 'GTT', 'VY') and sh != 'prank': c = tempo(c, TEMPO[em] if em else (0.9 if sp != 'VY' else 0.95))
     if sp == 'GMA': c = ghost(slow(c), 'ghost')
     elif sp == 'GTT': c = ghost(c, 'far')
     elif sp in FEM: c = c * 0.9
@@ -51,8 +65,9 @@ st = [0.4]
 for i in range(len(S) - 1):
     g = 0.38 if S[i][0] == S[i + 1][0] else 0.7
     if S[i + 1][1].startswith('SFX') or S[i][1].startswith('SFX'): g = 0.25
-    if S[i + 1][0] in ('title', 'change', 'candle', 'whisper', 'scream', 'thaoin', 'final', 'silence'): g = 1.0
-    if S[i][0] == 'final': g = 2.2
+    if S[i + 1][0] in ('title', 'change', 'candle', 'whisper', 'scream', 'thaoin', 'final', 'silence', 'odd', 'realize', 'behind', 'behind2'): g = 1.0
+    if S[i][0] == 'behind2': g = 2.2
+    if S[i][0] == 'final': g = 1.6
     if S[i][0] in ('candle', 'name'): g = 1.4
     st.append(st[i] + nd[i] + g)
 dur = st[-1] + nd[-1] + 1.5
@@ -69,12 +84,12 @@ subs = []; knocks = []
 for i, ((sh, sp, tx), s0, d) in enumerate(zip(S, st, nd)):
     if sp.startswith('SFX'):
         n = int(sp[3]); [knocks.append([round(s0 + 0.2 + q * 0.8, 2), i, n]) for q in range(n)]; continue
-    toks = tx.split(); chunks = []; cur = []
+    toks = clean(tx).split(); chunks = []; cur = []
     for k, t in enumerate(toks):
         cur.append(t)
         if (t[-1] in '.,?' and len(cur) >= 3) or len(cur) >= 8 or k == len(toks) - 1: chunks.append(cur); cur = []
     if len(chunks) > 1 and len(chunks[-1]) <= 2: last = chunks.pop(); chunks[-1] += last
-    w = [len(' '.join(c)) + 5 for c in chunks]; tot = sum(w); t0 = s0 + 0.03; dd = (min(d, len(tx) * 0.13 + 0.9) if sp.startswith('G') else d) - 0.06
+    w = [len(' '.join(c)) + 5 for c in chunks]; tot = sum(w); t0 = s0 + 0.03; dd = (min(d, len(clean(tx)) * 0.13 + 0.9) if sp.startswith('G') else d) - 0.06
     for c, wi in zip(chunks, w):
         L = dd * wi / tot; s = ' '.join(c)
         subs.append([round(t0, 2), round(t0 + L, 2), s if sp == 'N' else '“' + s.strip('“”') + '”', sp]); t0 += L

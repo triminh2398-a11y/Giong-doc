@@ -5,15 +5,16 @@ origin|N|Hơn trăm năm trước ở châu Âu, các cô gái tin rằng đêm 
 origin2|N|Đúng nửa đêm, cầm một cây nến và một cái gương, đi lùi lên cầu thang tối. Nhìn vô gương, sẽ thấy gương mặt người mình sẽ cưới.
 skull|N|Nhưng nếu trong gương hiện ra một cái đầu lâu... thì cô gái đó sẽ chết trước ngày cưới.
 dorm|N|Đêm Halloween năm nay, ở một ký túc xá cũ tại Sài Gòn, Vy bị con bạn thân là Thảo rủ làm thử.
-thao|TT|Trên TikTok ai cũng làm nè! Mày đi lùi lên cầu thang, tao quay video cho. Lỡ thấy anh nào đẹp trai thì sao!
-vy|VY|Thôi mà... tao sợ lắm. Cầu thang khu B tối thui à.
+thaointro|N|Thảo thuận tay phải, lúc nào cũng cầm điện thoại quay video. Trên má phải có một nốt ruồi nhỏ, nó hay khoe là nốt ruồi duyên.
+thao|TT|[cười] Trên TikTok ai cũng làm nè! Mày đi lùi lên cầu thang, tao quay cho. Lỡ thấy anh nào đẹp trai thì sao!
+vy|VY|[thở dài] Thôi mà... tao sợ lắm. Cầu thang khu B tối thui à.
 rules|N|Thảo đọc to mấy luật trong clip. Một, tuyệt đối không quay đầu lại, chỉ được nhìn qua gương.
 rules2|N|Hai, muốn dừng thì úp gương xuống, đọc tên mình ba lần. Và ba... đừng bao giờ gọi tên Mary.
-rules3|TT|Gọi ba lần thì sao ta? Bị kéo vô gương hả? Xạo quá trời!
+rules3|TT|[cười] Gọi ba lần thì sao ta? Bị kéo vô gương hả? Xạo quá trời!
 stairs|N|Mười hai giờ đêm. Cúp điện cả khu. Vy cầm cây nến, tay kia cầm cái gương nhỏ, bắt đầu đi lùi lên từng bậc.
 step|N|Bậc thứ nhất. Bậc thứ hai. Trong gương chỉ có hành lang tối om sau lưng cô.
 man|N|Tới bậc thứ bảy, trong gương hiện ra một gương mặt đàn ông. Mờ mờ, đứng ngay sau vai cô.
-vy2|VY|Thảo... Thảo ơi... có người thiệt kìa...
+vy2|VY|Thảo... Thảo ơi... có người... có người thiệt kìa...
 thaolaugh|N|Thảo đứng dưới chân cầu thang, cười khúc khích, giơ điện thoại lên quay.
 change|N|Nhưng gương mặt trong gương bắt đầu đổi khác. Da rữa ra, tóc dài đen sì mọc phủ xuống, hai hốc mắt chảy máu.
 change2|N|Đó không phải đàn ông. Đó là một người đàn bà.
@@ -27,16 +28,22 @@ scream|N|Dưới chân cầu thang, Thảo hét lên một tiếng thất thanh.
 phone|N|Cái điện thoại rơi xuống, lăn lóc trên sàn. Đèn flash vẫn còn sáng.
 plan|N|Vy nhớ luật thứ hai. Muốn dừng, phải úp gương xuống, đọc tên mình ba lần.
 flip|N|Cô run run lật cái gương lại. Nhưng ngay trong mặt gương, cô thấy Thảo.
-thaoin|GTT|Vy ơi! Đừng úp! Tao còn ở trong này! Cứu tao với!
-choice|N|Thảo đập tay vô mặt gương từ phía bên trong. Sau lưng nó, người đàn bà đang từ từ bò ra ngoài.
+thaoin|GTT|Vy ơi! Đừng úp! Tao còn ở trong này... Cứu tao với!
+choice|N|Thảo đập tay vô mặt gương từ phía bên trong. Sau lưng nó, người đàn bà đang từ từ bò ra... gương mặt rữa nát cứ nhòe dần, nhòe dần... giống hệt gương mặt Thảo.
 choice2|N|Nếu không úp gương, thứ đó sẽ ra được. Nếu úp lại, Thảo sẽ ở trong đó mãi mãi.
 name|N|Vy nhắm mắt, úp mặt gương xuống ngực, nghẹn ngào đọc tên mình.
 name|VY|Vy... Vy... Vy...
 silence|N|Mọi tiếng động tắt lịm. Đèn trong ký túc xá bật sáng trở lại.
-gone|N|Dưới chân cầu thang, chỉ còn cái điện thoại của Thảo. Còn Thảo... không còn ai thấy nữa.
-video|N|Video trong điện thoại chỉ quay được cảnh Vy đi lùi lên cầu thang. Nhưng tới giây cuối cùng, có hai bàn tay từ trong gương thò ra.
-keep|N|Vy không dám đập cái gương. Cô quấn nó trong ba lớp vải, cất dưới gầm giường.
-yearly|N|Mỗi năm, cứ tới đêm Halloween, từ dưới gầm giường lại vang lên tiếng gõ nhè nhẹ... cốc... cốc... cốc.
-final|GTT|Vy ơi... mở ra đi... trong này lạnh quá...
+found|N|Dưới chân cầu thang, Thảo nằm gục bên tường. Vy lao xuống, lay mạnh. Một lúc sau, Thảo từ từ mở mắt.
+found2|TT|[thở dài] Tao... tao bị sao vậy? Sao lạnh quá...
+relief|N|Ai cũng nghĩ Thảo sợ quá nên ngất. Vy cũng muốn tin như vậy.
+odd|N|Nhưng từ hôm đó, Thảo bắt đầu cầm điện thoại bằng tay trái.
+odd2|N|Nốt ruồi duyên trên má phải... giờ lại nằm bên má trái. Và nó không bao giờ soi gương nữa.
+realize|N|Vy chợt hiểu. Đêm đó, cô đã úp gương chậm một nhịp. Thứ trong gương đã kịp bò ra, mang theo hình dạng của Thảo... nhưng ngược lại, như một cái bóng trong gương.
+keep|N|Cái gương đó, Vy vẫn quấn trong ba lớp vải, giấu dưới gầm giường. Không dám đập, vì Thảo thật... vẫn còn ở trong đó.
+yearly|N|Một đêm, Vy run run mở lớp vải ra. Từ trong gương, vang lên tiếng gõ nhè nhẹ... cốc... cốc... cốc.
+final|GTT|Vy ơi... con đó... không phải tao...
+behind|N|Sau lưng Vy, cánh cửa phòng khẽ mở. Thảo đứng đó, tay trái cầm điện thoại, mỉm cười.
+behind2|FT|Mày nói chuyện với ai vậy?
 cta|N|Đêm Halloween này, bạn có dám cầm gương đi lùi lên cầu thang không?
 cta|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ để nghe truyện ma mỗi ngày.

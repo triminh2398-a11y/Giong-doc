@@ -19,11 +19,14 @@ function vy(x,y,s,o={}){const T=o.T||0;const arm=[o.candle?-0.9:o.hug?-0.95:unde
  if(o.hairOver){ctx.save();ctx.lineCap='round';for(let k=0;k<9;k++){ctx.strokeStyle='rgba(6,6,8,.95)';ctx.lineWidth=4+rnd(k)*3;const x0=-120+k*9;ctx.beginPath();ctx.moveTo(x0,-520);ctx.bezierCurveTo(x0+Math.sin(T+k)*4,-430,x0-10,-360,x0-6+Math.sin(T*0.8+k)*4,-300+rnd(k+2)*60);ctx.stroke()}ctx.restore()}
  ctx.restore()}
 // Thảo: tóc ngắn, áo đỏ. o.phone (tay phải giơ điện thoại), o.flash, o.shout (tay trái giơ lên)
-function thao(x,y,s,o={}){const T=o.T||0;const arm=[o.shout?2.4:o.armA?o.armA[0]:undefined,o.phone?-2.2:o.armA?o.armA[1]:undefined];
+function thao(x,y,s,o={}){const T=o.T||0;const ps=o.fake?1:-1;const arm=[undefined,undefined];
+ if(o.armA){arm[0]=o.armA[0];arm[1]=o.armA[1]}if(o.phone)arm[ps>0?1:0]=ps>0?-2.2:2.2;if(o.shout)arm[ps>0?0:1]=ps>0?2.4:-2.4;
  woman(x,y,s,Object.assign({shirt:'#a8323a',pants:'#1c2030',skin:'#eedcc8',smile:!!o.laugh,arm},o));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
- if(!o.back){ctx.fillStyle=HAIR;for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*50,-246,13,30,0,0,7);ctx.fill()}}
+ if(!o.back){ctx.fillStyle=HAIR;for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*50,-246,13,30,0,0,7);ctx.fill()}
+  if(!o.nomole){circ(ps*30,-258,4.5,'#2a1810')}}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
- if(o.phone){const [hx,hy]=HP(1,-2.2);ctx.save();ctx.translate(hx,hy-24);ctx.fillStyle='#16181e';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(-15,-28,30,56,5);ctx.fill();ctx.stroke();if(o.flash){halo(0,-18,110,'255,255,255',0.7);circ(0,-18,5,'#fff')}ctx.restore()}
+ if(o.phone){const [hx,hy]=HP(ps,ps>0?-2.2:2.2);ctx.save();ctx.translate(hx,hy-24);ctx.fillStyle='#16181e';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(-15,-28,30,56,5);ctx.fill();ctx.stroke();if(o.flash){halo(0,-18,110,'255,255,255',0.7);circ(0,-18,5,'#fff')}ctx.restore()}
+ if(o.fake&&o.glint){for(const sd of [-1,1])halo(sd*20,-272,22,'150,255,200',0.25)}
  ctx.restore()}
 // Mary: da tái, tóc đen ướt rủ, hốc mắt chảy máu, váy đen
 function mary(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;woman(x,fy,s,{shirt:'#1e1a22',pants:'#141018',dress:true,skin:'#b9c2b8',creepy:true,grin:0.4,eyes:1,t:T,arm:o.arm});
@@ -45,7 +48,7 @@ function mirrorView(g,w,h,mode,T,q){g.save();g.fillStyle='#060708';g.fillRect(0,
  if(mode==='mary'||mode==='mary2'){const z=1+0.35*q;ctx.scale(z,z);mary(10,580,1.95,T,{face:true})}
  if(mode==='skull'){ctx.globalAlpha=0.9;ctx.translate(0,-30);ctx.scale(2.2,2.2);circ(0,0,58,'#d8d4c4',INK,4);ctx.fillStyle='#060606';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*22,4,16,19,0,0,7);ctx.fill()}ctx.beginPath();ctx.moveTo(0,22);ctx.lineTo(-8,36);ctx.lineTo(8,36);ctx.fill();ctx.fillStyle='#d8d4c4';ctx.fillRect(-28,44,56,18);ctx.fillStyle='#060606';for(let k=-3;k<=3;k++)ctx.fillRect(k*8-1,44,2,18)}
  if(mode==='thao'||mode==='crawl'){if(mode==='crawl'){ctx.save();ctx.globalAlpha=0.95;const k=sm(q);ctx.translate(lerp(150,40,k),lerp(120,10,k));ctx.scale(lerp(0.6,1.25,k),lerp(0.6,1.25,k));mary(0,560,1.6,T,{face:true,arm:[-1.6,1.6]});ctx.restore()}
-  ctx.save();ctx.translate(-40,30);thao(0,470,1.3,{eyes:1.4,pupil:2,mouth:'o',tears:true,armA:[2.9,-2.9],T});ctx.restore();
+  ctx.save();ctx.translate(-40,30);thao(0,470,1.3,{eyes:1.4,pupil:2,mouth:'o',tears:true,armA:[2.9,-2.9],nomole:true,T});ctx.restore();
   for(const sd of [-1,1]){const yy=150-Math.abs(Math.sin(T*7+sd))*16;ctx.save();ctx.translate(-40+sd*115,yy);ctx.scale(1.5,1.5);paleHand(0,0,Math.PI+sd*0.25,T);ctx.restore()}}
  ctx.restore();ctx=old;
  if(mode==='crawl'||mode==='thao'){g.strokeStyle='rgba(220,230,255,.55)';g.lineWidth=2;const n=mode==='crawl'?7:3;for(let k=0;k<n;k++){g.beginPath();g.moveTo(w*0.32,h*0.4);let x=w*0.32,y=h*0.4;for(let j=0;j<4;j++){x+=(rnd(k*7+j)-0.5)*120;y+=(rnd(k*5+j+1)-0.5)*140;g.lineTo(x,y)}g.stroke()}}

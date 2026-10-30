@@ -29,13 +29,13 @@ def span(k):a,b,ls=SC[k];return a,b
 def at(k,si=0,off=0.0):return SC[k][0]+SC[k][2][si]+off
 ALLK=[k for k,a,b,ls in ALL]
 def S_(k,f):a,b=span(k);return a+(b-a)*f
-DORM=[k for k in ALLK if k not in ('dorm','origin','origin2','skull','keep','yearly','final')]
+DORM=[k for k in ALLK if k not in ('dorm','origin','origin2','skull','keep','yearly','final','realize','behind','behind2')]
 bed(3081,DORM,0.22);bed(2482,['hook','hook2','title','stairs','step','man','vy2','change','change2','cta'],0.12)
 bed(2746,['origin','origin2','skull'],0.16);bed(1157,['origin','origin2','skull'],0.12)
-bed(369,['dorm'],0.15);bed(2482,['dorm'],0.18);bed(2504,['thao','vy','rules','rules2','rules3','silence','gone','video'],0.05)
+bed(369,['dorm'],0.15);bed(2482,['dorm'],0.18);bed(2504,['thaointro','thao','vy','rules','rules2','rules3','silence','found','found2','relief','odd','odd2'],0.05)
 bed(1172,['candle','closer','whisper','rule1','scream','phone','plan','flip','thaoin','choice','choice2','name'],0.22)
 bed(494,['man','vy2','change','change2'],0.28);bed(493,['closer','whisper','rule1','choice','choice2'],0.3)
-bed(2500,['keep','yearly','final'],0.2);bed(3081,['keep','yearly','final'],0.18)
+bed(2500,['realize','keep','yearly','final','behind','behind2'],0.2);bed(3081,['realize','keep','yearly','final','behind','behind2'],0.18);bed(494,['final','behind','behind2'],0.22)
 place(1143,span('title')[0]+0.05,0.55)
 place(2596,S_('stairs',0.22),0.45,dur=1.5);place(543,S_('stairs',0.7),0.3,dur=3,rate=0.8)   # cúp điện + bắt đầu bước lên
 place(543,span('step')[0],0.32,dur=span('step')[1]-span('step')[0],loop=True,rate=0.75,fo=1.0)  # bước chân trên bậc đá
@@ -50,12 +50,13 @@ place(2920,S_('scream',0.55),0.5,dur=1.0);place(2364,S_('scream',0.62),0.35,dur=
 place(197,span('thaoin')[0]+0.2,0.35,dur=span('thaoin')[1]-span('thaoin')[0],loop=True,rate=1.3)   # đập tay vô gương
 place(677,span('thaoin')[0]+0.3,0.3,dur=3);place(197,span('choice')[0],0.3,dur=3,rate=1.3)
 place(2231,S_('choice',0.35),0.22,dur=4)
-place(2364,S_('silence',0.33),0.4,dur=0.5)                                       # đèn bật lại
-place(2566,span('video')[0]+0.2,0.18,dur=span('video')[1]-span('video')[0]);place(677,S_('video',0.75),0.35,dur=2.5)
+place(2364,S_('silence',0.33),0.4,dur=0.5);place(2231,S_('found',0.7),0.12,dur=2.5)
+place(2484,span('odd2')[0]+0.3,0.15,dur=4);place(2484,span('realize')[0],0.2,dur=4)
 place(3167,span('keep')[0]+0.5,0.25,dur=3)
 for q in range(3):place(197,S_('yearly',0.62)+q*0.85,0.32,dur=0.6,rate=0.85,fo=0.2)  # cốc... cốc... cốc
-for q in range(3):place(197,span('final')[0]+0.5+q*1.1,0.22,dur=0.6,rate=0.85,fo=0.2)
-place(197,span('final')[1]+0.3,0.18,dur=0.6,rate=0.85,fo=0.2)
+place(677,span('final')[0]+0.2,0.2,dur=2.5)
+place(195,S_('behind',0.05),0.4,dur=3)   # cửa phòng khẽ mở
+for q in range(2):place(197,span('behind2')[1]+0.6+q*1.0,0.16,dur=0.6,rate=0.85,fo=0.2)  # tiếng gõ cuối, rất nhỏ
 ca,cb=span('candle');a0=int(S_('candle',0.3)*SR);out[a0:int((ca+(cb-ca)*0.4)*SR)]*=0.2   # tắt nến: im một nhịp
 a0=int(S_('scream',0.5)*SR);out[a0:int(S_('scream',0.56)*SR)]*=0.1
 # jumpscare nhẹ kiểu Ma Lai: lửa xanh, mặt rữa, bàn tay trên vai
