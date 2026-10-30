@@ -789,3 +789,38 @@ loaded V3TurboVieNeuTTS
 83_tx_safe_n clone:refs/mada8.wav 2 ok 18.8
 83_tx_safe_n clone:refs/mada8.wav 6 ok 1.0
 83_tx_safe_n asr ok
+loaded V3TurboVieNeuTTS
+84_hw_n clone:refs/mada8.wav 2 ok 16.7
+84_hw_n clone:refs/mada8.wav 6 ok 2.1
+84_hw_n clone:refs/mada8.wav 10 ok 3.1
+84_hw_n clone:refs/mada8.wav 14 ok 1.2
+84_hw_n clone:refs/mada8.wav 18 ok 2.8
+84_hw_n clone:refs/mada8.wav 22 ok 1.8
+84_hw_n clone:refs/mada8.wav 26 ok 1.8
+84_hw_n clone:refs/mada8.wav 30 ok 2.0
+84_hw_n clone:refs/mada8.wav 34 ok 1.6
+84_hw_n clone:refs/mada8.wav 38 ok 1.7
+84_hw_n clone:refs/mada8.wav 42 ok 1.9
+84_hw_n clone:refs/mada8.wav 46 ok 1.6
+84_hw_n clone:refs/mada8.wav 50 ok 1.7
+84_hw_n clone:refs/mada8.wav 54 ok 2.4
+84_hw_n clone:refs/mada8.wav 58 ok 2.5
+84_hw_n clone:refs/mada8.wav 62 ok 1.9
+84_hw_n clone:refs/mada8.wav 66 ok 1.7
+84_hw_n asr ok
+85_hw_ba Kim Thanh 2 ok 3.8
+85_hw_ba Kim Thanh 6 ok 2.2
+85_hw_ba Kim Thanh 10 ok 2.1
+85_hw_ba Kim Thanh 14 ok 2.1
+85_hw_ba Kim Thanh 18 ok 3.1
+85_hw_ba Kim Thanh 22 ok 1.5
+85_hw_ba Kim Thanh 26 ok 1.4
+85_hw_ba asr ok
+86_hw_no Thục Đoan 2 ok 0.9
+86_hw_no Thục Đoan 6 ok 0.6
+86_hw_no asr ok
+87_hw_gno Thục Đoan 2 ok 0.9
+87_hw_gno Thục Đoan 6 ok 1.1
+87_hw_gno asr ok
+88_hw_gli Minh Triết 2 ok 0.9
+88_hw_gli asr ok
