@@ -4,22 +4,22 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-bloodymary-v1
++ TAG=tiktok-bloodymary-v2
 ++ jq -r .html job.json
 + HTML=bm/index.html
 ++ jq -r .frames job.json
-+ N=7419
++ N=9147
 + S=16
-+ A=5100
-+ B=5564
++ A=6288
++ B=6860
 ++ printf %02d 11
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js bm/index.html seg_11.mp4 5100 5564 720 1280
-frame 5400
++ node render_seg.js bm/index.html seg_11.mp4 6288 6860 720 1280
+frame 6600
 + sleep 22
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-bloodymary-v1
++ gh release view tiktok-bloodymary-v2
 ++ printf %02d 11
-+ gh release upload tiktok-bloodymary-v1 seg_11.mp4 --clobber
++ gh release upload tiktok-bloodymary-v2 seg_11.mp4 --clobber
 + break
