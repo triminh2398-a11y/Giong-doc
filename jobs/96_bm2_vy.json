@@ -1,0 +1,21 @@
+{
+ "voices": [
+  "Mỹ Duyên"
+ ],
+ "asr": true,
+ "kw": {
+  "temperature": 1.1
+ },
+ "lines": [
+  "[thở dài] Thôi mà... tao sợ lắm. Cầu thang khu B tối thui à.",
+  "[thở dài] Thôi mà... tao sợ lắm. Cầu thang khu B tối thui à.",
+  "[thở dài] Thôi mà... tao sợ lắm. Cầu thang khu B tối thui à.",
+  "[thở dài] Thôi mà... tao sợ lắm. Cầu thang khu B tối thui à.",
+  "[thở dài] Thôi mà... tao sợ lắm. Cầu thang khu B tối thui à.",
+  "Thảo... Thảo ơi... có người... có người thiệt kìa...",
+  "Thảo... Thảo ơi... có người... có người thiệt kìa...",
+  "Thảo... Thảo ơi... có người... có người thiệt kìa...",
+  "Thảo... Thảo ơi... có người... có người thiệt kìa...",
+  "Thảo... Thảo ơi... có người... có người thiệt kìa..."
+ ]
+}

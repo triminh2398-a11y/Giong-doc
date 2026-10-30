@@ -1,0 +1,21 @@
+{
+ "voices": [
+  "Thùy Dung"
+ ],
+ "asr": true,
+ "kw": {
+  "temperature": 1.0
+ },
+ "lines": [
+  "Vy ơi! Đừng úp! Tao còn ở trong này... Cứu tao với!",
+  "Vy ơi! Đừng úp! Tao còn ở trong này... Cứu tao với!",
+  "Vy ơi! Đừng úp! Tao còn ở trong này... Cứu tao với!",
+  "Vy ơi! Đừng úp! Tao còn ở trong này... Cứu tao với!",
+  "Vy ơi! Đừng úp! Tao còn ở trong này... Cứu tao với!",
+  "Vy ơi... con đó... không phải tao...",
+  "Vy ơi... con đó... không phải tao...",
+  "Vy ơi... con đó... không phải tao...",
+  "Vy ơi... con đó... không phải tao...",
+  "Vy ơi... con đó... không phải tao..."
+ ]
+}
