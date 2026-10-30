@@ -35,9 +35,23 @@ def slow(c):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', a, '-af', f'asetrate={int(SR*0.92)},aresample={SR},atempo=0.9', b], check=True)
     r, y = wavfile.read(b); y = y.astype(np.float64) / 32768
     return y if y.ndim == 1 else y.mean(1)
-real = all(sp.startswith('SFX') or (tx, VS[sp]) in MAP for _, sp, tx in S)
+real = all(sp.startswith('SFX') or (tx, VS[sp]) in MAP or (sh, sp) in {('thao','TT'),('rules3','TT'),('prank','TT'),('thaoin','GTT'),('found2','TT'),('final','GTT'),('behind2','FT'),('vy','VY'),('vy2','VY'),('name','VY'),('whisper','GMA')} for sh, sp, tx in S)
 clips = []; low = []
+ELM = {('thao','TT'):'T1',('rules3','TT'):'T2',('prank','TT'):'T3',('thaoin','GTT'):'T4',('found2','TT'):'T5',('final','GTT'):'T6',('behind2','FT'):'T7',('vy','VY'):'V1',('vy2','VY'):'V2',('name','VY'):'V3',('whisper','GMA'):'M1'}
+def eload(p):
+    d = tempfile.mkdtemp(); o = d + '/a.wav'; subprocess.run(['ffmpeg','-v','error','-y','-i',p,'-ar',str(SR),'-ac','1',o],check=True)
+    r, y = wavfile.read(o); return y.astype(np.float64) / 32768
+def eexpr(x):
+    n = int(0.03 * SR); e = np.array([np.sqrt(np.mean(x[k:k+n]**2)) + 1e-6 for k in range(0, len(x) - n, n)]); e = 20*np.log10(e); e = e[e > e.max()-35]; return float(np.std(e))
 for i, (sh, sp, tx) in enumerate(S):
+    if (sh, sp) in ELM:
+        fs = [D+'el/'+ELM[(sh,sp)]+s+'.mp3' for s in ('_a','_b') if os.path.exists(D+'el/'+ELM[(sh,sp)]+s+'.mp3')]
+        c = max((P.trim(eload(f)) for f in fs), key=eexpr)
+        if sp == 'GMA': c = ghost(c, 'ghost')
+        elif sp == 'GTT': c = ghost(c, 'far')
+        elif sp == 'FT': c = tempo(c, 0.95, 0.96)
+        else: c = c * 0.9
+        clips.append(c); continue
     if sp.startswith('SFX'): clips.append(np.zeros(int(SR * (3.4 if sp == 'SFX4' else 2.6)))); continue
     if not real: clips.append(np.zeros(int(SR * (len(tx.split()) * 0.32 + 0.3)))); continue
     cands = []
@@ -89,9 +103,22 @@ for i, ((sh, sp, tx), s0, d) in enumerate(zip(S, st, nd)):
         cur.append(t)
         if (t[-1] in '.,?' and len(cur) >= 3) or len(cur) >= 8 or k == len(toks) - 1: chunks.append(cur); cur = []
     if len(chunks) > 1 and len(chunks[-1]) <= 2: last = chunks.pop(); chunks[-1] += last
+    gaps = []
+    cl = clips[i]; n = int(0.02*SR); en = np.array([np.sqrt(np.mean(cl[k:k+n]**2)) for k in range(0, max(1,len(cl)-n), n)]); thr = en.max()*0.06; q = 0
+    while q < len(en):
+        if en[q] < thr:
+            r = q
+            while r < len(en) and en[r] < thr: r += 1
+            if (r-q)*0.02 >= 0.12 and q > 0 and r < len(en): gaps.append(s0 + (q+r)/2*0.02)
+            q = r
+        else: q += 1
     w = [len(' '.join(c)) + 5 for c in chunks]; tot = sum(w); t0 = s0 + 0.03; dd = (min(d, len(clean(tx)) * 0.13 + 0.9) if sp.startswith('G') else d) - 0.06
     for c, wi in zip(chunks, w):
         L = dd * wi / tot; s = ' '.join(c)
+        if c is not chunks[-1] and gaps:
+            gt = min(gaps, key=lambda g: abs(g - (t0 + L)))
+            if abs(gt - (t0 + L)) < 0.7 and gt > t0 + 0.4: L = gt - t0
+        if c is chunks[-1]: L = max(0.5, s0 + dd - t0)
         subs.append([round(t0, 2), round(t0 + L, 2), s if sp == 'N' else '“' + s.strip('“”') + '”', sp]); t0 += L
 first = {}
 for k, a, b, ls in sc: first.setdefault(k, a)
