@@ -9,6 +9,7 @@
 | TikTok | Ma trành (hồn người dẫn cọp về làng) — bản đăng 28/10 là bản 2.5D v6 | ma ít ai kể | 2026-10-28 | pipeline/tiktok_ma_tranh_25d |
 | YouTube T2 | Con ranh con lộn (Đứa con đòi nợ, sông Ông Đốc, twist đổi mạng) — 28 phút, 2.5D 16:9, 2 Shorts | ma ít ai kể / tục lệ Nam Bộ | 2026-10-29 | pipeline/ep02_con_ranh |
 | TikTok | Đoàn xác Tương Tây v3 (đừng đếm xác — xác thứ 4 là cha lần theo chuông; cao trào: lá số, nín thở qua 3 xác, bùa máu người nhà dán; chôn ba sau quán; Mai thành xác lảng vãng bên mộ, đêm nào cũng nhảy xuống tới cửa) |
+| TikTok | Bữa tối câm lặng (Dumb Supper đêm Samhain/Halloween, Ireland — Liam chết đuối về dự bữa tối, Nora lên tiếng bị dắt đi; đăng dịp Halloween 31/10) | D – nước ngoài (Ireland) | 2026-10-31 | pipeline/tiktok_halloween |
 
 ## QUY TẮC CHỌN TRUYỆN (cập nhật 29/10 — chủ kênh: "nhiều truyền thuyết, bí ẩn, lời đồn, câu chuyện vào chứ đừng loanh quanh vài con ma ai cũng biết, kể cả ma, tâm linh, chuyện nước ngoài... phải đáng sợ, hấp dẫn, li kì, tình tiết hợp lý")
 - XOAY VÒNG THỂ LOẠI, không 2 tập liền nhau cùng nhóm: (A) ma/tục lệ Việt ít ai kể · (B) truyền thuyết – bí ẩn Việt (vùng đất, di tích, vụ việc lạ) · (C) lời đồn/chuyện kể đô thị Việt có tình tiết riêng · (D) ma/truyền thuyết NƯỚC NGOÀI (Nhật, Thái, Phi, Indo, Hàn, Trung, Âu, Mỹ, Mỹ Latinh) · (E) tâm linh – nhân quả – bùa ngải.

@@ -1,0 +1,45 @@
+hook|N|Ở Ireland, đêm Halloween có một bữa tối mà cả nhà không được nói một lời. Vì khách mời... không phải người sống.
+title|N|Bữa tối câm lặng. Đêm Halloween, đừng lên tiếng.
+samhain|N|Người Ireland xưa tin rằng, đêm ba mươi mốt tháng mười, bức màn giữa người sống và người chết mỏng nhất trong năm.
+turnip|N|Nhà nào cũng khoét củ cải thành mặt quỷ, thắp nến bên trong, đặt trước cửa để xua những linh hồn đi lạc.
+village|N|Ở một làng chài ven biển, có hai chị em Maeve và Nora sống với bà ngoại.
+liam|N|Mùa thu năm ngoái, người yêu của Maeve là Liam ra khơi đánh cá, rồi không bao giờ trở về. Trước khi đi, anh hứa đêm Halloween sẽ về cưới cô.
+scarf|N|Từ đó, Maeve lúc nào cũng quấn cái khăn len xanh Liam để lại.
+grandma|N|Đêm Halloween năm đó, bà ngoại kể về bữa tối câm lặng.
+grandma|BA|Con gái muốn thấy mặt chồng tương lai, thì dọn bữa tối lúc nửa đêm. Đi lùi, dọn bằng tay trái, chừa một cái ghế trống, mở cửa sau.
+rules|BA|Mà nhớ... từ lúc bắt đầu cho tới khi khách đi, tuyệt đối không được nói một lời.
+rules2|BA|Lỡ ai lên tiếng... khách sẽ không về một mình đâu. Nó dắt theo người đã nói.
+rules3|BA|Muốn tiễn khách về, chủ nhà phải đi lùi tới bàn, thổi tắt cây nến cuối cùng. Không nói, không quay đầu lại.
+forbid|BA|Còn nữa... đừng có gọi người đã chết. Nghe hông Maeve?
+maeve|N|Maeve gật đầu. Nhưng trong lòng, cô chỉ muốn gặp lại Liam một lần.
+nora|N|Gần nửa đêm, Maeve lén dọn bàn. Con em Nora mười hai tuổi, tò mò đòi ngồi coi. Nora là đứa nói nhiều nhất nhà.
+nora|NO|Em ngồi im thôi... hổng nói một tiếng nào hết.
+setup|N|Hai chị em đi lùi, dọn ba cái đĩa, thắp ba cây nến. Maeve đặt cái khăn len xanh lên chiếc ghế trống.
+midnight|N|Đồng hồ điểm mười hai tiếng. Cánh cửa sau tự mở ra. Gió biển lùa vào, lạnh buốt.
+steps|N|Có tiếng bước chân ướt nhẹp trên sàn gỗ. Lép nhép... lép nhép.
+liamin|N|Một người con trai bước vào, quần áo sũng nước, tóc dính đầy rong biển. Là Liam.
+sit|N|Anh ngồi xuống chiếc ghế trống, quấn lại cái khăn xanh, rồi nhìn Maeve, mỉm cười.
+ring|N|Liam đưa tay ra. Trong lòng bàn tay trắng bệch là một chiếc nhẫn, nước biển nhỏ giọt từng giọt.
+nora2|N|Nora run lẩy bẩy. Con bé thấy dưới gầm bàn, chân Liam không chạm đất.
+noraspeak|NO|Chị Maeve! Ảnh chết rồi mà!
+blue|N|Ba cây nến phụt thành ngọn lửa xanh lét. Cánh cửa sau đóng sầm lại.
+rot|N|Gương mặt Liam rữa dần, da bong ra từng mảng, mắt chỉ còn hai hốc đen.
+rot|GLI|Em đã mời anh... thì phải có người... đi với anh.
+grab|N|Bàn tay lạnh ngắt nắm lấy cổ tay Nora. Con bé bị kéo dần về phía cửa.
+plan|N|Maeve nhớ lời bà. Muốn tiễn khách về, phải đi lùi tới bàn, thổi tắt cây nến cuối cùng.
+back|N|Cô quay lưng lại, đi lùi từng bước. Sau lưng, tiếng nước nhỏ giọt mỗi lúc một gần.
+trick|GNO|Chị ơi... cứu em... chị nói gì đi chị...
+trick2|N|Đó là giọng Nora. Nhưng Maeve biết, chỉ cần cô trả lời, cô cũng sẽ bị dắt đi.
+bite|N|Cô cắn chặt môi tới bật máu. Một bàn tay ướt lạnh đặt lên vai cô.
+candle|N|Hai cây nến đã tắt. Còn đúng một cây. Maeve cúi xuống, thổi mạnh.
+dark|N|Căn nhà tối om. Khi bà ngoại xách cái đèn củ cải chạy xuống, Liam đã biến mất.
+relief|N|Nora nằm dưới sàn, người ướt sũng, tóc vướng rong biển. Nhưng con bé vẫn còn thở.
+relief|BA|Ông bà phù hộ... nó về rồi... nó về rồi...
+footprints|N|Sáng hôm sau, giường của Nora trống trơn. Từ cửa sau ra tới bờ biển, có hai hàng dấu chân ướt.
+footprints2|N|Một hàng lớn. Một hàng nhỏ. Cả hai đi thẳng xuống biển.
+truth|N|Maeve đã tiễn được khách về. Nhưng luật của bữa tối câm lặng chưa bao giờ đổi: ai lên tiếng, người đó phải đi theo.
+yearly|N|Từ đó, mỗi đêm Halloween, Maeve vẫn dọn bàn lúc nửa đêm. Và cô luôn dọn thêm hai cái đĩa.
+final|N|Đúng mười hai giờ, cửa sau lại tự mở. Có tiếng bước chân nhỏ, ướt nhẹp, dừng ngay sau lưng cô.
+final2|GNO|Chị ơi... năm nay... dọn thêm một cái đĩa nữa nha...
+cta|N|Đêm Halloween này, bạn có dám dọn một bữa tối câm lặng không?
+cta|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ để nghe truyện ma mỗi ngày.
