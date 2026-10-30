@@ -1,6 +1,13 @@
 // ===== BỮA TỐI CÂM LẶNG (Halloween, Ireland) — nhân vật nét Ma Lai =====
 function scarfDraw(y,col='#2f7a4a'){ctx.save();ctx.fillStyle=col;ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(0,y,46,14,0,0,7);ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(14,y+6);ctx.lineTo(30,y+70);ctx.lineTo(10,y+72);ctx.lineTo(2,y+8);ctx.closePath();ctx.fill();ctx.stroke();ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=2;for(let k=-3;k<=3;k++){ctx.beginPath();ctx.moveTo(k*12,y-10);ctx.lineTo(k*12,y+10);ctx.stroke()}ctx.restore()}
-function seaweed(R0,T,side){ctx.save();ctx.strokeStyle='#2e5a2a';ctx.lineWidth=5;for(let k=0;k<7;k++){if(side&&k>1&&k<5)continue;const x=-R0+k*(2*R0/6);ctx.beginPath();ctx.moveTo(x*0.8,-R0*0.7);ctx.quadraticCurveTo(x+Math.sin(T*1.3+k)*6,0,x*1.1,R0*0.9+rnd(k)*30);ctx.stroke()}ctx.restore()}
+function seaweed(R0,T,side){ctx.save();ctx.lineCap='round';
+ // tóc ướt đen bết, rủ xuống quá cằm
+ ctx.fillStyle='rgba(8,10,10,.96)';ctx.beginPath();ctx.arc(0,0,R0+4,Math.PI*0.97,Math.PI*2.03);ctx.quadraticCurveTo(R0*0.5,-R0*0.45,R0*0.1,-R0*0.3);ctx.quadraticCurveTo(-R0*0.5,-R0*0.5,-R0-4,R0*0.05);ctx.fill();
+ for(let k=0;k<11;k++){if(side&&k>3&&k<7)continue;const x=-R0+k*(2*R0/10);const len=R0*(side?1.0:1.35)+rnd(k)*R0*0.6;ctx.strokeStyle='rgba(6,8,8,.95)';ctx.lineWidth=3.2+rnd(k+3)*2;ctx.beginPath();ctx.moveTo(x*0.75,-R0*0.75);ctx.bezierCurveTo(x*0.95+Math.sin(T*0.8+k)*2,-R0*0.1,x*1.05-Math.sin(T*0.7+k)*3,R0*0.4,x*1.08+Math.sin(T*0.9+k)*2,len);ctx.stroke()}
+ // vài sợi rong mảnh, xanh rất mờ
+ ctx.strokeStyle='rgba(40,80,50,.55)';ctx.lineWidth=1.6;for(const k of [1,8]){const x=-R0+k*(2*R0/9);ctx.beginPath();ctx.moveTo(x*0.8,-R0*0.6);ctx.quadraticCurveTo(x*1.1+Math.sin(T+k)*3,R0*0.2,x*1.15,R0*1.1);ctx.stroke()}
+ ctx.fillStyle='rgba(170,210,235,.8)';for(let k=0;k<3;k++){const xx=-R0*0.8+k*R0*0.8,yy=R0*0.9+((T*70+k*41)%60);ctx.beginPath();ctx.ellipse(xx,yy,2.5,5,0,0,7);ctx.fill()}
+ ctx.restore()}
 function drips(x,y,T,n=4){ctx.save();ctx.fillStyle='rgba(170,210,235,.85)';for(let k=0;k<n;k++){const yy=y+((T*90+k*37)%120);ctx.beginPath();ctx.ellipse(x+(k-n/2)*14,yy,3,6,0,0,7);ctx.fill()}ctx.restore()}
 // Maeve: váy nâu, khăn len xanh (o.scarf)
 function maeve(x,y,s,o={}){woman(x,y,s,Object.assign({shirt:'#6a3a2a',pants:'#3a2418',dress:true,skin:'#e8dccc',smile:false},o));ctx.save();ctx.translate(x,y);ctx.scale(s,s);

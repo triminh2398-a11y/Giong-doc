@@ -51,7 +51,7 @@ const sand=new THREE.Mesh(new THREE.PlaneGeometry(120,14),M({map:sandT}));sand.r
 const fpT=ctex(256,1024,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='rgba(40,30,20,.85)';for(let k=0;k<16;k++){const y=h-40-k*62;g.beginPath();g.ellipse(70+(k%2)*24,y,13,24,0,0,7);g.fill();g.beginPath();g.ellipse(170+(k%2)*16,y-20,8,15,0,0,7);g.fill()}});
 const fp=new THREE.Mesh(new THREE.PlaneGeometry(2.2,9),new THREE.MeshStandardMaterial({map:fpT,transparent:true,depthWrite:false}));fp.rotation.x=-Math.PI/2;fp.position.set(2.5,0.03,-12.5);ext.add(fp);
 // vách đá
-for(let i=0;i<14;i++){const h=6+R(i)*10;const b=new THREE.Mesh(new THREE.BoxGeometry(6+R(i+1)*6,h,5),M({color:0x2a2c30}));b.position.set(-60+i*9+(R(i+2)-0.5)*3,h/2-1,-20-R(i+3)*4);b.rotation.y=(R(i+4)-0.5)*0.6;b.castShadow=true;ext.add(b)}
+for(let i=0;i<14;i++){const h=3+R(i)*4;const b=new THREE.Mesh(new THREE.BoxGeometry(6+R(i+1)*6,h,5),M({color:0x2a2c30}));b.position.set(-60+i*9+(R(i+2)-0.5)*3,h/2-1,-20-R(i+3)*4);b.rotation.y=(R(i+4)-0.5)*0.6;b.castShadow=true;ext.add(b)}
 // căn nhà đá mái tranh
 const stoneT2=ctex(512,512,(g,w,h)=>{g.fillStyle='#6a665c';g.fillRect(0,0,w,h);for(let k=0;k<160;k++){g.fillStyle=`rgba(${R(k)>0.5?140:40},${R(k)>0.5?136:40},${R(k)>0.5?124:36},.5)`;g.beginPath();g.ellipse(R(k*3)*w,R(k*7)*h,22+R(k)*26,14+R(k+1)*12,0,0,7);g.fill();g.strokeStyle='rgba(0,0,0,.45)';g.stroke()}},[2,1]);
 const thatchT=ctex(512,512,(g,w,h)=>{g.fillStyle='#5c4a2a';g.fillRect(0,0,w,h);for(let k=0;k<2500;k++){g.strokeStyle=`rgba(${R(k)>0.5?160:30},${R(k)>0.5?130:22},${R(k)>0.5?70:10},.35)`;g.lineWidth=1.5;const x=R(k*3)*w,y=R(k*5)*h;g.beginPath();g.moveTo(x,y);g.lineTo(x+(R(k)-0.5)*10,y+30+R(k+7)*30);g.stroke()}},[6,3]);
@@ -169,7 +169,7 @@ const TBL={g:[0,-1.15],m:[-1.35,-0.2],n:[1.35,-0.2]};
 const liamSit=(o)=>{put(CI.li,0,-1.25,Object.assign({sit:true,scarf:true},o),-0.42);scarfM.visible=false;scarfT.visible=false};
 S.hook=(lt,D,T)=>{liamSit({look:0});put(CI.ma,-1.4,0.4,{back:true});put(CI.no,1.4,0.4,{back:true});const p=sm(lt/D);candles(3,false,0.9+0.1*Math.sin(T*11));cm([0,lerp(1.5,1.35,p),lerp(3.8,2.9,p)],[0,1.05,-1.1],40);return 'inn'};
 S.title=(lt,D,T)=>{tod('night');const p=sm(lt/D);cm([lerp(2.0,1.2,p),1.5,lerp(11,9.2,p)],[0,1.6,0],44);return 'ext+'};
-S.samhain=(lt,D,T)=>{tod('night');const p=sm(lt/D);cm([lerp(-5,-3,p),2.2,-5],[20,lerp(16,19,p),-100],48);return 'ext'};
+S.samhain=(lt,D,T)=>{tod('night');const p=sm(lt/D);cm([lerp(-7,-5,p),1.8,lerp(11,9,p)],[12,13,-60],50);return 'ext'};
 S.turnip=(lt,D,T)=>{tod('night');const p=sm(lt/D);cm([lerp(1.4,1.1,p),0.6,lerp(4.6,3.9,p)],[0.75,0.25,2.5],38);return 'ext'};
 S.village=(lt,D,T)=>{tod('dusk');put(C.ba,0.6,2.7,{look:-1});put(C.ma,-0.5,2.9,{look:1,scarf:true});put(C.no,-1.3,3.0,{look:1});const p=sm(lt/D);cm([lerp(4,2.5,p),1.6,lerp(10,8,p)],[0,1.3,2.5],42);return 'ext'};
 S.liam=(lt,D,T,ls)=>{tod('day');BOAT.visible=true;BOAT.position.set(lerp(1,-6,sm(lt/D)),0.12+Math.sin(T*2)*0.05,-20);if(lt<ls[1]){put(C.ma,1.0,-6.5,{back:true});cm([2.4,1.5,-2.5],[-1,1.0,-20],40)}else{put(C.li,0.2,-7,{look:1});put(C.ma,1.0,-6.8,{look:-1});cm([0.8,1.4,-3.6],[0.5,1.2,-7],40)}SEPIA=true;return 'ext'};
@@ -189,7 +189,7 @@ S.liamin=(lt,D,T)=>{fireL.intensity*=0.3;innDoor(1);doorSpot.intensity=60;wet(9)
 S.sit=(lt,D,T)=>{fireL.intensity*=0.3;wet(9);liamSit({look:-1});put(CI.ma,-1.35,-0.2,{sit:true,look:1,eyes:1.2},-0.5);put(CI.no,1.35,-0.2,{sit:true,look:-1,eyes:1.2},-0.5);candles(3,false,0.8+0.2*Math.sin(T*13));cm([0,1.5,3.2],[0,1.0,-0.8],42);return 'inn'};
 S.ring=(lt,D,T)=>{fireL.intensity*=0.3;liamSit({ring:true,look:-1});put(CI.ma,-1.35,-0.2,{sit:true,look:1,eyes:1.2},-0.5);candles(3,false,0.8+0.2*Math.sin(T*13));const p=sm(lt/D);cm([lerp(0.4,0.3,p),1.3,lerp(2.0,1.6,p)],[0,1.0,-1.1],lerp(38,34,p));return 'inn'};
 S.nora2=(lt,D,T)=>{fireL.intensity*=0.3;liamSit({look:-1});CI.li.position.y+=0.12+Math.sin(T*1.5)*0.03;put(CI.no,1.35,-0.2,{sit:true,look:-1,eyes:1.35,pupil:2},-0.5);candles(3,false,0.8);if(lt<D*0.5)cm([0.9,0.35,0.6],[0,0.15,-1.1],50);else close(CI.no,1.9,36,0.2,-0.5);return 'inn'};
-S.noraspeak=(lt,D,T)=>{fireL.intensity*=0.3;liamSit({look:1});put(CI.no,1.35,-0.2,{sit:true,look:-1,eyes:1.4,pupil:2,mouth:'o'},-0.5);candles(3,false);cm([2.5,1.0,0.7],[1.35,0.82,-0.2],38);return 'inn'};
+S.noraspeak=(lt,D,T)=>{fireL.intensity*=0.3;liamSit({look:1});put(CI.no,1.35,-0.2,{sit:true,look:-1,eyes:1.4,pupil:2,mouth:'o'},-0.5);candles(3,false);cm([2.7,1.05,1.3],[1.35,0.82,-0.2],40);return 'inn'};
 S.blue=(lt,D,T)=>{liamSit({look:1,eyes:1});fireL.intensity*=0.1;candles(3,true,0.9+0.1*Math.sin(T*20));innDoor(1-sm(seg(lt,D*0.3,D*0.45)));put(CI.ma,-1.35,-0.2,{sit:true,look:1,eyes:1.3},-0.5);put(CI.no,1.35,-0.2,{sit:true,look:-1,eyes:1.3},-0.5);cm([0,1.6,3.0],[0,1.0,-0.6],44);return 'inn'};
 S.rot=(lt,D,T,ls)=>{fireL.intensity*=0.1;candles(3,true);const r=lt>0.5;liamSit({rot:r,look:0});put(CI.no,1.35,-0.2,{sit:true,look:-1,eyes:1.3},-0.5);const p=sm(seg(lt,0,1.2));cm([0,lerp(1.4,1.3,p),lerp(2.6,1.7,p)],[0,1.05,-1.15],lerp(40,34,p));return 'inn'};
 S.grab=(lt,D,T)=>{fireL.intensity*=0.1;candles(3,true);const p=sm(lt/D);put(CI.li,lerp(0.9,2.6,p),lerp(-0.6,0.0,p),{rot:true,armA:[null,-1.4]});put(CI.no,lerp(1.5,3.2,p),lerp(-0.2,0.3,p),{eyes:1.4,pupil:2,mouth:'o',arm:[-1.3,undefined]});scarfM.visible=false;scarfT.visible=false;cm([-0.6,1.5,2.4],[2.0,1.0,-0.1],44);return 'inn'};
