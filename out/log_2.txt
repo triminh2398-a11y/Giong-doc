@@ -857,3 +857,22 @@ loaded V3TurboVieNeuTTS
 93_bm_gtt Thùy Dung 2 ok 1.6
 93_bm_gtt Thùy Dung 6 ok 1.2
 93_bm_gtt asr ok
+loaded V3TurboVieNeuTTS
+94_bm2_n clone:refs/mada8.wav 2 ok 19.2
+94_bm2_n clone:refs/mada8.wav 6 ok 1.4
+94_bm2_n clone:refs/mada8.wav 10 ok 1.8
+94_bm2_n clone:refs/mada8.wav 14 ok 2.4
+94_bm2_n clone:refs/mada8.wav 18 ok 1.6
+94_bm2_n asr ok
+95_bm2_tt Thùy Dung 2 ok 2.0
+95_bm2_tt Thùy Dung 6 ok 1.4
+95_bm2_tt Thùy Dung 10 ok 0.7
+95_bm2_tt Thùy Dung 14 ok 0.6
+95_bm2_tt Thùy Dung 18 ok 0.4
+95_bm2_tt asr ok
+96_bm2_vy Mỹ Duyên 2 ok 1.7
+96_bm2_vy Mỹ Duyên 6 ok 1.1
+96_bm2_vy asr ok
+97_bm2_gtt Thùy Dung 2 ok 0.9
+97_bm2_gtt Thùy Dung 6 ok 0.5
+97_bm2_gtt asr ok
