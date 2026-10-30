@@ -4,7 +4,7 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-halloween-v1
++ TAG=tiktok-halloween-v2
 ++ jq -r .html job.json
 + HTML=hw/index.html
 ++ jq -r .frames job.json
@@ -19,7 +19,7 @@
 frame 7800
 + sleep 28
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-halloween-v1
++ gh release view tiktok-halloween-v2
 ++ printf %02d 14
-+ gh release upload tiktok-halloween-v1 seg_14.mp4 --clobber
++ gh release upload tiktok-halloween-v2 seg_14.mp4 --clobber
 + break
