@@ -4,22 +4,51 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-bloodymary-v2
++ TAG=tiktok-bloodymary-v3
 ++ jq -r .html job.json
 + HTML=bm/index.html
 ++ jq -r .frames job.json
-+ N=9147
++ N=9092
 + S=16
-+ A=8003
-+ B=8575
++ A=7955
++ B=8523
 ++ printf %02d 14
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js bm/index.html seg_14.mp4 8003 8575 720 1280
++ node render_seg.js bm/index.html seg_14.mp4 7955 8523 720 1280
 frame 8400
 + sleep 28
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-bloodymary-v2
++ gh release view tiktok-bloodymary-v3
++ gh release create tiktok-bloodymary-v3 -t tiktok-bloodymary-v3 -n render
+HTTP 500 (https://api.github.com/repos/triminh2398-a11y/Giong-doc/releases)
++ true
 ++ printf %02d 14
-+ gh release upload tiktok-bloodymary-v2 seg_14.mp4 --clobber
++ gh release upload tiktok-bloodymary-v3 seg_14.mp4 --clobber
+release not found
++ sleep 8
++ for k in 1 2 3 4 5 6
++ gh release view tiktok-bloodymary-v3
++ gh release create tiktok-bloodymary-v3 -t tiktok-bloodymary-v3 -n render
+HTTP 500 (https://api.github.com/repos/triminh2398-a11y/Giong-doc/releases)
++ true
+++ printf %02d 14
++ gh release upload tiktok-bloodymary-v3 seg_14.mp4 --clobber
+release not found
++ sleep 8
++ for k in 1 2 3 4 5 6
++ gh release view tiktok-bloodymary-v3
++ gh release create tiktok-bloodymary-v3 -t tiktok-bloodymary-v3 -n render
+HTTP 500 (https://api.github.com/repos/triminh2398-a11y/Giong-doc/releases)
++ true
+++ printf %02d 14
++ gh release upload tiktok-bloodymary-v3 seg_14.mp4 --clobber
+release not found
++ sleep 8
++ for k in 1 2 3 4 5 6
++ gh release view tiktok-bloodymary-v3
++ gh release create tiktok-bloodymary-v3 -t tiktok-bloodymary-v3 -n render
+https://github.com/triminh2398-a11y/Giong-doc/releases/tag/tiktok-bloodymary-v3
+++ printf %02d 14
++ gh release upload tiktok-bloodymary-v3 seg_14.mp4 --clobber
 + break
