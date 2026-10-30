@@ -4,26 +4,22 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=ep02-conranh-v2
++ TAG=tiktok-halloween-v1
 ++ jq -r .html job.json
-+ HTML=ep2/index.html
++ HTML=hw/index.html
 ++ jq -r .frames job.json
-+ N=53505
++ N=8501
 + S=16
-+ A=23408
-+ B=26752
++ A=3719
++ B=4250
 ++ printf %02d 7
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js ep2/index.html seg_07.mp4 23408 26752 1280 720
-frame 24000
-frame 24600
-frame 25200
-frame 25800
-frame 26400
++ node render_seg.js hw/index.html seg_07.mp4 3719 4250 720 1280
+frame 4200
 + sleep 14
 + for k in 1 2 3 4 5 6
-+ gh release view ep02-conranh-v2
++ gh release view tiktok-halloween-v1
 ++ printf %02d 7
-+ gh release upload ep02-conranh-v2 seg_07.mp4 --clobber
++ gh release upload tiktok-halloween-v1 seg_07.mp4 --clobber
 + break
