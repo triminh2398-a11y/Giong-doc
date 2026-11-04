@@ -927,3 +927,44 @@ loaded V3TurboVieNeuTTS
 98_clone_el_h_cry asr ok
 98_clone_el_h_whisper clone:refs/el_h_whisper.wav 0 ok 2.5
 98_clone_el_h_whisper asr ok
+loaded V3TurboVieNeuTTS
+99_ng_gl Thái Sơn 0 ok 1.1
+99_ng_gl asr ok
+99_ng_gtm Mỹ Duyên 0 ok 2.6
+99_ng_gtm Mỹ Duyên 4 ok 1.0
+99_ng_gtm asr ok
+99_ng_l Thái Sơn 0 ok 1.2
+99_ng_l Thái Sơn 4 ok 1.2
+99_ng_l asr ok
+99_ng_n clone:refs/mada8.wav 0 ok 21.8
+99_ng_n clone:refs/mada8.wav 4 ok 1.1
+99_ng_n clone:refs/mada8.wav 8 ok 2.0
+99_ng_n clone:refs/mada8.wav 12 ok 2.4
+99_ng_n clone:refs/mada8.wav 16 ok 2.6
+99_ng_n clone:refs/mada8.wav 20 ok 1.5
+99_ng_n clone:refs/mada8.wav 24 ok 2.3
+99_ng_n clone:refs/mada8.wav 28 ok 3.5
+99_ng_n clone:refs/mada8.wav 32 ok 2.9
+99_ng_n clone:refs/mada8.wav 36 ok 2.5
+99_ng_n clone:refs/mada8.wav 40 ok 2.8
+99_ng_n clone:refs/mada8.wav 44 ok 2.9
+99_ng_n clone:refs/mada8.wav 48 ok 2.7
+99_ng_n clone:refs/mada8.wav 52 ok 2.9
+99_ng_n clone:refs/mada8.wav 56 ok 2.8
+99_ng_n clone:refs/mada8.wav 60 ok 2.8
+99_ng_n clone:refs/mada8.wav 64 ok 1.5
+99_ng_n asr ok
+99_ng_tb Đức Trí 0 ok 4.3
+99_ng_tb Đức Trí 4 ok 4.2
+99_ng_tb Đức Trí 8 ok 5.2
+99_ng_tb Đức Trí 12 ok 2.4
+99_ng_tb Đức Trí 16 ok 5.3
+99_ng_tb Đức Trí 20 ok 2.6
+99_ng_tb Đức Trí 24 ok 2.3
+99_ng_tb asr ok
+99_ng_tm Mỹ Duyên 0 ok 2.7
+99_ng_tm Mỹ Duyên 4 ok 2.8
+99_ng_tm Mỹ Duyên 8 ok 1.2
+99_ng_tm Mỹ Duyên 12 ok 2.8
+99_ng_tm Mỹ Duyên 16 ok 2.8
+99_ng_tm asr ok
