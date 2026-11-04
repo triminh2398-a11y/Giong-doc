@@ -1,0 +1,16 @@
+{
+"voices": [
+"Thái Sơn"
+],
+"asr": true,
+"lines": [
+"Đã nói đừng có đụng vô mà! Em nghe chưa?",
+"Đã nói đừng có đụng vô mà! Em nghe chưa?",
+"Đã nói đừng có đụng vô mà! Em nghe chưa?",
+"Đã nói đừng có đụng vô mà! Em nghe chưa?",
+"Đã nói đừng có đụng vô mà! Em nghe chưa?"
+],
+"kw": {
+"temperature": 1.1
+}
+}

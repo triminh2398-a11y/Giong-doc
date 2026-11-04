@@ -1,0 +1,15 @@
+{
+"voices": [
+"Thái Sơn"
+],
+"asr": true,
+"lines": [
+"Thắm ơi... Thắm... mở cửa cho anh...",
+"Thắm ơi... Thắm... mở cửa cho anh...",
+"Thắm ơi... Thắm... mở cửa cho anh...",
+"Thắm ơi... Thắm... mở cửa cho anh..."
+],
+"kw": {
+"temperature": 1.0
+}
+}

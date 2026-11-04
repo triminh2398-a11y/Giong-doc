@@ -1,0 +1,19 @@
+{
+"voices": [
+"Mỹ Duyên"
+],
+"asr": true,
+"lines": [
+"Anh Hai ơi... em đi theo anh nè... anh quay lại nhìn em một cái đi...",
+"Anh Hai ơi... em đi theo anh nè... anh quay lại nhìn em một cái đi...",
+"Anh Hai ơi... em đi theo anh nè... anh quay lại nhìn em một cái đi...",
+"Anh Hai ơi... em đi theo anh nè... anh quay lại nhìn em một cái đi...",
+"Anh Hai... ơi... đói quá...",
+"Anh Hai... ơi... đói quá...",
+"Anh Hai... ơi... đói quá...",
+"Anh Hai... ơi... đói quá..."
+],
+"kw": {
+"temperature": 1.0
+}
+}
