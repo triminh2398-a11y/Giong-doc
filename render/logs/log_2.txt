@@ -4,7 +4,7 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=ep2-elevenlabs
++ TAG=ep2-elevenlabs-v2
 ++ jq -r .html job.json
 + HTML=ep2/index.html
 ++ jq -r .frames job.json
@@ -20,3 +20,10 @@ frame 7200
 frame 7800
 frame 8400
 frame 9000
+frame 9600
++ sleep 4
++ for k in 1 2 3 4 5 6
++ gh release view ep2-elevenlabs-v2
+++ printf %02d 2
++ gh release upload ep2-elevenlabs-v2 seg_02.mp4 --clobber
++ break
