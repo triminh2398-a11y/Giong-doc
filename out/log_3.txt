@@ -860,3 +860,12 @@ loaded V3TurboVieNeuTTS
 97_bm2_gtt Thùy Dung 3 ok 1.2
 97_bm2_gtt Thùy Dung 7 ok 0.8
 97_bm2_gtt asr ok
+loaded V3TurboVieNeuTTS
+98_clone_el_bt_angry clone:refs/el_bt_angry.wav 3 ok 15.8
+98_clone_el_bt_angry asr ok
+98_clone_el_bt_cry clone:refs/el_bt_cry.wav 3 ok 2.8
+98_clone_el_bt_cry asr ok
+98_clone_el_h_cry clone:refs/el_h_cry.wav 3 ok 1.8
+98_clone_el_h_cry asr ok
+98_clone_el_h_whisper clone:refs/el_h_whisper.wav 3 ok 1.0
+98_clone_el_h_whisper asr ok
