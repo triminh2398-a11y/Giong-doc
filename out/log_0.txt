@@ -968,3 +968,6 @@ loaded V3TurboVieNeuTTS
 99_ng_tm Mỹ Duyên 12 ok 2.8
 99_ng_tm Mỹ Duyên 16 ok 2.8
 99_ng_tm asr ok
+loaded V3TurboVieNeuTTS
+99_ng_nfix clone:refs/mada8.wav 0 ok 28.1
+99_ng_nfix asr ok
