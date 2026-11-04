@@ -907,3 +907,5 @@ loaded V3TurboVieNeuTTS
 99_ng_tm Mỹ Duyên 15 ok 2.4
 99_ng_tm Mỹ Duyên 19 ok 2.1
 99_ng_tm asr ok
+loaded V3TurboVieNeuTTS
+99_ng_nfix asr ok
