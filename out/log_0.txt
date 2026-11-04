@@ -1000,3 +1000,7 @@ loaded V3TurboVieNeuTTS
 99_ng2_n clone:refs/mada8.wav 52 ok 1.4
 99_ng2_n clone:refs/mada8.wav 56 ok 1.7
 99_ng2_n asr ok
+loaded V3TurboVieNeuTTS
+99_ng2_nfix clone:refs/mada8.wav 0 ok 23.8
+99_ng2_nfix clone:refs/mada8.wav 4 ok 3.7
+99_ng2_nfix asr ok
