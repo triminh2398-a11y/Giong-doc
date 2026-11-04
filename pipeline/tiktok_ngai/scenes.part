@@ -1,0 +1,106 @@
+// ================= cảnh =================
+const S={};let ctaFlag=false,BLACK=0,TITLE=false,RED=0;
+const PX=4.5,PZ=-2.15;// chậu ngải trên bàn thờ buồng
+const potCam=(p,d0=1.6,d1=1.0,fov=40,y=1.25)=>cm([PX+0.15,y,PZ+lerp(d0,d1,p)],[PX,1.12,PZ],fov);
+const buong=()=>{altarL.intensity=1.2;lampL.intensity=1.1;lampL.position.set(4.95,1.2,-1.8)};
+const flick=T=>0.85+0.15*Math.sin(T*11)*Math.sin(T*3.7);
+// ---- mở đầu ----
+S.hook=(lt,D,T)=>{CUR='inn';const p=sm(lt/D);buong();altarL.intensity=2.2*flick(T);potAnim(POT,T,{glow:1.4,pulse:1,amp:2});put(C.ma,5.25,-2.3,{face:lt<D*0.15||lt>D*0.5,a:0.9,open:0.5},-0.1);cm([lerp(5.0,5.1,p),lerp(1.25,1.35,p),lerp(0.45,-0.05,p)],[4.95,1.3,-2.2],46);return 'inn'};
+S.hook2=(lt,D,T)=>{CUR='inn';buong();potAnim(POT,T,{glow:1.2,pulse:1,shake:lt>D*0.5,amp:1.5});potCam(sm(lt/D),1.5,0.85,40,1.3);return 'inn'};
+S.title=(lt,D,T)=>{CUR='mtn';const p=sm(lt/D);TITLE=true;POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.0,pulse:1});cm([0.4,lerp(5.0,4.4,p),lerp(-4.5,-5.5,p)],[0.8,H(0,-9.6)+0.6,-10],50);return 'mtn'};
+// ---- chợ ----
+S.loi=(lt,D,T,ls)=>{const two=lt>(ls[1]||D*0.55);if(!two){CUR='mkt';const p=sm(lt/D);put(C.loi,0,-0.8,{eyes:0.8,look:0,sweat:(T*0.4)%1});put(C.k3,-2.8,0.9,{look:1});cm([lerp(1.6,1.0,p),1.7,4.6],[0,1.25,-0.3],42);return 'mkt'}
+ CUR='inn';day();put(C.tham,1.8,-1.6,{water:true,look:-1,smileF:true});cm([0.6,1.5,1.9],[1.6,1.0,-1.9],42);return 'inn'};
+// ---- núi: am thầy Bảy (chiều tối) ----
+const AMX=-4.2,AMZ=-3;
+S.mount=(lt,D,T)=>{CUR='mtn';mtnMode('dusk');amL.intensity=2.5;const p=sm(lt/D);const z=lerp(3,0.2,p);putM(C.loi,pathX(z),z,{phase:T*6,eyes:0.9,look:-1});cm([2.6,H(2,4)+1.8,5.6],[pathX(z)-0.8,H(0,z)+1.2,z-1],44);return 'mtn'};
+S.thay=(lt,D,T,ls)=>{CUR='mtn';mtnMode('dusk');amL.intensity=2.8;POT_AM.visible=true;const y=AM.position.y;
+ if(lt<D*0.5){put(C.bay,AMX-0.3,AMZ+0.4,{eyes:0.85,look:1},y+0.15);put(C.loi,AMX+1.5,AMZ+1.3,{look:-1},H(AMX+1.5,AMZ+1.3));cm([AMX+1.6,y+1.8,AMZ+5.6],[AMX+0.6,y+1.0,AMZ+0.6],42)}
+ else{potAnim(POT_AM,T,{glow:0.8,pulse:1});cm([AMX+0.5,y+1.2,AMZ+1.4],[AMX+0.45,y+0.95,AMZ+0.3],38)}return 'mtn'};
+const bayClose=(lt,D,T,o,dist=1.4,side=0.25)=>{CUR='mtn';mtnMode('dusk');amL.intensity=2.8;POT_AM.visible=true;potAnim(POT_AM,T,{glow:0.5});const y=AM.position.y;put(C.bay,AMX-0.3,AMZ+0.4,Object.assign({mouth:talk(lt),eyes:0.85},o),y+0.15);close(C.bay,dist,36,side);return 'mtn'};
+S.thay2=(lt,D,T)=>bayClose(lt,D,T,{armA:[undefined,-2.4]},lerp(1.6,1.3,sm(lt/D)));
+S.thay3=(lt,D,T)=>{if(lt<D*0.62)return bayClose(lt,D,T,{},1.5,-0.3);return bayClose(lt,D,T,{eyes:1.25,pupil:2},lerp(1.3,0.95,sm(seg(lt,D*0.62,D))),0.1)};
+S.thay4=(lt,D,T)=>{if(lt<D*0.55)return bayClose(lt,D,T,{look:1},1.4,0.4);CUR='mtn';mtnMode('dusk');amL.intensity=2.8;const y=AM.position.y;put(C.loi,AMX+1.3,AMZ+1.6,{pot:true,eyes:1.1,look:-1,T},H(AMX+1.3,AMZ+1.6));put(C.bay,AMX-0.3,AMZ+0.4,{},y+0.15);close(C.loi,1.5,36,-0.3);return 'mtn'};
+// ---- giàu lên ----
+S.rich=(lt,D,T)=>{CUR='mkt';const p=sm(lt/D);put(C.loi,0,-0.8,{money:true,armA:[undefined,-0.6],eyes:1});[['k1',-2.0,1.4],['k2',-1.1,1.7],['k3',1.1,1.6],['k4',2.0,1.4]].forEach(([k,x,z],i)=>put(C[k],x+Math.sin(T*0.7+i)*0.08,z,{look:i<2?1:-1,phase:T*2+i}));cm([lerp(-1.0,1.0,p),2.3,6.0],[0,1.2,0],44);return 'mkt'};
+S.feed=(lt,D,T)=>{CUR='inn';buong();const p=sm(lt/D);put(C.loi,4.2,-1.3,{back:true,armA:[undefined,-1.7]});potAnim(POT,T,{glow:0.6+0.6*sm(seg(lt,D*0.4,D)),shake:lt>D*0.55,amp:0.6,pulse:1});
+ if(lt<D*0.45)cm([5.6,1.6,0.3],[4.4,1.1,-1.9],42);else{cm([PX+0.5,1.25,PZ+0.95],[PX,1.1,PZ],38);RED=0.06*Math.sin(T*4)**2}return 'inn'};
+// ---- Thắm & cây con ----
+S.tham=(lt,D,T)=>{CUR='inn';day();buongDoor(1);const p=sm(lt/D);put(C.tham,2.65,-1.1,{point:true,look:1});put(C.loi,2.2,-0.3,{armA:[undefined,-1.3],look:1,eyes:1.1});cm([lerp(2.9,2.6,p),1.6,2.8],[2.4,1.1,-0.8],42);return 'inn'};
+S.tham2=(lt,D,T)=>{CUR='inn';day();buongDoor(1);if(lt<D*0.5){put(C.tham,2.65,-1.1,{point:true,mouth:talk(lt),smileF:true,look:1});close(C.tham,1.3,36,-0.5);return 'inn'}
+ potAnim(POT,T,{glow:0.2});POT2.visible=true;POT2.position.set(PX+0.42,0.8,PZ+0.05);POT2.scale.setScalar(0.35);altarL.intensity=0.4;potCam(sm(seg(lt,D*0.5,D)),1.3,0.9,38,1.25);return 'inn'};
+S.loi2=(lt,D,T)=>{CUR='inn';day();buongDoor(1);put(C.loi,2.2,-0.3,{armA:[undefined,-1.3],mouth:talk(lt),eyes:1.2,look:1});put(C.tham,2.65,-1.1,{look:-1,eyes:1.1});close(C.loi,1.3,36,-0.35);return 'inn'};
+// ---- Sài Gòn: đêm rằm ----
+S.greed=(lt,D,T)=>{CUR='mkt';mktMode(true);const p=sm(lt/D);put(C.loi,0.2,1.6,{phone:1,eyes:1});put(C.k1,-1.2,1.8,{look:1,eyes:0.9});cm([lerp(-0.6,0.4,p),1.2,5.6],[0.2,2.6,-6],46);return 'mkt'};
+S.greed2=(lt,D,T)=>{CUR='mkt';mktMode(true);put(C.loi,0.2,1.6,{phone:1,eyes:0.75,look:1});close(C.loi,lerp(1.6,1.3,sm(lt/D)),38,-0.35,0.15);return 'mkt'};
+// ---- đêm Thắm ở nhà ----
+S.night=(lt,D,T)=>{CUR='inn';night();moonSpot.intensity=8;const p=sm(lt/D);put(C.tham,-1.0,-1.0,{sit:true,look:lt>D*0.5?1:0,eyes:lt>D*0.5?1.2:1});cm([lerp(0.4,0.9,p),1.5,2.6],[-1.0,0.9,-1.0],44);return 'inn'};
+S.gl=(lt,D,T)=>{CUR='inn';altarL.intensity=1.6*flick(T);const q=sm(seg(lt,0,D*0.4));potAnim(POT,T,{glow:1.4,pulse:1,shake:true});put(C.ml,4.1,-1.5,{a:0.55+0.4*q,mouth:talk(lt)});cm([lerp(5.6,5.2,sm(lt/D)),1.5,0.3],[4.2,1.2,-1.6],lerp(46,38,sm(lt/D)));return 'inn'};
+S.night2=(lt,D,T,ls)=>{CUR='inn';night();moonSpot.intensity=8;const p=sm(seg(lt,0,D*0.75));put(C.tham,lerp(-1.0,2.5,p),lerp(0.2,-0.6,p),{phase:lt<D*0.75?T*6:0,look:1,arm:lt>D*0.75?[undefined,-1.4]:undefined});cm([lerp(-0.8,0.8,p),1.5,3.2],[lerp(-0.6,2.4,p),1.1,-0.6],44);return 'inn'};
+S.tmda=(lt,D,T)=>{CUR='inn';night();moonSpot.intensity=8;put(C.tham,2.5,-0.6,{mouth:talk(lt),look:1,arm:[undefined,-1.4]});close(C.tham,1.25,36,-0.45);return 'inn'};
+S.silent=(lt,D,T)=>{CUR='inn';altarL.intensity=1.2*flick(T);const q=sm(seg(lt,D*0.25,D));roots(q);potAnim(POT,T,{glow:1.2,pulse:1});const p=sm(lt/D);cm([lerp(5.0,4.3,p),lerp(1.5,1.0,p),0.3],[3.6,0.15,-1.4],46);return 'inn'};
+// ---- sáng hôm sau ----
+S.sick=(lt,D,T,ls)=>{CUR='inn';day();const two=lt>D*0.62;if(!two){inBed(C.tham,-1,{sick:true,eyes:0.4});put(C.loi,-0.6,-1.0,{look:-1,eyes:1.2});cm([-0.6,1.9,2.4],[-1.4,0.8,-1.5],44);return 'inn'}
+ potAnim(POT,T,{glow:0.6,shoot:1,pulse:1});altarL.intensity=0.5;potCam(sm(seg(lt,D*0.62,D)),1.3,0.85,38,1.25);return 'inn'};
+S.call=(lt,D,T)=>{CUR='inn';day();put(C.loi,0.6,-1.4,{phone:1,eyes:1.15,sweat:(T*0.5)%1});inBed(C.tham,-1,{sick:true,eyes:0.3});close(C.loi,lerp(2.2,1.6,sm(lt/D)),38,0.6);return 'inn'};
+const bayNight=(lt,D,T,o,dist)=>{CUR='mtn';amL.intensity=2.4*flick(T);const y=AM.position.y;put(C.bay,AMX-0.3,AMZ+0.4,Object.assign({phone:1,mouth:talk(lt),eyes:0.85},o),y+0.15);close(C.bay,dist,36,0.3);return 'mtn'};
+S.tbcall=(lt,D,T)=>bayNight(lt,D,T,{},lerp(1.7,1.3,sm(lt/D)));
+S.tbcall2=(lt,D,T)=>bayNight(lt,D,T,{eyes:1.1},lerp(1.3,1.0,sm(lt/D)));
+// ---- leo núi ----
+const climbAt=(z,o)=>{putM(C.loi,pathX(z),z,Object.assign({pot:true,glow:0.6},o));carryL.intensity=1.2;carryL.position.set(pathX(z),H(0,z)+1.0,z+0.4);mfill.intensity=0.8;mfill.position.set(pathX(z)+0.8,H(0,z)+1.8,z+1.6)};
+S.climb=(lt,D,T)=>{CUR='mtn';const p=sm(lt/D);const z=lerp(3.5,0.5,p);climbAt(z,{phase:T*5,eyes:1.05,sweat:(T*0.6)%1});cm([pathX(z)+1.8,H(0,z+3)+1.6,z+3.6],[pathX(z),H(0,z)+1.1,z],44);return 'mtn'};
+S.root=(lt,D,T)=>{CUR='mtn';const z=0.2;climbAt(z,{roots:sm(seg(lt,0,D*0.7)),eyes:1.3,pupil:2.2,phase:0});carryL.intensity=1.6;const c=C.loi;cm([c.position.x+0.25,c.position.y+0.0,z+lerp(1.9,1.5,sm(lt/D))],[c.position.x,c.position.y-0.15,z],36);return 'mtn'};
+S.voice=(lt,D,T)=>{CUR='mtn';const p=sm(lt/D);const z=lerp(-1,-3,p);climbAt(z,{phase:T*5,eyes:1.2});const q=sm(seg(lt,D*0.35,D*0.8));if(q>0){const zg=z+lerp(4.5,2.6,q);putM(C.ma,pathX(zg),zg,{a:0.4+0.5*q})}
+ cm([pathX(z)-2.2,H(0,z+5)+2.0,z+6.5],[pathX(z),H(0,z)+1.0,z+1.2],44);return 'mtn'};
+S.gtm=(lt,D,T)=>{CUR='mtn';const z=-3;climbAt(z,{eyes:1.35,pupil:2,phase:0});const zg=z+1.3;putM(C.ma,pathX(zg)-0.75,zg,{face:lt>D*0.3,a:0.92,open:0.4+0.2*Math.sin(T*3),arm:[undefined,-1.3]});const c=C.loi;
+ cm([c.position.x+0.4,c.position.y+0.35,z+lerp(3.8,3.2,sm(lt/D))],[c.position.x-0.4,c.position.y+0.2,z+0.6],42);return 'mtn'};
+S.voice2=(lt,D,T)=>{CUR='mtn';if(lt<D*0.45){const z=-3;climbAt(z,{bite:true,eyes:1.3,pupil:2,phase:0});putM(C.ma,pathX(z+1.3)-0.55,z+1.3,{a:0.7});close(C.loi,1.25,36,0.3,H(0,z));return 'mtn'}
+ const p=sm(seg(lt,D*0.45,D));const z=lerp(-4,-8,p);climbAt(z,{bite:true,phase:T*5});const zg=z+2.2;putM(C.ma,pathX(zg),zg,{a:0.55});cm([pathX(z)+2.6,H(0,z+5)+2.2,z+6],[pathX(z),H(0,z)+1.0,z],44);return 'mtn'};
+// ---- đỉnh núi ----
+const TX=0.6,TZ=-9.6;
+S.dig=(lt,D,T)=>{CUR='mtn';const ty=H(TX,TZ);putM(C.loi,TX-0.35,TZ+0.35,{sit:true,armA:[-0.5,0.5],eyes:1.1},-0.42);POT_TOP.visible=lt>D*0.45;potAnim(POT_TOP,T,{glow:0.8,pulse:1});carryL.intensity=1;carryL.position.set(TX,ty+0.6,TZ+0.6);mfill.intensity=0.8;mfill.position.set(TX+1,ty+1.8,TZ+2);
+ const p=sm(lt/D);cm([TX+lerp(2.4,1.6,p),ty+1.6,TZ+3.2],[TX+0.1,ty+0.7,TZ],42);return 'mtn'};
+S.cut=(lt,D,T)=>{CUR='mtn';const ty=H(TX,TZ);putM(C.loi,TX-0.35,TZ+0.35,{sit:true,armA:[-0.5,0.5],roots:1,eyes:1.3,pupil:2},-0.42);POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.4,pulse:1,shake:true});carryL.intensity=1.4;carryL.position.set(TX,ty+0.6,TZ+0.6);
+ cm([TX+0.9,ty+0.95,TZ+lerp(2.0,1.6,sm(lt/D))],[TX-0.1,ty+0.55,TZ],38);return 'mtn'};
+S.cut2=(lt,D,T)=>{CUR='mtn';mtnMode(lt>D*0.3?'dawn':'night');const ty=H(TX,TZ);const k=lt>D*0.5;putM(C.loi,TX-0.35,TZ+0.35,{sit:true,knife:true,glint:k?1:0.3,bite:true,eyes:1.2,armA:[-0.5]},-0.42);POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.2,shake:true});
+ if(lt<D*0.3)cm([TX-1.5,ty+1.8,TZ+3.4],[TX+3,ty+3.0,TZ-10],48);else cm([TX+1.4,ty+1.2,TZ+2.6],[TX-0.2,ty+0.9,TZ],40);
+ if(lt>D*0.86){BLACK=0.92;RED=0.25}return 'mtn'};
+S.rooster=(lt,D,T)=>{CUR='mtn';mtnMode('dawn');const ty=H(TX,TZ);put(C.ga,1.8,-10.3,{},BIG.position.y+1.1);putM(C.loi,TX-0.35,TZ+0.35,{sit:true,bandage:1,armA:[-0.4,0.6],eyes:0.6},-0.42);POT_TOP.visible=true;potAnim(POT_TOP,T,{});const p=sm(lt/D);cm([TX-1.8,ty+lerp(1.6,2.0,p),TZ+4.2],[TX+0.7,ty+1.2,TZ-0.5],46);return 'mtn'};
+// ---- về nhà ----
+S.home=(lt,D,T)=>{CUR='inn';day();inBed(C.tham,-1,{look:1,eyes:1.05});blkA.scale.set(1.25,0.5,0.8);put(C.loi,-0.6,-0.5,{bandage:1,look:-1,eyes:0.9});cm([0.3,1.7,2.4],[-1.4,0.9,-1.4],42);return 'inn'};
+S.tmhome=(lt,D,T)=>{CUR='inn';day();inBed(C.tham,-1,{look:1,mouth:talk(lt),eyes:1.15});{const c=C.tham;cm([c.position.x+0.7,1.55,c.position.z+1.6],[c.position.x,1.0,c.position.z],38)}return 'inn'};
+S.relief=(lt,D,T)=>{CUR='inn';day();put(C.tham,-1.0,-2.0,{sit:true,eyes:0.6,tilt:0.15,tears:true});put(C.loi,-0.95,-1.45,{sit:true,armA:[undefined,-1.1],tears:true,eyes:0.5,tilt:-0.12});cm([1.3,1.45,0.2],[-1.0,0.85,-1.75],40);return 'inn'};
+// ---- twist ----
+const showPot2=(T,o)=>{POT2.visible=true;POT2.position.set(-0.85,0.45,-2.25);POT2.scale.setScalar(0.6);potAnim(POT2,T,o)};
+S.twist=(lt,D,T)=>{CUR='inn';night();LAMP1.visible=false;lampL.position.set(-0.6,1.0,-1.6);showPot2(T,{glow:0.5,pulse:1});const p=sm(lt/D);if(lt<D*0.45){put(C.loi,0.2,-0.9,{look:-1,eyes:1.2,phase:0});cm([1.4,1.6,2.0],[-0.3,0.9,-1.6],42)}
+ else cm([-0.8,0.95,lerp(-1.2,-1.5,p)],[-0.85,0.65,-2.25],40);return 'inn'};
+S.tmtwist=(lt,D,T)=>{CUR='inn';night();lampL.position.set(-0.6,1.0,-1.6);showPot2(T,{glow:0.3});inBed(C.tham,-1,{look:1,smileF:true,mouth:talk(lt)});blkA.scale.set(1.25,0.5,0.8);{const c=C.tham;cm([c.position.x+0.7,1.55,c.position.z+1.6],[c.position.x,1.0,c.position.z],38)};return 'inn'};
+S.realize=(lt,D,T)=>{CUR='inn';night();lampL.position.set(-0.6,1.0,-1.6);showPot2(T,{glow:0.9,pulse:1,shake:lt>D*0.5});if(lt<D*0.5){put(C.loi,0.2,-0.9,{look:-1,eyes:1.4,pupil:2,sweat:(T*0.5)%1});close(C.loi,lerp(1.5,1.15,sm(lt/D*2)),36,-0.2)}
+ else cm([-0.8,0.9,-1.35],[-0.85,0.65,-2.25],38);return 'inn'};
+// ---- kết: không jumpscare, chỉ không khí ----
+S.final=(lt,D,T)=>{CUR='inn';moonSpot.intensity=6;LAMP1.visible=false;showPot2(T,{glow:0.7,pulse:1});inBed(C.tham,-1,{back:true});inBed(C.loi,1,{eyes:1.1,look:-1});cm([-1.9,2.4,lerp(1.0,0.6,sm(lt/D))],[-1.9,0.9,-2.1],44);return 'inn'};
+S.gfinal=(lt,D,T)=>{CUR='inn';moonSpot.intensity=5*flick(T);LAMP1.visible=false;showPot2(T,{glow:1.2,pulse:1});inBed(C.tham,-1,{back:true});inBed(C.loi,1,{eyes:0.5,look:-1});
+ put(C.ma,-1.15,-2.45,{a:0.75,grin:0.5},-0.15);cm([-1.8,2.35,lerp(0.8,0.4,sm(lt/D))],[-1.75,1.0,-2.15],44);return 'inn'};
+S.final2=(lt,D,T)=>{CUR='inn';moonSpot.intensity=5;LAMP1.visible=false;showPot2(T,{glow:1.0});inBed(C.tham,-1,{back:true});inBed(C.loi,1,{eyes:lt>D*0.6?0.05:0.3,mouth:lt>D*0.75&&lt<D*0.9?'o':undefined});{const c=C.loi;cm([c.position.x+0.2,1.6,c.position.z+1.5],[c.position.x,1.0,c.position.z],36)};return 'inn'};
+S.end=(lt,D,T)=>{CUR='inn';day();showPot2(T,{glow:0.6,shoot:1});if(lt<D*0.5){cm([-0.75,0.95,lerp(-1.3,-1.55,sm(lt/D*2))],[-0.85,0.7,-2.25],40)}
+ else{inBed(C.loi,1,{eyes:0.01,pale:true});put(C.tham,-0.6,-1.2,{tears:true,look:-1});cm([0.3,1.9,1.6],[-1.4,0.8,-1.7],42)}return 'inn'};
+S.cta=(lt,D,T)=>{CUR='mtn';ctaFlag=true;POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.2,pulse:1,shoot:1});const ty=H(TX,TZ);cm([TX+0.2,ty+lerp(1.4,1.2,sm(lt/D)),TZ+lerp(2.4,1.8,sm(lt/D))],[TX,ty+0.5,TZ],42);return 'mtn'};
+// ================= vòng vẽ =================
+window.draw=function(t){const sc=TLD.scenes.find(s=>t>=s[1]&&t<s[2])||TLD.scenes[TLD.scenes.length-1];const [k,a,b,ls]=sc;const lt=t-a,D=b-a;
+ hideAll();ctaFlag=false;BLACK=0;TITLE=false;RED=0;blkA.scale.set(1.25,1,0.8);g2.clearRect(0,0,RW,RH);
+ motes.forEach((m,i)=>{const p=(t*0.04+R(i))%1;m.position.set(1.4+(R(i+5)-0.5)*7,0.3+((R(i+9)*2.5+t*0.05)%2.5),-2.4+p*4);m.material.opacity=0.3*Math.sin(p*Math.PI)});
+ smoke.forEach((s,i)=>{const p=(t*0.15+i/12)%1;s.position.set(4.1+Math.sin(p*6+i)*0.06,1.15+p*1.2,-2.1);s.scale.setScalar(0.08+p*0.3);s.material.opacity=0.18*Math.sin(p*Math.PI)});
+ mist.forEach((m,i)=>{const z=6-i*0.6;const x=((R(i)*14+t*0.15)%14)-7;m.position.set(x,H(x,z)+0.5+R(i+2)*0.6,z)});
+ if(!S[k])console.log('missing',k);const mode=S[k](lt,D,t,ls);cam.aspect=RW/RH;cam.updateProjectionMatrix();
+ for(const kk in CC[mode]){const c=CC[mode][kk];if(!c.visible)continue;c.userData.paint(t);c.lookAt(cam.position.x,c.position.y,cam.position.z)}
+ renderer.render(SCN[mode],cam);
+ const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.55)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH);
+ if(RED){g2.fillStyle=`rgba(140,0,0,${RED})`;g2.fillRect(0,0,RW,RH)}
+ if(BLACK){g2.fillStyle=`rgba(0,0,0,${BLACK})`;g2.fillRect(0,0,RW,RH)}
+ grain(0.06);
+ if(TITLE)titleTxt(lt,sm(seg(lt,0.1,0.6)));
+ if(ctaFlag)ctaTxt(sm(seg(lt,0.1,0.6)));
+ const d=Math.min(t-a,b-t);if(d<0.08&&a>0){g2.fillStyle=`rgba(0,0,0,${1-d/0.08})`;g2.fillRect(0,0,RW,RH)}
+ watermark(t);if(k!=='title')subs(t)};
+Promise.all(IMGS).then(()=>{window.READY=true});
+</script></body></html>
