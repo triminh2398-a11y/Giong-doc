@@ -4,7 +4,7 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-ngai-v5
++ TAG=tiktok-ngai-v7
 ++ jq -r .html job.json
 + HTML=ng/index.html
 ++ jq -r .frames job.json
@@ -19,9 +19,7 @@
 frame 7800
 + sleep 26
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-ngai-v5
-+ gh release create tiktok-ngai-v5 -t tiktok-ngai-v5 -n render
-https://github.com/triminh2398-a11y/Giong-doc/releases/tag/tiktok-ngai-v5
++ gh release view tiktok-ngai-v7
 ++ printf %02d 13
-+ gh release upload tiktok-ngai-v5 seg_13.mp4 --clobber
++ gh release upload tiktok-ngai-v7 seg_13.mp4 --clobber
 + break
