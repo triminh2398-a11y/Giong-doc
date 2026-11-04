@@ -4,22 +4,24 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-ngai-v8-el
++ TAG=tiktok-ngai2-v2
 ++ jq -r .html job.json
-+ HTML=ng/index_el.html
++ HTML=ng2/index.html
 ++ jq -r .frames job.json
-+ N=9073
++ N=8768
 + S=16
-+ A=567
-+ B=1134
++ A=548
++ B=1096
 ++ printf %02d 1
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js ng/index_el.html seg_01.mp4 567 1134 720 1280
++ node render_seg.js ng2/index.html seg_01.mp4 548 1096 720 1280
 frame 600
 + sleep 2
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-ngai-v8-el
++ gh release view tiktok-ngai2-v2
++ gh release create tiktok-ngai2-v2 -t tiktok-ngai2-v2 -n render
+https://github.com/triminh2398-a11y/Giong-doc/releases/tag/tiktok-ngai2-v2
 ++ printf %02d 1
-+ gh release upload tiktok-ngai-v8-el seg_01.mp4 --clobber
++ gh release upload tiktok-ngai2-v2 seg_01.mp4 --clobber
 + break
