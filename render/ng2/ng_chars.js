@@ -17,18 +17,17 @@ function rootLine(x0,y0,x1,y1,q,T,k=0,lw=5){ctx.save();ctx.lineCap='round';ctx.s
 function drip(x,y,T,k=0,n=3){for(let i=0;i<n;i++){const p=((T*0.9+i/n+k*0.37)%1);ctx.fillStyle='#9a0a12';ctx.beginPath();ctx.ellipse(x+(i-1)*4,y+p*60,3,5,0,0,7);ctx.fill()}}
 // Lợi: áo sơ mi nâu bạc, quần đen. o.pot ôm chậu trước ngực; o.roots rễ quấn tay; o.bandage tay quấn giẻ; o.phone; o.knife; o.bite; o.dig (quỳ, tay chống xuống)
 function loi(x,y,s,o={}){const T=o.T||0;let armA=o.armA||[undefined,undefined];if(o.pot)armA=[-0.08,0.08];if(o.knife)armA=[armA[0],-2.6];if(o.reach)armA=[undefined,-1.1];if(o.hug)armA=[-1.2,1.2];
- person(x,y,s,Object.assign({shirt:'#6a5238',pants:'#1e1e22',skin:'#d8c4a8',hair:'#151515'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ person(x,y,s,Object.assign({shirt:'#6a5238',pants:'#1e1e22',skin:o.pale?'#a8b2a6':'#d8c4a8',hair:'#151515'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){for(let k=0;k<3;k++)circ(0,-190+k*26,3,'#d8d0b8')}
  if(o.bite){ctx.fillStyle='#9a0a12';ctx.fillRect(-3,-243,3,10+((T*15)%8))}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*21,-262);ctx.lineTo(sd*22,-240+(T*20)%12);ctx.stroke()}}
  if(o.pot){potDraw(0,-100,0.55,T,{glow:o.glow||0.4,shoot:o.shoot});for(const sd of [-1,1]){const [hx,hy]=HPP(sd,sd*0.08);circ(hx,hy,9,'#d8c4a8',INK,3)}}
  if(o.wet){ctx.fillStyle='rgba(150,190,220,.85)';for(let k=0;k<6;k++){const p=((T*1.3+k/6)%1);ctx.beginPath();ctx.ellipse(-40+k*16,-236+p*70,2.5,4,0,0,7);ctx.fill()}ctx.fillStyle='rgba(20,30,40,.25)';ctx.fillRect(-40,-222,80,110)}
- if(o.mud){ctx.fillStyle='rgba(70,48,26,.75)';for(let k=0;k<9;k++){ctx.beginPath();ctx.ellipse(-34+R0(k)*68,-220+R0(k+3)*120,6+R0(k+5)*9,4+R0(k+7)*7,R0(k)*3,0,7);ctx.fill()}for(let k=0;k<4;k++){ctx.beginPath();ctx.ellipse(-30+R0(k+11)*60,-300+R0(k+13)*50,4+R0(k)*6,3+R0(k+2)*4,0,0,7);ctx.fill()}}
+ if(o.mud){ctx.fillStyle='rgba(70,48,26,.75)';for(let k=0;k<9;k++){ctx.beginPath();ctx.ellipse(-34+R0(k)*68,-220+R0(k+3)*120,6+R0(k+5)*9,4+R0(k+7)*7,R0(k)*3,0,7);ctx.fill()}}
  if(o.roots){const q=o.roots;for(const sd of [-1,1]){const [hx,hy]=HPP(sd,sd>0?0.95:-0.95);rootLine(sd*10,-140,hx+sd*14,hy-6,q,T,sd*3,5);rootLine(sd*-6,-140,hx,hy+10,q*0.9,T,sd*5+1,4);if(q>0.8)drip(hx,hy+10,T,sd)}}
  if(o.bandage){const sd=o.bandage;const a=armA[sd>0?1:0]??sd*0.1;const [hx,hy]=HPP(sd,a);ctx.fillStyle='#e8e0cc';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(hx,hy+4,17,22,0,0,7);ctx.fill();ctx.stroke();ctx.fillStyle='rgba(150,10,18,.85)';ctx.beginPath();ctx.ellipse(hx+3,hy+10,10,12,0,0,7);ctx.fill();ctx.strokeStyle='rgba(120,100,80,.6)';ctx.lineWidth=2;for(let k=0;k<3;k++){ctx.beginPath();ctx.moveTo(hx-16,hy-8+k*9);ctx.lineTo(hx+16,hy-4+k*9);ctx.stroke()}}
  if(o.knife){const [hx,hy]=HPP(1,-2.6);ctx.save();ctx.translate(hx,hy);ctx.rotate(-0.4);ctx.fillStyle='#3a2a1a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.fillRect(-6,-30,12,34);ctx.strokeRect(-6,-30,12,34);ctx.fillStyle='#c8ccd0';ctx.beginPath();ctx.moveTo(-8,-30);ctx.lineTo(10,-30);ctx.lineTo(16,-120);ctx.quadraticCurveTo(-4,-90,-8,-30);ctx.fill();ctx.stroke();if(o.glint)halo(10,-100,60,'255,255,255',0.5*o.glint);ctx.restore()}
  if(o.money){const [hx,hy]=HPP(1,armA[1]??-0.6);ctx.save();ctx.translate(hx,hy-10);ctx.rotate(0.3);for(let k=0;k<4;k++){ctx.fillStyle=['#3a8a6a','#c88a3a','#2a7a9a','#3a8a6a'][k];ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.save();ctx.rotate(k*0.18-0.3);ctx.fillRect(-12,-44,24,44);ctx.strokeRect(-12,-44,24,44);ctx.restore()}ctx.restore()}
- if(o.pale){ctx.globalAlpha=0.35;circ(0,-278,58,'#9ab0a8');ctx.globalAlpha=1}
  ctx.restore()}
 // Thắm: áo bà ba tím, tóc dài cột sau. o.sick (tái, môi tím), o.point (chỉ tay), o.water (bình tưới)
 function tham(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.point)arm[1]=-1.75;if(o.water)arm[0]=1.2;if(o.pot){arm[0]=-0.08;arm[1]=0.08}if(o.phone)arm[1]=3.32;if(o.phoneLap){arm[0]=-0.25;arm[1]=0.25}if(o.reachDown!==undefined)arm[0]=o.reachDown;
