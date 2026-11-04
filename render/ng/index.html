@@ -204,7 +204,7 @@ let CUR='inn';const C=new Proxy({},{get:(t,k)=>CC[CUR][k]});
 function put(c,x,z,o,y){c.visible=true;c.position.set(x,(y||0)+0.98,z);c.userData.o=o||{}}
 const putM=(c,x,z,o)=>put(c,x,z,o,H(x,z));
 function hideAll(){for(const sn in CC)for(const k in CC[sn])CC[sn][k].visible=false;lampL.intensity=0;fillL.intensity=0;altarL.intensity=0;dayL.intensity=0;sunL.intensity=0;moonSpot.intensity=10;winM.map=winT;roots(0);buongDoor(0);LAMP1.visible=true;
- potAnim(POT,0);potAnim(POT2,0);LAMP2.visible=true;fillL.color.set(0xc8b8a8);POT2.visible=false;POT.visible=true;amL.intensity=0;carryL.intensity=0;mfill.intensity=0;POT_TOP.visible=false;POT_AM.visible=false;blkA.visible=false;blkB.visible=false;MUNG.visible=true;mktMode(false);mtnMode('night')}
+ potAnim(POT,0);potAnim(POT2,0);LAMP2.visible=true;fillL.color.set(0xc8b8a8);CC.inn.ma.material.emissiveIntensity=0.35;POT2.visible=false;POT.visible=true;amL.intensity=0;carryL.intensity=0;mfill.intensity=0;POT_TOP.visible=false;POT_AM.visible=false;blkA.visible=false;blkB.visible=false;MUNG.visible=true;mktMode(false);mtnMode('night')}
 function cm(P,L,fov){cam.fov=fov||45;cam.position.set(...P);cam.lookAt(...L)}
 function close(c,dist,fov=36,side=0.3,dy=0){const hy=HY+(c.position.y-0.98);const x=c.position.x,z=c.position.z;dist+=0.8;cm([x+side,hy+0.05+dy,z+dist],[x,hy-0.12+dy,z],fov)}
 const ST=TLD.starts,DU=TLD.durs;
@@ -244,8 +244,8 @@ const potCam=(p,d0=1.6,d1=1.0,fov=40,y=1.25)=>cm([PX+0.15,y,PZ+lerp(d0,d1,p)],[P
 const buong=()=>{altarL.intensity=1.2;lampL.intensity=1.1;lampL.position.set(4.95,1.2,-1.8)};
 const flick=T=>0.85+0.15*Math.sin(T*11)*Math.sin(T*3.7);
 // ---- mở đầu ----
-S.hook=(lt,D,T)=>{CUR='inn';const p=sm(lt/D);buong();altarL.intensity=2.2*flick(T);potAnim(POT,T,{glow:0.5,pulse:1,amp:2});put(C.ma,5.2,-2.35,{a:0.97,open:0.35+0.4*sm(seg(lt,D*0.4,D)),tilt:0.1*Math.sin(T*0.6)},-0.18);lampL.intensity=0;LAMP2.visible=false;altarL.intensity=0.45*flick(T);moonSpot.intensity=1;fillL.color.set(0x9affc0);fillL.intensity=1.3*flick(T);fillL.position.set(5.15,0.7,-1.6);BLACK=0.12;cm([lerp(4.75,5.0,p),lerp(1.3,1.22,p),lerp(0.25,-0.5,p)],[lerp(4.95,5.12,p),1.15,-2.3],44);return 'inn'};
-S.hook2=(lt,D,T)=>{CUR='inn';buong();potAnim(POT,T,{glow:1.2,pulse:1,shake:lt>D*0.5,amp:1.5});potCam(sm(lt/D),1.5,0.85,40,1.3);return 'inn'};
+S.hook=(lt,D,T)=>{CUR='inn';const p=sm(lt/D);night();lampL.intensity=0.35;moonSpot.intensity=4;buongDoor(1);altarL.intensity=0.7*flick(T);LAMP2.visible=false;potAnim(POT,T,{glow:0.7,pulse:1,amp:1.5});const rv=sm(seg(lt,D*0.45,D));if(lt>D*0.3){const up=sm(seg(lt,D*0.3,D*0.85));put(C.ma,4.95,-2.45,{a:0.97,open:0.2+0.35*rv,tilt:0},lerp(-1.35,-0.25,up));C.ma.material.emissiveIntensity=0.08+0.27*rv}fillL.color.set(0x9affc0);fillL.intensity=0.9*rv*flick(T);fillL.position.set(4.9,0.7,-1.7);cm([lerp(5.6,5.0,p),lerp(1.55,1.25,p),lerp(0.35,-0.9,p)],[lerp(4.75,4.9,p),lerp(1.0,1.2,p),-2.35],lerp(48,40,p));return 'inn'};
+S.hook2=(lt,D,T)=>{CUR='inn';altarL.intensity=0.6*flick(T);lampL.intensity=0;LAMP2.visible=false;moonSpot.intensity=1;buongDoor(1);potAnim(POT,T,{glow:0.6,pulse:1,shake:true,amp:1.5});const up=sm(seg(lt,0,0.35));put(C.ma,4.85,-2.4,{a:0.97,open:0.55+0.3*sm(seg(lt,0.3,D)),tilt:0.08*Math.sin(T*0.6)},lerp(-0.7,-0.15,up));fillL.color.set(0x9affc0);fillL.intensity=1.4*flick(T);fillL.position.set(4.85,0.7,-1.6);const sh=lt<0.4?Math.sin(lt*80)*0.03*(1-lt/0.4):0;const p=sm(lt/D);cm([4.62+sh,1.18+sh,lerp(-0.75,-1.05,p)],[4.85,1.22,-2.4],lerp(42,38,p));return 'inn'};
 S.title=(lt,D,T)=>{CUR='mtn';const p=sm(lt/D);TITLE=true;POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.0,pulse:1});cm([0.6,H(0,3)+lerp(1.4,1.8,p),lerp(3.5,3.0,p)],[0.2,H(0,-6)+1.6,-6],50);return 'mtn'};
 // ---- chợ ----
 S.loi=(lt,D,T,ls)=>{const two=lt>(ls[1]||D*0.55);if(!two){CUR='mkt';const p=sm(lt/D);put(C.loi,0,-0.8,{eyes:0.8,look:0,sweat:(T*0.4)%1});put(C.k3,-2.8,0.9,{look:1});cm([lerp(1.6,1.0,p),1.7,4.6],[0,1.25,-0.3],42);return 'mkt'}
