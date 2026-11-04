@@ -66,7 +66,7 @@ place(2234,span('gfinal')[0]+0.1,0.14,dur=span('gfinal')[1]-span('gfinal')[0])
 place(2430,S_('end',0.1),0.18,dur=3);place(2462,S_('end',0.05),0.18,dur=3)   # sáng hôm sau, gà gáy xa
 place(2482,span('cta')[0],0.16,dur=span('cta')[1]-span('cta')[0])
 # im lặng trước khoảnh khắc ma hiện (jump nhẹ)
-JT=[S_('hook',0.5),S_('hook2',0.05),S_('gl',0.35),S_('silent',0.88),S_('gtm',0.3),S_('realize',0.85)]
+JT=[S_('hook2',0.05),S_('gl',0.35),S_('silent',0.88),S_('gtm',0.3),S_('realize',0.85)]
 for t in JT:s0=int((t-0.7)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,0.15,s1-s0)[:,None]
 a,b=span('final2');out[int(S_('final2',0.7)*SR):int(b*SR)]*=0.35   # lúc "dạ" — nền gần im
 out/=np.abs(out).max()*1.05
