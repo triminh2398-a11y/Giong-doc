@@ -4,27 +4,22 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=ep2-elevenlabs-v2
++ TAG=tiktok-ngai-v1
 ++ jq -r .html job.json
-+ HTML=ep2/index.html
++ HTML=ng/index.html
 ++ jq -r .frames job.json
-+ N=53505
++ N=9015
 + S=16
-+ A=50160
-+ B=53505
++ A=8451
++ B=9015
 ++ printf %02d 15
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js ep2/index.html seg_15.mp4 50160 53505 1280 720
-frame 50400
-frame 51000
-frame 51600
-frame 52200
-frame 52800
-frame 53400
++ node render_seg.js ng/index.html seg_15.mp4 8451 9015 720 1280
+frame 9000
 + sleep 30
 + for k in 1 2 3 4 5 6
-+ gh release view ep2-elevenlabs-v2
++ gh release view tiktok-ngai-v1
 ++ printf %02d 15
-+ gh release upload ep2-elevenlabs-v2 seg_15.mp4 --clobber
++ gh release upload tiktok-ngai-v1 seg_15.mp4 --clobber
 + break
