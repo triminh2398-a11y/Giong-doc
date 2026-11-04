@@ -11,6 +11,7 @@
 | TikTok | Đoàn xác Tương Tây v3 (đừng đếm xác — xác thứ 4 là cha lần theo chuông; cao trào: lá số, nín thở qua 3 xác, bùa máu người nhà dán; chôn ba sau quán; Mai thành xác lảng vãng bên mộ, đêm nào cũng nhảy xuống tới cửa) |
 | TikTok | Bloody Mary (nghi thức soi gương đêm Halloween, ký túc xá Sài Gòn — Thảo gọi tên Mary 3 lần, bị kéo vô gương; đăng 31/10) | D – nước ngoài (Bloody Mary) | 2026-10-31 | pipeline/tiktok_bloodymary |
 | TikTok (bỏ) | Bữa tối câm lặng (Dumb Supper, Ireland) — user thấy không hay, thay bằng Bloody Mary | D | — | pipeline/tiktok_halloween |
+| TikTok | Ngải Thất Sơn (đêm rằm đừng dạ — Hai Lợi xin ngải núi Cấm, ham mối hàng bỏ cữ rằm, ngải giả giọng chồng kêu, Thắm dạ; trả ngải lên núi phải đổi ngón tay; twist: chậu ngải con Thắm lén tách trồng đầu giường, Lợi lỡ miệng dạ) | E – bùa ngải | 2026-11-04 | pipeline/tiktok_ngai |
 
 ## QUY TẮC CHỌN TRUYỆN (cập nhật 29/10 — chủ kênh: "nhiều truyền thuyết, bí ẩn, lời đồn, câu chuyện vào chứ đừng loanh quanh vài con ma ai cũng biết, kể cả ma, tâm linh, chuyện nước ngoài... phải đáng sợ, hấp dẫn, li kì, tình tiết hợp lý")
 - XOAY VÒNG THỂ LOẠI, không 2 tập liền nhau cùng nhóm: (A) ma/tục lệ Việt ít ai kể · (B) truyền thuyết – bí ẩn Việt (vùng đất, di tích, vụ việc lạ) · (C) lời đồn/chuyện kể đô thị Việt có tình tiết riêng · (D) ma/truyền thuyết NƯỚC NGOÀI (Nhật, Thái, Phi, Indo, Hàn, Trung, Âu, Mỹ, Mỹ Latinh) · (E) tâm linh – nhân quả – bùa ngải.
@@ -71,7 +72,7 @@
 37. Mỹ Latinh — La Llorona (người mẹ khóc bên sông), đảo búp bê Xochimilco
 38. Bí ẩn thật — Đèo Dyatlov, con tàu Mary Celeste, làng Hoia-Baciu, đảo Poveglia, rừng Aokigahara (kể tôn trọng, tránh chi tiết tự hại)
 ### E. Tâm linh – nhân quả – bùa ngải
-39. Ngải Thất Sơn — nuôi ngải trên núi Cấm, ngải "đòi ăn" khi chủ bỏ bê
+39. ~~Ngải Thất Sơn~~ (TikTok 04/11) — nuôi ngải trên núi Cấm, ngải "đòi ăn" khi chủ bỏ bê
 40. Bùa yêu Khmer — bùa ép duyên, phản phệ khi người bỏ bùa chết trước
 41. Cây gạo đầu làng — vì sao không trồng gạo trong vườn
 42. Vong theo về từ chùa lạ — mượn đồ cúng, ăn đồ cúng cô hồn

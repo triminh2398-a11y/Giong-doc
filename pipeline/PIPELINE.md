@@ -92,3 +92,8 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Tiếng chuông/hiệu ứng nền: vừa đủ nghe, luôn sidechain dưới giọng kể.
 - (ĐÃ BỎ 29/10 tối — chủ kênh thích kết rùng rợn hơn) ~~NGOẠI LỆ: cú chốt cuối truyện được dùng âm thanh jumpscare MẠNH (788+1963+677+565, +5dB, hạ nền 0,6s trước) — hình vẫn là ma hiện trong cảnh + máy quay giật zoom vào mặt (không chèn ảnh full màn hình). Ma ló cửa: đặt card ngoài khung cửa cho tường/cánh cửa che tự nhiên, không để card cắm xuyên tường (bị cắt thẳng như lỗi).
 - KẾT TRUYỆN: không jumpscare. Dựng KHÔNG KHÍ: ma đứng im (ngoài cửa/cuối hành lang), ánh sáng nháy nhẹ, máy quay đẩy chậm, nền gần im lặng (room tone + gió + tim đập chậm) và ma thì thầm một câu ngắn gọi tên/“Anh… ơi…” (giọng ma chậm, phụ đề đỏ), để lặng 2–3 giây rồi mới vào câu hỏi cuối.
+
+## Mẫu TikTok mới nhất (04/11): pipeline/tiktok_ngai/ — Ngải Thất Sơn
+- HTML chia 4 phần: head.part (renderer, card(), ctex) + body.part (bối cảnh: nhà tường miền Tây + buồng thờ ngải, chợ Châu Đốc, núi Cấm có địa hình H(x,z), am thầy, chậu ngải 3D ngaiPot/potAnim, rễ Tube roots(q)) + over.part (phụ đề, watermark, title, CTA) + scenes.part (S[key] theo từng câu, mỗi cảnh đặt CUR='inn'|'mkt'|'mtn'). build.py ghép thành render/ng/index.html + voice.wav; audio.py = sfx.wav + jump.wav.
+- Nhân vật: ng_chars.js (loi, tham, thayBay, maTham, maLoi, khach, potDraw). Người nằm giường: inBed() (card đứng đầu giường y=-0.22 + chăn capsule). Ngồi bệt dưới đất: y=-0.55; ngồi mép giường: sit, y=0.
+- Bài học: chụp snap ở đầu VÀ 70% mỗi cảnh; cảnh núi phải tăng sáng (mtnMode); không đặt máy quay ngay sau khối chăn.
