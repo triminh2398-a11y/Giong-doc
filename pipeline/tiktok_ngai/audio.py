@@ -66,13 +66,14 @@ place(2234,span('gfinal')[0]+0.1,0.14,dur=span('gfinal')[1]-span('gfinal')[0])
 place(2430,S_('end',0.1),0.18,dur=3);place(2462,S_('end',0.05),0.18,dur=3)   # sáng hôm sau, gà gáy xa
 place(2482,span('cta')[0],0.16,dur=span('cta')[1]-span('cta')[0])
 # im lặng trước khoảnh khắc ma hiện (jump nhẹ)
-JT=[span('hook2')[0]+0.2,S_('gl',0.05),S_('silent',0.3),S_('voice',0.45),S_('gtm',0.3)]
+JT=[S_('hook',0.5),S_('hook2',0.05),S_('gl',0.35),S_('silent',0.88),S_('gtm',0.3),S_('realize',0.85)]
 for t in JT:s0=int((t-0.7)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,0.15,s1-s0)[:,None]
 a,b=span('final2');out[int(S_('final2',0.7)*SR):int(b*SR)]*=0.35   # lúc "dạ" — nền gần im
 out/=np.abs(out).max()*1.05
 jt=np.zeros((N,2))
 def jplace(i,t,g,dur):
     x=load(i);n=min(len(x),int(dur*SR));x=x[:n].copy();x[-int(0.25*SR):]*=np.linspace(1,0,int(0.25*SR))[:,None];s2=int(t*SR);m=min(n,N-s2);jt[s2:s2+m]+=x[:m]*g
-for t in JT:jplace(565,t-0.02,0.55,1.4);jplace(677,t,0.3,1.2);jplace(2630,t,0.25,2.0)
-jt/=np.abs(jt).max()*1.02;wavfile.write(D+'jump.wav',SR,(jt*32767).astype(np.int16))
+for t in JT:jplace(788,t-0.01,0.6,1.6);jplace(1963,t,0.45,1.3);jplace(565,t-0.02,0.5,1.4);jplace(677,t,0.3,1.2)
+jt/=np.abs(jt).max()*1.02;jt*=1.0
+wavfile.write(D+'jump.wav',SR,(jt*32767).astype(np.int16))
 wavfile.write(D+'sfx.wav',SR,(out*32767).astype(np.int16));print('ok',[round(t,1) for t in JT])

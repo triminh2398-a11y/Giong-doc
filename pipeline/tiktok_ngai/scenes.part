@@ -1,11 +1,11 @@
 // ================= cảnh =================
-const S={};let ctaFlag=false,BLACK=0,TITLE=false,RED=0;
+const S={};const JUMPS=[['hook',0.5],['hook2',0.05],['gl',0.35],['silent',0.88],['gtm',0.3,0],['realize',0.85]];let ctaFlag=false,BLACK=0,TITLE=false,RED=0;
 const PX=4.5,PZ=-2.15;// chậu ngải trên bàn thờ buồng
 const potCam=(p,d0=1.6,d1=1.0,fov=40,y=1.25)=>cm([PX+0.15,y,PZ+lerp(d0,d1,p)],[PX,1.12,PZ],fov);
 const buong=()=>{altarL.intensity=1.2;lampL.intensity=1.1;lampL.position.set(4.95,1.2,-1.8)};
 const flick=T=>0.85+0.15*Math.sin(T*11)*Math.sin(T*3.7);
 // ---- mở đầu ----
-S.hook=(lt,D,T)=>{CUR='inn';const p=sm(lt/D);night();lampL.intensity=0.35;moonSpot.intensity=4;buongDoor(1);altarL.intensity=0.7*flick(T);LAMP2.visible=false;potAnim(POT,T,{glow:0.7,pulse:1,amp:1.5});const rv=sm(seg(lt,D*0.45,D));if(lt>D*0.3){const up=sm(seg(lt,D*0.3,D*0.85));put(C.ma,4.95,-2.45,{a:0.97,open:0.2+0.35*rv,tilt:0},lerp(-1.35,-0.25,up));C.ma.material.emissiveIntensity=0.08+0.27*rv}fillL.color.set(0x9affc0);fillL.intensity=0.9*rv*flick(T);fillL.position.set(4.9,0.7,-1.7);cm([lerp(5.6,5.0,p),lerp(1.55,1.25,p),lerp(0.35,-0.9,p)],[lerp(4.75,4.9,p),lerp(1.0,1.2,p),-2.35],lerp(48,40,p));return 'inn'};
+S.hook=(lt,D,T)=>{CUR='inn';const p=sm(lt/D);night();lampL.intensity=0.35;moonSpot.intensity=4;buongDoor(1);const fl=lt>D*0.4&&lt<D*0.5;altarL.intensity=(fl?(Math.sin(lt*60)>0?0.05:0.9):0.7)*flick(T);LAMP2.visible=false;potAnim(POT,T,{glow:fl?0.1:0.7,pulse:1,amp:1.5,shake:lt>D*0.5});if(fl)BLACK=Math.sin(lt*60)>0?0.85:0.2;const rv=sm(seg(lt,D*0.5,D));if(lt>D*0.5){put(C.ma,4.95,-2.45,{a:0.97,open:0.35+0.35*rv,tilt:0},-0.25);C.ma.material.emissiveIntensity=0.2+0.15*rv}fillL.color.set(0x9affc0);fillL.intensity=(lt>D*0.5?1.1:0)*flick(T);fillL.position.set(4.9,0.7,-1.7);cm([lerp(5.6,5.0,p),lerp(1.55,1.25,p),lerp(0.35,-0.9,p)],[lerp(4.75,4.9,p),lerp(1.0,1.2,p),-2.35],lerp(48,40,p));return 'inn'};
 S.hook2=(lt,D,T)=>{CUR='inn';altarL.intensity=0.6*flick(T);lampL.intensity=0;LAMP2.visible=false;moonSpot.intensity=1;buongDoor(1);potAnim(POT,T,{glow:0.6,pulse:1,shake:true,amp:1.5});put(C.ma,4.95,-2.45,{a:0.97,open:0.55+0.3*sm(seg(lt,0.3,D)),tilt:0.06*Math.sin(T*0.6)},-0.25);C.ma.material.emissiveIntensity=0.35;fillL.color.set(0x9affc0);fillL.intensity=1.4*flick(T);fillL.position.set(4.85,0.7,-1.6);const sh=lt<0.4?Math.sin(lt*80)*0.03*(1-lt/0.4):0;const p=sm(lt/D);cm([4.75+sh,1.2+sh,lerp(-0.85,-1.15,p)],[4.95,1.2,-2.45],lerp(42,38,p));return 'inn'};
 S.title=(lt,D,T)=>{CUR='mtn';const p=sm(lt/D);TITLE=true;POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.0,pulse:1});cm([0.6,H(0,3)+lerp(1.4,1.8,p),lerp(3.5,3.0,p)],[0.2,H(0,-6)+1.6,-6],50);return 'mtn'};
 // ---- chợ ----
@@ -38,7 +38,7 @@ S.night=(lt,D,T)=>{CUR='inn';night();moonSpot.intensity=8;const p=sm(lt/D);put(C
 S.gl=(lt,D,T)=>{CUR='inn';altarL.intensity=1.6*flick(T);const q=sm(seg(lt,0,D*0.4));potAnim(POT,T,{glow:1.4,pulse:1,shake:true});put(C.ml,4.1,-1.5,{a:0.55+0.4*q,mouth:talk(lt)});cm([lerp(5.6,5.2,sm(lt/D)),1.5,0.3],[4.2,1.2,-1.6],lerp(46,38,sm(lt/D)));return 'inn'};
 S.night2=(lt,D,T,ls)=>{CUR='inn';night();moonSpot.intensity=8;const p=sm(seg(lt,0,D*0.75));put(C.tham,lerp(-1.0,2.5,p),lerp(0.2,-0.6,p),{phase:lt<D*0.75?T*6:0,look:1,arm:lt>D*0.75?[undefined,-1.4]:undefined});cm([lerp(-0.8,0.8,p),1.5,3.2],[lerp(-0.6,2.4,p),1.1,-0.6],44);return 'inn'};
 S.tmda=(lt,D,T)=>{CUR='inn';night();moonSpot.intensity=8;put(C.tham,2.5,-0.6,{mouth:talk(lt),look:1,arm:[undefined,-1.4]});close(C.tham,1.25,36,-0.45);return 'inn'};
-S.silent=(lt,D,T)=>{CUR='inn';altarL.intensity=1.2*flick(T);const q=sm(seg(lt,D*0.25,D));roots(q);potAnim(POT,T,{glow:1.2,pulse:1});const p=sm(lt/D);cm([lerp(3.3,3.5,p),lerp(2.0,1.7,p),lerp(-0.3,-0.6,p)],[4.0,0.1,-1.7],50);return 'inn'};
+S.silent=(lt,D,T)=>{CUR='inn';altarL.intensity=1.2*flick(T);const q=sm(seg(lt,D*0.25,D));roots(q);potAnim(POT,T,{glow:1.2,pulse:1});const p=sm(lt/D);if(lt>D*0.88){put(C.ml,4.05,-1.75,{a:0.95,mouth:'o'});cm([3.55,1.4,-0.45],[4.05,1.25,-1.75],44)}else cm([lerp(3.3,3.5,p),lerp(2.0,1.7,p),lerp(-0.3,-0.6,p)],[4.0,0.1,-1.7],50);return 'inn'};
 // ---- sáng hôm sau ----
 S.sick=(lt,D,T,ls)=>{CUR='inn';day();const two=lt>D*0.62;if(!two){inBed(C.tham,-1,{sick:true,eyes:0.4});put(C.loi,-0.7,-1.1,{look:-1,eyes:1.2});cm([-0.2,1.9,2.6],[-1.2,0.8,-1.5],46);return 'inn'}
  potAnim(POT,T,{glow:0.6,shoot:1,pulse:1});altarL.intensity=0.5;potCam(sm(seg(lt,D*0.62,D)),1.3,0.85,38,1.25);return 'inn'};
@@ -75,7 +75,7 @@ S.twist=(lt,D,T)=>{CUR='inn';night();LAMP1.visible=false;lampL.position.set(-0.6
  else cm([-0.8,0.95,lerp(-1.2,-1.5,p)],[-0.85,0.65,-2.25],40);return 'inn'};
 S.tmtwist=(lt,D,T)=>{CUR='inn';night();lampL.position.set(-0.6,1.0,-1.6);showPot2(T,{glow:0.3});inBed(C.tham,-1,{look:1,smileF:true,mouth:talk(lt)});blkA.scale.set(1.25,0.5,0.8);{const c=C.tham;cm([c.position.x+0.7,1.55,c.position.z+1.6],[c.position.x,1.0,c.position.z],38)};return 'inn'};
 S.realize=(lt,D,T)=>{CUR='inn';night();lampL.position.set(-0.6,1.0,-1.6);showPot2(T,{glow:0.9,pulse:1,shake:lt>D*0.5});if(lt<D*0.5){put(C.loi,0.2,-0.9,{look:-1,eyes:1.4,pupil:2,sweat:(T*0.5)%1});close(C.loi,lerp(1.5,1.15,sm(lt/D*2)),36,-0.2)}
- else cm([-0.8,0.9,-1.35],[-0.85,0.65,-2.25],38);return 'inn'};
+ else{if(lt>D*0.85){put(C.ma,-0.72,-2.5,{a:0.97,open:0.7},-0.3);fillL.color.set(0x9affc0);fillL.intensity=1.2;fillL.position.set(-0.6,0.6,-1.8);cm([-0.75,1.0,-0.9],[-0.7,0.95,-2.3],44)}else cm([-0.8,0.9,-1.35],[-0.85,0.7,-2.25],38)}return 'inn'};
 // ---- kết: không jumpscare, chỉ không khí ----
 S.final=(lt,D,T)=>{CUR='inn';fillL.intensity=1.2;fillL.position.set(-1.9,1.7,-1.0);moonSpot.intensity=6;LAMP1.visible=false;showPot2(T,{glow:0.7,pulse:1});inBed(C.tham,-1,{back:true});inBed(C.loi,1,{eyes:1.1,look:-1});cm([-1.8,2.4,lerp(0.1,-0.1,sm(lt/D))],[-1.85,0.95,-2.15],52);return 'inn'};
 S.gfinal=(lt,D,T)=>{CUR='inn';fillL.intensity=0.9;fillL.position.set(-1.9,1.7,-1.0);moonSpot.intensity=5*flick(T);LAMP1.visible=false;showPot2(T,{glow:1.2,pulse:1});inBed(C.tham,-1,{back:true});inBed(C.loi,1,{eyes:0.5,look:-1});
@@ -91,10 +91,13 @@ window.draw=function(t){const sc=TLD.scenes.find(s=>t>=s[1]&&t<s[2])||TLD.scenes
  smoke.forEach((s,i)=>{const p=(t*0.15+i/12)%1;s.position.set(4.1+Math.sin(p*6+i)*0.06,1.15+p*1.2,-2.1);s.scale.setScalar(0.08+p*0.3);s.material.opacity=0.18*Math.sin(p*Math.PI)});
  mist.forEach((m,i)=>{const z=6-i*0.6;const x=((R(i)*14+t*0.15)%14)-7;m.position.set(x,H(x,z)+0.5+R(i+2)*0.6,z)});
  if(!S[k])console.log('missing',k);const mode=S[k](lt,D,t,ls);cam.aspect=RW/RH;cam.updateProjectionMatrix();
+ let JF=0;for(const [jk,jf,jz] of JUMPS){const sc2=TLD.scenes.find(q=>q[0]===jk);if(!sc2)continue;const tj=sc2[1]+(sc2[2]-sc2[1])*jf,dt=t-tj;if(dt<0||dt>1.4)continue;const zz=jz??0.45;const z=dt<0.1?dt/0.1*zz:zz*Math.max(0,1-(dt-0.1)/1.3);const tv=new THREE.Vector3(...CT);cam.position.lerp(tv,z);if(dt<0.5){const a2=0.05*(1-dt/0.5);cam.position.x+=(R(t*977)-0.5)*a2*2;cam.position.y+=(R(t*631)-0.5)*a2*2}cam.lookAt(tv);JF=dt}
+ const JA=TLD.scenes.length&&JUMPS.some(([jk,jf])=>{const q=TLD.scenes.find(x=>x[0]===jk);if(!q)return false;const d2=t-(q[1]+(q[2]-q[1])*jf);return d2>=0&&d2<0.3});
  for(const kk in CC[mode]){const c=CC[mode][kk];if(!c.visible)continue;c.userData.paint(t);c.lookAt(cam.position.x,c.position.y,cam.position.z)}
  renderer.render(SCN[mode],cam);
  const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.55)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH);
  if(RED){g2.fillStyle=`rgba(140,0,0,${RED})`;g2.fillRect(0,0,RW,RH)}
+ if(JA){if(JF<0.06){g2.fillStyle='rgba(255,255,255,.55)';g2.fillRect(0,0,RW,RH)}else{g2.fillStyle=`rgba(160,0,0,${0.35*(1-JF/0.3)})`;g2.fillRect(0,0,RW,RH)}}
  if(BLACK){g2.fillStyle=`rgba(0,0,0,${BLACK})`;g2.fillRect(0,0,RW,RH)}
  grain(0.06);
  if(TITLE)titleTxt(lt,sm(seg(lt,0.1,0.6)));
