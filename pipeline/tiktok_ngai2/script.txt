@@ -1,0 +1,43 @@
+hook|N|Ở Thất Sơn có một loại ngải, người ta gọi là ngải kêu người. Trồng nó, thì người mình thương dù ở đâu cũng phải tìm về.
+hook2|N|Nhưng thầy ngải nào cũng dặn một câu: ngải kêu người... chứ không hỏi người đó còn sống, hay đã chết.
+title|N|Ngải Thất Sơn. Ngải kêu người.
+tham|N|Thắm bán cơm ở chợ Tịnh Biên. Chồng cô là Lợi, qua bên kia biên giới làm phụ hồ, đã ba tháng không một cuộc gọi.
+rumor|N|Người trong xóm xì xầm, Lợi có vợ bé bên đó rồi. Thắm không tin. Nhưng đêm nào cô cũng ngồi ôm cái điện thoại tới sáng.
+mount|N|Đêm rằm tháng bảy, Thắm lén leo núi Cấm, tìm tới am của thầy Bảy.
+thay|N|Thầy nhìn cô rất lâu, rồi bưng ra một chậu ngải nhỏ. Lá dài, gân đỏ như mạch máu.
+thay2|TB|Ngải này kêu chồng mầy về. Nhưng nhớ ba điều. Một, đêm nào cũng nhỏ ba giọt máu ngón áp út, ngón đeo nhẫn cưới, cho nó ăn.
+thay3|TB|Hai, nó về rồi thì hổng được hỏi nó đi đâu, gặp chuyện gì. Hỏi... là nó nhớ ra.
+thay4|TB|Ba. Ngải kêu người, chứ hổng hỏi người đó còn sống hay đã chết. Mầy chịu, thì đem về.
+feed|N|Thắm đem chậu ngải về, đặt ở đầu giường. Đêm nào cô cũng chích ngón áp út, nhỏ ba giọt máu. Lá ngải rung lên khe khẽ, như đang nuốt.
+back|N|Đêm thứ bảy, trời mưa tầm tã, có tiếng gõ cửa. Thắm mở ra. Là Lợi. Người ướt sũng, đứng im ngoài hiên.
+loi1|L|Thắm... anh về rồi nè.
+thamhug|TM|Anh Lợi! Anh đi đâu mà mất biệt vậy? Em lo muốn chết...
+rule2|N|Lợi không trả lời. Thắm sực nhớ lời thầy Bảy dặn, vội nuốt nước mắt, kéo chồng vô nhà.
+odd1|N|Lợi về, nhưng khác lắm. Anh không đụng tới một hột cơm, chỉ uống nước lạnh. Người lúc nào cũng lạnh ngắt, phảng phất mùi đất ẩm.
+odd2|N|Ban ngày anh nằm im như khúc gỗ. Đêm xuống, anh ngồi đầu giường, nhìn chậu ngải không chớp mắt.
+odd3|N|Có đêm Thắm giật mình thức giấc, thấy chồng cúi sát chậu ngải, thì thầm gì đó. Lá ngải ngả hết về phía anh.
+thamask|TM|Anh... anh nói chuyện với ai vậy?
+loi2|L|Không có ai hết. Em ngủ đi.
+shadow|N|Rồi Thắm để ý một chuyện. Dưới ánh đèn dầu, bóng cô in lên vách. Còn bóng của Lợi... thì không có.
+call|N|Sáng hôm sau, có người gọi điện từ bên kia biên giới. Là anh Tư, người dẫn Lợi qua đó làm.
+tu|TU|Thắm hả... anh xin lỗi giờ mới dám báo. Thằng Lợi bị sập giàn giáo, mất hơn ba tháng rồi. Tụi anh đào hoài mà không thấy xác...
+realize|N|Cái điện thoại rơi khỏi tay Thắm. Ba tháng. Đúng từ cái đêm cô bắt đầu gặp ác mộng.
+realize2|N|Cô từ từ quay lại. Lợi đứng sau tấm màn buồng, mặt trắng bệch, nhìn cô trân trân.
+loi3|L|Em hỏi anh đi đâu... Giờ anh nhớ ra rồi. Dưới đó lạnh lắm em.
+callbay|N|Thắm chạy ra đầu ngõ, run rẩy gọi cho thầy Bảy. Giọng thầy lạnh băng.
+tb5|TB|Đó là xác thằng Lợi, ngải kêu về, ngải nuôi bằng máu mầy. Muốn cắt, trước giờ Tý đêm nay ôm chậu ra ngã ba, đập bể, nhổ cái rễ cái lên.
+tb6|TB|Nó sẽ đi theo kêu mầy. Đừng quay lại. Ngải ăn máu ngón tay nào... thì nó giữ ngón đó.
+run|N|Gần nửa đêm, Thắm ôm chậu ngải chạy ra ngã ba. Chậu nặng dần, ấm dần, như đang ôm một đứa con nít.
+follow|N|Sau lưng cô, có tiếng bước chân lép nhép, kéo lê. Rồi giọng Lợi, dịu dàng như hồi mới cưới.
+gl1|GL|Thắm ơi... anh lạnh quá... cho anh ôm em một cái thôi...
+nturn|N|Thắm cắn môi tới bật máu. Không quay đầu. Tới ngã ba, cô dồn hết sức đập mạnh cái chậu xuống đất.
+root|N|Đất văng tung tóe. Cái rễ cái của ngải quấn chặt một chiếc nhẫn cưới, đã đen sì. Rễ con bò lên, siết lấy ngón áp út của cô.
+cut|N|Thắm nghiến răng, giật mạnh tay ra. Rễ đứt lìa. Ngón tay cô rách toạc, máu chảy ròng ròng.
+fall|N|Sau lưng cô vang lên một tiếng huỵch. Rồi im bặt.
+corpse|N|Thắm quay lại. Giữa ngã ba là xác Lợi, nằm sấp, người đầy bùn đất, như vừa được đào lên.
+end|N|Người ta đưa Lợi đi chôn cất đàng hoàng. Ai cũng nói, Thắm thương chồng tới mức kêu được cả xác về.
+end2|N|Nhưng đêm rằm tháng sau, Thắm ngồi một mình, gỡ lớp băng ở ngón áp út.
+final|N|Ngay chỗ vết thương, có cái gì đó nhú lên. Một chồi lá nhỏ, gân đỏ như mạch máu.
+gfinal|GL|Thắm ơi... anh về nè...
+cta|N|Nếu được kêu người thương quay về, dù họ đã chết... bạn có dám trồng ngải không?
+cta|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ nhé.
