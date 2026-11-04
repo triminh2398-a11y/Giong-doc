@@ -1,1 +1,3 @@
 __pycache__/
+pipeline/tiktok_ngai/*.wav
+pipeline/tiktok_ngai/*.mp4
