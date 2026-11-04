@@ -73,14 +73,14 @@ const leafT=ctex(128,512,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#2f5a2c';g.
  g.strokeStyle='#d8202a';g.lineWidth=5;g.beginPath();g.moveTo(w/2,h);g.lineTo(w/2,10);g.stroke();g.lineWidth=2.5;for(let j=1;j<9;j++){const y=h-j*h/9;for(const sd of [-1,1]){g.beginPath();g.moveTo(w/2,y);g.quadraticCurveTo(w/2+sd*20,y-14,w/2+sd*34,y-36);g.stroke()}}});
 function ngaiPot(par,x,y,z,s=1,small=false){const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(s);par.add(g);
  const p=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.14,0.28,18),M({color:0xa8542e,roughness:0.8}));p.position.y=0.14;p.castShadow=true;g.add(p);const rim=new THREE.Mesh(new THREE.TorusGeometry(0.2,0.025,8,24),M({color:0x8a4022}));rim.rotation.x=Math.PI/2;rim.position.y=0.28;g.add(rim);
- const soil=new THREE.Mesh(new THREE.CircleGeometry(0.19,20),M({color:0x2a1a10}));soil.rotation.x=-Math.PI/2;soil.position.y=0.27;g.add(soil);
- const bulb=new THREE.Mesh(new THREE.SphereGeometry(0.08,12,10),M({color:0xb08a6a}));bulb.scale.y=0.7;bulb.position.y=0.29;g.add(bulb);
+ const soil=new THREE.Mesh(new THREE.CircleGeometry(0.19,20),M({color:0x1a120c,roughness:1}));soil.rotation.x=-Math.PI/2;soil.position.y=0.27;g.add(soil);
+ const bulb=new THREE.Mesh(new THREE.SphereGeometry(0.07,12,10),M({color:0x8a6a4a}));bulb.scale.y=0.45;bulb.position.y=0.27;g.add(bulb);
  const leafM=new THREE.MeshStandardMaterial({map:leafT,transparent:true,alphaTest:0.3,side:THREE.DoubleSide,emissive:0x400000,emissiveIntensity:0.6});const L=[];
- const n=small?6:10;for(let k=0;k<n;k++){const piv=new THREE.Group();piv.position.y=0.28;piv.rotation.y=k*2.39;g.add(piv);const lf=new THREE.Mesh(new THREE.PlaneGeometry(0.11,0.55*(0.75+R(k)*0.4)),leafM);lf.geometry.translate(0,lf.geometry.parameters.height/2,0);lf.rotation.x=0.25+R(k+4)*0.45;piv.add(lf);L.push(lf)}
- const sh=new THREE.Mesh(new THREE.ConeGeometry(0.035,0.32,8),new THREE.MeshStandardMaterial({color:0xc01820,emissive:0x900010,emissiveIntensity:1}));sh.geometry.translate(0,0.16,0);sh.rotation.z=-0.2;sh.position.set(0.05,0.28,0.04);sh.visible=false;g.add(sh);
- const gl=new THREE.PointLight(0xff2a2a,0,2.2,1.6);gl.position.y=0.5;g.add(gl);
+ const n=small?8:14;for(let k=0;k<n;k++){const piv=new THREE.Group();piv.position.y=0.27;piv.rotation.y=k*2.39;g.add(piv);const hh=0.55*(0.7+R(k)*0.45);const lf=new THREE.Group();for(const ry of [0,Math.PI/2]){const pl=new THREE.Mesh(new THREE.PlaneGeometry(0.12,hh),leafM);pl.geometry.translate(0,hh/2,0);pl.rotation.y=ry;pl.castShadow=true;lf.add(pl)}lf.userData.b=0.12+R(k+4)*0.3;lf.rotation.x=lf.userData.b;piv.add(lf);L.push(lf)}
+ const sh=new THREE.Mesh(new THREE.ConeGeometry(0.03,0.34,8),new THREE.MeshStandardMaterial({color:0xc01820,emissive:0x900010,emissiveIntensity:1}));sh.geometry.translate(0,0.17,0);sh.position.set(0.02,0.27,0.02);sh.visible=false;g.add(sh);
+ const gl=new THREE.PointLight(0xff2a2a,0,2.6,1.4);gl.position.set(0,0.95,0.25);g.add(gl);
  g.userData={L,sh,gl,leafM};return g}
-function potAnim(P,T,o={}){const{L,sh,gl,leafM}=P.userData;L.forEach((l,k)=>{l.rotation.x=0.25+R(k+4)*0.45+Math.sin(T*(o.shake?14:1.6)+k)*(o.shake?0.07:0.025)*(o.amp||1);l.rotation.z=Math.sin(T*1.2+k*2)*0.03});sh.visible=!!o.shoot;sh.scale.y=o.shoot||1;gl.intensity=o.glow||0;leafM.emissiveIntensity=0.5+(o.pulse?0.6*(0.5+0.5*Math.sin(T*4)):0)}
+function potAnim(P,T,o={}){const{L,sh,gl,leafM}=P.userData;L.forEach((l,k)=>{l.rotation.x=l.userData.b+Math.sin(T*(o.shake?14:1.6)+k)*(o.shake?0.07:0.025)*(o.amp||1);l.rotation.z=Math.sin(T*1.2+k*2)*0.03});sh.visible=!!o.shoot;sh.scale.y=o.shoot||1;gl.intensity=o.glow||0;leafM.emissiveIntensity=0.5+(o.pulse?0.6*(0.5+0.5*Math.sin(T*4)):0)}
 const POT=ngaiPot(HOUSE,4.5,0.8,-2.15,1.0);
 const POT2=ngaiPot(HOUSE,-0.85,0.45,-2.25,0.6,true);
 // rễ bò trên nền (buồng) — TubeGeometry, mọc theo q
@@ -130,7 +130,7 @@ const pathX=z=>Math.sin(z*0.35)*0.4;
 // đá tảng
 const rockM=M({color:0x5a5a52,roughness:1});function rock(x,z,s){const r=new THREE.Mesh(new THREE.DodecahedronGeometry(s,0),rockM);r.position.set(x,H(x,z)+s*0.5,z);r.rotation.set(R(x)*3,R(z)*3,0);r.castShadow=true;r.receiveShadow=true;mtn.add(r);return r}
 for(let k=0;k<40;k++){const z=6-k*0.5;const sd=k%2?1:-1;rock(sd*(1.6+R(k)*3),z+R(k+7),0.3+R(k+1)*0.7)}
-const BIG=rock(1.8,-10.5,1.6);BIG.scale.set(1.3,1.1,1.0);
+const BIG=rock(2.8,-11.4,1.6);BIG.scale.set(1.3,1.1,1.0);
 // cây rừng + cây thốt nốt
 const trunkM=M({color:0x2a2018}),crownM=M({color:0x16241a});
 function tree(x,z,h){const y=H(x,z);const t=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.18,h,7),trunkM);t.position.set(x,y+h/2,z);t.castShadow=true;mtn.add(t);for(let k=0;k<3;k++){const c=new THREE.Mesh(new THREE.SphereGeometry(0.9+R(x+k)*0.6,10,8),crownM);c.position.set(x+(R(k+x)-0.5),y+h+k*0.4-0.2,z+(R(k+z)-0.5));c.castShadow=true;mtn.add(c)}}
@@ -147,7 +147,7 @@ box(0.9,0.06,0.6,M({map:plank('#6a4426')}),0.6,0.75,0.3,AM);for(const [a,b] of [
 const LAMP3=oilLamp(AM,0.95,0.78,0.2);const amL=new THREE.PointLight(0xffa850,0,7,1.4);amL.position.set(0.9,1.1,0.4);AM.add(amL);amL.castShadow=true;
 const POT_AM=ngaiPot(AM,0.45,0.78,0.3,0.9);
 // chậu ngải trên đỉnh (đặt xuống đất)
-const POT_TOP=ngaiPot(mtn,0.6,H(0.6,-9.6),-9.6,1.0);
+const POT_TOP=ngaiPot(mtn,0.2,H(0.2,-9.4),-9.4,1.0);
 // trăng + ánh sáng
 const mMoon=new THREE.DirectionalLight(0x8aa4ff,1.2);mMoon.position.set(-8,16,6);mMoon.castShadow=true;mMoon.shadow.mapSize.set(2048,2048);Object.assign(mMoon.shadow.camera,{left:-16,right:16,top:16,bottom:-16,far:60});mtn.add(mMoon);
 const mtHemi=new THREE.HemisphereLight(0x2a3450,0x0a0a0a,0.6);mtn.add(mtHemi);

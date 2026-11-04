@@ -57,14 +57,13 @@ S.gtm=(lt,D,T)=>{CUR='mtn';const z=-3;climbAt(z,{eyes:1.35,pupil:2,phase:0});con
 S.voice2=(lt,D,T)=>{CUR='mtn';if(lt<D*0.45){const z=-3;climbAt(z,{bite:true,eyes:1.3,pupil:2,phase:0});putM(C.ma,pathX(z+1.3)-0.55,z+1.3,{a:0.7});close(C.loi,1.25,36,0.3);return 'mtn'}
  const p=sm(seg(lt,D*0.45,D));const z=lerp(-4,-8,p);climbAt(z,{bite:true,phase:T*5});const zg=z+2.2;putM(C.ma,pathX(zg),zg,{a:0.55});cm([pathX(z)+2.6,H(0,z+5)+2.2,z+6],[pathX(z),H(0,z)+1.0,z],44);return 'mtn'};
 // ---- đỉnh núi ----
-const TX=0.6,TZ=-9.6;
+const TX=0.2,TZ=-9.4;
 S.dig=(lt,D,T)=>{CUR='mtn';const ty=H(TX,TZ);putM(C.loi,TX-0.35,TZ+0.35,{sit:true,armA:[-0.5,0.5],eyes:1.1},-0.55);POT_TOP.visible=lt>D*0.45;potAnim(POT_TOP,T,{glow:0.8,pulse:1});carryL.intensity=1;carryL.position.set(TX,ty+0.6,TZ+0.6);mfill.intensity=0.8;mfill.position.set(TX+1,ty+1.8,TZ+2);
  const p=sm(lt/D);cm([TX+lerp(2.4,1.6,p),ty+1.6,TZ+3.2],[TX+0.1,ty+0.7,TZ],42);return 'mtn'};
 S.cut=(lt,D,T)=>{CUR='mtn';const ty=H(TX,TZ);putM(C.loi,TX-0.35,TZ+0.35,{sit:true,armA:[-0.5,0.5],roots:1,eyes:1.3,pupil:2},-0.55);POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.4,pulse:1,shake:true});carryL.intensity=1.4;carryL.position.set(TX,ty+0.6,TZ+0.6);
  cm([TX+0.9,ty+0.95,TZ+lerp(2.0,1.6,sm(lt/D))],[TX-0.1,ty+0.55,TZ],38);return 'mtn'};
-S.cut2=(lt,D,T)=>{CUR='mtn';mtnMode(lt>D*0.3?'dawn':'night');const ty=H(TX,TZ);const k=lt>D*0.5;putM(C.loi,TX-0.35,TZ+0.35,{sit:true,knife:true,glint:k?1:0.3,bite:true,eyes:1.2,armA:[-0.5]},-0.55);POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.2,shake:true});
- cm([TX-1.3,ty+0.9,TZ+lerp(2.8,2.3,sm(lt/D))],[TX-0.1,ty+1.2,TZ],44);
- if(lt>D*0.86){BLACK=0.92;RED=0.25}return 'mtn'};
+S.cut2=(lt,D,T)=>{CUR='mtn';mtnMode(lt>D*0.25?'dawn':'night');const ty=H(TX,TZ);const pull=sm(seg(lt,D*0.45,D*0.62));putM(C.loi,TX-0.35,TZ+0.35,{sit:true,armA:[-0.5,lerp(0.5,-0.6,pull)],roots:pull<0.5?1:0,bite:true,eyes:lerp(1.1,1.45,pull),pupil:2},-0.55);POT_TOP.visible=true;potAnim(POT_TOP,T,{glow:1.2+pull,shake:true,pulse:1});carryL.intensity=1.2;carryL.position.set(TX,ty+0.6,TZ+0.6);
+ cm([TX-1.3,ty+0.9,TZ+lerp(2.8,2.3,sm(lt/D))],[TX-0.1,ty+1.0,TZ],44);if(lt>D*0.55&&lt<D*0.66)RED=0.35*(1-seg(lt,D*0.55,D*0.66));return 'mtn'};
 S.rooster=(lt,D,T)=>{CUR='mtn';mtnMode('dawn');const ty=H(TX,TZ);put(C.ga,TX+0.75,TZ+0.1,{},H(TX+0.75,TZ+0.1)-0.02);putM(C.loi,TX-0.35,TZ+0.35,{sit:true,bandage:1,armA:[-0.4,0.6],eyes:0.6},-0.55);POT_TOP.visible=true;potAnim(POT_TOP,T,{});const p=sm(lt/D);cm([TX+0.3,ty+lerp(1.2,1.4,p),TZ+3.9],[TX+0.3,ty+0.8,TZ],48);return 'mtn'};
 // ---- về nhà ----
 S.home=(lt,D,T)=>{CUR='inn';day();inBed(C.tham,-1,{look:1,eyes:1.05});blkA.scale.set(1.25,0.5,0.8);put(C.loi,-0.6,-0.5,{bandage:1,look:-1,eyes:0.9});cm([0.3,1.7,2.4],[-1.4,0.9,-1.4],42);return 'inn'};
