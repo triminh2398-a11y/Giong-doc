@@ -169,7 +169,7 @@ let CUR='inn';const C=new Proxy({},{get:(t,k)=>CC[CUR][k]});
 function put(c,x,z,o,y){c.visible=true;c.position.set(x,(y||0)+0.98,z);c.userData.o=o||{}}
 const putM=(c,x,z,o)=>put(c,x,z,o,H(x,z));
 function hideAll(){for(const sn in CC)for(const k in CC[sn])CC[sn][k].visible=false;lampL.intensity=0;fillL.intensity=0;altarL.intensity=0;dayL.intensity=0;sunL.intensity=0;moonSpot.intensity=10;winM.map=winT;roots(0);buongDoor(0);LAMP1.visible=true;
- potAnim(POT,0);potAnim(POT2,0);POT2.visible=false;POT.visible=true;amL.intensity=0;carryL.intensity=0;mfill.intensity=0;POT_TOP.visible=false;POT_AM.visible=false;blkA.visible=false;blkB.visible=false;MUNG.visible=true;mktMode(false);mtnMode('night')}
+ potAnim(POT,0);potAnim(POT2,0);LAMP2.visible=true;fillL.color.set(0xc8b8a8);POT2.visible=false;POT.visible=true;amL.intensity=0;carryL.intensity=0;mfill.intensity=0;POT_TOP.visible=false;POT_AM.visible=false;blkA.visible=false;blkB.visible=false;MUNG.visible=true;mktMode(false);mtnMode('night')}
 function cm(P,L,fov){cam.fov=fov||45;cam.position.set(...P);cam.lookAt(...L)}
 function close(c,dist,fov=36,side=0.3,dy=0){const hy=HY+(c.position.y-0.98);const x=c.position.x,z=c.position.z;dist+=0.8;cm([x+side,hy+0.05+dy,z+dist],[x,hy-0.12+dy,z],fov)}
 const ST=TLD.starts,DU=TLD.durs;

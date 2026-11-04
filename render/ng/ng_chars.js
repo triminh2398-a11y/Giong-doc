@@ -43,15 +43,31 @@ function thayBay(x,y,s,o={}){const T=o.T||0;const armA=o.armA||[undefined,undefi
  if(o.pot)potDraw(0,-104,0.5,T,{glow:0.3});
  ctx.restore()}
 // ma Thắm (ngải giả dạng): da xám xanh, gân đỏ, tóc rũ, mắt hốc
-function maTham(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;if(o.glow!==0)halo(x,fy-280*s,260*s,'255,40,50',0.18);
- woman(x,fy,s,{shirt:'#4a2a48',pants:'#1a1018',dress:true,skin:'#a9b4a6',creepy:true,grin:o.grin??0.35,eyes:1,t:T,arm:o.arm});
+// mặt ma kiểu Ma Lai: mặt lộ rõ, hốc mắt đen + đồng tử đỏ phát sáng, miệng toác răng, máu chảy; tóc chỉ ở sau/hai bên (không che mặt)
+function ghostFace(T,o={}){const R0=58,sk=o.skin||'#b8c0b2',open=o.open??0.7;
+ halo(0,10,170,'255,40,40',0.14*(o.glow??1));
+ circ(0,0,R0,sk,INK,4);
+ ctx.fillStyle='rgba(40,60,50,.3)';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*36,26,11,18,sd*0.3,0,7);ctx.fill()}
+ // tóc: chỏm trên + mái rẽ ngôi giữa ôm hai bên má (không che mắt)
+ ctx.fillStyle=HAIR;ctx.beginPath();ctx.arc(0,0,R0+3,Math.PI*0.96,Math.PI*2.04);ctx.quadraticCurveTo(R0*0.55,-R0*0.55,4,-R0*0.62);ctx.quadraticCurveTo(-R0*0.55,-R0*0.55,-R0-3,R0*0.08);ctx.fill();
+ for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*(R0-6),-20);ctx.quadraticCurveTo(sd*(R0+6),30,sd*(R0-2),R0+20);ctx.lineTo(sd*(R0+12),R0+30);ctx.quadraticCurveTo(sd*(R0+16),0,sd*(R0+2),-30);ctx.fill()}
+ // gân đỏ ngải bò trên mặt + vết nứt
+ ctx.strokeStyle='rgba(185,20,30,.85)';ctx.lineWidth=1.8;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*12,48);ctx.quadraticCurveTo(sd*34,26,sd*48,-4);ctx.stroke();ctx.beginPath();ctx.moveTo(sd*32,26);ctx.lineTo(sd*50,30);ctx.stroke();ctx.beginPath();ctx.moveTo(sd*40,10);ctx.lineTo(sd*52,4);ctx.stroke()}
+ ctx.strokeStyle='rgba(60,30,40,.45)';ctx.lineWidth=1.5;for(let k=0;k<4;k++){ctx.beginPath();ctx.moveTo(-30+k*20,-34);ctx.lineTo(-26+k*20+rnd(k)*8,-18);ctx.lineTo(-29+k*20,-6);ctx.stroke()}
+ // hốc mắt đen sâu + đồng tử đỏ
+ for(const sd of [-1,1]){ctx.fillStyle='#030303';ctx.beginPath();ctx.ellipse(sd*21,8,16,o.closed?3:19,sd*0.15,0,7);ctx.fill();
+  if(!o.closed){halo(sd*21+(o.look||0)*5,10,14,'255,60,40',0.7);circ(sd*21+(o.look||0)*5,10,3.4,'#ff3020')}
+  ctx.fillStyle='#6a0a10';const len=14+((T*18+sd*7)%26);ctx.fillRect(sd*21-2,24,4,len);circ(sd*21,24+len,3.5,'#6a0a10')}
+ // miệng toác răng
+ const mh=12+open*9;ctx.fillStyle='#120404';ctx.beginPath();ctx.moveTo(-34,26);ctx.quadraticCurveTo(0,34,34,26);ctx.quadraticCurveTo(0,26+mh*2,-34,26);ctx.fill();
+ ctx.fillStyle='#d6d2c0';for(let k=-4;k<=4;k++){ctx.beginPath();ctx.moveTo(k*7-3,30);ctx.lineTo(k*7+3,30);ctx.lineTo(k*7,40);ctx.fill();const yb=26+mh*0.95-Math.abs(k)*1.8;ctx.beginPath();ctx.moveTo(k*7-3,yb+6);ctx.lineTo(k*7+3,yb+6);ctx.lineTo(k*7,yb-4);ctx.fill()}
+ ctx.fillStyle='#5a0a0e';for(let k=0;k<3;k++){const x=-12+k*12,len=14+((T*30+k*17)%40);ctx.fillRect(x-2,26+mh,4,len);circ(x,26+mh+len,4,'#5a0a0e')}}
+// ma Thắm (ngải giả dạng): da xám xanh, gân đỏ, tóc dài sau lưng, mặt lộ rõ
+function maTham(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;if(o.glow!==0)halo(x,fy-280*s,280*s,'255,40,50',0.2);
+ woman(x,fy,s,{shirt:'#4a2a48',pants:'#1a1018',dress:true,skin:'#a9b4a6',creepy:true,grin:0.3,eyes:1,t:T,arm:o.arm});
  ctx.translate(x,fy);ctx.scale(s,s);
- // gân đỏ bò trên cổ, tay
  ctx.strokeStyle='rgba(170,20,30,.85)';ctx.lineWidth=2;for(let k=0;k<6;k++){ctx.beginPath();ctx.moveTo(-18+k*7,-214);ctx.quadraticCurveTo(-24+k*9,-190,-14+k*6+Math.sin(T+k)*3,-160);ctx.stroke()}
- ctx.translate(0,-278);if(o.face){halo(0,0,200,'255,60,60',0.16);scaryFace(T,{woman:true,open:o.open??0.5,skin:'#a3ae9f'})}
- wetHair(56,T,!o.face);
- // gân lá đỏ trên mặt
- ctx.strokeStyle='rgba(190,20,30,.8)';ctx.lineWidth=1.8;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*10,40);ctx.quadraticCurveTo(sd*30,20,sd*44,-6);ctx.stroke();ctx.beginPath();ctx.moveTo(sd*30,22);ctx.lineTo(sd*46,24);ctx.stroke()}
+ ctx.translate(0,-278);ctx.rotate(o.tilt??Math.sin(T*0.7)*0.06);ghostFace(T,{open:o.open??(0.45+0.25*Math.sin(T*2.2)),closed:o.closed,look:o.look});
  ctx.restore()}
 // ma Lợi (ngải giả giọng): mờ, tái, mắt hốc
 function maLoi(x,y,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.8;halo(x,y-280*s,240*s,'255,40,50',0.16);person(x,y,s,{shirt:'#3a2e24',pants:'#141416',skin:'#a9b4a6',hair:'#0c0c0c',eyes:0.01,mouth:o.mouth});ctx.translate(x,y);ctx.scale(s,s);ctx.translate(0,-278);
