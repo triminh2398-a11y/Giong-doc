@@ -100,6 +100,6 @@ window.draw=function(t){const sc=TLD.scenes.find(s=>t>=s[1]&&t<s[2])||TLD.scenes
  if(TITLE)titleTxt(lt,sm(seg(lt,0.1,0.6)));
  if(ctaFlag)ctaTxt(sm(seg(lt,0.1,0.6)));
  const d=Math.min(t-a,b-t);if(d<0.08&&a>0){g2.fillStyle=`rgba(0,0,0,${1-d/0.08})`;g2.fillRect(0,0,RW,RH)}
- watermark(t);if(k!=='title')subs(t)};
+ if(k!=='title')subs(t)};
 Promise.all(IMGS).then(()=>{window.READY=true});
 </script></body></html>
