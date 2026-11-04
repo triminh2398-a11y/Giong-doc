@@ -84,9 +84,9 @@ function potAnim(P,T,o={}){const{L,sh,gl,leafM}=P.userData;L.forEach((l,k)=>{l.r
 const POT=ngaiPot(HOUSE,4.5,0.8,-2.15,1.0);
 const POT2=ngaiPot(HOUSE,-0.85,0.45,-2.25,0.6,true);
 // rễ bò trên nền (buồng) — TubeGeometry, mọc theo q
-const ROOTS=[];const rootM=M({color:0x4a2214,roughness:0.8});
+const ROOTS=[];const rootM=M({color:0xc89a6a,roughness:0.7,emissive:0x802020,emissiveIntensity:0.8});
 for(let k=0;k<6;k++){const pts=[];const x0=4.5,z0=-2.0;for(let i=0;i<=10;i++){const t=i/10;pts.push(new THREE.Vector3(lerp(x0,3.1+R(k)*0.2,t)+Math.sin(t*8+k)*0.12,i===0?0.85:0.02+0.02*R(i+k),lerp(z0,-1.2+(R(k+2)-0.5)*0.8,t)+Math.cos(t*6+k)*0.15))}
- const cv=new THREE.CatmullRomCurve3(pts);const geo=new THREE.TubeGeometry(cv,60,0.035+R(k)*0.025,6,false);const m=new THREE.Mesh(geo,rootM);m.castShadow=true;HOUSE.add(m);ROOTS.push(m)}
+ const cv=new THREE.CatmullRomCurve3(pts);const geo=new THREE.TubeGeometry(cv,60,0.05+R(k)*0.03,8,false);const m=new THREE.Mesh(geo,rootM);m.castShadow=true;HOUSE.add(m);ROOTS.push(m)}
 function roots(q){ROOTS.forEach((m,k)=>{m.visible=q>0;m.geometry.setDrawRange(0,Math.floor(m.geometry.index.count*Math.min(1,q*(0.8+R(k)*0.4)))/3*3|0)})}
 inn.add(new THREE.HemisphereLight(0x2a3040,0x0a0806,0.35));
 const fillL=new THREE.PointLight(0xc8b8a8,0,6,1.5);inn.add(fillL);
