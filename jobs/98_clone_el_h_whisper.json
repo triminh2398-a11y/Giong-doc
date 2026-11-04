@@ -1,0 +1,12 @@
+{
+ "voices": [
+  "clone:refs/el_h_whisper.wav"
+ ],
+ "asr": true,
+ "lines": [
+  "Người đàn bà đó... là ai vậy bà?",
+  "Người đàn bà đó... là ai vậy bà?",
+  "Bé... Bé hả con...?",
+  "Bé... Bé hả con...?"
+ ]
+}
