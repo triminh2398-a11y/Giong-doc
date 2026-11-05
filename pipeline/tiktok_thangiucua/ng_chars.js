@@ -158,11 +158,12 @@ function lanh(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]
  ctx.restore()}
 // Mận: áo bà ba xanh dương, khăn rằn đỏ quấn đầu kiểu miền Tây, tóc dài thắt bím một bên
 function man(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.ears){arm[0]=-3.32;arm[1]=3.32}if(o.cover)arm[1]=-1.35;
- woman(x,y,s,Object.assign({shirt:'#3a6a8e',pants:'#1c1c24',skin:'#e6c4a0',smile:false},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
- if(!o.back){ctx.save();ctx.translate(0,-278);ctx.beginPath();ctx.arc(0,0,60,Math.PI*1.05,Math.PI*1.95);ctx.lineTo(56,-18);ctx.lineTo(-56,-18);ctx.closePath();ctx.clip();for(let i=-8;i<8;i++)for(let j=-8;j<2;j++){ctx.fillStyle=(i+j)%2?'#8a1a1a':'#e8dcc8';ctx.fillRect(i*10,j*10,10,10)}ctx.restore();
-  ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.arc(0,-278,60,Math.PI*1.05,Math.PI*1.95);ctx.stroke();ctx.beginPath();ctx.moveTo(-56,-296);ctx.lineTo(56,-296);ctx.stroke();
-  ctx.fillStyle='#8a1a1a';ctx.beginPath();ctx.moveTo(48,-300);ctx.lineTo(74,-284);ctx.lineTo(62,-274);ctx.closePath();ctx.fill();ctx.stroke();
-  ctx.strokeStyle=HAIR;ctx.lineWidth=12;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-50,-250);ctx.quadraticCurveTo(-62,-200,-48,-150);ctx.stroke();for(let k=0;k<4;k++){ctx.strokeStyle='#2a2430';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-58,-230+k*20);ctx.lineTo(-44,-224+k*20);ctx.stroke()}}
+ woman(x,y,s,Object.assign({shirt:'#2e5a7a',pants:'#1c1c24',skin:'#e6c4a0',smile:false,bun:true},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ if(!o.back){ctx.save();ctx.translate(0,-278);
+  ctx.fillStyle=HAIR;ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(-30,-40,30,26,0,0,7);ctx.fill();ctx.stroke();
+  ctx.strokeStyle='#c8a24a';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-62,-54);ctx.lineTo(4,-30);ctx.stroke();circ(-62,-54,5,'#e8c040',INK,2);
+  ctx.restore()}
+ if(!o.back){ctx.fillStyle='rgba(240,236,220,.85)';for(let k=0;k<7;k++){const xx=-34+R0(k)*68,yy=-214+R0(k+3)*96;ctx.beginPath();for(let p=0;p<5;p++){const a=p/5*6.283;ctx.moveTo(xx,yy);ctx.ellipse(xx+Math.cos(a)*3.5,yy+Math.sin(a)*3.5,2.6,1.8,a,0,7)}ctx.fill()}}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
  if(o.earring){for(const sd of [-1,1])circ(sd*56,-262,6,'#e8c040',INK,2)}
  if(o.ankle){ctx.fillStyle='rgba(20,14,18,.9)';for(let k=0;k<5;k++){ctx.beginPath();ctx.ellipse(-30+k*6,-10+Math.abs(k-2)*3,2.5,8,0.3,0,7);ctx.fill()}}

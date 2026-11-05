@@ -123,6 +123,7 @@ import shutil
 shutil.copy(D + 'ng_chars.js', OUT)
 for f in ('helpers.js', 'shots.js', 'shots_tr.js', 'bm_chars.js'): shutil.copy(G + 'render/ng2/' + f, OUT)
 if not os.path.exists(OUT + 'lib'): shutil.copytree(G + 'render/ng2/lib', OUT + 'lib')
+sj = open(OUT + 'shots.js').read(); open(OUT + 'shots.js', 'w').write(sj.replace('if(!o.headless&&!o.old&&!o.back)', 'if(!o.headless&&!o.old&&!o.back&&!o.bun)'))
 N = int(dur * SR); v = np.zeros(N)
 for c, s0 in zip(clips, st): i = int(s0 * SR); n = min(len(c), N - i); v[i:i + n] += c[:n]
 v /= np.abs(v).max() * 1.05; wavfile.write(D + 'voice.wav', SR, (np.stack([v, v], 1) * 32767).astype(np.int16))

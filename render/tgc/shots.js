@@ -28,7 +28,7 @@ function fhead(x,y,s,T,o={}){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.ro
 function woman(cx,fy,s,o={}){ctx.save();ctx.translate(cx,fy);ctx.scale(s,s);ctx.lineJoin='round';ctx.lineCap='round';
  const top=-232,R=56,hy=top-46,t=o.t||0;o.skin=o.skin||'#d2d1c6';const shirt=o.shirt||'#d9d4c6',pants=o.pants||'#1c1c20';
  if(o.back){ctx.save();ctx.translate(0,hy);circ(0,0,R,HAIR,INK,4);ctx.fillStyle=HAIR;ctx.fillRect(-R+4,0,2*R-8,200);ctx.restore()}
- if(!o.headless&&!o.old&&!o.back){ctx.fillStyle=HAIR;ctx.beginPath();ctx.moveTo(-R+2,hy);ctx.quadraticCurveTo(-R-18,hy+110,-48+Math.sin(t*1.3)*4,hy+210);ctx.lineTo(48+Math.sin(t*1.3+1)*4,hy+210);ctx.quadraticCurveTo(R+18,hy+110,R-2,hy);ctx.fill()}
+ if(!o.headless&&!o.old&&!o.back&&!o.bun){ctx.fillStyle=HAIR;ctx.beginPath();ctx.moveTo(-R+2,hy);ctx.quadraticCurveTo(-R-18,hy+110,-48+Math.sin(t*1.3)*4,hy+210);ctx.lineTo(48+Math.sin(t*1.3+1)*4,hy+210);ctx.quadraticCurveTo(R+18,hy+110,R-2,hy);ctx.fill()}
  if(o.sit){poly([[-46,-112],[46,-112],[60,-60],[-40,-60]],pants,INK,4)}
  else poly([[-44,-112],[44,-112],[46,0],[-46,0]],pants,INK,4);
  if(o.dress)poly([[-38,top+10],[38,top+10],[56,-40],[-56,-40]],shirt,INK,4);else poly([[-40,top+10],[40,top+10],[48,-108],[-48,-108]],shirt,INK,4);
