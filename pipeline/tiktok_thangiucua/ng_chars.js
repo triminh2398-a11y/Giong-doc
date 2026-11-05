@@ -124,6 +124,7 @@ function na(x,y,s,o={}){const T=o.T||0;const sc=s*0.62;const arm=(o.arm||[undefi
  if(o.dirt){ctx.fillStyle='#3a2a18';ctx.beginPath();ctx.ellipse(0,-246,16,9,0,0,7);ctx.fill();for(let k=0;k<4;k++){ctx.beginPath();ctx.ellipse(-10+k*7,-232+k*3,3,5,0,0,7);ctx.fill()}}
  if(o.bell){const [hx,hy]=HPW(1,arm[1]);bellDraw(hx,hy+12,1.3,T,o.bellShake??1);circ(hx,hy,8,o.sick?'#c8d0c4':'#f0dcc8',INK,3)}
  if(o.clutch){bellDraw(0,-112,1.4,T,0.2);for(const sd of [-1,1]){const [hx,hy]=HPW(sd,sd*0.25);circ(hx,hy,8,'#f0dcc8',INK,3)}}
+ if(!o.back){for(const sd of [-1,1]){const lift=o.walk!==undefined?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;ctx.fillStyle='#c84050';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*(o.sit?26:22),3-lift,17,7,0,0,7);ctx.fill();ctx.stroke()}}
  if(o.covered){ctx.fillStyle='#efdcc8';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(6,-246,30,18,0.1,0,7);ctx.fill();ctx.stroke()}
  ctx.restore()}
 // ma thần giữ của: thằng nhỏ trọc đầu chừa chỏm, da xám xanh, bùn đất, mắt hốc đen đồng tử đỏ (kiểu Ma Lai, mặt lộ rõ)
@@ -158,12 +159,10 @@ function lanh(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]
  ctx.restore()}
 // Mận: áo bà ba xanh dương, khăn rằn đỏ quấn đầu kiểu miền Tây, tóc dài thắt bím một bên
 function man(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.ears){arm[0]=-3.32;arm[1]=3.32}if(o.cover)arm[1]=-1.35;
- woman(x,y,s,Object.assign({shirt:'#2e5a7a',pants:'#1c1c24',skin:'#e6c4a0',smile:false,bun:true},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
- if(!o.back){ctx.save();ctx.translate(0,-278);
-  ctx.fillStyle=HAIR;ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(-30,-40,30,26,0,0,7);ctx.fill();ctx.stroke();
-  ctx.strokeStyle='#c8a24a';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-62,-54);ctx.lineTo(4,-30);ctx.stroke();circ(-62,-54,5,'#e8c040',INK,2);
-  ctx.restore()}
- if(!o.back){ctx.fillStyle='rgba(240,236,220,.85)';for(let k=0;k<7;k++){const xx=-34+R0(k)*68,yy=-214+R0(k+3)*96;ctx.beginPath();for(let p=0;p<5;p++){const a=p/5*6.283;ctx.moveTo(xx,yy);ctx.ellipse(xx+Math.cos(a)*3.5,yy+Math.sin(a)*3.5,2.6,1.8,a,0,7)}ctx.fill()}}
+ woman(x,y,s,Object.assign({shirt:'#7a5236',pants:'#1c1c24',skin:'#e6c4a0',smile:false},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ if(!o.back){ctx.save();ctx.translate(-34,-226);ctx.rotate(-0.25);khanRan(0,0,16,104);ctx.restore();ctx.save();ctx.translate(-48,-232);khanRan(0,0,40,14);ctx.restore()}
+ if(!o.sit&&o.walk===undefined){for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4,17,7,0,0,7);ctx.fill();ctx.stroke()}}
+ if(o.sit){for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*25+4,2,17,7,0,0,7);ctx.fill();ctx.stroke()}}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
  if(o.earring){for(const sd of [-1,1])circ(sd*56,-262,6,'#e8c040',INK,2)}
  if(o.ankle){ctx.fillStyle='rgba(20,14,18,.9)';for(let k=0;k<5;k++){ctx.beginPath();ctx.ellipse(-30+k*6,-10+Math.abs(k-2)*3,2.5,8,0.3,0,7);ctx.fill()}}
@@ -172,9 +171,11 @@ function man(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined])
  ctx.restore()}
 // thầy Tư: gầy, áo dài đen, khăn đóng đen, râu dê đen điểm bạc, dải vải đỏ + lá bùa vàng trước ngực
 function thayTu(x,y,s,o={}){const T=o.T||0;const armA=(o.armA||[undefined,undefined]).slice();
- person(x,y,s,Object.assign({shirt:'#1e1e26',pants:'#141418',skin:'#b8946e',robe:true,khandong:true,hair:'#d8d4cc'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
- if(!o.back){ctx.fillStyle='#2a2626';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-9,-224);ctx.quadraticCurveTo(-5,-196,1,-176);ctx.quadraticCurveTo(7,-196,10,-224);ctx.closePath();ctx.fill();ctx.stroke();ctx.strokeStyle='rgba(220,220,210,.7)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,-220);ctx.lineTo(1,-184);ctx.stroke();
-  for(const sd of [-1,1]){ctx.strokeStyle='#3a3030';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(sd*6,-246);ctx.quadraticCurveTo(sd*18,-238,sd*20,-228);ctx.stroke()}
+ person(x,y,s,Object.assign({shirt:'#22222a',pants:'#141418',skin:'#a8845e',hair:'#9a968e'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ if(!o.back){ctx.save();ctx.translate(0,-278);ctx.beginPath();ctx.arc(0,0,60,Math.PI*1.08,Math.PI*1.92);ctx.lineTo(54,-30);ctx.lineTo(-54,-30);ctx.closePath();ctx.clip();for(let i2=-7;i2<7;i2++)for(let j2=-7;j2<-2;j2++){ctx.fillStyle=(i2+j2)%2?'#141414':'#ddd8c8';ctx.fillRect(i2*9,j2*9,9,9)}ctx.restore();
+  ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-54,-306);ctx.lineTo(54,-306);ctx.stroke();ctx.save();ctx.translate(52,-312);khanRan(0,0,14,30);ctx.restore();
+  ctx.fillStyle='#2a2626';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-9,-224);ctx.quadraticCurveTo(-5,-200,1,-184);ctx.quadraticCurveTo(7,-200,10,-224);ctx.closePath();ctx.fill();ctx.stroke();
   ctx.fillStyle='rgba(60,40,30,.35)';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*36,-258,10,16,0,0,7);ctx.fill()}
-  ctx.fillStyle='#9a1a1a';ctx.fillRect(-44,-150,88,16);ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.strokeRect(-44,-150,88,16);ctx.fillStyle='#e8c23a';ctx.fillRect(-12,-200,24,44);ctx.strokeRect(-12,-200,24,44);ctx.strokeStyle='#a01818';ctx.lineWidth=2;for(let k=0;k<4;k++){ctx.beginPath();ctx.moveTo(-8,-192+k*9);ctx.lineTo(8,-188+k*9);ctx.stroke()}}
+  for(let k=0;k<11;k++){const a2=0.25+k*0.24;circ(Math.cos(a2)*34,-206+Math.sin(a2)*30,4.5,'#7a4a20',INK,1.5)}
+  ctx.fillStyle='#8a2a1a';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-10,-170);ctx.lineTo(10,-170);ctx.lineTo(8,-146);ctx.lineTo(-8,-146);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#e8c23a';ctx.fillRect(-5,-164,10,12)}
  ctx.restore()}

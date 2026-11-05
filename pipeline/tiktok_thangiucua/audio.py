@@ -49,6 +49,24 @@ place(BELL,S_('cta',.1),.2,dur=1.2,rate=1.2)
 JT=[S_('hook2',.04),S_('gm',.62),S_('boy',.45),S_('pry',.6)]
 for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.15,s1-s0)[:,None]
+
+# ===== NHẠC NỀN: ma mị suốt truyện, dồn dập ở cao trào (trộn riêng, nép dưới giọng) =====
+mu=np.zeros((N,2));_out=out
+out=mu
+c0=sp('night')[0];c1=sp('pull')[1]
+place(700,0,.55,dur=c0,fi=2,fo=3,loop=True,rate=0.82)          # hộp nhạc ru con, chậm & trầm -> rợn
+place(2746,0,.35,dur=c0,fi=3,fo=3,loop=True)                    # organ trầm
+place(2510,sp('tu')[0],.3,dur=sp('miss')[1]-sp('tu')[0],fi=2,fo=2,loop=True)
+place(685,c0,.55,dur=c1-c0,fi=1.5,fo=2,loop=True)                # bass hồi hộp
+place(682,c0+2,.5,dur=c1-c0-2,fi=2,fo=2,loop=True)               # trống trầm dồn dập
+place(559,sp('boy')[0],.45,dur=c1-sp('boy')[0],fi=.5,fo=2,loop=True)  # trống tim kinh dị
+place(786,S_('pry',.3),.5,dur=4,fi=.2,fo=1)                      # cao trào dâng lên
+place(700,sp('pull')[1]+.5,.4,dur=DUR-sp('pull')[1]-.5,fi=3,fo=3,loop=True,rate=0.78)  # kết: hộp nhạc lạc giọng
+for t,d in [(x,.6) for x in JT]:
+    s0=int((t-d)*SR);s1=int(t*SR);mu[s0:s1]*=np.linspace(1,.1,s1-s0)[:,None]
+mu/=max(1e-6,np.abs(mu).max())*1.05
+wavfile.write(D+'music.wav',SR,(mu*32767).astype(np.int16))
+out=_out
 out/=np.abs(out).max()*1.05
 for t in JT:
     for i,dt,gn,du in [(788,-.01,.6,1.6),(1963,0,.45,1.3),(565,-.02,.5,1.4),(677,0,.3,1.2)]:place(i,t+dt,gn,dur=du,fi=0,fo=.25,buf=jt)
