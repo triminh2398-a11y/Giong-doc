@@ -128,3 +128,4 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
   * Cảnh nói về chân/cổ chân phải thấy rõ chân + chi tiết (dấu tay); nhân vật nữ/trẻ con phải có bàn chân; cảnh toàn thân đừng để vật (lúa, bậc đá) che chân.
   * Nhạc nền: ma mị suốt truyện (hộp nhạc chậm + organ trầm) nép dưới giọng; CAO TRÀO (khoảnh khắc ma ra tay) phải có lớp nhạc dồn dập riêng (trống trầm, trống cuộn, tim đập nhanh, swell) ít bị nén; CÂU KẾT ám ảnh phải có nhạc kết rùng rợn (organ + hộp nhạc lạc giọng + quét bóng tối) rồi lặng. Tiếng jumpscare nén dưới giọng đọc (sidechain), không át lời.
   * Cảnh có ma xuất hiện thì có jumpscare (camera giật tới + chớp), không chỉ ở mở đầu.
+- Mở đầu (hook/hook2/title) KHÔNG được đọc vội: người kể atempo≈0.86 + giãn nghỉ ×1.3; các câu khác atempo 0.94. Tựa đề đọc dạng "Câu chuyện hôm nay… <Tên>." và PHẢI kiểm ASR khớp đúng tên truyện trước khi dựng (tựa ngắn 3-4 chữ TTS hay đọc sai/nuốt chữ).
