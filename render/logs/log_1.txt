@@ -4,24 +4,24 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=ep3-seg09
++ TAG=tiktok-ngai2-v3
 ++ jq -r .html job.json
-+ HTML=ep3/index.html
++ HTML=ng2/index.html
 ++ jq -r .frames job.json
-+ N=3571
++ N=8768
 + S=16
 ++ jq -r '.start // 0' job.json
-+ ST=32139
-+ A=32362
-+ B=32585
++ ST=0
++ A=548
++ B=1096
 ++ printf %02d 1
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js ep3/index.html seg_01.mp4 32362 32585 1280 720
-frame 32400
++ node render_seg.js ng2/index.html seg_01.mp4 548 1096 720 1280
+frame 600
 + sleep 2
 + for k in 1 2 3 4 5 6
-+ gh release view ep3-seg09
++ gh release view tiktok-ngai2-v3
 ++ printf %02d 1
-+ gh release upload ep3-seg09 seg_01.mp4 --clobber
++ gh release upload tiktok-ngai2-v3 seg_01.mp4 --clobber
 + break
