@@ -4,23 +4,23 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-goihon25d-v1
++ TAG=tiktok-thangiucua-v1
 ++ jq -r .html job.json
-+ HTML=gh25/index.html
++ HTML=tgc/index.html
 ++ jq -r .frames job.json
-+ N=1037
++ N=6999
 + S=16
 ++ jq -r '.start // 0' job.json
 + ST=0
-+ A=907
-+ B=972
++ A=6124
++ B=6561
 ++ printf %02d 14
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js gh25/index.html seg_14.mp4 907 972 720 1280
++ node render_seg.js tgc/index.html seg_14.mp4 6124 6561 720 1280
 + sleep 28
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-goihon25d-v1
++ gh release view tiktok-thangiucua-v1
 ++ printf %02d 14
-+ gh release upload tiktok-goihon25d-v1 seg_14.mp4 --clobber
++ gh release upload tiktok-thangiucua-v1 seg_14.mp4 --clobber
 + break
