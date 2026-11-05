@@ -939,3 +939,223 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 99_ng2_nfix clone:refs/mada8.wav 3 ok 34.9
 99_ng2_nfix asr ok
+loaded V3TurboVieNeuTTS
+70_mg_n clone:refs/mada8.wav 3 ok 20.0
+70_mg_n clone:refs/mada8.wav 7 ok 3.4
+70_mg_n clone:refs/mada8.wav 11 ok 3.7
+70_mg_n clone:refs/mada8.wav 15 ok 2.6
+70_mg_n clone:refs/mada8.wav 19 ok 1.0
+70_mg_n clone:refs/mada8.wav 23 ok 3.6
+70_mg_n clone:refs/mada8.wav 27 ok 3.8
+70_mg_n clone:refs/mada8.wav 31 ok 3.4
+70_mg_n clone:refs/mada8.wav 35 ok 4.8
+70_mg_n clone:refs/mada8.wav 39 ok 3.8
+70_mg_n clone:refs/mada8.wav 43 ok 4.4
+70_mg_n clone:refs/mada8.wav 47 ok 3.5
+70_mg_n clone:refs/mada8.wav 51 ok 4.4
+70_mg_n clone:refs/mada8.wav 55 ok 3.6
+70_mg_n clone:refs/mada8.wav 59 ok 4.0
+70_mg_n clone:refs/mada8.wav 63 ok 4.2
+70_mg_n clone:refs/mada8.wav 67 ok 4.6
+70_mg_n clone:refs/mada8.wav 71 ok 2.1
+70_mg_n clone:refs/mada8.wav 75 ok 3.7
+70_mg_n clone:refs/mada8.wav 79 ok 3.9
+70_mg_n clone:refs/mada8.wav 83 ok 4.2
+70_mg_n clone:refs/mada8.wav 87 ok 4.0
+70_mg_n clone:refs/mada8.wav 91 ok 4.2
+70_mg_n clone:refs/mada8.wav 95 ok 3.2
+70_mg_n clone:refs/mada8.wav 99 ok 4.1
+70_mg_n clone:refs/mada8.wav 103 ok 3.7
+70_mg_n clone:refs/mada8.wav 107 ok 4.0
+70_mg_n clone:refs/mada8.wav 111 ok 1.0
+70_mg_n clone:refs/mada8.wav 115 ok 4.2
+70_mg_n clone:refs/mada8.wav 119 ok 4.6
+70_mg_n clone:refs/mada8.wav 123 ok 3.5
+70_mg_n clone:refs/mada8.wav 127 ok 3.0
+70_mg_n clone:refs/mada8.wav 131 ok 5.1
+70_mg_n clone:refs/mada8.wav 135 ok 5.0
+70_mg_n clone:refs/mada8.wav 139 ok 3.4
+70_mg_n clone:refs/mada8.wav 143 ok 2.9
+70_mg_n clone:refs/mada8.wav 147 ok 4.0
+70_mg_n clone:refs/mada8.wav 151 ok 2.7
+70_mg_n clone:refs/mada8.wav 155 ok 3.8
+70_mg_n clone:refs/mada8.wav 159 ok 3.1
+70_mg_n clone:refs/mada8.wav 163 ok 2.1
+70_mg_n clone:refs/mada8.wav 167 ok 3.4
+70_mg_n clone:refs/mada8.wav 171 ok 4.6
+70_mg_n clone:refs/mada8.wav 175 ok 4.0
+70_mg_n clone:refs/mada8.wav 179 ok 3.9
+70_mg_n clone:refs/mada8.wav 183 ok 3.0
+70_mg_n clone:refs/mada8.wav 187 ok 3.3
+70_mg_n clone:refs/mada8.wav 191 ok 2.7
+70_mg_n clone:refs/mada8.wav 195 ok 1.1
+70_mg_n clone:refs/mada8.wav 199 ok 2.3
+70_mg_n clone:refs/mada8.wav 203 ok 4.0
+70_mg_n clone:refs/mada8.wav 207 ok 3.5
+70_mg_n clone:refs/mada8.wav 211 ok 3.9
+70_mg_n clone:refs/mada8.wav 215 ok 3.2
+70_mg_n clone:refs/mada8.wav 219 ok 4.5
+70_mg_n clone:refs/mada8.wav 223 ok 3.9
+70_mg_n clone:refs/mada8.wav 227 ok 4.6
+70_mg_n clone:refs/mada8.wav 231 ok 4.7
+70_mg_n clone:refs/mada8.wav 235 ok 2.7
+70_mg_n clone:refs/mada8.wav 239 ok 4.6
+70_mg_n clone:refs/mada8.wav 243 ok 3.6
+70_mg_n clone:refs/mada8.wav 247 ok 3.3
+70_mg_n clone:refs/mada8.wav 251 ok 4.7
+70_mg_n clone:refs/mada8.wav 255 ok 3.9
+70_mg_n clone:refs/mada8.wav 259 ok 3.7
+70_mg_n clone:refs/mada8.wav 263 ok 4.2
+70_mg_n clone:refs/mada8.wav 267 ok 5.0
+70_mg_n clone:refs/mada8.wav 271 ok 3.1
+70_mg_n clone:refs/mada8.wav 275 ok 4.6
+70_mg_n clone:refs/mada8.wav 279 ok 4.7
+70_mg_n clone:refs/mada8.wav 283 ok 4.7
+70_mg_n clone:refs/mada8.wav 287 ok 4.6
+70_mg_n clone:refs/mada8.wav 291 ok 4.3
+70_mg_n clone:refs/mada8.wav 295 ok 3.6
+70_mg_n clone:refs/mada8.wav 299 ok 0.5
+70_mg_n clone:refs/mada8.wav 303 ok 2.2
+70_mg_n clone:refs/mada8.wav 307 ok 4.5
+70_mg_n clone:refs/mada8.wav 311 ok 2.1
+70_mg_n clone:refs/mada8.wav 315 ok 2.6
+70_mg_n clone:refs/mada8.wav 319 ok 4.3
+70_mg_n clone:refs/mada8.wav 323 ok 2.5
+70_mg_n clone:refs/mada8.wav 327 ok 5.4
+70_mg_n clone:refs/mada8.wav 331 ok 4.5
+70_mg_n clone:refs/mada8.wav 335 ok 3.2
+70_mg_n clone:refs/mada8.wav 339 ok 5.0
+70_mg_n clone:refs/mada8.wav 343 ok 4.1
+70_mg_n clone:refs/mada8.wav 347 ok 1.8
+70_mg_n clone:refs/mada8.wav 351 ok 3.4
+70_mg_n clone:refs/mada8.wav 355 ok 1.1
+70_mg_n clone:refs/mada8.wav 359 ok 4.8
+70_mg_n clone:refs/mada8.wav 363 ok 3.2
+70_mg_n clone:refs/mada8.wav 367 ok 4.1
+70_mg_n clone:refs/mada8.wav 371 ok 3.6
+70_mg_n clone:refs/mada8.wav 375 ok 2.4
+70_mg_n clone:refs/mada8.wav 379 ok 4.0
+70_mg_n clone:refs/mada8.wav 383 ok 3.5
+70_mg_n clone:refs/mada8.wav 387 ok 3.0
+70_mg_n clone:refs/mada8.wav 391 ok 4.3
+70_mg_n clone:refs/mada8.wav 395 ok 2.3
+70_mg_n clone:refs/mada8.wav 399 ok 1.7
+70_mg_n asr ok
+71_mg_nhan Mỹ Duyên 3 ok 4.0
+71_mg_nhan Mỹ Duyên 7 ok 3.5
+71_mg_nhan Mỹ Duyên 11 ok 4.5
+71_mg_nhan Mỹ Duyên 15 ok 5.0
+71_mg_nhan Mỹ Duyên 19 ok 4.6
+71_mg_nhan Mỹ Duyên 23 ok 3.4
+71_mg_nhan Mỹ Duyên 27 ok 5.5
+71_mg_nhan Mỹ Duyên 31 ok 4.4
+71_mg_nhan Mỹ Duyên 35 ok 5.2
+71_mg_nhan Mỹ Duyên 39 ok 5.0
+71_mg_nhan Mỹ Duyên 43 ok 4.2
+71_mg_nhan Mỹ Duyên 47 ok 4.4
+71_mg_nhan Mỹ Duyên 51 ok 4.0
+71_mg_nhan Mỹ Duyên 55 ok 3.0
+71_mg_nhan Mỹ Duyên 59 ok 4.1
+71_mg_nhan asr ok
+72_mg_tam Thái Sơn 3 ok 3.6
+72_mg_tam Thái Sơn 7 ok 2.9
+72_mg_tam Thái Sơn 11 ok 3.2
+72_mg_tam Thái Sơn 15 ok 3.4
+72_mg_tam Thái Sơn 19 ok 3.7
+72_mg_tam Thái Sơn 23 ok 4.2
+72_mg_tam Thái Sơn 27 ok 3.3
+72_mg_tam Thái Sơn 31 ok 3.6
+72_mg_tam Thái Sơn 35 ok 3.9
+72_mg_tam Thái Sơn 39 ok 3.8
+72_mg_tam Thái Sơn 43 ok 3.8
+72_mg_tam Thái Sơn 47 ok 3.5
+72_mg_tam Thái Sơn 51 ok 2.7
+72_mg_tam Thái Sơn 55 ok 4.1
+72_mg_tam Thái Sơn 59 ok 4.5
+72_mg_tam Thái Sơn 63 ok 3.9
+72_mg_tam Thái Sơn 67 ok 3.8
+72_mg_tam Thái Sơn 71 ok 2.1
+72_mg_tam Thái Sơn 75 ok 1.7
+72_mg_tam Thái Sơn 79 ok 1.6
+72_mg_tam Thái Sơn 83 ok 1.7
+72_mg_tam Thái Sơn 87 ok 2.9
+72_mg_tam Thái Sơn 91 ok 3.0
+72_mg_tam Thái Sơn 95 ok 3.6
+72_mg_tam Thái Sơn 99 ok 3.5
+72_mg_tam Thái Sơn 103 ok 3.5
+72_mg_tam Thái Sơn 107 ok 3.6
+72_mg_tam Thái Sơn 111 ok 3.8
+72_mg_tam Thái Sơn 115 ok 2.4
+72_mg_tam Thái Sơn 119 ok 2.6
+72_mg_tam Thái Sơn 123 ok 3.2
+72_mg_tam Thái Sơn 127 ok 0.3
+72_mg_tam Thái Sơn 131 ok 1.2
+72_mg_tam Thái Sơn 135 ok 1.9
+72_mg_tam Thái Sơn 139 ok 1.8
+72_mg_tam Thái Sơn 143 ok 3.0
+72_mg_tam Thái Sơn 147 ok 1.4
+72_mg_tam Thái Sơn 151 ok 1.1
+72_mg_tam Thái Sơn 155 ok 2.2
+72_mg_tam Thái Sơn 159 ok 2.1
+72_mg_tam asr ok
+73_mg_loc Đức Trí 3 ok 5.4
+73_mg_loc Đức Trí 7 ok 2.9
+73_mg_loc Đức Trí 11 ok 4.0
+73_mg_loc Đức Trí 15 ok 3.7
+73_mg_loc Đức Trí 19 ok 3.6
+73_mg_loc Đức Trí 23 ok 4.5
+73_mg_loc Đức Trí 27 ok 2.8
+73_mg_loc Đức Trí 31 ok 3.0
+73_mg_loc Đức Trí 35 ok 1.4
+73_mg_loc Đức Trí 39 ok 1.4
+73_mg_loc Đức Trí 43 ok 2.3
+73_mg_loc Đức Trí 47 ok 1.6
+73_mg_loc Đức Trí 51 ok 2.2
+73_mg_loc Đức Trí 55 ok 2.6
+73_mg_loc Đức Trí 59 ok 2.6
+73_mg_loc asr ok
+74_mg_hoa Thục Đoan 3 ok 2.9
+74_mg_hoa Thục Đoan 7 ok 1.9
+74_mg_hoa Thục Đoan 11 ok 4.5
+74_mg_hoa Thục Đoan 15 ok 4.4
+74_mg_hoa Thục Đoan 19 ok 4.2
+74_mg_hoa asr ok
+75_mg_bnl Thùy Dung 3 ok 2.3
+75_mg_bnl Thùy Dung 7 ok 2.9
+75_mg_bnl Thùy Dung 11 ok 3.3
+75_mg_bnl Thùy Dung 15 ok 2.9
+75_mg_bnl Thùy Dung 19 ok 2.8
+75_mg_bnl Thùy Dung 23 ok 2.0
+75_mg_bnl Thùy Dung 27 ok 2.2
+75_mg_bnl Thùy Dung 31 ok 2.8
+75_mg_bnl Thùy Dung 35 ok 3.2
+75_mg_bnl Thùy Dung 39 ok 3.0
+75_mg_bnl Thùy Dung 43 ok 2.9
+75_mg_bnl Thùy Dung 47 ok 2.9
+75_mg_bnl Thùy Dung 51 ok 3.5
+75_mg_bnl Thùy Dung 55 ok 2.9
+75_mg_bnl Thùy Dung 59 ok 2.8
+75_mg_bnl Thùy Dung 63 ok 2.1
+75_mg_bnl Thùy Dung 67 ok 3.3
+75_mg_bnl Thùy Dung 71 ok 1.9
+75_mg_bnl Thùy Dung 75 ok 1.4
+75_mg_bnl Thùy Dung 79 ok 1.5
+75_mg_bnl Thùy Dung 83 ok 3.4
+75_mg_bnl Thùy Dung 87 ok 1.8
+75_mg_bnl Thùy Dung 91 ok 2.0
+75_mg_bnl Thùy Dung 95 ok 1.5
+75_mg_bnl Thùy Dung 99 ok 1.6
+75_mg_bnl Thùy Dung 103 ok 1.9
+75_mg_bnl asr ok
+76_mg_thuy Kim Thanh 3 ok 4.1
+76_mg_thuy Kim Thanh 7 ok 2.6
+76_mg_thuy Kim Thanh 11 ok 6.0
+76_mg_thuy Kim Thanh 15 ok 0.5
+76_mg_thuy Kim Thanh 19 ok 0.4
+76_mg_thuy Kim Thanh 23 ok 4.8
+76_mg_thuy Kim Thanh 27 ok 2.9
+76_mg_thuy Kim Thanh 31 ok 1.8
+76_mg_thuy asr ok
+77_mg_gma Minh Triết 3 ok 2.3
+77_mg_gma Minh Triết 7 ok 1.7
+77_mg_gma asr ok
