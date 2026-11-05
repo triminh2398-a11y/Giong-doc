@@ -1,0 +1,153 @@
+{
+"dur": 33.55,
+"lines": [
+{
+"id": "n1",
+"who": "n",
+"t": 0.6,
+"d": 6.44,
+"text": "Ở quê tui, người vừa tắt thở, con cháu phải leo lên mái nhà, cầm cái áo của người mất mà gọi hồn."
+},
+{
+"id": "n2",
+"who": "n",
+"t": 7.39,
+"d": 4.26,
+"text": "Gọi ba tiếng. Có tiếng dạ… thì phải coi nó dạ từ đâu."
+},
+{
+"id": "n3",
+"who": "n",
+"t": 12.36,
+"d": 2.61,
+"text": "Đêm bà nội mất, thằng Út leo lên mái."
+},
+{
+"id": "u",
+"who": "u",
+"t": 15.36,
+"d": 2.17,
+"text": "Bà nội ơi… về đi bà ơi!"
+},
+{
+"id": "g",
+"who": "g",
+"t": 18.83,
+"d": 3.38,
+"text": "Ơi…"
+},
+{
+"id": "n4",
+"who": "n",
+"t": 23.11,
+"d": 4.17,
+"text": "Tiếng dạ không vọng ra từ buồng có xác bà… mà từ ngoài ruộng tối."
+},
+{
+"id": "n5",
+"who": "n",
+"t": 27.79,
+"d": 2.56,
+"text": "Còn trong buồng… cái xác đã mở mắt."
+}
+],
+"vox": [
+[
+15.36,
+16.04,
+"u"
+],
+[
+16.62,
+17.48,
+"u"
+],
+[
+18.85,
+21.03,
+"g"
+]
+],
+"shots": [
+[
+0,
+7.24,
+"ext"
+],
+[
+7.24,
+12.16,
+"field"
+],
+[
+12.16,
+15.11,
+"roof"
+],
+[
+15.11,
+17.83,
+"call"
+],
+[
+17.83,
+24.57,
+"listen"
+],
+[
+24.57,
+27.59,
+"turn"
+],
+[
+27.59,
+33.55,
+"room"
+]
+],
+"jump": 9.18,
+"subs": [
+[
+0.6,
+7.29,
+"Ở quê tui, người vừa tắt thở, con cháu phải leo lên mái nhà, cầm cái áo của người mất mà gọi hồn.",
+"n"
+],
+[
+7.39,
+11.9,
+"Gọi ba tiếng. Có tiếng dạ… thì phải coi nó dạ từ đâu.",
+"n"
+],
+[
+12.36,
+15.22,
+"Đêm bà nội mất, thằng Út leo lên mái.",
+"n"
+],
+[
+15.36,
+17.73,
+"“Bà nội ơi… về đi bà ơi!”",
+"u"
+],
+[
+18.85,
+21.28,
+"“Ơi…”",
+"g"
+],
+[
+23.11,
+27.53,
+"Tiếng dạ không vọng ra từ buồng có xác bà… mà từ ngoài ruộng tối.",
+"n"
+],
+[
+27.79,
+30.6,
+"Còn trong buồng… cái xác đã mở mắt.",
+"n"
+]
+]
+}
