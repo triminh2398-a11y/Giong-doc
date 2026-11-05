@@ -4,22 +4,23 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=ep3-short1
++ TAG=ep3-seg09
 ++ jq -r .html job.json
-+ HTML='ep3/index.html?v=1&t0=909.4&d=50'
++ HTML=ep3/index.html
 ++ jq -r .frames job.json
-+ N=1500
++ N=3571
 + S=16
-+ A=0
-+ B=93
+++ jq -r '.start // 0' job.json
++ ST=32139
++ A=32139
++ B=32362
 ++ printf %02d 0
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js 'ep3/index.html?v=1&t0=909.4&d=50' seg_00.mp4 0 93 720 1280
-frame 0
++ node render_seg.js ep3/index.html seg_00.mp4 32139 32362 1280 720
 + sleep 0
 + for k in 1 2 3 4 5 6
-+ gh release view ep3-short1
++ gh release view ep3-seg09
 ++ printf %02d 0
-+ gh release upload ep3-short1 seg_00.mp4 --clobber
++ gh release upload ep3-seg09 seg_00.mp4 --clobber
 + break
