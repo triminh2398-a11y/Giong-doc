@@ -117,3 +117,6 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - Âm gõ thau = sfx 1797 (Cooking pot lid hit) lặp mỗi 0.5–0.8s; nhai bùn 2252 (chậm 0.85); ong 1926/42; đầm 40. Đã thêm kho bell/gong/metal/bee/insect/swamp/eating/kitchen/whisper (titles.json).
 - Render: render.yml timeout nâng lên 105 phút/shard; Shorts render bằng html `ep3/index.html?v=1&t0=..&d=..` (khung dọc + thẻ Xem bản đầy đủ).
 - Watermark: tạm tắt theo dặn 04/11; bật lại bằng tham số URL `wm=1`.
+- (Chủ kênh 05/11) Xưng hô/đáp lời đúng vai vế: "dạ" chỉ dùng khi NGƯỜI NHỎ đáp NGƯỜI LỚN. Người lớn (bà, ông, cha mẹ) đáp con cháu thì là "ơi", "hả", "tiếng trả lời/tiếng đáp" — không viết "tiếng dạ" cho người lớn.
+- (Chủ kênh 05/11) Giữ phong cách 2.5D (không đổi sang toon). Lớp chuyển động chung nằm trong scenes.part (motionPre/motionPost): thở, chớp mắt, gật đầu + tay khi nói, bước đi (o.walk), giật mình ở JUMPS/SOFT, ma lơ lửng. Mẫu mới nhất: pipeline/tiktok_thangiucua.
+- ElevenLabs tài khoản free: giọng Hung Tran / nhiều giọng VN là premium (bật bảng nâng cấp) — KHÔNG mua; dùng Thảo (nữ miền Nam), Nam – Clear (nam); vai còn lại dùng VieNeu. Khung chọn giọng bị lệch: đặt viewport 1280x800 (resize_window) rồi hover dòng (500,100) → bấm Use (688,100), đợi 3s mới Escape.
