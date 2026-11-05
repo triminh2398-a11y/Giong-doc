@@ -1,6 +1,6 @@
 hook|N|Ở miền Tây xưa, nhà giàu chôn của thường bắt một đứa nhỏ ngồi canh dưới hầm. Người ta gọi nó là thần giữ của.
 hook2|N|Ai đào trúng hũ của đó… thì đứa nhỏ sẽ đi theo người đó về nhà.
-title|N|Thần giữ của.
+title|N|Câu chuyện hôm nay… Thần giữ của.
 dig|N|Vợ chồng Lành nghèo rớt mồng tơi. Bữa dỡ cái nền nhà cũ của ông cố để cất lại, lưỡi cuốc của Lành chạm trúng một cái hũ sành.
 dig2|N|Miệng hũ bịt sáp ong, dán một lá bùa đỏ đã bạc màu. Bên trong là vàng lá, đôi bông tai, và một cái lục lạc nhỏ của con nít.
 man1|MA|Anh ơi… của người ta chôn thì để người ta. Em thấy ghê quá anh.

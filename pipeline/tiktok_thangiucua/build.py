@@ -11,7 +11,7 @@ PICK = json.load(open(D + 'pick.json')) if os.path.exists(D + 'pick.json') else 
 clean = lambda s: re.sub(r'\s*\[[^\]]*\]\s*', ' ', s).strip()
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 NMAP = {}
-for job in ('99_tgc_n', '99_tgc_nfix'):
+for job in ('99_tgc_n', '99_tgc_nfix', '99_tgc_title'):
     if not os.path.exists(G + f'jobs/{job}.json'): continue
     J = json.load(open(G + f'jobs/{job}.json')); ND = G + f'out/{job}/clone_refs_mada8_wav/'
     for k, line in enumerate(J['lines']):
@@ -54,7 +54,8 @@ for i, (sh, sp, tx) in enumerate(S):
             cands.append((difflib.SequenceMatcher(None, norm(clean(tx)), norm(got)).ratio(), f))
         if not cands: clips.append(np.zeros(int(SR * (len(tx.split()) * 0.33 + 0.3)))); info.append('MISSING'); continue
         r, f = max(cands); info.append(round(r, 2))
-        c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.25, extra=0.05)
+        c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.3, extra=0.06)
+        c = ff(c, 'atempo=0.86' if sh in ('hook', 'hook2', 'title') else 'atempo=0.94')
     elif sp in ('MA', 'LA', 'GM'):
         fs = [D + f'el/tg_{sh}_{v}.mp3' for v in 'ab' if os.path.exists(D + f'el/tg_{sh}_{v}.mp3')]
         if sh in PICK: fs = [D + f'el/tg_{sh}_{PICK[sh]}.mp3']
