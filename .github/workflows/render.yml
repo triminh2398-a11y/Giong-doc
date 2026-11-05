@@ -8,7 +8,7 @@ permissions:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 115
     strategy:
       fail-fast: false
       matrix: { shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] }
@@ -23,7 +23,7 @@ jobs:
           cd render && npm init -y >/dev/null && npm i -q playwright@1.47.2 ffmpeg-static@5.2.0 >/dev/null
           npx playwright install chromium
       - name: Render shard
-        timeout-minutes: 75
+        timeout-minutes: 105
         shell: bash
         run: |
           cd render
