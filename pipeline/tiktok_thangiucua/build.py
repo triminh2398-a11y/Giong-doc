@@ -62,7 +62,7 @@ for i, (sh, sp, tx) in enumerate(S):
         c = P.trim(loadmp3(f))
         if sp == 'GM': c = ghost(ff(c, f'asetrate={int(SR*0.93)},aresample={SR},atempo=0.9'), 'far')
     else:
-        job, idx = {'tu1': ('99_tgc_tu', 0), 'tu2': ('99_tgc_tu', 1), 'tu3': ('99_tgc_tu', 2), 'na2': ('99_tgc_kid', 0), 'na3': ('99_tgc_kid', 1), 'gb': ('99_tgc_kid', 2)}[sh]
+        job, idx = {'tu1': ('99_tgc_tu2', 0), 'tu2': ('99_tgc_tu2', 1), 'tu3': ('99_tgc_tu2', 2), 'na2': ('99_tgc_kid', 0), 'na3': ('99_tgc_kid', 1), 'gb': ('99_tgc_kid', 2)}[sh]
         Jx = json.load(open(G + f'jobs/{job}.json')); vd = [x for x in os.listdir(G + f'out/{job}') if not x.startswith('DONE')][0]
         txt = sorted(set(Jx['lines']), key=Jx['lines'].index)[idx]
         cands = [G + f'out/{job}/{vd}/{k:02d}' for k, l in enumerate(Jx['lines']) if l == txt and os.path.exists(G + f'out/{job}/{vd}/{k:02d}.wav')]

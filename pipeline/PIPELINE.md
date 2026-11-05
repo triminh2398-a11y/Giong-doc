@@ -120,3 +120,11 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - (Chủ kênh 05/11) Xưng hô/đáp lời đúng vai vế: "dạ" chỉ dùng khi NGƯỜI NHỎ đáp NGƯỜI LỚN. Người lớn (bà, ông, cha mẹ) đáp con cháu thì là "ơi", "hả", "tiếng trả lời/tiếng đáp" — không viết "tiếng dạ" cho người lớn.
 - (Chủ kênh 05/11) Giữ phong cách 2.5D (không đổi sang toon). Lớp chuyển động chung nằm trong scenes.part (motionPre/motionPost): thở, chớp mắt, gật đầu + tay khi nói, bước đi (o.walk), giật mình ở JUMPS/SOFT, ma lơ lửng. Mẫu mới nhất: pipeline/tiktok_thangiucua.
 - ElevenLabs tài khoản free: giọng Hung Tran / nhiều giọng VN là premium (bật bảng nâng cấp) — KHÔNG mua; dùng Thảo (nữ miền Nam), Nam – Clear (nam); vai còn lại dùng VieNeu. Khung chọn giọng bị lệch: đặt viewport 1280x800 (resize_window) rồi hover dòng (500,100) → bấm Use (688,100), đợi 3s mới Escape.
+- (Chủ kênh 05/11 tối — áp dụng mọi video sau)
+  * Trang phục miền Tây: CHỈ cần áo bà ba (nam/nữ), quần đen. KHÔNG quấn khăn rằn lên đầu/cổ/vai, không khăn đóng, không áo dài the, không búi tóc cài trâm, không áo hoa (bị chê giống Trung Quốc / hiphop). Thầy pháp miền Tây: áo bà ba đen, đầu hói/tóc bạc, có thể đeo chuỗi hạt + túi bùa.
+  * Mỗi truyện TẠO HÌNH MỚI cho nhân vật (màu áo, tóc, râu, dáng) — không lặp lại vợ chồng/thầy của truyện trước.
+  * Giọng ông thầy/ông già: Thái Sơn (miền Nam). KHÔNG dùng Đức Trí cho nhân vật miền Tây (giọng Bắc).
+  * Tư thế phải khớp lời kể: "bồng con" → vẽ con ngồi trên hông mẹ (tham số carry), không để con tự đi; "chui/bò gầm giường" → tư thế bò (crawl), không đứng/ngồi. Soát từng câu kể có động từ tư thế.
+  * Cảnh nói về chân/cổ chân phải thấy rõ chân + chi tiết (dấu tay); nhân vật nữ/trẻ con phải có bàn chân; cảnh toàn thân đừng để vật (lúa, bậc đá) che chân.
+  * Nhạc nền: ma mị suốt truyện (hộp nhạc chậm + organ trầm) nép dưới giọng; CAO TRÀO (khoảnh khắc ma ra tay) phải có lớp nhạc dồn dập riêng (trống trầm, trống cuộn, tim đập nhanh, swell) ít bị nén; CÂU KẾT ám ảnh phải có nhạc kết rùng rợn (organ + hộp nhạc lạc giọng + quét bóng tối) rồi lặng. Tiếng jumpscare nén dưới giọng đọc (sidechain), không át lời.
+  * Cảnh có ma xuất hiện thì có jumpscare (camera giật tới + chớp), không chỉ ở mở đầu.

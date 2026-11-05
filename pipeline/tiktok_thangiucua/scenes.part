@@ -39,10 +39,10 @@ S.bell=(lt,D,T)=>{CUR='inn';bedNight(0.6);if(lt<D*0.45){put(C.na,-0.95,-0.6,{sit
 S.odd=(lt,D,T)=>{CUR='inn';bedNight(0.35);if(lt<D*0.45){cm([-0.5,0.35,0.5],[-1.6,0.2,-1.0],44);JAR_I.visible=true;JAR_I.userData.gl.intensity=1.4*flick(T);return 'inn'}
  day();dayL.intensity=0.5;HANDS.forEach(h=>h.visible=true);const q=sm(seg(lt,D*0.45,D));cm([1.5,lerp(2.75,2.6,q),lerp(-1.3,-1.6,q)],[1.45,2.23,-2.32],40);return 'inn'};
 S.sick=(lt,D,T)=>{CUR='inn';bedNight(0.25);moonSpot.intensity=6;if(lt<D*0.5){put(C.na,-0.95,-0.6,{sit:true,sick:true,eyes:0.35,T},-0.12);fillL.color.set(0x8aa0c0);fillL.intensity=0.9;fillL.position.set(-0.4,1.0,0.3);const c=C.na;cm([c.position.x+0.25,0.85,c.position.z+1.2],[c.position.x,0.62,c.position.z],36);return 'inn'}
- put(C.na,-1.0,-0.5,{sit:true,sick:true,dirt:true,eyes:1.2,look:-1,T},-0.2);fillL.color.set(0x8aa0c0);fillL.intensity=0.8;fillL.position.set(-0.6,0.8,0.2);const c=C.na;cm([c.position.x+0.5,0.6,c.position.z+1.1],[c.position.x,0.5,c.position.z],38);return 'inn'};
+ put(C.na,-1.05,-0.75,{sick:true,dirt:true,eyes:1.2,look:-1,crawl:true,T},-0.45);fillL.color.set(0x8aa0c0);fillL.intensity=0.8;fillL.position.set(-0.6,0.8,0.2);const c=C.na;cm([c.position.x+0.5,0.6,c.position.z+1.1],[c.position.x,0.5,c.position.z],38);return 'inn'};
 // ---- thầy Tư ----
 const AMX=-4.2,AMZ=-3;
-S.tu=(lt,D,T)=>{CUR='mtn';mtnMode('night');amL.intensity=2.2*flick(T);const p=sm(lt/D);const z=lerp(3,0.6,p);putM(C.man,pathX(z),z,{eyes:1.05,tears:true,walk:T*7,T});putM(C.na,pathX(z)+0.45,z+0.1,{sick:true,eyes:0.6,walk:T*7+1,T});C.man.position.y+=0.1;C.na.position.y+=0.1;cm([2.4,H(2,4)+1.7,5.4],[pathX(z)-0.6,H(0,z)+1.0,z-1],44);return 'mtn'};
+S.tu=(lt,D,T)=>{CUR='mtn';mtnMode('night');amL.intensity=2.2*flick(T);const p=sm(lt/D);const z=lerp(3,0.6,p);putM(C.man,pathX(z),z,{eyes:1.05,tears:true,walk:T*7,carry:true,carrySick:true,T});C.man.position.y+=0.1;cm([2.4,H(2,4)+1.7,5.4],[pathX(z)-0.6,H(0,z)+1.0,z-1],44);return 'mtn'};
 const tuClose=(lt,D,T,o,dist,side)=>{CUR='mtn';mtnMode('night');amL.intensity=2.6*flick(T);const y=AM.position.y;put(C.tu,AMX-0.3,AMZ+0.4,Object.assign({mouth:TK('TU'),eyes:0.9,T},o),y+0.15);close(C.tu,dist,36,side);return 'mtn'};
 S.tu1=(lt,D,T)=>tuClose(lt,D,T,{},lerp(1.6,1.3,sm(lt/D)),0.3);
 S.tu2=(lt,D,T)=>tuClose(lt,D,T,{eyes:1.25,pupil:2},lerp(1.25,0.95,sm(lt/D)),-0.2);
@@ -52,7 +52,7 @@ S.miss=(lt,D,T)=>{CUR='inn';day();dayL.intensity=0.5;put(C.man,0.4,-0.6,{eyes:1.
 S.earring=(lt,D,T)=>{CUR='inn';bedNight(0.9);if(lt<D*0.55){put(C.man,0.4,-0.6,{ears:true,earring:true,tears:true,eyes:0.8,T});close(C.man,1.15,36,-0.2);return 'inn'}
  JAR_I.visible=true;JAR_I.position.set(0.0,0.02,0.1);JAR_I.userData.lid.visible=false;JAR_I.userData.gold.visible=true;JAR_I.userData.gl.intensity=1.0;cm([0.15,0.85,0.75],[0.0,0.3,0.1],38);return 'inn'};
 // ---- nửa đêm ra nền nhà cũ ----
-S.night=(lt,D,T)=>{CUR='ext';nightE();HOLECAP.visible=false;const p=sm(lt/D);const x=lerp(KX+4.5,KX+1.0,p),z=lerp(KZ+3.5,KZ+0.9,p);put(C.lanh,x,z,{jar:true,eyes:1.1,phase:T*6,T});put(C.man,x+1.0,z+0.6,{eyes:1.1,walk:T*6,T});put(C.na,x+1.4,z+0.75,{sick:true,eyes:0.5,walk:T*6+1,T});foundL.intensity=0.5;foundL.position.set(KX,0.5,KZ);
+S.night=(lt,D,T)=>{CUR='ext';nightE();HOLECAP.visible=false;const p=sm(lt/D);const x=lerp(KX+4.5,KX+1.0,p),z=lerp(KZ+3.5,KZ+0.9,p);put(C.lanh,x,z,{jar:true,eyes:1.1,phase:T*6,T});put(C.man,x+1.0,z+0.6,{eyes:1.1,walk:T*6,carry:true,carrySick:true,T});foundL.intensity=0.5;foundL.position.set(KX,0.5,KZ);
  cm([KX+5.2,1.7,KZ+7.2],[lerp(KX+3,KX+0.6,p),0.55,KZ+1.2],46);return 'ext'};
 const atHole=(T,o={})=>{HOLECAP.visible=false;jarAt(JAR_E,KX+0.75,GY,KZ+0.15,{});put(C.lanh,KX+0.95,KZ+0.75,Object.assign({eyes:1.15,T},o.L||{}),GY);put(C.man,KX-0.85,KZ+0.95,Object.assign({eyes:1.15,T},o.M||{}),GY);put(C.na,KX-0.5,KZ+1.2,Object.assign({sick:true,eyes:0.8,T},o.N||{}),GY);foundL.intensity=(o.glow??0.6)*flick(T);foundL.position.set(KX,0.2,KZ)};
 S.call=(lt,D,T)=>{CUR='ext';nightE();atHole(T,{L:{look:-1,eyes:1.3}});if(lt<D*0.5)cm([KX+2.4,1.9,KZ+3.0],[KX,0.6,KZ+0.6],44);else cm([KX+0.35,1.5,KZ+0.9],[KX,-0.7,KZ],40);return 'ext'};
@@ -67,9 +67,9 @@ S.pry=(lt,D,T)=>{CUR='ext';nightE();const drop=lt>D*0.45,grab=lt>D*0.6;const sin
  put(C.gb,KX,KZ,{a:0.95,reach:true,look:-0.6},-0.35);if(grab&&lt<D*0.75)RED=0.25*(1-seg(lt,D*0.6,D*0.75));cm([KX+1.5,1.45,KZ+2.6],[KX-0.25,0.35,KZ+0.4],42);return 'ext'};
 S.pull=(lt,D,T)=>{CUR='ext';nightE();const p=sm(seg(lt,0,D*0.8));atHole(T,{glow:lerp(1.2,0.3,p),L:{armA:[-0.9,undefined],hoe:0.4,eyes:1.3},M:{sit:true,grab:p<0.9,eyes:1.3,tears:true}});C.man.position.set(KX-0.55,GY+0.98-0.42,KZ+0.75);C.lanh.position.set(KX-0.0,GY+0.98,KZ+1.25);
  HOLECAP.visible=true;HOLECAP.scale.setScalar(lerp(0.4,1,p));cm([KX+2.2,1.6,KZ+3.0],[KX-0.2,0.5,KZ+0.8],42);return 'ext'};
-S.let=(lt,D,T)=>{CUR='ext';extMode('dusk');eHemi.intensity=0.8;HOLECAP.visible=true;HOLECAP.scale.setScalar(1);put(C.man,KX-0.55,KZ+0.75,{sit:true,ankle:true,eyes:0.6,T},GY-0.05);const c=C.man;cm([c.position.x-0.1,lerp(0.62,0.5,sm(lt/D)),c.position.z+1.15],[c.position.x-0.08,0.3,c.position.z],38);return 'ext'};
+S.let=(lt,D,T)=>{CUR='ext';extMode('dusk');eHemi.intensity=0.8;HOLECAP.visible=true;HOLECAP.scale.setScalar(1);put(C.man,KX-0.55,KZ+0.75,{ankle:true,eyes:0.6,T},GY);const c=C.man;eFill.intensity=2.6;eFill.position.set(c.position.x+0.2,0.7,c.position.z+0.6);cm([c.position.x+0.1,lerp(0.85,0.7,sm(lt/D)),c.position.z+lerp(1.5,1.2,sm(lt/D))],[c.position.x-0.08,GY+0.3,c.position.z],40);return 'ext'};
 // ---- kết: không jumpscare, chỉ không khí ----
-S.end=(lt,D,T)=>{CUR='inn';day();put(C.na,-0.3,0.4,{smileF:true,eyes:1,look:1,walk:T*3,T});put(C.man,0.8,-0.5,{sit:true,ankle:true,eyes:0.7,look:-1,T});cm([lerp(0.5,0.3,sm(lt/D)),1.35,3.2],[0.25,0.8,-0.1],46);return 'inn'};
+S.end=(lt,D,T)=>{CUR='inn';day();put(C.na,-0.3,0.4,{smileF:true,eyes:1,look:1,walk:T*3,T});put(C.man,0.8,-0.5,{ankle:true,eyes:0.7,look:-1,T});cm([lerp(0.5,0.3,sm(lt/D)),1.35,3.2],[0.25,0.8,-0.1],46);return 'inn'};
 S.end2=(lt,D,T)=>{CUR='ext';extMode('dusk');HOLECAP.visible=true;HOLECAP.scale.setScalar(1);const p=sm(lt/D);put(C.na,KX+0.55,KZ+0.55,{sit:true,back:true,T},GY-0.18);cm([lerp(KX+4,KX+2.6,p),lerp(2.2,1.6,p),lerp(KZ+5,KZ+3.6,p)],[KX+0.3,0.5,KZ+0.4],44);return 'ext'};
 S.na3=(lt,D,T)=>{CUR='ext';extMode('dusk');eHemi.intensity=0.9;HOLECAP.visible=true;HOLECAP.scale.setScalar(1);put(C.na,KX+0.55,KZ+0.55,{sit:true,look:-1,eyes:0.9,mouth:TK('NA'),T},GY-0.18);const c=C.na;cm([c.position.x+0.35,lerp(0.8,0.72,sm(lt/D)),c.position.z+lerp(1.3,1.05,sm(lt/D))],[c.position.x,0.6,c.position.z],36);return 'ext'};
 S.cta=(lt,D,T)=>{CUR='ext';extMode('night');ctaFlag=true;HOLECAP.visible=true;HOLECAP.scale.setScalar(1);foundL.intensity=0.6*flick(T);foundL.position.set(KX,0.3,KZ);cm([KX+lerp(1.6,1.2,sm(lt/D)),lerp(1.6,1.3,sm(lt/D)),KZ+lerp(2.4,2.0,sm(lt/D))],[KX,0.2,KZ],42);return 'ext'};
@@ -87,6 +87,7 @@ function motionPre(kk,c,t){const o=Object.assign({},c.userData.o);const h=HSH(kk
  if(o.walk!==undefined&&(kk==='man'||kk==='na')&&!o.pot){const a=(o.arm||[undefined,undefined]).slice();if(a[0]===undefined)a[0]=-0.12+0.32*Math.sin(o.walk);if(a[1]===undefined)a[1]=0.12+0.32*Math.sin(o.walk);o.arm=a}
  c.userData.o0=c.userData.o;c.userData.o=o}
 function motionPost(kk,c,t){const h=HSH(kk);
+ if(c.userData.o&&c.userData.o.crawl){c.rotateZ(1.3);}
  if(GHOST[kk]){c.position.y+=0.03*Math.sin(t*1.2+h*6);c.rotateZ(0.03*Math.sin(t*0.6+h*3));}
  else{const br=0.012*Math.sin(t*2.2+h*9);c.position.x+=0.012*Math.sin(t*0.7+h*5);c.scale.set(1,1+br,1);c.position.y+=0.98*br;c.rotateZ(0.012*Math.sin(t*0.9+h*4));
   if(speaking(kk))c.rotateZ(0.02*Math.sin(t*5.5+h));
