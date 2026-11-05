@@ -1217,3 +1217,7 @@ loaded V3TurboVieNeuTTS
 99_tgc_tu Đức Trí 3 ok 3.3
 99_tgc_tu Đức Trí 7 ok 8.7
 99_tgc_tu asr ok
+loaded V3TurboVieNeuTTS
+99_tgc_nfix clone:refs/mada8.wav 3 ok 22.1
+99_tgc_nfix clone:refs/mada8.wav 7 ok 3.9
+99_tgc_nfix asr ok
