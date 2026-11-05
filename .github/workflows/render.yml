@@ -32,7 +32,7 @@ jobs:
           fc-list | grep -ci dejavu || true
           node -e "console.log(require('ffmpeg-static'))"
           TAG=$(jq -r .tag job.json); HTML=$(jq -r .html job.json); N=$(jq -r .frames job.json); S=16
-          A=$(( N * ${{ matrix.shard }} / S )); B=$(( N * (${{ matrix.shard }} + 1) / S ))
+          ST=$(jq -r '.start // 0' job.json); A=$(( ST + N * ${{ matrix.shard }} / S )); B=$(( ST + N * (${{ matrix.shard }} + 1) / S ))
           node render_seg.js "$HTML" seg_$(printf %02d ${{ matrix.shard }}).mp4 $A $B $(jq -r .w job.json) $(jq -r .h job.json)
           sleep $(( ${{ matrix.shard }} * 2 ))
           for k in 1 2 3 4 5 6; do gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" -t "$TAG" -n "render" || true; gh release upload "$TAG" seg_$(printf %02d ${{ matrix.shard }}).mp4 --clobber && break; sleep 8; done
