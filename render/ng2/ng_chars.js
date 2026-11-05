@@ -37,6 +37,7 @@ function tham(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]
  else{ctx.strokeStyle=HAIR;ctx.lineWidth=18;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(0,-250);ctx.quadraticCurveTo(6,-200,0,-140);ctx.stroke()}
  if(o.sick&&!o.back){ctx.fillStyle='rgba(70,40,90,.35)';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*21,-262,17,12,0,0,7);ctx.fill()}ctx.fillStyle='#6a4a7a';ctx.fillRect(-9,-246,18,4)}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
+ if(o.walk!==undefined&&!o.sit){for(const sd of [-1,1]){const lift=Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12;ctx.fillStyle='#1a1418';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,2-lift,16,7,0,0,7);ctx.fill();ctx.stroke()}}
  if(o.tang){ctx.fillStyle='#f4f2ea';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.rect(-58,-318,116,16);ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(52,-310);ctx.quadraticCurveTo(70,-280,64,-236);ctx.lineTo(56,-238);ctx.quadraticCurveTo(60,-282,46,-306);ctx.fill();ctx.stroke()}
  if(o.pot){potDraw(0,-100,0.55,T,{glow:o.glow??0.4,pulse:o.pulse});for(const sd of [-1,1]){const [hx,hy]=HPW(sd,sd*0.08);circ(hx,hy,8,skin,INK,3)}}
  if(o.phone){const [hx,hy]=HPW(1,3.32);ctx.fillStyle='#1a1a1e';ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.fillRect(hx-6,hy-22,13,30);ctx.strokeRect(hx-6,hy-22,13,30);circ(hx,hy,8,skin,INK,3)}
