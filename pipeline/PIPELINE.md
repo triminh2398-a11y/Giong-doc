@@ -108,3 +108,12 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - (Chủ kênh 04/11 tối) KHẨU HÌNH CHỈ MỞ KHI CHÍNH CÂU ĐÓ ĐANG CÓ TIẾNG: không dùng talk(lt) nhép cả cảnh. build.py tính TLD.vox = các khoảng có tiếng của từng clip thoại (năng lượng 20ms, ngưỡng max-26dB, nối khoảng hở <0.14s); trong cảnh dùng mouth:TK('TB'|'L'|'TM'|'GL'|'TU'). Timeline dựng theo độ dài THẬT của clip EL (không patch giọng mới vào timeline cũ) → hết thoại là ngậm miệng, không trễ. Mẫu: pipeline/tiktok_ngai2/build.py + scenes.part.
 - Thẻ ma trong suốt: alphaTest của card = 0.4 → globalAlpha ma phải ≥ 0.6, thấp hơn là bị cắt mất hẳn. Ma đứng sau lưng nhân vật: lệch ngang ≥1 đơn vị để không bị thân nhân vật che.
 - Cảnh "không có bóng": dùng SpotLight (shadL) chiếu XIÊN từ bên hông tới vách (đèn cùng hướng máy quay thì bóng nằm khuất sau người), thẻ ma castShadow=false.
+
+## Mẫu YouTube mới nhất (05/11): pipeline/ep03_ma_giau/ — Ma giấu rừng U Minh
+- Engine = ep02 (main1–6) + main3b.js (rừng tràm x 145..240: tram() thân vỏ tràm, nước đầm swampM y=0.04 che chân nên nhân vật lội nước đặt base -0.22; miếu ông Tà mieu('ok'|'lit'|'over'), kèo ong keoOng() + bees(), gò ông Tà GX=206 + cây tràm già + KEOTA keota('full'|'dead'|'none'), đuốc torch3() = PointLight có bóng, hideNear() ẩn tràm sát máy quay, forest('day'|'night'|'dawn'), skyDawn xám xanh (bầu trời dusk hồng nhìn giả)).
+- Nhân vật: chars_mg.js (tam có ria mép + khăn rằn, torch/bucket/thau/gonk gõ thau/cui khói; loc pale/fake; nhan thau+blood; thuy mud; bnl tóc bạc + gậy; muc chó gầm gừ; maRung ma cao 2.8m tay dài tới gối, mặt ghostFace, crouch/wide). Card rộng (wide) cho mọi nhân vật.
+- Khẩu hình: TK(code,si) theo TLD.vox (build.py tính). Jumpscare: JX trong build.py (cảnh, câu) → TLD.jumps; main4 jumpShake (giật máy + chớp trắng + phủ đỏ), audio.py jump.wav cộng sau loudnorm (mix.sh).
+- Bài học rà hình: hàng dừa nước dọc kênh (z≈10.9) che máy quay → đã bỏ đoạn x -44..9; máy quay không đặt trong nhà lá ngoại cảnh (x -4..4, z -3..3); máy quay cách nhân vật ≥2.4m, đừng để nhân vật khác đứng giữa máy và người đang nói.
+- Âm gõ thau = sfx 1797 (Cooking pot lid hit) lặp mỗi 0.5–0.8s; nhai bùn 2252 (chậm 0.85); ong 1926/42; đầm 40. Đã thêm kho bell/gong/metal/bee/insect/swamp/eating/kitchen/whisper (titles.json).
+- Render: render.yml timeout nâng lên 105 phút/shard; Shorts render bằng html `ep3/index.html?v=1&t0=..&d=..` (khung dọc + thẻ Xem bản đầy đủ).
+- Watermark: tạm tắt theo dặn 04/11; bật lại bằng tham số URL `wm=1`.

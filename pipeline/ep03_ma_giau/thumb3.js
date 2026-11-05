@@ -1,0 +1,17 @@
+const { chromium } = require('playwright');const path=require('path'),http=require('http'),fs=require('fs');
+(async()=>{const root='/home/claude/giong-doc/render/ep3';
+ const srv=http.createServer((qq,r)=>{const f=path.join(root,decodeURIComponent(qq.url.split('?')[0]));fs.readFile(f,(e,d)=>{if(e){r.writeHead(404);r.end();return}r.writeHead(200,{'Content-Type':{'.html':'text/html','.js':'text/javascript'}[path.extname(f)]||'application/octet-stream'});r.end(d)})}).listen(8846);
+ const b=await chromium.launch({args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});const p=await b.newPage({viewport:{width:1280,height:720}});p.on('pageerror',e=>console.log('PAGEERR',e.message));
+ await p.goto('http://localhost:8846/index.html?nosub=1');await p.waitForFunction(()=>window.READY===true);await p.evaluate(()=>document.fonts.ready);
+ const t=+process.argv[2];await p.evaluate(t=>draw(t),t);await p.evaluate(t=>draw(t),t);
+ await p.evaluate(()=>{const cvs=document.querySelectorAll('canvas');const ov=cvs[cvs.length-1];const g=ov.getContext('2d');
+  g.fillStyle='rgba(0,0,0,.25)';g.fillRect(0,0,1280,720);
+  const gr=g.createLinearGradient(0,0,720,0);gr.addColorStop(0,'rgba(0,0,0,.88)');gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(0,0,780,720);
+  const old=ctx;ctx=g;halo(960,330,560,'255,40,40',0.35);ctx.save();ctx.translate(990,470);ctx.scale(1.55,1.55);maRung(0,560,1,2.0,{arms:[0.25,-1.9],open:0.95,wide:true,glow:1.6,look:-0.6});ctx.restore();
+  thauAt(150,630,70);ctx.save();ctx.translate(250,600);ctx.rotate(-0.6);ctx.strokeStyle='#000';ctx.lineWidth=14;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-110);ctx.stroke();ctx.strokeStyle='#7a5a32';ctx.lineWidth=8;ctx.stroke();ctx.restore();ctx=old;
+  const T=(s,x,y,size,fill,sw)=>{g.font=`900 ${size}px "DejaVu Sans"`;g.lineJoin='round';g.lineWidth=sw;g.strokeStyle='#000';g.strokeText(s,x,y);g.fillStyle=fill;g.fillText(s,x,y)};
+  g.textAlign='left';T('MA GIẤU',36,190,132,'#ffe14a',22);T('RỪNG U MINH',36,320,98,'#ff2a2a',20);
+  g.fillStyle='#d6242a';g.beginPath();g.roundRect(36,370,720,84,14);g.fill();T('ĐỪNG NGỪNG GÕ THAU!',56,432,50,'#ffffff',8);
+  T('Truyện ma dân gian miền Tây',40,520,34,'#f0e6d0',7);T('Coong... coong...',250,640,40,'#ffd76a',7);
+  });
+ await p.screenshot({path:process.argv[3],type:'jpeg',quality:92});await b.close();srv.close()})();

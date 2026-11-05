@@ -13,6 +13,7 @@
 | TikTok (bỏ) | Bữa tối câm lặng (Dumb Supper, Ireland) — user thấy không hay, thay bằng Bloody Mary | D | — | pipeline/tiktok_halloween |
 | TikTok | Ngải Thất Sơn (đêm rằm đừng dạ — Hai Lợi xin ngải núi Cấm, ham mối hàng bỏ cữ rằm, ngải giả giọng chồng kêu, Thắm dạ; trả ngải lên núi phải đổi ngón tay; twist: chậu ngải con Thắm lén tách trồng đầu giường, Lợi lỡ miệng dạ; v2 theo góp ý chủ kênh: Thắm gọi "anh Lợi", bỏ cảnh dao, sửa chậu ngải) | E – bùa ngải | 2026-11-04 | pipeline/tiktok_ngai |
 | TikTok | Ngải Thất Sơn — bản mới "Ngải kêu người" (Thắm trồng ngải kêu chồng đi làm bên kia biên giới về; luật: máu ngón áp út, không được hỏi đi đâu, ngải không hỏi sống hay chết; Lợi về lạnh, không bóng; anh Tư báo Lợi chết 3 tháng; ôm chậu ra ngã ba đập bể, giật rễ quấn nhẫn cưới & ngón tay; xác Lợi nằm sấp; kết: chồi ngải mọc ở vết thương) — sửa 4 lỗi chủ kênh nêu | E – bùa ngải | 2026-11-04 | pipeline/tiktok_ngai2 |
+| YouTube T3 | Ma giấu rừng U Minh — Tiếng thau không được dứt (Sáu Lộc lấy mật kèo ông Tà, bị ma giấu; người cõng về là "vỏ"; ma giả giọng mẹ dụ Thủy; Nhàn chuộc mật bằng bông tai cưới, gõ thau ở bìa rừng; twist: Nhàn buông thau đúng một bước cuối → Ba Tâm về nhà là ma, Tâm thật kêu trong rừng) — 32 phút, 2.5D 16:9, 2 Shorts | A – tục lệ Nam Bộ (gác kèo ong U Minh, gõ thau tìm người bị ma giấu) | 2026-11-05 | pipeline/ep03_ma_giau |
 
 ## QUY TẮC CHỌN TRUYỆN (cập nhật 29/10 — chủ kênh: "nhiều truyền thuyết, bí ẩn, lời đồn, câu chuyện vào chứ đừng loanh quanh vài con ma ai cũng biết, kể cả ma, tâm linh, chuyện nước ngoài... phải đáng sợ, hấp dẫn, li kì, tình tiết hợp lý")
 - XOAY VÒNG THỂ LOẠI, không 2 tập liền nhau cùng nhóm: (A) ma/tục lệ Việt ít ai kể · (B) truyền thuyết – bí ẩn Việt (vùng đất, di tích, vụ việc lạ) · (C) lời đồn/chuyện kể đô thị Việt có tình tiết riêng · (D) ma/truyền thuyết NƯỚC NGOÀI (Nhật, Thái, Phi, Indo, Hàn, Trung, Âu, Mỹ, Mỹ Latinh) · (E) tâm linh – nhân quả – bùa ngải.
@@ -44,7 +45,7 @@
 11. Minh hôn — cưới vợ cho người đã chết, "cô dâu" là người sống
 12. Ma rú Nghệ Tĩnh — tiếng hú trong rú gọi đúng tên người
 13. Ma chài (Mường/Thái) — thầy chài bỏ bùa qua đồ ăn, người trúng gầy rộc
-14. Hồn ma rừng U Minh — kẻ đi ăn ong lạc trong rừng tràm, nghe tiếng "dắt đường"
+14. ~~Hồn ma rừng U Minh — kẻ đi ăn ong lạc trong rừng tràm, nghe tiếng "dắt đường"~~ (YouTube T3 05/11: Ma giấu rừng U Minh)
 ### B. Truyền thuyết – bí ẩn Việt
 15. Rừng Hòn Mê / Truông Mây — đoàn buôn mất tích, đá biết đi
 16. Giếng cổ thành Cổ Loa — giếng Ngọc, máu Mỵ Châu, ngọc trai rửa sáng
