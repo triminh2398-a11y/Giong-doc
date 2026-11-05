@@ -1245,3 +1245,13 @@ loaded V3TurboVieNeuTTS
 62_mg_fix_bnl Thùy Dung 5 ok 2.5
 62_mg_fix_bnl Thùy Dung 9 ok 2.6
 62_mg_fix_bnl asr ok
+loaded V3TurboVieNeuTTS
+99_toon_g Mỹ Duyên 1 ok 1.2
+99_toon_g Mỹ Duyên 5 ok 0.7
+99_toon_g asr ok
+99_toon_n clone:refs/mada8.wav 1 ok 25.6
+99_toon_n clone:refs/mada8.wav 5 ok 1.4
+99_toon_n clone:refs/mada8.wav 9 ok 1.3
+99_toon_n asr ok
+99_toon_u Thái Sơn 1 ok 1.0
+99_toon_u asr ok
