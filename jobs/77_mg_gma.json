@@ -1,0 +1,21 @@
+{
+ "voices": [
+  "Minh Triết"
+ ],
+ "lines": [
+  "Mật trả rồi... mà còn thiếu... Lấy của rừng... phải để lại một người...",
+  "Mật trả rồi... mà còn thiếu... Lấy của rừng... phải để lại một người...",
+  "Mật trả rồi... mà còn thiếu... Lấy của rừng... phải để lại một người...",
+  "Mật trả rồi... mà còn thiếu... Lấy của rừng... phải để lại một người...",
+  "Mật trả rồi... mà còn thiếu... Lấy của rừng... phải để lại một người...",
+  "Mày sẽ quay đầu lại... ai rồi cũng quay đầu lại...",
+  "Mày sẽ quay đầu lại... ai rồi cũng quay đầu lại...",
+  "Mày sẽ quay đầu lại... ai rồi cũng quay đầu lại...",
+  "Mày sẽ quay đầu lại... ai rồi cũng quay đầu lại...",
+  "Mày sẽ quay đầu lại... ai rồi cũng quay đầu lại..."
+ ],
+ "asr": true,
+ "kw": {
+  "temperature": 1.1
+ }
+}

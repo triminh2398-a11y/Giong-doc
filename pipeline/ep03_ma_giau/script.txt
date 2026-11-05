@@ -1,0 +1,291 @@
+hook|N|Ở rừng tràm U Minh Hạ, những người đi ăn ong truyền nhau một luật rất cũ.
+hook|N|Lấy mật của rừng, thì phải chừa phần cho rừng. Ai lấy hết, rừng sẽ lấy lại... bằng một con người.
+hook2|N|Người bị rừng lấy, dân ở đó kêu là bị ma giấu. Và muốn tìm người về, cả xóm phải gõ thau suốt đêm.
+hook2|N|Tiếng thau, tuyệt đối không được dứt. Dứt một nhịp thôi, là cái thứ trong rừng... bước ra theo.
+hook3|N|Đêm nay, mình kể chuyện một người đàn bà ở bìa rừng U Minh, đã gõ thau cứu chồng con mình ra.
+hook3|N|Và chỉ vì buông tay đúng một nhịp, mà cả đời bà phải ngủ cạnh một thứ... không phải chồng mình.
+title|N|Ma giấu rừng U Minh. Tiếng thau không được dứt.
+cta0|N|Trước khi vô truyện, nếu bạn mê những chuyện ma dân gian ít ai kể,
+cta0|N|thì bấm đăng ký kênh Chuyện Đông Tây Kim Cổ, để đêm nào cũng có truyện nghe nha.
+chap1|N|Chương một. Kèo ong ông Tà.
+xom|N|Xóm Kênh Tám nằm sát bìa rừng U Minh Hạ, đất Cà Mau, hồi sau giải phóng chừng chục năm.
+xom|N|Nhà cửa thưa thớt, toàn nhà lá, lưng dựa vô rừng tràm, mặt nhìn ra con kênh nước đỏ như nước trà.
+xom|N|Người trong xóm sống nhờ rừng. Đàn ông đi giăng câu, đặt lờ, còn giỏi nhất, là đi ăn ong.
+keo|N|Ăn ong ở U Minh không phải trèo cây phá tổ. Người ta gác kèo, là gác một cây tràm nghiêng dưới tán rừng.
+keo|N|Ong rừng bay về, làm tàng mật dưới cây kèo đó. Tới mùa, người gác kèo vô rừng hun khói, cắt mật đem về.
+keo|N|Cái nghề đó, trong xóm có một người giỏi nhất, là ông Ba Tâm. Nhà ông ba đời gác kèo.
+nha|N|Ba Tâm năm đó ngoài năm chục, ít nói, da đen như gỗ tràm, đi rừng thuộc từng con lạch như thuộc lòng bàn tay.
+nha|N|Vợ ông là thím Ba Nhàn, hiền khô, tay chân lanh lẹ. Con gái lớn là Hai Thủy, mười chín tuổi, đẹp nhất xóm.
+nha|N|Hai vợ chồng sống với nhau hơn hai chục năm, chưa một lần kêu nhau bằng tên.
+nha2|NHAN|Ông nó... ăn cơm đi rồi hẵng đi. Đi rừng bụng đói, ông Tà ổng hổng thương đâu đó.
+nha2|TAM|Ừ, bà nó dọn đi. Còn con Thủy đâu, kêu nó lấy dùm tui bó cúi với cái thùng mật.
+nha2|N|Ở xóm Kênh Tám, ai cũng quen nghe hai ông bà kêu nhau "ông nó", "bà nó", nghe riết thành quen tai.
+loc|N|Mùa ong năm đó, Ba Tâm dẫn theo một người học nghề. Đó là Sáu Lộc, ở cuối xóm.
+loc|N|Sáu Lộc mới dọn về Kênh Tám được hai năm. Mẹ già bệnh nằm ở nhà thương Cà Mau, nợ tiền thuốc chồng chất.
+loc|N|Chủ nợ dưới chợ đã xuống đòi hai lần. Lần cuối, tụi nó đập bể nồi cơm, dọa nếu tới rằm không trả thì lấy nhà.
+loc2|LOC|Anh Ba ơi, cho em theo một mùa thôi. Em học lẹ lắm, anh kêu gì em làm đó, hổng dám cãi đâu!
+loc2|TAM|Đi rừng thì dễ, chú Sáu. Cái khó là giữ luật rừng. Chú giữ được hông?
+loc2|LOC|Được chớ anh Ba! Luật gì anh cứ nói, em khắc vô đầu liền!
+loc2|N|Ba Tâm nhìn Sáu Lộc một hồi lâu. Rồi ông gật đầu. Sáng hôm sau, hai người vô rừng.
+mieu|N|Đầu đường mòn vô rừng có một cái miếu ông Tà nhỏ xíu, cất bằng ván tràm, mái lợp lá, chân chôn một cây cột.
+mieu|N|Trong miếu có cái bát nhang, mấy hòn đá cuội đen bóng, và một cái chén nhỏ, lúc nào cũng có chút mật ong.
+mieu|N|Ba Tâm đốt ba cây nhang, cắm vô bát, rồi khấn thầm một hồi. Sáu Lộc đứng phía sau, gãi đầu cười.
+mieu2|LOC|Anh Ba... ông Tà là ông nào vậy anh? Ổng có ăn mật hông mà anh rót mật cho ổng?
+mieu2|TAM|Ông Tà là ông giữ rừng. Mình vô nhà người ta lấy đồ, thì phải thưa một tiếng chớ.
+mieu2|TAM|Chú nghe cho kỹ nè. Luật thứ nhứt... vô rừng phải thắp nhang ông Tà. Ra rừng... cũng phải thắp.
+mieu2|TAM|Luật thứ hai. Cắt mật thì cắt phần ngực, chừa lại tàng ong non. Chừa phần cho rừng, mùa sau ong mới về.
+mieu2|LOC|Chừa lại chi uổng vậy anh? Cắt luôn thì được thêm mấy lít, bán ra tiền liền.
+mieu2|TAM|Lấy hết của rừng... thì rừng lấy lại. Mà rừng hổng lấy mật đâu chú. Rừng lấy người.
+mieu2|N|Sáu Lộc cười hì hì, không nói gì thêm. Nhưng cái cười đó, Ba Tâm nhìn thấy không có tin.
+rung|N|Rừng tràm U Minh ban ngày đẹp lắm. Thân tràm trắng xám mọc thẳng tắp, dưới chân là nước đen và dương xỉ.
+rung|N|Đi một hồi, tiếng chim tắt dần, chỉ còn tiếng nước lõm bõm dưới chân, và tiếng ong vo ve đâu đó.
+rung|N|Ba Tâm dắt Sáu Lộc tới cây kèo đầu tiên. Dưới cây tràm gác nghiêng, một tàng mật vàng óng to cỡ cái nia.
+anong|N|Ba Tâm đốt bó cúi. Khói trắng bốc lên, ong rần rần bay tản ra. Ông thò tay cắt từng miếng mật vàng.
+anong|N|Ông cắt phần ngực đầy mật, còn phần tàng ong non phía trong, ông để nguyên, không đụng tới.
+anong|LOC|Trời đất ơi... mật gì mà thơm dữ vậy anh Ba! Một tàng này bán chắc được cả chỉ vàng!
+anong|TAM|Chưa tới đâu. Mật bông tràm mùa này còn thua mật kèo ông Tà. Mà kèo đó... hổng ai được đụng.
+anong|N|Sáu Lộc nghe tới đó thì sáng mắt lên. Hắn hỏi kèo ông Tà ở đâu. Ba Tâm im lặng một hồi lâu mới nói.
+keota|N|Sâu trong rừng, cách xóm nửa ngày lội nước, có một cái gò đất cao,
+keota|N|trên gò có một cây tràm già, gốc bự cả người ôm.
+keota|N|Không ai gác kèo ở đó. Vậy mà năm nào, dưới nhánh tràm nghiêng, ong cũng về làm một tàng mật to cỡ cái nong.
+keota|N|Người già trong xóm nói, đó là kèo của ông Tà. Ong về đó là mật của rừng, người không được lấy.
+keota2|TAM|Hai chục năm trước, con Mận, con gái ông Bảy, theo cha vô rừng hái bông súng. Nó đi lạc tới gò đó.
+keota2|TAM|Cả xóm gõ thau tìm ba ngày ba đêm. Sáng ngày thứ ba mới thấy nó ngồi trong bụi choại sát gò.
+keota2|TAM|Mắt nó mở trừng trừng... miệng nhét đầy bùn với lá tràm. Đem về được hai bữa thì nó chết.
+keota2|LOC|Chắc... chắc con nhỏ đói quá, lượm đại gì ăn nấy thôi anh.
+keota2|TAM|Hổng phải nó ăn đâu chú. Là có cái gì đó... đút cho nó ăn.
+luat|TAM|Còn một luật nữa, chú nhớ cho kỹ. Đi trong rừng, mà thấy người quen đi phía trước, kêu hổng quay đầu lại...
+luat|TAM|...lội nước mà hổng nghe tiếng lõm bõm... thì đứng lại liền. Đừng có theo. Đó là ma giấu nó dắt mình đi.
+luat|TAM|Rồi nếu có cái gì trong rừng đưa đồ cho chú ăn... thì nhắm mắt lại, nhổ ra. Đừng có nuốt.
+luat|N|Sáu Lộc gật gật cái đầu. Nhưng Ba Tâm để ý, cả buổi chiều đó, hắn cứ ngó về phía rừng sâu.
+dem1|N|Tối đó, hai người về tới xóm. Mật chia đôi, phần Sáu Lộc được chừng tám lít, bán được ít tiền.
+dem1|N|Nhưng bao nhiêu đó, so với nợ tiền thuốc của mẹ hắn, chẳng thấm thía vô đâu.
+dem1|N|Khuya đó, thím Ba Nhàn thức dậy đi tiểu. Thím nghe ngoài đường mòn có tiếng lõm bõm, có ánh đuốc đi về phía rừng.
+dem1|N|Con chó Mực nhà thím đứng ở đầu hiên, gầm gừ trong cổ họng, mà không dám sủa một tiếng.
+hoa|N|Sáng hôm sau, trời chưa sáng rõ, chị Sáu Hoa, vợ Sáu Lộc, chạy qua đập cửa nhà Ba Tâm.
+hoa|HOA|Anh Ba ơi! Anh Ba! Ảnh đi đâu từ hồi khuya tới giờ hổng thấy về!
+hoa|HOA|Ảnh mang theo bó cúi với cái thùng lớn nhứt trong nhà!
+hoa|TAM|Thùng lớn nhứt...? Trời đất ơi... nó đi kèo ông Tà rồi!
+hoa|N|Ba Tâm xách đuốc chạy một mạch ra đầu đường mòn. Tới miếu ông Tà, ông khựng lại.
+mieu3|N|Bát nhang trong miếu bị lật úp. Chén mật cúng bị đổ tràn ra ván. Không có một cây nhang nào được thắp.
+mieu3|N|Từ miếu đi vô rừng, trên lá dương xỉ, có một vệt mật ong nhỏ giọt, kéo dài vô sâu bên trong.
+mieu3|N|Ba Tâm lội theo vệt mật. Càng đi, rừng càng tối, dù ngoài kia mặt trời đã lên.
+truoc|GLOC|Anh Ba ơi... lại đây coi nè... mật nhiều lắm anh Ba ơi...
+truoc|N|Ba Tâm giật mình ngó lên. Cách ông chừng hai chục thước, giữa mấy thân tràm, là cái lưng áo xám của Sáu Lộc.
+truoc|TAM|Sáu Lộc! Chú Sáu! Đứng lại đó, chờ anh!
+truoc|N|Sáu Lộc không quay đầu. Hắn cứ đi, đi đều đều, chậm rãi, giữa vùng nước ngập tới đầu gối.
+truoc|N|Và Ba Tâm nhận ra một điều làm ông lạnh cả sống lưng. Lội nước như vậy, mà không có một tiếng lõm bõm nào hết.
+truoc2|N|Ông đứng sững lại, nhớ đúng cái luật mà chính ông đã dặn Sáu Lộc hôm qua. Đừng có theo.
+truoc2|N|Ông dụi mắt nhìn lại. Lúc này, phía trước không còn một người. Mà là hai.
+jump1|N|Đi bên cạnh Sáu Lộc là một cái bóng cao lêu nghêu, cao gần gấp rưỡi người thường, tay dài thòng tới đầu gối.
+jump1|N|Cái bóng đó đang nắm tay Sáu Lộc, dắt hắn đi. Rồi nó từ từ... quay đầu lại, nhìn thẳng về phía Ba Tâm.
+chap2|N|Chương hai. Gõ thau tìm người.
+xom2|N|Trưa hôm đó, cả xóm Kênh Tám kéo nhau tới nhà Sáu Lộc. Ba Tâm ngồi ở bậc cửa, mặt cắt không còn hột máu.
+xom2|N|Người lớn tuổi nhất xóm là bà Năm Lụa, năm đó đã ngoài tám mươi. Chính bà, hai chục năm trước, đã đi tìm con Mận.
+banam|BNL|Ma giấu rồi đó bây ơi. Nó lấy mật của ông Tà, giờ rừng nó giấu người lại.
+banam|HOA|Bà Năm ơi... bà cứu ảnh dùm con. Con lạy bà... ảnh mà có mệnh hệ gì, mẹ con con sống sao nổi!
+banam|BNL|Cứu thì phải tìm. Tối nay, nhà nào có thau, có mâm đồng, có nồi đồng, đem hết ra đây cho tao.
+banam|BNL|Ma giấu nó sợ tiếng đồng. Gõ cho rền rừng, kêu tên nó cho lớn. Ba ngày, ba đêm, hổng được ngừng tay.
+banam|TAM|Còn... nếu ba ngày hổng tìm ra thì sao bà Năm?
+banam|BNL|Ba ngày hổng ra... thì thôi, coi như rừng nó giữ luôn rồi. Đừng tìm nữa, tìm là mất thêm người.
+dem2|N|Đêm đầu tiên, hơn hai chục người đàn ông cầm đuốc, xếp hàng ngang, lội vô rừng tràm.
+dem2|N|Mấy người đàn bà đi phía sau, ôm thau, ôm mâm, gõ liên hồi. Tiếng đồng vang rền, dội qua dội lại giữa những thân tràm.
+dem2|NHAN|Sáu Lộc ơi... về đi Lộc ơi... vợ con trông ở nhà nè... về đi...
+dem2|N|Cả xóm kêu tên Sáu Lộc tới khản cổ. Nhưng chỉ có tiếng ếch nhái, và tiếng gió luồn qua ngọn tràm.
+vong|N|Gần nửa đêm, có một tiếng trả lời. Nó vang lên ở bên trái hàng người, nghe rõ mồn một.
+vong|GLOC|Tui ở đây nè... tui ở đây...
+vong|N|Mấy người bên trái quơ đuốc chạy qua, không thấy ai. Rồi cái tiếng đó lại vang lên, lần này ở bên phải.
+vong|GLOC|Ở đây nè... ở đây... sao hổng ai lại đây với tui...
+vong|N|Rồi ở phía sau lưng. Rồi ở trên ngọn cây. Rồi ở khắp mọi nơi,
+vong|N|cùng một lúc, như cả khu rừng đang nói bằng giọng Sáu Lộc.
+vong|BNL|Đừng có trả lời! Đừng đứa nào dạ! Gõ tiếp đi! Gõ mạnh lên!
+dem3|N|Đêm thứ hai, người đi tìm thưa dần. Ai cũng sợ, ai cũng lấy cớ nhà có việc. Chỉ còn nhà Ba Tâm với vài người.
+dem3|N|Hai Thủy đi theo mẹ, ôm cái mâm đồng gõ không ngơi tay. Chị Sáu Hoa khóc tới mức không còn ra tiếng.
+dem3|THUY|Má ơi... sao con thấy ở trong kia có ánh đèn... mà ánh đèn gì xanh lè vậy má?
+dem3|NHAN|Đừng có ngó con! Cúi mặt xuống, gõ mâm đi. Thấy gì trong rừng ban đêm cũng đừng có ngó lâu.
+dem3|N|Thủy cúi xuống, gõ tiếp. Nhưng từ đó về sau, cô cứ có cảm giác có ai đứng trong bóng tối, nhìn mình chằm chằm.
+sang3|N|Sáng ngày thứ ba, ngày cuối cùng. Người ta đã bỏ về gần hết. Chỉ còn Ba Tâm, một mình, lội về phía gò ông Tà.
+sang3|N|Ông vừa đi vừa gõ cái thau đồng. Tay ông rướm máu, cổ khàn đặc, mà ông không chịu ngừng.
+sang3|TAM|Sáu Lộc ơi... anh Ba nè... về với anh đi chú... vợ con chú đang chờ...
+sang3|N|Gần tới gò, ông nghe một tiếng động lạ. Không phải tiếng chim, không phải tiếng nước. Mà là tiếng nhai.
+sang3|N|Tiếng nhai chóp chép, đều đều, phát ra từ một bụi choại rậm rạp sát chân gò.
+jump2|N|Ba Tâm vạch bụi choại ra. Sáu Lộc ngồi đó, hai chân xếp bằng, lưng thẳng đơ, mắt mở trừng trừng.
+jump2|N|Miệng hắn nhét đầy bùn đen với lá tràm, với từng mảng sáp ong nhai dở. Bùn chảy xuống cằm, xuống cổ áo.
+jump2|N|Rồi cái đầu của Sáu Lộc từ từ quay qua, quay hết mức, nhìn thẳng vào Ba Tâm. Và hắn... nhe răng cười.
+ve|N|Ba Tâm cõng Sáu Lộc về tới xóm lúc xế trưa. Bên cạnh bụi choại,
+ve|N|ông còn thấy cái thùng lớn của Lộc, đầy ắp mật kèo ông Tà.
+ve|N|Bà Năm Lụa lấy tay móc từng nắm bùn trong miệng Sáu Lộc ra. Bùn hôi tanh, lẫn mấy con ong chết.
+ve|N|Sáu Lộc ho sặc sụa, rồi thở được. Cả xóm thở phào. Chị Sáu Hoa ôm chồng, khóc tức tưởi.
+ve2|N|Chỉ có bà Năm Lụa là không vui. Bà kéo Ba Tâm ra sau hè, nói nhỏ.
+ve2|BNL|Tâm à... ma giấu nó trả người, thì phải coi cho kỹ. Coi nó có trả đủ hông.
+ve2|TAM|Trả đủ... là sao bà Năm? Thằng Lộc nó còn thở, còn ho, còn nhìn được mà.
+ve2|BNL|Cái ma nó học giọng người thì giỏi lắm. Mà nó hổng biết người ta thương nhau, kêu nhau bằng cái gì.
+ve2|BNL|Mày để ý cách nó kêu mày. Để ý con chó. Để ý lúc nó lội nước. Có gì lạ thì qua kêu tao.
+mat|N|Còn cái thùng mật kèo ông Tà, bà Năm biểu phải đem trả về gò.
+mat|N|Nhưng chị Sáu Hoa đã lén bán cho một lái mật dưới chợ.
+mat|HOA|Bà Năm ơi... con lỡ rồi. Nợ tiền thuốc của má ảnh, người ta đòi tới cửa. Con hổng còn cách nào hết...
+mat|N|Bà Năm Lụa lặng thinh. Bà nhìn về phía rừng, chỉ nói đúng một câu: rừng nó còn đòi nữa đó.
+ctamid|N|Nếu bạn đang nghe tới đây mà thấy lạnh gáy, thì bấm đăng ký kênh Chuyện Đông Tây Kim Cổ,
+ctamid|N|và để lại một bình luận cho mình biết bạn nghe từ đâu nha.
+la|N|Mấy ngày sau, Sáu Lộc khỏe lại. Hắn đi đứng được, nói năng được. Nhưng người trong xóm bắt đầu thấy hắn lạ.
+la|N|Sáu Lộc không ăn cơm. Chị Sáu Hoa nấu gì hắn cũng không đụng tới. Hắn chỉ ngồi ở mé kênh, ngó về phía rừng.
+la2|N|Một buổi chiều, Ba Tâm ghé qua thăm. Sáu Lộc ngồi trên bậc cửa, ngước lên nhìn ông, cười một cái.
+la2|GLOC|Tâm hả... vô nhà ngồi chơi... Tâm.
+la2|N|Ba Tâm đứng sững. Từ ngày theo ông học nghề, Sáu Lộc chưa một lần kêu ông bằng tên. Lúc nào cũng "anh Ba", "anh Ba".
+la2|N|Con chó Mực đi theo Ba Tâm, vừa thấy Sáu Lộc là cụp đuôi, gầm gừ, rồi bỏ chạy một mạch về nhà.
+la3|N|Chiều hôm đó, Ba Tâm thấy Sáu Lộc lội xuống kênh rửa chân. Hắn bước từng bước trong nước.
+la3|N|Nước tới bắp chân, mà không có một gợn sóng, không có một tiếng lõm bõm nào.
+la3|TAM|Bà nó à... thằng Lộc nó hổng phải thằng Lộc nữa rồi. Tui thấy rồi... tui thấy tận mắt.
+la3|NHAN|Ông nó đừng nói bậy. Người ta mới vừa lượm được cái mạng về... ông nói vậy, chị Sáu nghe được sao...
+jump3|N|Đêm đó, Hai Thủy trằn trọc không ngủ được. Cô ngồi dậy, ngó qua khe cửa sổ, ra phía mé kênh.
+jump3|N|Dưới ánh trăng, có một người đàn ông ngồi chồm hổm sát mép nước. Đó là Sáu Lộc.
+jump3|N|Hắn bốc từng nắm bùn dưới kênh, nhét vô miệng, nhai chóp chép. Rồi hắn ngừng lại, như biết có người đang nhìn.
+jump3|N|Sáu Lộc quay mặt về phía cửa sổ. Miệng đen sì bùn. Và hắn nói,
+jump3|N|bằng một giọng nhỏ xíu, mà Thủy nghe rõ như sát bên tai.
+jump3|GLOC|Thủy... ngủ đi con... mai... tới lượt con.
+chap3|N|Chương ba. Người đi phía trước.
+sang4|N|Sáng hôm sau, Thủy kể lại cho cha mẹ nghe, giọng run bần bật.
+sang4|N|Ba Tâm không nói một lời, xách cây đuốc qua nhà Sáu Lộc.
+sang4|N|Nhà Sáu Lộc cửa mở toang. Chị Sáu Hoa ngồi dưới đất, nói chồng mình đi đâu từ lúc gà chưa gáy, đi về phía rừng.
+sang4|N|Trên nền đất trước cửa, có một hàng dấu chân bùn. Ngón chân dài ngoằng, cong vòng như rễ tràm.
+banam2|BNL|Cái thằng về hôm bữa hổng phải Sáu Lộc. Nó là cái vỏ, rừng trả về để đi rước người khác.
+banam2|BNL|Mật kèo ông Tà bị lấy mà hổng được trả. Rừng mất một tàng lớn, thì nó đòi thêm một mạng nữa.
+banam2|TAM|Mạng ai...? Bà Năm... nó nói với con Thủy là tới lượt nó... bà nói đi, mạng ai?!
+banam2|BNL|Ma giấu hổng kéo người được đâu Tâm. Nó phải dụ, phải kêu, bằng giọng người mình thương nhất. Người ta tự đi theo nó.
+banam2|BNL|Tối nay, nhà mày đóng hết cửa. Ai kêu gì ngoài sân cũng đừng có trả lời. Nhứt là con Thủy.
+dem4|N|Đêm đó, nhà Ba Tâm cài then hết các cửa. Ông ngồi canh ở nhà trước, ôm cây đuốc chưa đốt, mắt không dám chợp.
+dem4|N|Thủy nằm trong buồng với mẹ. Tới khuya, mệt quá, thím Ba Nhàn thiếp đi lúc nào không hay.
+dem4|N|Trong giấc ngủ chập chờn, thím nghe có ai đó ở ngoài cửa sau, kêu con gái mình. Bằng một giọng rất quen.
+dem4|GNHAN|Thủy ơi... má nè con... ra phụ má cái... má té dưới mương nè... Thủy ơi...
+dem4|N|Thím Ba Nhàn cố mở mắt ra mà không nổi. Thím biết cái giọng đó. Đó là giọng của chính thím.
+jump4|N|Khi thím giật mình tỉnh dậy được, thì chiếc chiếu bên cạnh đã trống trơn. Cửa sau mở toang, gió rừng lùa vô lạnh buốt.
+jump4|NHAN|Ông nó ơi! Ông nó! Con Thủy... con Thủy đi theo nó rồi! Nó giả giọng tui... nó giả giọng tui kêu con!
+jump4|N|Ba Tâm chạy ra cửa sau. Trên bùn, có hai hàng dấu chân đi song song vô rừng.
+jump4|N|Một hàng là dấu bàn chân nhỏ của Thủy.
+jump4|N|Hàng kia, ngón chân dài ngoằng, cong vòng. Và từ trong bóng tối của rừng tràm, có một cái mặt trắng bệch đang nhìn ra.
+cuu|N|Ba Tâm xách đuốc định lao vô rừng. Bà Năm Lụa, không biết từ lúc nào, đã đứng chặn ngay đầu ngõ.
+cuu|BNL|Mày vô tay không vậy thì mất luôn hai cha con! Đứng lại nghe tao nói hết đã!
+cuu|BNL|Thứ nhứt. Rừng mất mật thì phải trả mật. Thùng mật kèo ông Tà, phải lấy về, đổ trả lại ngay dưới gốc tràm già.
+cuu|BNL|Thứ hai. Người nhà phải đứng ở bìa rừng gõ thau. Từ lúc mày bước vô...
+cuu|BNL|tới lúc người cuối cùng bước ra. Hổng được dứt một nhịp.
+cuu|BNL|Tiếng thau là sợi dây dắt mày về. Thau dứt... là đường về đứt. Cái thứ trong rừng sẽ theo chỗ đứt đó mà bước ra.
+cuu2|BNL|Thứ ba. Tới gò, thắp nhang, kêu tên con mày ba tiếng.
+cuu2|BNL|Đi theo tiếng con mày trả lời. Đừng đi theo cái bóng nào đi phía trước.
+cuu2|BNL|Còn khi dắt được nó ra... thì đừng bao giờ quay đầu lại.
+cuu2|BNL|Ai kêu sau lưng cũng đừng quay. Kể cả giọng của chính con mày.
+cuu2|TAM|Còn thùng mật... con Hoa bán cho lái dưới chợ rồi. Giờ nửa đêm, kiếm đâu ra bây giờ hả bà Năm?
+cuu2|NHAN|Để tui đi. Ông Hai lái mật còn đậu ghe ở vàm kênh, sáng mới nhổ neo. Tui đi chuộc lại.
+chuoc|N|Thím Ba Nhàn bơi xuồng một mạch ra vàm kênh. Ghe ông Hai lái mật đậu đó, đèn bão còn le lói.
+chuoc|N|Ông Hai không chịu bán lại. Mật kèo ông Tà ngon nhất mùa, ổng tính chở lên Sài Gòn bán giá gấp ba.
+chuoc|N|Thím Ba tháo đôi bông tai vàng ra khỏi tai. Đó là đôi bông tai cưới, Ba Tâm mua cho thím hơn hai chục năm trước.
+chuoc|NHAN|Ông Hai... tui đổi đôi bông tai này. Ông thương tui... ông đổi cho tui đi... con tui đang ở trong rừng...
+chuoc|N|Ông Hai lái nhìn đôi bông tai, nhìn gương mặt đẫm nước mắt của thím. Rồi ổng lặng lẽ khiêng thùng mật xuống xuồng.
+biarung|N|Gần nửa đêm, Ba Tâm vác thùng mật, cầm đuốc, đứng ở đầu đường mòn. Thím Ba Nhàn ôm cái thau đồng, đứng ngay bìa rừng.
+biarung|TAM|Bà nó... gõ cho đều tay nghe. Đừng có ngừng. Tui với con Thủy ra rồi, bà mới được nghỉ.
+biarung|NHAN|Ông nó đi đi. Tui gõ tới sáng cũng được. Ông... ông dắt con về cho tui nghe ông...
+biarung|N|Ba Tâm thắp nhang ở miếu ông Tà, dựng lại bát nhang bị lật.
+biarung|N|Rồi ông lội vô rừng. Phía sau lưng, tiếng thau bắt đầu vang lên.
+dem5|N|Rừng tràm ban đêm không giống ban ngày. Thân tràm trắng ởn dưới ánh đuốc, như hàng trăm cái xác đứng thẳng.
+dem5|N|Nước dưới chân lạnh buốt. Mỗi bước đi, Ba Tâm nghe tiếng lõm bõm của chính mình, và tiếng thau đều đều phía sau lưng.
+dem5|N|Coong... coong... coong... Tiếng thau là thứ duy nhất nói cho ông biết, đường về vẫn còn đó.
+dem6|N|Đi được chừng một canh giờ, phía trước, giữa hai hàng tràm, Ba Tâm thấy một cái lưng áo màu xanh nhạt.
+dem6|N|Đó là cái áo bà ba của Thủy. Cái áo thím Ba Nhàn mới may cho con gái hồi tết.
+dem6|TAM|Thủy! Thủy ơi! Ba nè con! Đứng lại đó, đứng lại chờ ba!
+dem6|N|Cái lưng áo không quay lại. Nó cứ đi chầm chậm, chầm chậm, giữa vùng nước đen.
+dem6|N|Ba Tâm nhấc chân định chạy theo. Rồi ông khựng lại, nín thở, lắng tai nghe. Không có tiếng lõm bõm nào hết.
+dem7|N|Ông cắn chặt răng, đứng yên như trời trồng, nhìn cái bóng con gái mình đi xa dần, xa dần, rồi tan vô bóng tối.
+dem7|N|Đúng lúc đó, ông nhận ra một chuyện còn đáng sợ hơn. Phía sau lưng, tiếng thau... đã im bặt.
+jump5|N|Và ngay sát mang tai ông, có một hơi thở lạnh buốt. Một giọng đàn bà thì thào, giọng y hệt vợ ông.
+jump5|GNHAN|Ông nó... thau ngừng rồi... đường về mất rồi... quay lại đi ông... quay lại nhìn tui đi...
+chap4|N|Chương bốn. Tiếng thau không được dứt.
+nhan|N|Ở bìa rừng, thím Ba Nhàn đã gõ thau gần hai canh giờ. Hai bàn tay thím phồng rộp, rồi rướm máu.
+nhan|N|Rồi một tiếng gọi vọng ra từ trong rừng. Giọng Ba Tâm, mừng rỡ, gấp gáp.
+nhan|GTAM|Nhàn ơi! Tìm được con rồi! Nghỉ tay đi Nhàn! Vô đây phụ tui cõng nó ra!
+nhan|N|Thím Ba Nhàn khựng tay. Cái dùi thau trên tay thím run lẩy bẩy. Rồi thím nghiến răng, gõ mạnh hơn nữa.
+nhan|NHAN|Hai chục năm nay... ổng chưa từng kêu tui bằng tên một lần nào... Mày hổng phải ổng!
+nhan2|N|Nhưng hai bàn tay đầy máu đã trơn tuột. Cái dùi thau văng khỏi tay thím, rớt tõm xuống vũng bùn tối thui.
+nhan2|N|Thím quỳ xuống, quờ quạng trong bùn. Một hơi thở. Hai hơi thở. Ba hơi thở. Rồi thím chụp được cái dùi, gõ lại như điên.
+nhan2|N|Chỉ ba hơi thở thôi. Nhưng thím Ba Nhàn không biết, ở trong rừng sâu, ba hơi thở đó dài như một đời người.
+tam|N|Trong rừng, Ba Tâm đứng chết trân. Hơi thở lạnh ngắt cứ phả vô gáy ông,
+tam|N|giọng vợ ông cứ thì thào, năn nỉ ông quay lại.
+tam|N|Ông nhắm chặt mắt, không quay. Rồi từ xa xa, tiếng thau vang lên trở lại. Coong... coong... gấp gáp, dồn dập.
+tam|N|Cái hơi lạnh sau gáy ông rút đi, kèm theo một tiếng rít dài, nghe như tiếng gió lùa qua một cái miệng không có răng.
+go|N|Ba Tâm lội tiếp. Tới gần sáng, ông tới được gò ông Tà. Cây tràm già sừng sững giữa gò, cành nghiêng như một cánh tay.
+go|N|Dưới cành tràm, chỗ tàng mật lớn ngày xưa, giờ chỉ còn một vệt sáp ong đen sì, rỉ xuống như máu khô.
+go|N|Dưới gốc tràm, ông thấy đủ thứ đồ đạc vương vãi. Dép mủ, nón lá rách, một cái kẹp tóc con nít rỉ sét.
+go|N|Ông nhận ra cái kẹp tóc đó. Hai chục năm trước, con Mận đi lạc, trên đầu nó cài đúng cái kẹp tóc này.
+xac|N|Rồi ông thấy một cái xác nằm úp mặt trong bụi choại, sát gốc tràm. Cái áo xám đó... ông nhận ra liền.
+xac|N|Đó là Sáu Lộc. Xác đã sình lên, trương phình, miệng còn nhét đầy bùn. Hắn đã chết từ cái đêm đầu tiên vô rừng.
+xac|N|Vậy thì cái người mà ông cõng về... cái người ngồi ở mé kênh nhai bùn, cái người kêu ông bằng tên... là cái gì?
+dom|N|Ba Tâm run tay mở thùng mật, đổ hết ra gốc tràm già. Mật vàng sóng sánh chảy tràn, thấm vô đất.
+dom|N|Ông đốt ba cây nhang, cắm xuống gò. Rồi ông khàn giọng, kêu tên con gái mình. Một tiếng.
+dom|TAM|Thủy ơi...!
+dom|N|Hai tiếng.
+dom|TAM|Hai Thủy ơi... ba nè con...!
+dom|N|Ba tiếng.
+dom|TAM|Thủy ơi... con ở đâu... trả lời ba đi con!
+tl|N|Cả khu rừng bỗng nhiên trả lời. Từ bên trái, bên phải, phía trước,
+tl|N|phía sau, từ trên ngọn cây, có hàng chục tiếng con gái ông.
+tl|GTHUY|Ba ơi... con ở đây... ba ơi... lại đây với con...
+tl|N|Tiếng nào cũng giống hệt. Ba Tâm đứng giữa gò, xoay vòng, tay ôm đầu. Ông không biết tiếng nào mới là con mình.
+tl2|N|Rồi giữa hàng chục tiếng gọi ngọt ngào đó, ông nghe một tiếng ho. Một tiếng ho nhỏ, khục khặc, như người đang bị nghẹn.
+tl2|N|Không có ma nào bắt chước tiếng ho. Ba Tâm lao về phía đó, vạch bụi choại ra.
+jump6|N|Thủy nằm ngửa trong bụi choại, mắt mở hờ, miệng đầy bùn.
+jump6|N|Ngồi chồm hổm bên cạnh cô, là cái thứ cao lêu nghêu ông thấy hôm trước.
+jump6|N|Da nó xám như vỏ tràm, mặt trắng bệch, hai hốc mắt đen ngòm.
+jump6|N|Mấy ngón tay dài thòng đang bốc bùn, đút vô miệng con gái ông.
+jump6|N|Nghe tiếng động, nó ngẩng đầu lên. Rồi nó đứng dậy. Đứng lên, đứng lên mãi, cao hơn cả đầu Ba Tâm một khúc.
+ma|GMA|Mật trả rồi... mà còn thiếu... Lấy của rừng... phải để lại một người...
+ma|TAM|Mày lấy tao đi! Tao già rồi! Thả con tao ra! Nó hổng có lỗi gì hết!
+ma|N|Cái thứ đó nghiêng đầu nhìn ông, cười. Cái miệng nó toác ra tới mang tai, bên trong đen ngòm như hang cua.
+ma2|N|Đúng lúc đó, tiếng thau ở bìa rừng vọng tới, dồn dập hơn bao giờ hết,
+ma2|N|như có ai đang gõ bằng cả mạng sống của mình.
+ma2|N|Cái thứ đó rùng mình, rít lên, lùi lại một bước. Ba Tâm chộp lấy tay con gái, giật mạnh, kéo Thủy ra khỏi bụi choại.
+ma2|N|Ông móc bùn trong miệng con ra, rồi xốc Thủy đứng dậy, kéo con chạy theo hướng tiếng thau.
+ra|GMA|Mày sẽ quay đầu lại... ai rồi cũng quay đầu lại...
+ra|N|Hai cha con lội nước chạy. Thủy đi phía trước, Ba Tâm đi phía sau, một tay đẩy lưng con, một tay giơ đuốc.
+ra|N|Phía sau lưng ông, tiếng kêu bắt đầu vang lên. Đầu tiên là giọng Sáu Lộc.
+ra|GLOC|Anh Ba... chờ em với anh Ba... em lạnh quá anh Ba ơi...
+ra|N|Ba Tâm nghiến răng, không quay lại. Rồi tiếng kêu đổi sang một giọng khác. Giọng con gái ông.
+ra2|GTHUY|Ba ơi! Con ở đây nè ba! Ba đang dắt ai vậy ba?! Ba quay lại nhìn đi... con ở phía sau nè ba!
+ra2|N|Ba Tâm lạnh toát người. Đứa con gái ông đang đẩy đi phía trước... có phải là Thủy thật không?
+ra2|N|Ông nhìn xuống chân con. Mỗi bước Thủy đi, nước bắn lên, lõm bõm, lõm bõm. Ông bặm môi, đẩy con đi tiếp, không quay đầu.
+bia|N|Trời hửng sáng. Phía trước, rừng tràm thưa dần, ánh lửa đuốc của bìa rừng hiện ra. Và tiếng thau, gần lắm rồi.
+bia|N|Thím Ba Nhàn thấy bóng chồng con lấp ló sau mấy thân tràm cuối cùng. Thím mừng quá, bật khóc thành tiếng.
+bia|N|Và thím làm đúng cái điều bà Năm đã dặn đi dặn lại là không được làm.
+bia|N|Thím buông cái thau, chạy ùa về phía hai cha con.
+bia2|N|Thủy vừa bước ra khỏi bìa rừng, ngã nhào vô lòng mẹ. Ba Tâm còn ở phía sau một bước. Chỉ một bước thôi.
+bia2|N|Đúng một bước đó, tiếng thau đã dứt. Và phía sau lưng ông, một giọng con gái thì thào.
+bia2|GTHUY|Ba...
+bia2|N|Ba Tâm khựng lại, chừng nửa nhịp thở. Rồi ông bước ra khỏi rừng, ôm chầm lấy vợ con. Mặt trời vừa ló lên.
+chap5|N|Chương năm. Người về từ rừng.
+sau|N|Hai Thủy ốm liệt giường nửa tháng. Bùn trong bụng cô ói ra mấy ngày mới hết. Rồi cô cũng khỏe lại.
+sau|N|Xác Sáu Lộc được người trong xóm khiêng về chôn tử tế. Còn cái thứ mang mặt Sáu Lộc, từ hôm đó không ai thấy nữa.
+sau|N|Thím Ba Nhàn đem nhang ra miếu ông Tà thắp, lạy tạ suốt một buổi chiều. Thím tưởng mọi chuyện đã xong.
+sau2|N|Chỉ có Ba Tâm là khác. Ông ít nói hơn trước. Ông không đi ăn ong nữa,
+sau2|N|cũng không ra miếu ông Tà thắp nhang lần nào.
+sau2|N|Con chó Mực, mỗi lần thấy ông bước vô sân, là cụp đuôi, lùi vô gầm chạn, gầm gừ trong cổ họng.
+thuy|THUY|Má ơi... hôm đó ở trong rừng, con nghe có tiếng ba kêu con, xa xa ở phía sau lưng.
+thuy|THUY|Mà ba thì đang đi ngay sau con, đẩy lưng con mà má...
+thuy|THUY|Má... trong rừng có mấy người ba vậy má?
+thuy|NHAN|Con nói bậy gì đó... con mê sảng rồi. Ngủ đi con, ngủ đi.
+thuy|N|Thím Ba Nhàn dỗ con ngủ. Nhưng cả đêm đó, thím nằm trằn trọc, nhớ lại cái lúc mình buông tay khỏi cái thau.
+an|N|Một buổi chiều, thím dọn cơm lên. Ba Tâm ngồi ở đầu bộ ván, ngước lên nhìn thím, nói nhỏ nhẹ.
+an|GTAM|Nhàn... ngồi xuống ăn chung đi... Nhàn.
+an|N|Cái chén trên tay thím Ba Nhàn rớt xuống đất, bể làm đôi.
+an|N|Hơn hai chục năm, chồng thím chưa từng một lần kêu thím bằng tên.
+an|N|Ông nhìn thím, cười hiền khô. Thím Ba nhìn xuống chân ông. Chỗ bàn chân ông đặt trên nền đất... dính đầy bùn đen.
+cuoi|N|Nửa đêm, thím Ba Nhàn tỉnh giấc. Chỗ nằm bên cạnh trống trơn, mà còn lạnh ngắt như chưa từng có người nằm.
+cuoi|N|Thím rón rén đi ra sau hè. Dưới ánh trăng, ngay mé kênh, có một người đàn ông ngồi chồm hổm, lưng quay về phía nhà.
+cuoi|N|Đó là Ba Tâm. Ông bốc từng nắm bùn dưới kênh, trộn với mật ong, đưa lên miệng, nhai chóp chép.
+cuoi2|N|Ông ngừng nhai. Ông từ từ quay đầu lại. Miệng ông đen sì bùn, mà ông vẫn cười, cái cười hiền khô của chồng thím.
+cuoi2|GTAM|Nhàn... vô ngủ đi... Nhàn.
+final|N|Thím Ba Nhàn đứng chết trân. Gió rừng thổi qua. Và từ trong rừng tràm U Minh,
+final|N|xa thật xa, vọng ra một tiếng kêu yếu ớt.
+final|GTAMF|Bà nó ơi... gõ tiếp đi... đừng có ngừng... bà nó ơi...
+final|N|Từ đó, người ở xóm Kênh Tám kể rằng, đêm nào ở bìa rừng U Minh cũng có tiếng thau gõ, đều đều tới sáng.
+final|N|Người gõ là một bà già tóc bạc. Còn ở trong nhà bà,
+final|N|có một ông già ngồi ở mé kênh, ngày ngày ngó vô rừng mà cười.
+final|N|Nếu là bạn, bạn sẽ ở lại với người đang nằm cạnh mình... hay cầm thau, đi vô rừng tìm người thật?
+cta1|N|Để lại câu trả lời của bạn ở phần bình luận.
+cta1|N|Và đừng quên đăng ký kênh Chuyện Đông Tây Kim Cổ. Hẹn gặp lại bạn ở truyện sau.
