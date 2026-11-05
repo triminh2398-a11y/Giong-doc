@@ -1230,3 +1230,10 @@ loaded V3TurboVieNeuTTS
 99_tgc_n clone:refs/mada8.wav 42 ok 2.2
 99_tgc_n clone:refs/mada8.wav 46 ok 1.4
 99_tgc_n asr ok
+loaded V3TurboVieNeuTTS
+99_tgc_kid Mỹ Duyên 2 ok 2.8
+99_tgc_kid Mỹ Duyên 6 ok 1.6
+99_tgc_kid asr ok
+99_tgc_tu Đức Trí 2 ok 4.2
+99_tgc_tu Đức Trí 6 ok 7.3
+99_tgc_tu asr ok
