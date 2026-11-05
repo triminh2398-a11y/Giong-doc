@@ -1159,3 +1159,33 @@ loaded V3TurboVieNeuTTS
 77_mg_gma Minh Triết 3 ok 2.3
 77_mg_gma Minh Triết 7 ok 1.7
 77_mg_gma asr ok
+loaded V3TurboVieNeuTTS
+60_mg_fix_n clone:refs/mada8.wav 3 ok 17.8
+60_mg_fix_n clone:refs/mada8.wav 7 ok 1.2
+60_mg_fix_n clone:refs/mada8.wav 11 ok 4.5
+60_mg_fix_n clone:refs/mada8.wav 15 ok 4.4
+60_mg_fix_n clone:refs/mada8.wav 19 ok 2.2
+60_mg_fix_n clone:refs/mada8.wav 23 ok 2.2
+60_mg_fix_n clone:refs/mada8.wav 27 ok 3.6
+60_mg_fix_n clone:refs/mada8.wav 31 ok 3.7
+60_mg_fix_n clone:refs/mada8.wav 35 ok 2.4
+60_mg_fix_n clone:refs/mada8.wav 39 ok 2.1
+60_mg_fix_n clone:refs/mada8.wav 43 ok 3.8
+60_mg_fix_n clone:refs/mada8.wav 47 ok 3.8
+60_mg_fix_n clone:refs/mada8.wav 51 ok 1.2
+60_mg_fix_n clone:refs/mada8.wav 55 ok 4.0
+60_mg_fix_n clone:refs/mada8.wav 59 ok 4.5
+60_mg_fix_n clone:refs/mada8.wav 63 ok 5.5
+60_mg_fix_n clone:refs/mada8.wav 67 ok 4.7
+60_mg_fix_n clone:refs/mada8.wav 71 ok 0.5
+60_mg_fix_n clone:refs/mada8.wav 75 ok 0.6
+60_mg_fix_n clone:refs/mada8.wav 79 ok 2.3
+60_mg_fix_n clone:refs/mada8.wav 83 ok 1.0
+60_mg_fix_n clone:refs/mada8.wav 87 ok 1.6
+60_mg_fix_n asr ok
+61_mg_fix_tam Thái Sơn 3 ok 3.6
+61_mg_fix_tam Thái Sơn 7 ok 0.5
+61_mg_fix_tam asr ok
+62_mg_fix_bnl Thùy Dung 3 ok 3.4
+62_mg_fix_bnl Thùy Dung 7 ok 3.9
+62_mg_fix_bnl asr ok
