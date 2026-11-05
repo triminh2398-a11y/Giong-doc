@@ -1,13 +1,10 @@
-sad 1 15 0
-sad 2 15 0
-woman 1 6 0
-woman 2 6 0
-man 1 24 0
-man 2 24 0
-people 1 20 0
-people 2 20 0
-breathing 1 19 0
-breathing 2 19 0
-scream 1 18 0
-scream 2 18 0
-total 782
+bell 1 36 0
+gong 1 3 0
+metal 1 36 0
+bee 1 2 0
+insect 1 26 0
+swamp 1 4 0
+eating 1 12 0
+kitchen 1 36 0
+whisper 1 4 0
+total 868
