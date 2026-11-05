@@ -1221,3 +1221,8 @@ loaded V3TurboVieNeuTTS
 99_tgc_nfix clone:refs/mada8.wav 3 ok 22.1
 99_tgc_nfix clone:refs/mada8.wav 7 ok 3.9
 99_tgc_nfix asr ok
+loaded V3TurboVieNeuTTS
+99_tgc_tu2 Thái Sơn 3 ok 2.4
+99_tgc_tu2 Thái Sơn 7 ok 1.3
+99_tgc_tu2 Thái Sơn 11 ok 4.2
+99_tgc_tu2 asr ok
