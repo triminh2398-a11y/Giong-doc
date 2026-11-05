@@ -64,7 +64,6 @@ function arm(sh, a, fill, shade, skin, opt = {}) {
 // —— Khoa ——
 // P: {x,y(hip),s,face,seat,lean,headTilt,lid,look,brow,mouth:{o,w,sm},blink,armF,armB,step,nerv,t,sweat,pupil,eyeS}
 export function khoa(P) {
-  if (P.pal) { const keep = { ...C }; Object.assign(C, P.pal); const q = { ...P }; delete q.pal; khoa(q); Object.assign(C, keep); return; }
   const f = P.face ?? 1, ner = P.nerv ?? 0, jit = ner ? (hash(Math.floor((P.t || 0) * 12) * 3.3) - .5) * 8 * ner : 0;
   push(); translate(P.x + jit, P.y); scale((P.s ?? 1) * f, P.s ?? 1);
   // legs
@@ -94,40 +93,20 @@ export function khoa(P) {
   pop();
 }
 function headKhoa(P, ner) {
-  if (P.hairStyle === 'long') shape(spline([[-70, -60], [-104, 40], [-96, 190], [-40, 230], [20, 190], [40, 80], [10, -60]]), { fill: C.hair, lw: 7 });
   shape(ell(-62, 8, 15, 22, 16), { fill: C.skinK, lw: 6 });
   shape(spline([[-6, -86], [50, -80], [74, -40], [78, 20], [64, 66], [20, 88], [-28, 80], [-62, 44], [-70, -20], [-52, -68]]), { fill: C.skinK, lw: 7, shade: () => fillOnly(spline([[-80, 0], [-40, 30], [0, 92], [-80, 92]]), C.skinKs, { boil: .3 }) });
-  const hs = P.hairStyle || 'mop';
-  if (hs === 'mop') {
-    shape(spline([[-76, 10], [-84, -50], [-50, -104], [10, -116], [64, -96], [88, -54], [70, -50], [52, -70], [40, -48], [22, -70], [6, -46], [-14, -66], [-30, -40], [-50, -20], [-58, 20]]), { fill: C.hair, lw: 7 });
-    stroke(spline([[0, -110], [-10, -140], [14, -150], [24, -132]], false), 6);
-  } else if (hs === 'long' || hs === 'pig') {
-    shape(spline([[-80, 10], [-86, -50], [-50, -106], [14, -116], [66, -98], [86, -56], [60, -70], [20, -78], [-20, -66], [-56, -30], [-62, 20]]), { fill: C.hair, lw: 7 });
-    if (hs === 'pig') for (const [x, y] of [[-92, 10], [86, -6]]) { shape(spline([[x - 16, y - 30], [x + 16, y - 34], [x + 20, y + 40], [x, y + 70], [x - 20, y + 40]]), { fill: C.hair, lw: 6 }); shape(ell(x, y - 34, 12, 10, 12), { fill: '#d0304a', lw: 5 }); }
-  } else if (hs === 'bald') {
-    shape(spline([[-6, -112], [-26, -150], [-4, -168], [16, -150], [10, -112]]), { fill: C.hair, lw: 6 });
-  } else if (hs === 'old') {
-    shape(spline([[-76, 6], [-82, -46], [-40, -96], [20, -104], [70, -86], [84, -50], [60, -62], [0, -74], [-56, -40], [-62, 10]]), { fill: '#d8d6cc', lw: 6 });
-    shape(spline([[-84, -40], [-40, -78], [30, -84], [86, -60], [88, -36], [30, -58], [-40, -52], [-86, -18]]), { fill: '#efeee6', lw: 6 });
-  }
+  // mop of hair + cowlick
+  shape(spline([[-76, 10], [-84, -50], [-50, -104], [10, -116], [64, -96], [88, -54], [70, -50], [52, -70], [40, -48], [22, -70], [6, -46], [-14, -66], [-30, -40], [-50, -20], [-58, 20]]), { fill: C.hair, lw: 7 });
+  stroke(spline([[0, -110], [-10, -140], [14, -150], [24, -132]], false), 6);
   const lid = P.blink ? 1 : clamp(P.lid ?? .12, 0, 1), look = P.look || [0, 0], es = P.eyeS ?? 1;
   const sh = ner ? (hash(Math.floor((P.t || 0) * 24) * 1.7) - .5) * 3 * ner : 0;
-  if (P.ghostEyes) { for (const [x, y, rx, ry] of [[12, -8, 30, 34], [56, -10, 22, 30]]) { shape(ell(x, y, rx * es, ry * es, 30), { fill: '#06040a', lw: 5 }); dot(x + (look[0] || 0) * 6, y + 2, 5, '#ff2a1e'); stroke([[x, y + ry * .9], [x + 2, y + ry * .9 + 30 + 14 * Math.sin((P.t || 0) * 2 + x)]], 4, { line: '#5a0a10' }); } }
-  else {
   eye(12, -8, 30 * es, 34 * es, { lid, look, pupil: P.pupil ?? 4, skin: C.skinK, closed: P.closed, jitter: sh });
   eye(56, -10, 22 * es, 30 * es, { lid, look, pupil: (P.pupil ?? 4) * .9, skin: C.skinK, closed: P.closed, jitter: sh });
-  }
   const br = P.brow ?? .5;   // worried: inner ends up
   stroke([[-16, -50 + br * 2], [26, -56 - br * 10]], 7); stroke([[44, -56 - br * 10], [74, -48 + br * 2]], 6);
   shape(spline([[66, 4], [86, 24], [70, 32]]), { fill: C.skinK, lw: 6 });
   const m = P.mouth || {};
-  if (P.beard) shape(spline([[10, 50], [70, 44], [74, 90], [48, 170], [30, 120], [8, 92]]), { fill: '#efeee6', lw: 6, shade: () => fillOnly(spline([[30, 60], [60, 60], [50, 150]]), '#cfccc0', { boil: .3 }) });
   mouth(46, 52, 40, { o: m.o || 0, w: m.w ?? 1, sm: m.sm ?? -.3, lw: 5 });
-  if (P.dirt) { fillOnly(ell(44, 60, 30, 14, 14), '#3a2614', { boil: .4 }); for (let k = 0; k < 3; k++) fillOnly(ell(36 + k * 9, 80 + k * 6, 4, 6, 8), '#3a2614', { boil: .3 }); }
-  if (P.cheekTear) for (const x of [10, 54]) stroke([[x, 22], [x + 2, 58 + ((P.t || 0) * 30) % 16]], 4, { line: '#9ad0f0' });
-  if (P.earring) { dot(-62, 36, 7, '#e8c040'); }
-  if (P.covered) shape(spline([[0, 30], [90, 24], [96, 70], [10, 80]]), { fill: '#e3a874', lw: 6 });
-  if (P.khan) shape(spline([[-84, -40], [-40, -100], [40, -110], [92, -70], [90, -44], [40, -74], [-40, -66], [-80, -16]]), { fill: '#f4f2ea', lw: 6 });
 }
 
 // —— Bà ——
@@ -227,4 +206,110 @@ export function bigHand(curl = [0, 0, 0, 0, 0], { sleeve = true } = {}) {
   }
   const c0 = curl[0] ?? 0, t1 = [20 + 60 * Math.cos(1 - c0), 56 + 60 * Math.sin(1 - c0)];
   shape(noodle([10, 50], t1, -8, 30, 18), { fill: C.skinB, lw: 6 });
+}
+
+// ===================== THẦN GIỮ CỦA: dàn nhân vật toon =====================
+// fig(P): người chung. P.kind: 'man' (Lành) | 'woman' (Mận) | 'girl' (bé Na) | 'old' (thầy Tư) | 'boy' (ma thần giữ của)
+// P: {x,y (hông),s,face,kind,lean,headTilt,look,lid,blink,brow,mouth:{o},armF:{h,bend,fist},armB,step,seat,tears,sick,dirt,pal}
+const PAL = {
+  man:   { skin: '#e0a878', skinS: '#b27a52', hair: '#221a24', shirt: '#7a5a3a', shirtS: '#5a3f26', pants: '#26222c', pantsS: '#18151d' },
+  woman: { skin: '#eab48a', skinS: '#bd845e', hair: '#1a1420', shirt: '#7a4a7e', shirtS: '#58325c', pants: '#221d28', pantsS: '#15121a' },
+  girl:  { skin: '#f0c098', skinS: '#c8906a', hair: '#1a1420', shirt: '#d0607a', shirtS: '#a04058', pants: '#3a3050', pantsS: '#26203a' },
+  old:   { skin: '#d8a880', skinS: '#a87a56', hair: '#e8e4dc', shirt: '#5a3e28', shirtS: '#3e2a1a', pants: '#2a2420', pantsS: '#1a1612' },
+  boy:   { skin: '#a8bca8', skinS: '#7a8e7a', hair: '#0c0c10', shirt: '#a8bca8', shirtS: '#7a8e7a', pants: '#3a2a20', pantsS: '#26180f' },
+};
+export function dimPal(p, k, tint = [20, 26, 48]) { const o = {}; for (const key in p) { const c = p[key]; const n = parseInt(c.slice(1), 16); const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255; const m = x => Math.round(x); o[key] = `rgb(${m(lerp(r, tint[0], k))},${m(lerp(g, tint[1], k))},${m(lerp(b, tint[2], k))})`; } return o; }
+export function fig(P) {
+  const K = P.kind || 'man', pal = P.pal || PAL[K], f = P.face ?? 1, s = (P.s ?? 1) * (K === 'girl' ? .62 : K === 'boy' ? .66 : 1);
+  push(); translate(P.x, P.y); scale(s * f, s);
+  const st = P.step || 0;
+  // chân
+  if (K !== 'old' || P.seat) {
+    const legs = P.seat ? [[[-14, 0], [120, 6], [126, 200]], [[14, 0], [146, 0], [156, 204]]] : [[[-16, 0], [-10 - 30 * st, 120], [-6 - 46 * st, 236]], [[16, 0], [20 + 30 * st, 120], [26 + 46 * st, 236]]];
+    for (const [h, k, a] of legs) {
+      const legCol = K === 'boy' ? pal.skin : pal.pants;
+      if (K === 'boy') shape(noodle(h, [h[0], h[1] + 50], 0, 50, 46), { fill: pal.pants, lw: 7 });
+      shape(noodle(h, k, 0, K === 'boy' ? 30 : 46, K === 'boy' ? 26 : 40), { fill: legCol, lw: 7 }); shape(noodle(k, a, 0, K === 'boy' ? 26 : 40, K === 'boy' ? 22 : 34), { fill: legCol, lw: 7 });
+      shape(spline([[a[0] - 22, a[1] + 14], [a[0] - 14, a[1] - 8], [a[0] + 20, a[1] - 4], [a[0] + 46, a[1] + 10], [a[0] + 40, a[1] + 20]]), { fill: K === 'boy' ? pal.skinS : '#3a2a22', lw: 6 });
+    }
+    if (P.ankle) for (let k = 0; k < 5; k++) fillOnly(ell(-14 + k * 7, 214 - Math.abs(k - 2) * 3, 3, 10, 8), 'rgba(15,10,14,.95)', { boil: .2 });
+  } else {
+    // áo dài thầy phủ tới chân
+    shape(spline([[-62, -20], [62, -20], [70, 120], [74, 232], [-74, 232], [-70, 120]]), { fill: pal.shirt, lw: 7, shade: () => fillOnly(rect(20, -40, 90, 300), pal.shirtS, { boil: .3 }) });
+  }
+  push(); translate(0, (P.breath ?? 0) * 6); rotate(P.lean ?? 0);
+  const shB = [-44, -186], shF = [40, -184];
+  arm(shB, P.armB || { h: [-6, 150], bend: -14 }, pal.shirtS, pal.pantsS, pal.skinS, K === 'boy' ? { w0: 30, w1: 22, r: 15 } : {});
+  if (K === 'boy') {
+    shape(spline([[-30, -214], [-52, -196], [-56, -110], [-50, 10], [0, 16], [50, 10], [56, -110], [52, -196], [30, -214]]), { fill: pal.skin, lw: 7, shade: () => {
+      fillOnly(spline([[30, -230], [80, -200], [80, 30], [30, 30]]), pal.skinS, { boil: .4 });
+      for (let k = 0; k < 4; k++) stroke(quad([-34, -160 + k * 26], [0, -150 + k * 26], [34, -160 + k * 26], 8), 3.5, { line: pal.skinS });
+      for (let k = 0; k < 5; k++) fillOnly(ell(-30 + hash(k) * 60, -180 + hash(k + 3) * 170, 10 + hash(k + 1) * 10, 7, 10), 'rgba(70,48,26,.75)', { boil: .5 });
+    } });
+  } else {
+    shape(spline([[-30, -214], [-62, -196], [-70, -110], [-74, 24], [0, 30], [72, 22], [70, -110], [60, -196], [30, -214]]), { fill: pal.shirt, lw: 7, shade: () => {
+      fillOnly(spline([[30, -230], [90, -200], [90, 40], [40, 40], [50, -100]]), pal.shirtS, { boil: .4 });
+      for (let k = 0; k < 4; k++) dot(14, -170 + k * 44, 5, '#e8e0cc');
+    } });
+    stroke([[2, -212], [8, 26]], 5);
+  }
+  shape(noodle([6, -212], [12, -246], 2, 30, 28), { fill: pal.skin, lw: 6 });
+  push(); translate(14, -318 + (1 - (P.hs ?? 1)) * 90); rotate(P.headTilt ?? 0); scale(P.hs ?? 1); headFig(P, K, pal); pop();
+  const hp = arm(shF, P.armF || { h: [10, 150], bend: 14 }, pal.shirt, pal.shirtS, pal.skin, K === 'boy' ? { w0: 30, w1: 22, r: 15 } : {});
+  if (P.grabbed) { push(); translate(-10, 230); shape(spline([[-60, -10], [20, -20], [40, 10], [-50, 20]]), { fill: '#9ab09a', lw: 5 }); pop(); }
+  pop();
+  P._hand = hp; P._s = s; P._f = f;
+  pop();
+  return hp;
+}
+function headFig(P, K, pal) {
+  // tóc sau gáy (nữ)
+  if (K === 'woman' || K === 'girl') shape(spline([[-78, -40], [-96, 60], [-84, 190], [-30, 220], [10, 120], [-20, 40]]), { fill: pal.hair, lw: 6 });
+  if (K === 'girl') for (const [x, y] of [[-70, 40], [66, 36]]) { shape(ell(x, y, 24, 40, 18), { fill: pal.hair, lw: 5 }); shape(ell(x, y - 40, 10, 10, 10), { fill: '#d03040', lw: 4 }); }
+  shape(ell(-62, 8, 15, 22, 16), { fill: pal.skin, lw: 6 });
+  const headPts = K === 'boy' ? [[-6, -96], [50, -86], [76, -40], [78, 20], [62, 66], [20, 86], [-28, 80], [-62, 44], [-70, -20], [-52, -78]] : [[-6, -86], [50, -80], [74, -40], [78, 20], [64, 66], [20, 88], [-28, 80], [-62, 44], [-70, -20], [-52, -68]];
+  shape(spline(headPts), { fill: pal.skin, lw: 7, shade: () => { fillOnly(spline([[-80, 0], [-40, 30], [0, 92], [-80, 92]]), pal.skinS, { boil: .3 }); if (P.sick) fillOnly(ell(30, 40, 50, 30, 16), 'rgba(90,110,130,.35)', { boil: .3 }); } });
+  if (K === 'man') shape(spline([[-76, 10], [-84, -50], [-50, -104], [10, -116], [64, -96], [88, -54], [70, -50], [52, -70], [40, -48], [22, -70], [6, -46], [-14, -66], [-30, -40], [-50, -20], [-58, 20]]), { fill: pal.hair, lw: 7 });
+  if (K === 'woman' || K === 'girl') shape(spline([[-74, 20], [-84, -50], [-46, -100], [14, -110], [66, -90], [86, -46], [80, -14], [56, -56], [20, -64], [-10, -54], [-40, -30], [-56, 10]]), { fill: pal.hair, lw: 7 });
+  if (K === 'old') { shape(spline([[-72, 0], [-70, -40], [-50, -60], [-56, -20]]), { fill: pal.hair, lw: 5 }); shape(spline([[-60, -50], [0, -78], [74, -56], [80, -36], [0, -56], [-62, -28]]), { fill: '#f2efe6', lw: 6 }); shape(spline([[-62, -40], [-104, -30], [-112, 20], [-90, -14]]), { fill: '#f2efe6', lw: 5 }); }
+  if (K === 'boy') { fillOnly(ell(-6, -92, 18, 10, 10), pal.hair, { boil: .3 }); shape(spline([[-12, -96], [-30, -132], [-14, -150], [4, -124], [2, -98]]), { fill: pal.hair, lw: 5 }); }
+  if (P.bags) for (const [x, y, rx, ry] of [[12, -2, 38, 42], [56, -4, 30, 38]]) fillOnly(ell(x, y, rx, ry, 24), 'rgba(40,28,60,.45)', { boil: .4 });
+  // mắt
+  const look = P.look || [0, 0], lid = P.blink ? 1 : clamp(P.lid ?? .12, 0, 1), es = P.eyeS ?? 1;
+  if (K === 'boy') {
+    for (const [x, y, rx, ry] of [[12, -8, 26, 32], [56, -10, 20, 28]]) { shape(ell(x, y, rx, ry, 24), { fill: '#06040a', lw: 5 }); dot(x + look[0] * 6, y + 4, 4.5, '#ff3a2a'); fillOnly(ell(x, y + ry + 10, 3, 14 + 8 * Math.sin((P.t || 0) * 2 + x), 6), '#5a0a10', { boil: .3 }); }
+  } else {
+    eye(12, -8, 30 * es, 34 * es, { lid, look, pupil: P.pupil ?? 4, skin: pal.skin, closed: P.closed });
+    eye(56, -10, 22 * es, 30 * es, { lid, look, pupil: (P.pupil ?? 4) * .9, skin: pal.skin, closed: P.closed });
+  }
+  const br = P.brow ?? .5;
+  if (K !== 'boy') { const bc = K === 'old' ? '#e8e4dc' : INK; stroke([[-16, -50 + br * 2], [26, -56 - br * 10]], 7, { line: bc }); stroke([[44, -56 - br * 10], [74, -48 + br * 2]], 6, { line: bc }); }
+  shape(spline([[66, 4], [86, 24], [70, 32]]), { fill: pal.skin, lw: 6 });
+  if (K === 'old') { shape(spline([[10, 50], [70, 44], [60, 120], [40, 190], [26, 120]]), { fill: '#f2efe6', lw: 5 }); stroke(quad([20, 44], [44, 38], [76, 46], 8), 6, { line: '#f2efe6' }); }
+  const m = P.mouth || {};
+  if (K === 'boy') { const o = m.o || 0; shape(ell(44, 54, 18, 6 + 18 * o, 16), { fill: '#120408', lw: 5 }); }
+  else mouth(46, K === 'old' ? 58 : 52, 40, { o: m.o || 0, w: m.w ?? 1, sm: m.sm ?? -.3, lw: 5 });
+  if (P.tears) for (const x of [10, 54]) { const p = ((P.t || 0) * .8 + x * .01) % 1; fillOnly(ell(x, 30 + p * 60, 5, 8, 10), 'rgba(170,215,245,.9)', { boil: .2 }); }
+  if (P.dirt) { fillOnly(ell(44, 58, 30, 16, 14), '#3a2a18', { boil: .5 }); for (let k = 0; k < 4; k++) fillOnly(ell(30 + k * 9, 78 + k * 6, 4, 7, 8), '#3a2a18', { boil: .3 }); }
+  if (P.earring) for (const [x, y] of [[-62, 34]]) shape(ell(x, y, 8, 8, 10), { fill: '#e8c040', lw: 3 });
+  if (P.covered) shape(spline([[10, 30], [90, 24], [96, 70], [20, 84]]), { fill: PAL.woman.skin, lw: 5 });
+}
+// hũ sành dán bùa
+export function jar(x, y, s, { open = false, glow = 0, t = 0 } = {}) {
+  push(); translate(x, y); scale(s);
+  if (glow) for (const [r, a] of [[220, .12], [130, .2]]) fillOnly(ell(0, -100, r, r, 30), `rgba(255,210,110,${a * glow})`, { boil: .4 });
+  shape(spline([[-40, -170], [-90, -140], [-110, -70], [-90, -10], [-50, 6], [50, 6], [90, -10], [110, -70], [90, -140], [40, -170]]), { fill: '#5a3a24', lw: 7, shade: () => { fillOnly(spline([[30, -180], [120, -140], [120, 20], [40, 20]]), '#3e2616', { boil: .4 }); fillOnly(ell(-50, -110, 14, 40, 12), 'rgba(255,230,190,.25)', { boil: .3 }); } });
+  shape(rect(-22, -120, 44, 80), { fill: '#b8302a', lw: 4, shade: () => { for (let k = 0; k < 4; k++) stroke([[-14, -104 + k * 16], [14, -100 + k * 16]], 3, { line: '#3a0a08' }); } });
+  if (!open) shape(ell(0, -170, 44, 14, 20), { fill: '#c8a24a', lw: 6 });
+  else { shape(ell(0, -170, 44, 14, 20), { fill: '#1a1008', lw: 6 }); for (let k = 0; k < 5; k++) shape(rect(-30 + k * 12, -182 - (k % 2) * 6, 20, 8), { fill: '#f0c840', lw: 3 }); }
+  pop();
+}
+// lục lạc
+export function bell(x, y, s, t, shake = 1) {
+  push(); translate(x, y); scale(s); rotate(Math.sin(t * 14) * .3 * shake);
+  for (const [r, a] of [[60, .14], [34, .22]]) fillOnly(ell(0, 18, r, r, 20), `rgba(255,220,120,${a})`, { boil: .3 });
+  stroke([[0, -26], [0, -2]], 5, { line: '#9a1a1a' });
+  shape(ell(0, 16, 22, 20, 20), { fill: '#d0a840', lw: 5, shade: () => fillOnly(rect(-30, 18, 60, 6), '#8a6a1a', { boil: .2 }) });
+  dot(0, 30, 5, '#2a1a08');
+  pop();
 }
