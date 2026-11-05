@@ -145,3 +145,35 @@ function boyGhost(x,fy,s,T,o={}){const sc=s*0.66;ctx.save();ctx.globalAlpha=o.a?
   ctx.fillStyle='#4a0a0e';const len=10+((T*16+sd*7)%22);ctx.fillRect(sd*20-2,20,4,len)}
  if(o.mouth==='o'){ctx.fillStyle='#120404';ctx.beginPath();ctx.ellipse(0,30,11,14,0,0,7);ctx.fill()}else{ctx.fillStyle='#120404';ctx.beginPath();ctx.moveTo(-18,28);ctx.quadraticCurveTo(0,40,18,28);ctx.quadraticCurveTo(0,34,-18,28);ctx.fill()}
  ctx.restore()}
+// ===== tạo hình RIÊNG cho Thần giữ của (khác vợ chồng Lợi–Thắm, thầy Bảy) =====
+// Lành: người làm thuê, da sạm, tóc cắt ngắn, ria mép, áo thun xanh rêu xắn tay, khăn rằn quấn cổ
+function khanRan(x,y,w,h){ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();for(let i=0;i<w/8;i++)for(let j=0;j<h/8;j++){ctx.fillStyle=(i+j)%2?'#1a1a1a':'#e8e4d8';ctx.fillRect(x+i*8,y+j*8,8,8)}ctx.restore();ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.strokeRect(x,y,w,h)}
+function lanh(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]).slice();if(o.jar)armA=[-0.08,0.08];if(o.reach)armA=[undefined,-1.1];
+ person(x,y,s,Object.assign({shirt:'#3e5a3a',pants:'#2a2620',skin:'#c8946a',hair:'#141414'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ if(!o.back){ctx.fillStyle='#141414';ctx.beginPath();ctx.moveTo(-18,-252);ctx.quadraticCurveTo(0,-258,18,-252);ctx.quadraticCurveTo(10,-246,0,-248);ctx.quadraticCurveTo(-10,-246,-18,-252);ctx.fill();
+  khanRan(-30,-232,60,18);ctx.save();ctx.translate(18,-216);ctx.rotate(0.3);khanRan(0,0,14,40);ctx.restore()}
+ if(o.hoe){const a=o.hoe;ctx.save();ctx.translate(...HPP(1,armA[1]??-2.4));ctx.rotate(a);ctx.fillStyle='#6a4a28';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.fillRect(-5,-10,10,150);ctx.strokeRect(-5,-10,10,150);ctx.fillStyle='#8a9098';ctx.beginPath();ctx.moveTo(-6,130);ctx.lineTo(44,140);ctx.lineTo(40,160);ctx.lineTo(-6,150);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore()}
+ if(o.jar){ctx.save();ctx.translate(0,-100);ctx.fillStyle='#5a3a22';ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.moveTo(-14,-62);ctx.quadraticCurveTo(-40,-50,-36,-20);ctx.quadraticCurveTo(-32,4,-18,8);ctx.lineTo(18,8);ctx.quadraticCurveTo(32,4,36,-20);ctx.quadraticCurveTo(40,-50,14,-62);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#c8a24a';ctx.fillRect(-15,-68,30,8);ctx.fillStyle='#b8302a';ctx.fillRect(-7,-46,14,28);ctx.restore();for(const sd of [-1,1]){const [hx,hy]=HPP(sd,sd*0.08);circ(hx,hy,9,'#c8946a',INK,3)}}
+ if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*21,-262);ctx.lineTo(sd*22,-240+(T*20)%12);ctx.stroke()}}
+ ctx.restore()}
+// Mận: áo bà ba xanh dương, khăn rằn đỏ quấn đầu kiểu miền Tây, tóc dài thắt bím một bên
+function man(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.ears){arm[0]=-3.32;arm[1]=3.32}if(o.cover)arm[1]=-1.35;
+ woman(x,y,s,Object.assign({shirt:'#3a6a8e',pants:'#1c1c24',skin:'#e6c4a0',smile:false},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ if(!o.back){ctx.save();ctx.translate(0,-278);ctx.beginPath();ctx.arc(0,0,60,Math.PI*1.05,Math.PI*1.95);ctx.lineTo(56,-18);ctx.lineTo(-56,-18);ctx.closePath();ctx.clip();for(let i=-8;i<8;i++)for(let j=-8;j<2;j++){ctx.fillStyle=(i+j)%2?'#8a1a1a':'#e8dcc8';ctx.fillRect(i*10,j*10,10,10)}ctx.restore();
+  ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.arc(0,-278,60,Math.PI*1.05,Math.PI*1.95);ctx.stroke();ctx.beginPath();ctx.moveTo(-56,-296);ctx.lineTo(56,-296);ctx.stroke();
+  ctx.fillStyle='#8a1a1a';ctx.beginPath();ctx.moveTo(48,-300);ctx.lineTo(74,-284);ctx.lineTo(62,-274);ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.strokeStyle=HAIR;ctx.lineWidth=12;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-50,-250);ctx.quadraticCurveTo(-62,-200,-48,-150);ctx.stroke();for(let k=0;k<4;k++){ctx.strokeStyle='#2a2430';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-58,-230+k*20);ctx.lineTo(-44,-224+k*20);ctx.stroke()}}
+ if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
+ if(o.earring){for(const sd of [-1,1])circ(sd*56,-262,6,'#e8c040',INK,2)}
+ if(o.ankle){ctx.fillStyle='rgba(20,14,18,.9)';for(let k=0;k<5;k++){ctx.beginPath();ctx.ellipse(-30+k*6,-10+Math.abs(k-2)*3,2.5,8,0.3,0,7);ctx.fill()}}
+ if(o.grab){ctx.fillStyle='#8a9a8a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(-26,6,22,12,0,0,7);ctx.fill();ctx.stroke();for(let k=0;k<4;k++){ctx.beginPath();ctx.ellipse(-40+k*9,-4,4,12,0,0,7);ctx.fill();ctx.stroke()}}
+ if(o.walk!==undefined&&!o.sit){for(const sd of [-1,1]){const lift=Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12;ctx.fillStyle='#1a1418';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,2-lift,16,7,0,0,7);ctx.fill();ctx.stroke()}}
+ ctx.restore()}
+// thầy Tư: gầy, áo dài đen, khăn đóng đen, râu dê đen điểm bạc, dải vải đỏ + lá bùa vàng trước ngực
+function thayTu(x,y,s,o={}){const T=o.T||0;const armA=(o.armA||[undefined,undefined]).slice();
+ person(x,y,s,Object.assign({shirt:'#1e1e26',pants:'#141418',skin:'#b8946e',robe:true,khandong:true,hair:'#d8d4cc'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ if(!o.back){ctx.fillStyle='#2a2626';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-9,-224);ctx.quadraticCurveTo(-5,-196,1,-176);ctx.quadraticCurveTo(7,-196,10,-224);ctx.closePath();ctx.fill();ctx.stroke();ctx.strokeStyle='rgba(220,220,210,.7)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,-220);ctx.lineTo(1,-184);ctx.stroke();
+  for(const sd of [-1,1]){ctx.strokeStyle='#3a3030';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(sd*6,-246);ctx.quadraticCurveTo(sd*18,-238,sd*20,-228);ctx.stroke()}
+  ctx.fillStyle='rgba(60,40,30,.35)';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*36,-258,10,16,0,0,7);ctx.fill()}
+  ctx.fillStyle='#9a1a1a';ctx.fillRect(-44,-150,88,16);ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.strokeRect(-44,-150,88,16);ctx.fillStyle='#e8c23a';ctx.fillRect(-12,-200,24,44);ctx.strokeRect(-12,-200,24,44);ctx.strokeStyle='#a01818';ctx.lineWidth=2;for(let k=0;k<4;k++){ctx.beginPath();ctx.moveTo(-8,-192+k*9);ctx.lineTo(8,-188+k*9);ctx.stroke()}}
+ ctx.restore()}

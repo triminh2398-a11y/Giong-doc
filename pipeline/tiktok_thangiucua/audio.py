@@ -46,8 +46,8 @@ for k in range(4):place(1269,S_('pull',.05+k*.15),.3,dur=1.0)
 place(2462,S_('pull',.8),.55,dur=4)
 place(492,sp('let')[0]+.3,.25,dur=4)
 place(BELL,S_('cta',.1),.2,dur=1.2,rate=1.2)
-JT=[S_('hook2',.04)]
-for t,d in [(JT[0],.7),(S_('boy',.3),.6),(S_('pry',.6),.5)]:
+JT=[S_('hook2',.04),S_('gm',.62),S_('boy',.45),S_('pry',.6)]
+for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.15,s1-s0)[:,None]
 out/=np.abs(out).max()*1.05
 for t in JT:
