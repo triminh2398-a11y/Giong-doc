@@ -1345,3 +1345,7 @@ loaded V3TurboVieNeuTTS
 99_bn_tsfix Thái Sơn 4 ok 1.8
 99_bn_tsfix asr ok
 loaded V3TurboVieNeuTTS
+loaded V3TurboVieNeuTTS
+99_bn_tsfix2 Thái Sơn 0 ok 1.6
+99_bn_tsfix2 Thái Sơn 4 ok 1.5
+99_bn_tsfix2 asr ok
