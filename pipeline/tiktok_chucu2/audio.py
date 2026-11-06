@@ -44,6 +44,7 @@ for k in range(5):place(2835,S_('door',.35+k*.08),.6-k*.08,dur=1.0)
 place(2462,S_('door',.92),.4,dur=3)
 place(3126,S_('end2',.4),.7,dur=sp('end2')[1]-S_('end2',.4),fi=.4,fo=1,loop=True)
 place(2835,S_('end2',.7),.7,dur=2.5)
+for k in range(4):place(2835,S_('leave2',.45+k*.1),.55,dur=.9)
 JT=[S_('hook2',.05),S_('cam',.72),S_('gs',.3),S_('turn',.45)]
 for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.2,s1-s0)[:,None]
@@ -66,7 +67,7 @@ place(493,g0,.7,dur=c1-g0,fi=.1,fo=1.2,loop=True)                 # tim đập n
 place(786,g0-.1,.8,dur=4,fi=.05,fo=1)                             # dâng lên
 place(678,S_('gs2',.2),.7,dur=5,fi=.2,fo=1.5)                    # swell khi lấp hố
 # kết rùng rợn: sau câu cuối của bé Na — hộp nhạc lạc giọng + organ + quét bóng tối, rồi lặng
-e0=sp('gs3')[0];e1=sp('gs3')[1]
+e0=sp('gs3')[0];e1=sp('leave2')[1]
 place(2746,e0-.5,.8,dur=DUR-e0+.5,fi=1.5,fo=2,loop=True)
 place(3081,e0,.8,dur=DUR-e0,fi=1,fo=2.5,loop=True)
 place(2630,e1-.4,.9,dur=4,fi=.1,fo=1.5)

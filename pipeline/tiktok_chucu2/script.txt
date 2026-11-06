@@ -29,5 +29,7 @@ morning|N|Sáng ra, người ta phá cửa bếp. Tuấn ngồi gục bên bàn 
 end|N|Bé Su khỏe lại. Căn nhà im ắng. Mâm cúng để tới sáng vẫn còn nguyên.
 end2|N|Cho tới một đêm, đúng ba giờ sáng, điện thoại Vy báo: camera bếp phát hiện chuyển động. Trong video, có hai người ngồi ở bàn ăn. Và một chiếc ghế… vừa được kéo ra.
 gs3|GS|Vy ơi… xuống ăn cơm cháu… bà dọn sẵn ba cái bát rồi…
+leave|N|Ngay sáng hôm sau, Vy ôm con dọn đi. Cô không bán, cũng không dám cho ai thuê. Căn nhà bị bỏ hoang từ đó.
+leave2|N|Người trong xóm kể, đêm đêm đi ngang qua, vẫn thấy đèn bếp sáng, và nghe tiếng bát đũa lách cách… như có cả nhà đang ngồi ăn cơm.
 cta|N|Nếu nửa đêm camera nhà bạn quay được người lạ trong bếp… bạn có dám xuống không?
 cta|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ nhé.
