@@ -4,24 +4,26 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-chucu-v1
++ TAG=tiktok-chucu-v2
 ++ jq -r .html job.json
-+ HTML=cc/index.html
++ HTML=cm/index.html
 ++ jq -r .frames job.json
-+ N=7691
++ N=7672
 + S=16
 ++ jq -r '.start // 0' job.json
 + ST=0
-+ A=480
-+ B=961
++ A=479
++ B=959
 ++ printf %02d 1
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js cc/index.html seg_01.mp4 480 961 720 1280
++ node render_seg.js cm/index.html seg_01.mp4 479 959 720 1280
 frame 600
 + sleep 2
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-chucu-v1
++ gh release view tiktok-chucu-v2
++ gh release create tiktok-chucu-v2 -t tiktok-chucu-v2 -n render
+https://github.com/triminh2398-a11y/Giong-doc/releases/tag/tiktok-chucu-v2
 ++ printf %02d 1
-+ gh release upload tiktok-chucu-v1 seg_01.mp4 --clobber
++ gh release upload tiktok-chucu-v2 seg_01.mp4 --clobber
 + break
