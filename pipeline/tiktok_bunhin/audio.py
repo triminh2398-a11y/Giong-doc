@@ -55,12 +55,12 @@ for t,d in [(x,.6) for x in JT]:
 mu=np.zeros((N,2));hi=np.zeros((N,2));_out=out
 out=mu
 c0=sp('night')[0];g0=sp('gt2')[0];c1=sp('pull')[1]
-place(700,0,.55,dur=c0,fi=2,fo=3,loop=True,rate=0.82)
+place(2510,0,.5,dur=c0,fi=2,fo=3,loop=True);place(685,0,.22,dur=c0,fi=3,fo=3,loop=True)
 place(2746,0,.35,dur=c0,fi=3,fo=3,loop=True)
 place(2510,sp('run')[0],.3,dur=sp('chin3')[1]-sp('run')[0],fi=2,fo=2,loop=True)
 place(685,c0,.5,dur=c1-c0,fi=1.5,fo=2,loop=True)
 place(559,sp('strip')[0],.4,dur=g0-sp('strip')[0],fi=.5,fo=.5,loop=True)
-place(700,sp('morning')[0],.35,dur=sp('end2')[0]-sp('morning')[0],fi=2,fo=2,loop=True,rate=0.72)
+place(2482,sp('morning')[0],.4,dur=sp('end2')[0]-sp('morning')[0],fi=2,fo=2,loop=True)
 # cao trào: lớp riêng, ít bị nén dưới giọng
 out=hi
 place(682,g0-.2,.9,dur=c1-g0+.2,fi=.05,fo=1.5,loop=True)          # trống trầm dồn dập
@@ -71,7 +71,7 @@ place(678,S_('pull',.3),.7,dur=5,fi=.2,fo=1.5)                    # swell khi l�
 # kết rùng rợn: sau câu cuối của bé Na — hộp nhạc lạc giọng + organ + quét bóng tối, rồi lặng
 e0=sp('gh')[0];e1=sp('gh')[1]
 place(2746,e0-.5,.8,dur=DUR-e0+.5,fi=1.5,fo=2,loop=True)
-place(700,e0,.75,dur=DUR-e0,fi=1,fo=2.5,loop=True,rate=0.66)
+place(3081,e0,.8,dur=DUR-e0,fi=1,fo=2.5,loop=True)
 place(2630,e1-.4,.9,dur=4,fi=.1,fo=1.5)
 place(2430,e1+.2,.3,dur=1.5)
 for t,d in [(x,.6) for x in JT]:
