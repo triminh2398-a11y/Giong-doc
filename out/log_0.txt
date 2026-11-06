@@ -1422,3 +1422,7 @@ loaded V3TurboVieNeuTTS
 99_cm_ts2 Thái Sơn 0 ok 2.8
 99_cm_ts2 Thái Sơn 4 ok 1.9
 99_cm_ts2 asr ok
+loaded V3TurboVieNeuTTS
+99_cm_nfix2 clone:refs/mada8.wav 0 ok 29.3
+99_cm_nfix2 clone:refs/mada8.wav 4 ok 4.8
+99_cm_nfix2 asr ok
