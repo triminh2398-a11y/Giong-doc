@@ -11,7 +11,7 @@ PICK = json.load(open(D + 'pick.json')) if os.path.exists(D + 'pick.json') else 
 clean = lambda s: re.sub(r'\s*\[[^\]]*\]\s*', ' ', s).strip()
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 NMAP = {}
-for job in ('99_cm_n', '99_cm_nfix', '99_cm_nfix2', '99_cm_nfix3', '99_cm_nfix4'):
+for job in ('99_cm_n', '99_cm_nfix', '99_cm_nfix2', '99_cm_nfix3', '99_cm_nfix5'):
     if not os.path.exists(G + f'jobs/{job}.json'): continue
     J = json.load(open(G + f'jobs/{job}.json')); ND = G + f'out/{job}/clone_refs_mada8_wav/'
     for k, line in enumerate(J['lines']):
