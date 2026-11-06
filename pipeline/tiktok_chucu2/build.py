@@ -11,7 +11,7 @@ PICK = json.load(open(D + 'pick.json')) if os.path.exists(D + 'pick.json') else 
 clean = lambda s: re.sub(r'\s*\[[^\]]*\]\s*', ' ', s).strip()
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 NMAP = {}
-for job in ('99_cm_n', '99_cm_nfix', '99_cm_nfix2'):
+for job in ('99_cm_n', '99_cm_nfix', '99_cm_nfix2', '99_cm_nfix3'):
     if not os.path.exists(G + f'jobs/{job}.json'): continue
     J = json.load(open(G + f'jobs/{job}.json')); ND = G + f'out/{job}/clone_refs_mada8_wav/'
     for k, line in enumerate(J['lines']):
@@ -57,7 +57,7 @@ for i, (sh, sp, tx) in enumerate(S):
         c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.3, extra=0.06)
     else:
         cands = []
-        for job in {'TU': ['99_cm_ts', '99_cm_ts2'], 'HU': ['99_cm_dt'], 'SU': ['99_cm_md'], 'GS': ['99_cm_td']}[sp]:
+        for job in {'TU': ['99_cm_ts', '99_cm_ts2', '99_cm_ts3'], 'HU': ['99_cm_dt', '99_cm_dt2'], 'SU': ['99_cm_md'], 'GS': ['99_cm_td']}[sp]:
             if not os.path.exists(G + f'out/{job}'): continue
             Jx = json.load(open(G + f'jobs/{job}.json')); vd = [x for x in os.listdir(G + f'out/{job}') if not x.startswith('DONE')][0]
             cands += [G + f'out/{job}/{vd}/{k:02d}' for k, l in enumerate(Jx['lines']) if l == tx and os.path.exists(G + f'out/{job}/{vd}/{k:02d}.wav')]
@@ -73,14 +73,14 @@ nr = np.median([rms(c) for c, (_, sp, _) in zip(clips, S) if sp == 'N' and np.ab
 for k, (_, sp, _) in enumerate(S):
     if sp != 'N' and np.abs(clips[k]).max() > 0: clips[k] = clips[k] * (nr / rms(clips[k])) * (0.85 if sp in ('GS',) else 1.0)
 nd = [len(c) / SR for c in clips]
-SLOW_IN = {'title', 'buy', 'water', 'cam', 'night', 'turn', 'door', 'morning', 'end2', 'gs3', 'leave2', 'cta'}
+SLOW_IN = {'title', 'buy', 'water', 'cam', 'cam2', 'night', 'turn', 'door', 'morning', 'end2', 'gs3', 'leave2', 'cta'}
 st = [0.3]
 for i in range(len(S) - 1):
     g = 0.3 if S[i][0] == S[i + 1][0] else 0.5
     if S[i + 1][0] in SLOW_IN: g = 0.85
     if S[i][0] == 'gs3': g = 1.6
     if S[i][0] == 'leave2': g = 2.0
-    if S[i][0] in ('gs', 'gs2', 'turn', 'end2', 'su'): g = 1.0
+    if S[i][0] in ('gs', 'gs2', 'turn', 'end2'): g = 1.0
     st.append(st[i] + nd[i] + g)
 dur = st[-1] + nd[-1] + 1.8
 runs = []

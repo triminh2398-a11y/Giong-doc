@@ -1,35 +1,35 @@
 hook|N|Người ta nói, mua nhà cũ thì phải thắp nén nhang xin phép chủ cũ. Vì có những người chủ… chết rồi mà vẫn chưa chịu đi.
 hook2|N|Và nếu nửa đêm nghe dưới bếp có tiếng gọi ăn cơm… thì tuyệt đối đừng ngồi vào bàn.
 title|N|Câu chuyện hôm nay… Người chủ cũ.
-buy|N|Vy làm văn phòng, một mình nuôi con gái nhỏ tên Su. Cô mua được căn nhà phố ba tầng giá rẻ bất ngờ. Người bán là anh Tuấn, ký giấy xong là đi ngay, không dám ngoái lại.
+buy|N|Vy làm văn phòng, sống một mình. Cô mua được căn nhà phố ba tầng giá rẻ bất ngờ. Người bán là anh Tuấn, ký giấy xong là đi ngay, không dám ngoái lại.
 hung|N|Bác Hùng nhà bên sang chào, nhìn vào gian bếp rồi hạ giọng.
 hung1|HU|Nhà này của bà cụ Sáu. Bà mất ngay dưới bếp. Cháu nhớ thắp hương cho tử tế. Đêm mà nghe bà gọi ăn cơm, thì đừng ai ngồi vào bàn nhé.
 water|N|Đêm đầu tiên, đúng ba giờ sáng, dưới bếp có tiếng nước chảy ào ào. Rồi tiếng dao băm lộc cộc. Tiếng bát đĩa va vào nhau.
 check|N|Vy bật đèn đi xuống. Bếp không có ai. Vòi nước vẫn đang chảy, nước tràn khỏi bồn rửa, lênh láng ra sàn. Mà cái vòi… cô đã khóa chặt trước khi ngủ.
 cam|N|Cô lắp camera trong bếp. Sáng hôm sau mở điện thoại xem lại. Ba giờ sáng, có một bà cụ tóc bạc đứng trước bồn rửa, vo gạo. Rồi bà từ từ quay đầu lại, nhìn thẳng vào camera.
 offer|N|Vy sợ, ngày nào cũng cúng. Nhưng mâm cúng bày bao nhiêu, sáng ra sạch trơn bấy nhiêu. Nồi cơm điện bị vét tới đáy. Cúng bao nhiêu cũng không đủ.
-bowls|N|Rồi một sáng, trên bàn ăn có hai cái bát. Một bát cơm trắng, cắm đứng đôi đũa. Bát còn lại để trống… ngay chỗ bé Su hay ngồi.
-su1|N|Bé Su bắt đầu ăn ít, người gầy rộc. Vy hỏi, con bé cười.
-su|SU|Đêm nào bà cũng gọi con xuống ăn cơm. Bà bảo con ăn hết bát, là được ở với bà mãi mãi.
+bowls|N|Rồi một sáng, trên bàn ăn có hai cái bát. Một bát cơm trắng, cắm đứng đôi đũa. Bát còn lại để trống… ngay chỗ Vy hay ngồi.
+su1|N|Từ đó, Vy ăn ít, người gầy rộc. Sáng nào thức dậy, miệng cô cũng dính đầy hạt gạo sống.
+cam2|N|Cô mở camera xem lại. Ba giờ sáng, chính cô đang ngồi ở bàn ăn, đối diện bà cụ, ngoan ngoãn bưng bát cơm.
 hung2|HU|Bà Sáu không chết bệnh đâu. Hồi bà ốm liệt giường, thằng Tuấn khóa trái bà trong bếp để đi bán nhà. Bà chết đói, tay còn ôm nồi cơm.
-hung3|HU|Bà không ăn đồ cúng. Bà nấu cơm chờ con. Thằng Tuấn không về, thì bà tìm đứa khác thế vào. Con bé mà ăn hết bát cơm ấy… là ở lại với bà luôn.
+hung3|HU|Bà không ăn đồ cúng. Bà nấu cơm chờ con. Thằng Tuấn không về, thì bà tìm người khác thế vào. Cháu mà ăn hết bát cơm ấy… là ở lại với bà luôn.
 find|N|Vy lục lại hợp đồng mua bán, tìm ra số điện thoại anh Tuấn. Cô gọi, kể hết mọi chuyện.
 tu1|TU|Là tôi… tôi nhốt má tôi… Đêm nào tôi cũng nghe má gọi… tôi xin lỗi…
 tu2|N|Tuấn khóc nấc rồi cúp máy. Vy không hề biết, ngay đêm đó, anh đã một mình tìm về căn nhà cũ.
-night|N|Nửa đêm, đèn bếp chập chờn. Bé Su ngồi ở bàn ăn, hai tay bưng bát cơm đưa lên miệng. Sau lưng con bé, có một bà cụ gầy trơ xương đang đứng xới cơm.
+night|N|Nửa đêm, Vy lại mộng du xuống bếp. Cô ngồi vào bàn, hai tay bưng bát cơm đưa lên miệng. Sau lưng cô, có một bà cụ gầy trơ xương đang đứng xới cơm.
 gs|GS|Ăn đi con… ăn cho hết… rồi ở với bà…
-stop|N|Vy lao tới, giật bát cơm khỏi tay con. Cơm đổ ra bàn. Đó không phải cơm. Là gạo sống, lúc nhúc giòi.
+come|N|Đúng lúc đó, cửa bếp bật mở. Tuấn lao vào, mặt trắng bệch.
+stop|N|Anh hất văng bát cơm khỏi tay Vy. Cơm đổ ra bàn. Đó không phải cơm. Là gạo sống, lúc nhúc giòi.
 turn|N|Bà cụ từ từ quay lại. Hai mắt trắng dã, má hóp sát xương, miệng nhai nhóp nhép.
-come|N|Đúng lúc đó, cửa bếp bật mở. Tuấn đứng đó, mặt trắng bệch, run lẩy bẩy.
 tu3|TU|Má… con về rồi nè má… con xin lỗi má…
 gs2|GS|Tuấn hả con… Má chờ con lâu quá… ngồi xuống ăn cơm với má…
-tu4|TU|Má tha cho con bé đi má… để con ở lại ăn cơm với má…
-door|N|Tuấn đẩy hai mẹ con ra ngoài. Cửa bếp đóng sầm sau lưng. Bên trong vọng ra tiếng đũa chạm bát lách cách, tiếng Tuấn nghẹn ngào gọi má… rồi im bặt.
+tu4|TU|Má tha cho cô ấy đi má… để con ở lại ăn cơm với má…
+door|N|Tuấn đẩy Vy ra ngoài. Cửa bếp đóng sầm sau lưng. Bên trong vọng ra tiếng đũa chạm bát lách cách, tiếng Tuấn nghẹn ngào gọi má… rồi im bặt.
 morning|N|Sáng ra, người ta phá cửa bếp. Tuấn ngồi gục bên bàn ăn, miệng nhét đầy gạo sống. Tay ôm chặt cái nồi cơm.
-end|N|Bé Su khỏe lại. Căn nhà im ắng. Mâm cúng để tới sáng vẫn còn nguyên.
+end|N|Vy hết mộng du. Căn nhà im ắng. Mâm cúng để tới sáng vẫn còn nguyên.
 end2|N|Cho tới một đêm, đúng ba giờ sáng, điện thoại Vy báo: camera bếp phát hiện chuyển động. Trong video, có hai người ngồi ở bàn ăn. Và một chiếc ghế… vừa được kéo ra.
 gs3|GS|Vy ơi… xuống ăn cơm cháu… bà dọn sẵn ba cái bát rồi…
-leave|N|Ngay sáng hôm sau, Vy ôm con dọn đi. Cô không bán, cũng không dám cho ai thuê. Căn nhà bị bỏ hoang từ đó.
+leave|N|Ngay sáng hôm sau, Vy thu dọn đồ đạc dọn đi. Cô không bán, cũng không dám cho ai thuê. Căn nhà bị bỏ hoang từ đó.
 leave2|N|Người trong xóm kể, đêm đêm đi ngang qua, vẫn thấy đèn bếp sáng, và nghe tiếng bát đũa lách cách… như có cả nhà đang ngồi ăn cơm.
 cta|N|Nếu nửa đêm camera nhà bạn quay được người lạ trong bếp… bạn có dám xuống không?
 cta|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ nhé.
