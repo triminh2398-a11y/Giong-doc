@@ -57,7 +57,7 @@ for i, (sh, sp, tx) in enumerate(S):
         c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.3, extra=0.06)
     else:
         cands = []
-        for job in {'TU': ['99_cm_ts'], 'HU': ['99_cm_dt'], 'SU': ['99_cm_md'], 'GS': ['99_cm_td']}[sp]:
+        for job in {'TU': ['99_cm_ts', '99_cm_ts2'], 'HU': ['99_cm_dt'], 'SU': ['99_cm_md'], 'GS': ['99_cm_td']}[sp]:
             if not os.path.exists(G + f'out/{job}'): continue
             Jx = json.load(open(G + f'jobs/{job}.json')); vd = [x for x in os.listdir(G + f'out/{job}') if not x.startswith('DONE')][0]
             cands += [G + f'out/{job}/{vd}/{k:02d}' for k, l in enumerate(Jx['lines']) if l == tx and os.path.exists(G + f'out/{job}/{vd}/{k:02d}.wav')]

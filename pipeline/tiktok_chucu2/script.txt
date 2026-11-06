@@ -13,16 +13,18 @@ su1|N|Bé Su bắt đầu ăn ít, người gầy rộc. Vy hỏi, con bé cư�
 su|SU|Đêm nào bà cũng gọi con xuống ăn cơm. Bà bảo con ăn hết bát, là được ở với bà mãi mãi.
 hung2|HU|Bà Sáu không chết bệnh đâu. Hồi bà ốm liệt giường, thằng Tuấn khóa trái bà trong bếp để đi bán nhà. Bà chết đói, tay còn ôm nồi cơm.
 hung3|HU|Bà không ăn đồ cúng. Bà nấu cơm chờ con. Thằng Tuấn không về, thì bà tìm đứa khác thế vào. Con bé mà ăn hết bát cơm ấy… là ở lại với bà luôn.
-find|N|Vy lục lại hợp đồng mua bán, tìm ra địa chỉ anh Tuấn. Cô đến tận nơi, quỳ xuống van xin.
-tu1|TU|Tôi không về đâu! Đêm nào tôi cũng nghe má tôi gọi… tôi không dám về!
-tu2|N|Nhưng tối hôm đó, Tuấn vẫn đi theo Vy. Mặt anh trắng bệch, tay run lẩy bẩy.
+find|N|Vy lục lại hợp đồng mua bán, tìm ra số điện thoại anh Tuấn. Cô gọi, kể hết mọi chuyện.
+tu1|TU|Là tôi… tôi nhốt má tôi… Đêm nào tôi cũng nghe má gọi… tôi xin lỗi…
+tu2|N|Tuấn khóc nấc rồi cúp máy. Vy không hề biết, ngay đêm đó, anh đã một mình tìm về căn nhà cũ.
 night|N|Nửa đêm, đèn bếp chập chờn. Bé Su ngồi ở bàn ăn, hai tay bưng bát cơm đưa lên miệng. Sau lưng con bé, có một bà cụ gầy trơ xương đang đứng xới cơm.
 gs|GS|Ăn đi con… ăn cho hết… rồi ở với bà…
 stop|N|Vy lao tới, giật bát cơm khỏi tay con. Cơm đổ ra bàn. Đó không phải cơm. Là gạo sống, lúc nhúc giòi.
 turn|N|Bà cụ từ từ quay lại. Hai mắt trắng dã, má hóp sát xương, miệng nhai nhóp nhép.
+come|N|Đúng lúc đó, cửa bếp bật mở. Tuấn đứng đó, mặt trắng bệch, run lẩy bẩy.
 tu3|TU|Má… con về rồi nè má… con xin lỗi má…
 gs2|GS|Tuấn hả con… Má chờ con lâu quá… ngồi xuống ăn cơm với má…
-door|N|Cửa bếp đóng sầm. Vy ôm con chạy ra ngoài. Trong bếp, Tuấn gào thét, đập cửa thình thịch. Tiếng gào nhỏ dần… rồi tắt hẳn.
+tu4|TU|Má tha cho con bé đi má… để con ở lại ăn cơm với má…
+door|N|Tuấn đẩy hai mẹ con ra ngoài. Cửa bếp đóng sầm sau lưng. Bên trong vọng ra tiếng đũa chạm bát lách cách, tiếng Tuấn nghẹn ngào gọi má… rồi im bặt.
 morning|N|Sáng ra, người ta phá cửa bếp. Tuấn ngồi gục bên bàn ăn, miệng nhét đầy gạo sống. Tay ôm chặt cái nồi cơm.
 end|N|Bé Su khỏe lại. Căn nhà im ắng. Mâm cúng để tới sáng vẫn còn nguyên.
 end2|N|Cho tới một đêm, đúng ba giờ sáng, điện thoại Vy báo: camera bếp phát hiện chuyển động. Trong video, có hai người ngồi ở bàn ăn. Và một chiếc ghế… vừa được kéo ra.
