@@ -58,12 +58,12 @@ for i, (sh, sp, tx) in enumerate(S):
         c = ff(c, 'atempo=0.86' if sh in ('hook', 'hook2', 'title') else 'atempo=0.94')
     else:
         cands = []
-        for job in {'TA': ['99_bn_ts', '99_bn_tsfix', '99_bn_tsfix2'], 'GT': ['99_bn_ts'], 'HA': ['99_bn_md'], 'GH': ['99_bn_md'], 'CH': ['99_bn_td']}[sp]:
+        for job in {'TA': ['99_bn_ts', '99_bn_tsfix2'], 'GT': ['99_bn_ts'], 'HA': ['99_bn_md'], 'GH': ['99_bn_md'], 'CH': ['99_bn_td']}[sp]:
             if not os.path.exists(G + f'out/{job}'): continue
             Jx = json.load(open(G + f'jobs/{job}.json')); vd = [x for x in os.listdir(G + f'out/{job}') if not x.startswith('DONE')][0]
             cands += [G + f'out/{job}/{vd}/{k:02d}' for k, l in enumerate(Jx['lines']) if l == tx and os.path.exists(G + f'out/{job}/{vd}/{k:02d}.wav')]
         sc = [(difflib.SequenceMatcher(None, norm(clean(tx)), norm(open(f + '.txt').read() if os.path.exists(f + '.txt') else '')).ratio(), f) for f in cands]
-                r, f = max(sc); info.append((round(r, 2), os.path.basename(f)))
+        r, f = max(sc); info.append((round(r, 2), os.path.basename(f)))
         c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.2, extra=0.05)
         if sp == 'CH': c = ff(c, f'asetrate={int(SR*0.94)},aresample={SR},atempo=0.98')
         if sp == 'GT': c = ghost(ff(c, f'asetrate={int(SR*0.9)},aresample={SR},atempo=0.86'), 'ghost')
