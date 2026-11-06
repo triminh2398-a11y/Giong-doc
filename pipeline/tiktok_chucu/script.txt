@@ -1,0 +1,31 @@
+hook|N|Ở miền Tây, người ta dặn: mua nhà cũ, đêm đầu tiên phải cúng một mâm cơm cho chủ cũ. Vì có những người chủ… chết rồi mà chưa chịu đi.
+hook2|N|Và nếu nửa đêm, nghe dưới bếp có tiếng ai kêu ăn cơm… thì tuyệt đối đừng ngồi vô mâm.
+title|N|Câu chuyện hôm nay… Người chủ cũ.
+buy|N|Vợ chồng Phúc với Liên dồn hết vốn, mua được căn nhà tường ven kinh, giá rẻ tới khó tin. Người bán là ông Tư, nhà ở chợ Châu Đốc. Ổng ký giấy xong là đi liền, không dám ngó lại căn nhà.
+bay|N|Bà Bảy hàng xóm qua chơi, nhìn quanh căn bếp, rồi nói nhỏ.
+bay1|BA|Nhà này của bà Sáu. Bả chết ở dưới bếp. Hai đứa nhớ cúng cho đàng hoàng. Mà tối có nghe bả kêu ăn cơm, thì đừng ai ngồi vô mâm nghen.
+water|N|Đêm đầu tiên, đúng ba giờ sáng, dưới bếp có tiếng nước chảy. Rồi tiếng vo gạo sột soạt. Tiếng nồi niêu khua lẻng xẻng.
+check|N|Phúc cầm đèn xuống coi. Bếp tối om. Lu nước tràn lênh láng ra nền. Mà cái nắp lu vẫn đậy kín.
+offer|N|Liên sợ, ngày nào cũng cúng. Nhưng mâm cúng bày ra bao nhiêu, sáng ra sạch trơn bấy nhiêu. Nồi cơm trong bếp cũng bị vét tới cháy đáy. Đồ cúng mua cỡ nào cũng không đủ.
+bowls|N|Rồi một sáng, Liên thấy trên bàn bếp có hai cái chén. Một chén cơm trắng, cắm đứng đôi đũa. Chén còn lại để trống… ngay chỗ chồng cô hay ngồi.
+sleep|N|Từ đó, đêm nào Phúc cũng mộng du. Anh đi xuống bếp, ngồi vô bàn, hai tay bưng chén, miệng lẩm bẩm.
+phuc|PH|Dạ… con về rồi má… con đói quá má ơi…
+lien|N|Phúc mồ côi má từ nhỏ. Và anh chưa từng xưng con với ai bằng cái giọng đó.
+bay2|BA|Bà Sáu đâu có chết bệnh. Hồi bả đau nằm một chỗ, thằng Tư nhốt bả dưới bếp để bán nhà. Bả chết đói, tay còn ôm cái nồi cơm.
+bay3|BA|Bả đâu có ăn đồ cúng. Bả nấu cơm chờ con. Thằng Tư không về, thì bả kiếm đứa khác thế vô. Chồng con mà ăn hết chén cơm đó… là ở lại với bả luôn.
+find|N|Liên lục lại tờ giấy mua bán, có địa chỉ ông Tư. Cô lên tận chợ Châu Đốc, quỳ xuống năn nỉ.
+tu1|TU|Tui không về đâu! Đêm nào tui cũng nghe má tui kêu… tui không dám về!
+tu2|N|Nhưng tới chiều, ông Tư vẫn đi theo Liên. Mặt ông trắng bệch, tay run lập cập.
+night|N|Nửa đêm, dưới bếp đèn dầu tự cháy. Phúc ngồi trong bàn, bưng chén cơm đưa lên miệng. Sau lưng anh, có một bà già ốm nhom đang đứng xới cơm.
+gs|GS|Ăn đi con… ăn cho hết… rồi ở với má…
+stop|N|Liên lao tới, giật cái chén khỏi tay chồng. Cơm đổ ra bàn. Đó không phải cơm. Là gạo sống, lẫn đầy giòi.
+turn|N|Bà già từ từ quay lại. Hai mắt trắng dã, má hóp sát xương, miệng nhai nhóp nhép.
+tu3|TU|Má… con về rồi nè má… con xin lỗi má…
+gs2|GS|Tư hả con… Má chờ con lâu quá… ngồi xuống ăn cơm với má…
+door|N|Cửa bếp đóng sầm. Liên kéo chồng chạy ra ngoài. Trong bếp, ông Tư la hét, đập cửa thình thịch. Tiếng la nhỏ dần… rồi tắt hẳn. Xa xa, gà gáy tiếng đầu tiên.
+morning|N|Sáng ra, người ta phá cửa bếp. Ông Tư ngồi gục trên bàn, miệng nhét đầy gạo sống. Tay ôm chặt cái nồi cơm.
+end|N|Phúc khỏe lại. Từ đó, căn nhà im re. Mâm cúng để tới sáng vẫn còn nguyên.
+end2|N|Cho tới đêm rằm tháng sau. Đúng ba giờ sáng, dưới bếp lại có tiếng nước chảy. Lần này… có hai giọng nói chuyện với nhau. Rồi giọng bà già cất lên, dịu dàng.
+gs3|GS|Liên ơi… xuống ăn cơm con… má dọn sẵn ba cái chén rồi…
+cta|N|Nếu mua nhà cũ mà nghe dưới bếp có người kêu ăn cơm… bạn có dám xuống không?
+cta|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ nhé.
