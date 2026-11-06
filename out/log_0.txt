@@ -1308,3 +1308,35 @@ loaded V3TurboVieNeuTTS
 99_tgc_title clone:refs/mada8.wav 0 ok 22.7
 99_tgc_title clone:refs/mada8.wav 4 ok 1.5
 99_tgc_title asr ok
+loaded V3TurboVieNeuTTS
+99_bn_md Mỹ Duyên 0 ok 2.6
+99_bn_md Mỹ Duyên 4 ok 1.5
+99_bn_md asr ok
+99_bn_n clone:refs/mada8.wav 0 ok 23.8
+99_bn_n clone:refs/mada8.wav 4 ok 2.4
+99_bn_n clone:refs/mada8.wav 8 ok 1.6
+99_bn_n clone:refs/mada8.wav 12 ok 5.6
+99_bn_n clone:refs/mada8.wav 16 ok 6.7
+99_bn_n clone:refs/mada8.wav 20 ok 3.0
+99_bn_n clone:refs/mada8.wav 24 ok 4.2
+99_bn_n clone:refs/mada8.wav 28 ok 4.3
+99_bn_n clone:refs/mada8.wav 32 ok 4.8
+99_bn_n clone:refs/mada8.wav 36 ok 3.0
+99_bn_n clone:refs/mada8.wav 40 ok 4.9
+99_bn_n clone:refs/mada8.wav 44 ok 1.8
+99_bn_n clone:refs/mada8.wav 48 ok 5.2
+99_bn_n clone:refs/mada8.wav 52 ok 4.3
+99_bn_n clone:refs/mada8.wav 56 ok 6.3
+99_bn_n clone:refs/mada8.wav 60 ok 3.4
+99_bn_n clone:refs/mada8.wav 64 ok 6.1
+99_bn_n clone:refs/mada8.wav 68 ok 3.1
+99_bn_n asr ok
+99_bn_td Thục Đoan 0 ok 4.9
+99_bn_td Thục Đoan 4 ok 4.8
+99_bn_td Thục Đoan 8 ok 6.0
+99_bn_td asr ok
+99_bn_ts Thái Sơn 0 ok 1.1
+99_bn_ts Thái Sơn 4 ok 2.2
+99_bn_ts Thái Sơn 8 ok 2.3
+99_bn_ts Thái Sơn 12 ok 1.4
+99_bn_ts asr ok
