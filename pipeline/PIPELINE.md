@@ -133,3 +133,4 @@ Ghi chú cho các phiên Claude sau (kể cả phiên chạy theo lịch). Repo:
 - (06/11) Không bó vào motif miền Tây + 2 vợ chồng: truyện tâm linh khắp cả nước, bối cảnh linh hoạt (nhà phố hiện đại, chung cư, camera an ninh, điện thoại…), nhân vật đa dạng (mẹ đơn thân + con, hàng xóm…). Trang phục theo bối cảnh (hiện đại thì áo thun/len/jean).
 - Tốc độ người kể: bình thường như Ma Lai/Ma Trành — stretch_pauses(factor=1.3), KHÔNG atempo chậm.
 - SFX trong truyện (nước chảy, dao thớt, đập cửa…) phải nghe RÕ (gain 0.7–1.0, sfx 0.85 nén nhẹ dưới giọng); jumpscare to rõ (jump volume 1.0, sidechain nhẹ ratio 2.5, thêm 1704).
+- (07/11) KHÔNG để trẻ em bị ma hại / bị dụ / bị đe dọa trong truyện (TikTok bóp tương tác). Nhân vật gặp nạn phải là người lớn; nếu có trẻ con thì chỉ đứng ngoài, an toàn.
