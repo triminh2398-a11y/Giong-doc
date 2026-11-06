@@ -10,12 +10,12 @@ cam|N|Cô lắp camera trong bếp. Sáng hôm sau mở điện thoại xem lạ
 offer|N|Vy sợ, ngày nào cũng cúng. Nhưng mâm cúng bày bao nhiêu, sáng ra sạch trơn bấy nhiêu. Nồi cơm điện bị vét tới đáy. Cúng bao nhiêu cũng không đủ.
 bowls|N|Rồi một sáng, trên bàn ăn có hai cái bát. Một bát cơm trắng, cắm đứng đôi đũa. Bát còn lại để trống… ngay chỗ Vy hay ngồi.
 su1|N|Từ đó, Vy ăn ít, người gầy rộc. Sáng nào thức dậy, miệng cô cũng dính đầy hạt gạo sống.
-cam2|N|Cô mở camera xem lại. Ba giờ sáng, chính cô đang ngồi ở bàn ăn, đối diện bà cụ, ngoan ngoãn bưng bát cơm.
+cam2|N|Cô mở camera xem lại. Ba giờ sáng, chính cô đang ngồi ở bàn ăn, đối diện bà cụ, ngoan ngoãn bưng bát cơm. Vy hoảng loạn chạy sang nhà bác Hùng.
 hung2|HU|Bà Sáu không chết bệnh đâu. Hồi bà ốm liệt giường, thằng Tuấn khóa trái bà trong bếp để đi bán nhà. Bà chết đói, tay còn ôm nồi cơm.
 hung3|HU|Bà không ăn đồ cúng. Bà nấu cơm chờ con. Thằng Tuấn không về, thì bà tìm người khác thế vào. Cháu mà ăn hết bát cơm ấy… là ở lại với bà luôn.
 find|N|Vy lục lại hợp đồng mua bán, tìm ra số điện thoại anh Tuấn. Cô gọi, kể hết mọi chuyện.
 tu1|TU|Là tôi… tôi nhốt má tôi… Đêm nào tôi cũng nghe má gọi… tôi xin lỗi…
-tu2|N|Tuấn khóc nấc rồi cúp máy. Vy không hề biết, ngay đêm đó, anh đã một mình tìm về căn nhà cũ.
+tu2|N|Tuấn khóc nấc rồi cúp máy. Vy không hề biết, ngay đêm đó, anh cầm chiếc chìa khóa cửa sau còn giữ, một mình tìm về căn nhà cũ.
 night|N|Nửa đêm, Vy lại mộng du xuống bếp. Cô ngồi vào bàn, hai tay bưng bát cơm đưa lên miệng. Sau lưng cô, có một bà cụ gầy trơ xương đang đứng xới cơm.
 gs|GS|Ăn đi con… ăn cho hết… rồi ở với bà…
 come|N|Đúng lúc đó, cửa bếp bật mở. Tuấn lao vào, mặt trắng bệch.
@@ -25,7 +25,7 @@ tu3|TU|Má… con về rồi nè má… con xin lỗi má…
 gs2|GS|Tuấn hả con… Má chờ con lâu quá… ngồi xuống ăn cơm với má…
 tu4|TU|Má tha cho cô ấy đi má… để con ở lại ăn cơm với má…
 door|N|Tuấn đẩy Vy ra ngoài. Cửa bếp đóng sầm sau lưng. Bên trong vọng ra tiếng đũa chạm bát lách cách, tiếng Tuấn nghẹn ngào gọi má… rồi im bặt.
-morning|N|Sáng ra, người ta phá cửa bếp. Tuấn ngồi gục bên bàn ăn, miệng nhét đầy gạo sống. Tay ôm chặt cái nồi cơm.
+morning|N|Sáng ra, cửa bếp bị khóa trái từ bên trong. Người ta phải phá cửa. Tuấn ngồi gục bên bàn ăn, miệng nhét đầy gạo sống. Tay ôm chặt cái nồi cơm.
 end|N|Vy hết mộng du. Căn nhà im ắng. Mâm cúng để tới sáng vẫn còn nguyên.
 end2|N|Cho tới một đêm, đúng ba giờ sáng, điện thoại Vy báo: camera bếp phát hiện chuyển động. Trong video, có hai người ngồi ở bàn ăn. Và một chiếc ghế… vừa được kéo ra.
 gs3|GS|Vy ơi… xuống ăn cơm cháu… bà dọn sẵn ba cái bát rồi…

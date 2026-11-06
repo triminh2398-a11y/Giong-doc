@@ -2,7 +2,7 @@ old=open('scenes.part').read()
 i=old.index('// ===== LỚP CHUYỂN ĐỘNG CHUNG')
 tail=old[i:]
 head=open('scenes_head.js').read()
-tail=tail.replace("const SPK={lanh:'LA',man:'MA',tu:'TU',na:'NA',gb:'GB'};","const SPK={hung:'HU',tuan:'TU',su:'SU'};const STILL={};")
+tail=tail.replace("const SPK={lanh:'LA',man:'MA',tu:'TU',na:'NA',gb:'GB'};","const SPK={hung:'HU',tuan:'TU'};const STILL={};")
 tail=tail.replace("kk==='man'||kk==='na'","kk==='vy'||kk==='su'").replace("kk==='lanh'||kk==='tu'","kk==='hung'||kk==='tuan'")
 tail=tail.replace("const GHOST={ma:1,ml:1,bm:1,gb:1};","const GHOST={gs:1};")
 tail=tail.replace("function motionPre(kk,c,t){","function motionPre(kk,c,t){if(STILL[kk]){c.userData.o0=c.userData.o;return}")
