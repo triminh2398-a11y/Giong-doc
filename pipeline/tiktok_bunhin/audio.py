@@ -22,44 +22,45 @@ SC={k:(a,b) for k,a,b,ls in T['scenes']}
 sp=lambda k:SC[k];S_=lambda k,f:SC[k][0]+(SC[k][1]-SC[k][0])*f
 def bed(i,keys,g,rate=1.0):
     for k in keys:a,b=SC[k];place(i,a,g,dur=b-a+.3,fi=.6,fo=.6,loop=True,rate=rate)
-NE=['hook','hook2','title','night','call','gm','nayes','bell2','boy','gb','pry','pull','cta']
-NI=['na1','na2','bell','odd','sick','earring']
-DAY=['dig','dig2','man1','lanh1']
-bed(1789,NE,.18);bed(1162,NE,.12);bed(2482,['hook','hook2','title','call','gm','boy','gb','pry'],.15)
-bed(3081,NI,.16);bed(1789,NI,.08);bed(1235,['hide','miss','end'],.06);bed(1234,DAY,.12)
-bed(2414,['tu','tu1','tu2','tu3'],.14);bed(1237,['tu','tu1','tu2','tu3'],.1);bed(1227,['let','end2','na3'],.12)
-bed(494,['bell','sick','gm','boy','pry','pull'],.22)
+NE=['hook','hook2','title','gt','night','strip','gt2','turn','pull','gh','cta']
+NI=['sick','call','cover']
+DAY=['rent','scare','chin','chin1','tam1','near','ha1','tam2','end']
+DU=['swap','burn','near2','run','chin2','chin3','end2']
+bed(1789,NE,.18);bed(1162,NE,.12);bed(2483,['hook','hook2','title','gt','strip','gt2','turn','gh'],.15)
+bed(3081,NI,.16);bed(1789,NI,.08);bed(1234,DAY,.12);bed(1237,DAY,.06);bed(1227,DU,.12);bed(1157,['near2','chin3'],.08)
+bed(494,['sick','call','strip','gt2','turn'],.22)
 place(1143,sp('title')[0]+.05,.5)
-for k in range(3):place(1269,S_('dig',.15+k*.2),.3,dur=1.2)          # cuốc đất
-place(565,S_('dig',.72),.35,dur=1.2)                                     # chạm hũ
-place(364,sp('hide')[0]+(sp('hide')[1]-sp('hide')[0])*.5,.12,dur=4)
-# lục lạc: dùng chuông nhỏ (bell) nếu có, nếu không dùng 2836 tiếng ly chạm
-BELL=2256
-for t in [S_('na2',.6),S_('bell',.1),S_('bell',.25),S_('odd',.1),S_('odd',.3),S_('bell2',.5),S_('pry',.45),S_('na3',.8)]:place(BELL,t,.35,dur=1.0,rate=1.3)
-place(1230,sp('tu')[0],.3,dur=sp('tu')[1]-sp('tu')[0],loop=True)
-place(1230,sp('night')[0],.3,dur=sp('night')[1]-sp('night')[0],loop=True)
-place(2234,sp('gm')[0],.2,dur=sp('gm')[1]-sp('gm')[0]+.5)
-for k in range(3):place(1269,S_('bell2',.05+k*.12),.3,dur=1.0)
-place(2484,S_('boy',.3),.25,dur=4)
-place(565,S_('pry',.6),.5,dur=1.4);place(3167,S_('pry',.6),.35,dur=1.5)
-for k in range(4):place(1269,S_('pull',.05+k*.15),.3,dur=1.0)
-place(2462,S_('pull',.8),.55,dur=4)
-place(492,sp('let')[0]+.3,.25,dur=4)
-place(BELL,S_('cta',.1),.2,dur=1.2,rate=1.2)
-JT=[S_('hook2',.04),S_('gm',.62),S_('boy',.45),S_('pry',.6)]
+for k in range(5):place(532,S_('rent',.1+k*.17),.15,dur=1.0)
+for k in range(3):place(2430,S_('chin',.15+k*.18),.18,dur=1.2)
+place(1329,S_('swap',.0),.25,dur=sp('burn')[1]-S_('swap',.0),fi=.5,fo=1.5)
+for t in [S_('near2',.25),S_('near2',.5),S_('near2',.75)]:place(2430,t,.22,dur=1.0)
+for t in [S_('sick',.55),S_('sick',.75)]:place(2430,t,.25,dur=1.4)
+place(2430,S_('call',.2),.2,dur=1.5)
+place(2484,S_('call',.5),.25,dur=4)
+for k in range(6):place(532,S_('night',.05+k*.15),.18,dur=1.0)
+for t in [S_('strip',.15),S_('strip',.35),S_('strip',.55)]:place(2430,t,.3,dur=1.0)
+place(3167,S_('strip',.62),.3,dur=1.5)
+place(2430,S_('turn',.05),.35,dur=2.5)
+place(1326,S_('pull',.4),.5,dur=1.1,fo=.2);place(1705,S_('pull',.42),.35,dur=3);place(1330,S_('pull',.42),.4,dur=sp('pull')[1]-S_('pull',.42),fo=1.5)
+place(963,S_('pull',.55),.25,dur=3,rate=0.8)
+place(2462,S_('pull',.82),.55,dur=4)
+place(1235,sp('morning')[0],.1,dur=sp('morning')[1]-sp('morning')[0],fi=1,fo=1)
+place(2430,S_('morning',.1),.25,dur=1.5)
+place(2483,sp('end2')[0]+(sp('end2')[1]-sp('end2')[0])*.4,.15,dur=6)
+JT=[S_('hook2',.05),S_('gt',.5),S_('gt2',.35),S_('turn',.5)]
 for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.15,s1-s0)[:,None]
 
 # ===== NHẠC NỀN: ma mị suốt truyện; CAO TRÀO (bàn tay nắm chân) dồn dập; KẾT rùng rợn sau câu cuối của bé Na =====
 mu=np.zeros((N,2));hi=np.zeros((N,2));_out=out
 out=mu
-c0=sp('night')[0];g0=S_('pry',.6);c1=sp('pull')[1]
+c0=sp('night')[0];g0=sp('gt2')[0];c1=sp('pull')[1]
 place(700,0,.55,dur=c0,fi=2,fo=3,loop=True,rate=0.82)
 place(2746,0,.35,dur=c0,fi=3,fo=3,loop=True)
-place(2510,sp('tu')[0],.3,dur=sp('miss')[1]-sp('tu')[0],fi=2,fo=2,loop=True)
+place(2510,sp('run')[0],.3,dur=sp('chin3')[1]-sp('run')[0],fi=2,fo=2,loop=True)
 place(685,c0,.5,dur=c1-c0,fi=1.5,fo=2,loop=True)
-place(559,sp('boy')[0],.4,dur=g0-sp('boy')[0],fi=.5,fo=.5,loop=True)
-place(700,sp('let')[0],.35,dur=sp('end2')[0]-sp('let')[0],fi=2,fo=2,loop=True,rate=0.72)
+place(559,sp('strip')[0],.4,dur=g0-sp('strip')[0],fi=.5,fo=.5,loop=True)
+place(700,sp('morning')[0],.35,dur=sp('end2')[0]-sp('morning')[0],fi=2,fo=2,loop=True,rate=0.72)
 # cao trào: lớp riêng, ít bị nén dưới giọng
 out=hi
 place(682,g0-.2,.9,dur=c1-g0+.2,fi=.05,fo=1.5,loop=True)          # trống trầm dồn dập
@@ -68,11 +69,11 @@ place(493,g0,.7,dur=c1-g0,fi=.1,fo=1.2,loop=True)                 # tim đập n
 place(786,g0-.1,.8,dur=4,fi=.05,fo=1)                             # dâng lên
 place(678,S_('pull',.3),.7,dur=5,fi=.2,fo=1.5)                    # swell khi lấp hố
 # kết rùng rợn: sau câu cuối của bé Na — hộp nhạc lạc giọng + organ + quét bóng tối, rồi lặng
-e0=sp('na3')[0];e1=sp('na3')[1]
+e0=sp('gh')[0];e1=sp('gh')[1]
 place(2746,e0-.5,.8,dur=DUR-e0+.5,fi=1.5,fo=2,loop=True)
 place(700,e0,.75,dur=DUR-e0,fi=1,fo=2.5,loop=True,rate=0.66)
 place(2630,e1-.4,.9,dur=4,fi=.1,fo=1.5)
-place(2256,e1+.2,.5,dur=1.5,rate=0.8)                             # lục lạc khẽ leng keng
+place(2430,e1+.2,.3,dur=1.5)
 for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);mu[s0:s1]*=np.linspace(1,.1,s1-s0)[:,None];hi[s0:s1]*=np.linspace(1,.1,s1-s0)[:,None]
 mu/=max(1e-6,np.abs(mu).max())*1.05;hi/=max(1e-6,np.abs(hi).max())*1.05
