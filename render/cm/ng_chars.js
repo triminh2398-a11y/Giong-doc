@@ -334,8 +334,8 @@ function baSau(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.97;halo(x,fy-280
 
 // ===== NGƯỜI CHỦ CŨ (bản hiện đại) =====
 // Vy: dân văn phòng, tóc ngang vai, áo len cardigan hồng đất ngoài áo thun trắng, quần jean
-function vy(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.phone){arm[0]=-0.5;arm[1]=0.5}if(o.grab)arm[1]=-1.5;if(o.pull)arm[0]=1.3;if(o.cover)arm[1]=-2.9;if(o.beg){arm[0]=-1.2;arm[1]=1.2}if(o.hug){arm[0]=-0.9;arm[1]=0.9}if(o.paper){arm[0]=-0.55;arm[1]=0.55}
- const skin=o.pale?'#dcd2c2':'#ecccaa';
+function vy(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.phone){arm[0]=-0.5;arm[1]=0.5}if(o.grab)arm[1]=-1.5;if(o.pull)arm[0]=1.3;if(o.cover)arm[1]=-2.9;if(o.beg){arm[0]=-1.2;arm[1]=1.2}if(o.hug){arm[0]=-0.9;arm[1]=0.9}if(o.paper){arm[0]=-0.55;arm[1]=0.55}if(o.bowl){arm[0]=-0.6;arm[1]=0.6}
+ const skin=o.pale||o.sleep?'#d8d2c4':'#ecccaa';if(o.sleep)o=Object.assign({},o,{eyes:0.3});
  woman(x,y,s,Object.assign({shirt:'#a8655a',pants:'#2c3a58',skin,smile:false},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){ctx.fillStyle='#f2efe8';ctx.beginPath();ctx.moveTo(-16,-222);ctx.lineTo(16,-222);ctx.lineTo(12,-112);ctx.lineTo(-12,-112);ctx.closePath();ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.stroke();
   ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=2;for(let k=0;k<6;k++){ctx.beginPath();ctx.moveTo(-40,-200+k*16);ctx.lineTo(-18,-200+k*16);ctx.moveTo(18,-200+k*16);ctx.lineTo(40,-200+k*16);ctx.stroke()}
@@ -345,6 +345,8 @@ function vy(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).
  if(o.phone){ctx.fillStyle='#16161a';ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.fillRect(-18,-170,36,58);ctx.strokeRect(-18,-170,36,58);halo(0,-170,110,'170,200,255',0.35);ctx.fillStyle='rgba(190,215,255,.95)';ctx.fillRect(-14,-166,28,50);for(const sd of [-1,1]){const [hx,hy]=HPW(sd,sd*0.5);circ(hx,hy,8,skin,INK,3)}}
  if(o.paper){ctx.fillStyle='#f4f2ec';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.fillRect(-40,-184,80,62);ctx.strokeRect(-40,-184,80,62);ctx.strokeStyle='rgba(40,40,60,.6)';ctx.lineWidth=2;for(let k=0;k<5;k++){ctx.beginPath();ctx.moveTo(-32,-174+k*10);ctx.lineTo(28,-174+k*10);ctx.stroke()}for(const sd of [-1,1]){const [hx,hy]=HPW(sd,sd*0.55);circ(hx,hy,8,skin,INK,3)}}
  if(o.cover&&!o.back)circ(10,-262,12,skin,INK,3);
+ if(o.bowl){ctx.save();ctx.translate(0,-160);ctx.fillStyle='#f4f2ec';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-30,0);ctx.quadraticCurveTo(0,40,30,0);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#fbfaf4';ctx.beginPath();ctx.ellipse(0,0,30,9,0,Math.PI,0);ctx.fill();ctx.restore();for(const sd of [-1,1]){const [hx,hy]=HPW(sd,sd*0.6);circ(hx,hy,8,skin,INK,3)}}
+ if(o.riceMouth&&!o.back){ctx.fillStyle='#f4f0e2';for(let k=0;k<7;k++){ctx.beginPath();ctx.ellipse(-12+R0(k)*24,-246+R0(k+3)*14,2.4,1.4,R0(k)*3,0,7);ctx.fill()}}
  ctx.restore()}
 // Su: bé gái 6 tuổi, tóc ngắn kẹp nơ, đồ ngủ xanh có chấm; o.bowl bưng bát; o.sleep mắt lờ đờ
 function su(x,y,s,o={}){const T=o.T||0;const sc=s*0.62;const arm=(o.arm||[undefined,undefined]).slice();if(o.bowl){arm[0]=-0.6;arm[1]=0.6}

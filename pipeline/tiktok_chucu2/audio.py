@@ -23,7 +23,7 @@ sp=lambda k:SC[k];S_=lambda k,f:SC[k][0]+(SC[k][1]-SC[k][0])*f
 def bed(i,keys,g,rate=1.0):
     for k in keys:a,b=SC[k];place(i,a,g,dur=b-a+.3,fi=.6,fo=.6,loop=True,rate=rate)
 NI=['hook','hook2','title','water','check','hung2','hung3','tu2','night','gs','stop','turn','tu3','gs2','door','end2','gs3','cta']
-DAY=['buy','hung','hung1','cam','offer','bowls','su1','su','find','end','morning']
+DAY=['buy','hung','hung1','cam','offer','bowls','su1','cam2','find','end','morning']
 bed(3081,NI,.2);bed(2505,DAY,.08);bed(2505,['tu1'],.25)
 bed(2483,['hook2','gs','turn','gs2','gs3'],.15);bed(494,['night','stop'],.25)
 place(1143,sp('title')[0]+.05,.6)
