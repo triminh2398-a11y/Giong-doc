@@ -1268,3 +1268,34 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 99_bn_tsfix2 Thái Sơn 3 ok 2.1
 99_bn_tsfix2 asr ok
+loaded V3TurboVieNeuTTS
+99_cc_kt Kim Thanh 3 ok 6.9
+99_cc_kt Kim Thanh 7 ok 6.3
+99_cc_kt Kim Thanh 11 ok 7.4
+99_cc_kt asr ok
+99_cc_n clone:refs/mada8.wav 3 ok 25.8
+99_cc_n clone:refs/mada8.wav 7 ok 1.1
+99_cc_n clone:refs/mada8.wav 11 ok 1.1
+99_cc_n clone:refs/mada8.wav 15 ok 2.1
+99_cc_n clone:refs/mada8.wav 19 ok 4.5
+99_cc_n clone:refs/mada8.wav 23 ok 3.5
+99_cc_n clone:refs/mada8.wav 27 ok 5.6
+99_cc_n clone:refs/mada8.wav 31 ok 3.6
+99_cc_n clone:refs/mada8.wav 35 ok 2.6
+99_cc_n clone:refs/mada8.wav 39 ok 2.7
+99_cc_n clone:refs/mada8.wav 43 ok 5.5
+99_cc_n clone:refs/mada8.wav 47 ok 3.8
+99_cc_n clone:refs/mada8.wav 51 ok 6.5
+99_cc_n clone:refs/mada8.wav 55 ok 4.1
+99_cc_n clone:refs/mada8.wav 59 ok 3.0
+99_cc_n clone:refs/mada8.wav 63 ok 3.1
+99_cc_n clone:refs/mada8.wav 67 ok 2.0
+99_cc_n asr ok
+99_cc_td Thục Đoan 3 ok 1.7
+99_cc_td Thục Đoan 7 ok 2.4
+99_cc_td Thục Đoan 11 ok 2.2
+99_cc_td asr ok
+99_cc_ts Thái Sơn 3 ok 1.7
+99_cc_ts Thái Sơn 7 ok 2.5
+99_cc_ts Thái Sơn 11 ok 1.5
+99_cc_ts asr ok
