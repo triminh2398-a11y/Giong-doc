@@ -1,0 +1,10 @@
+old=open('scenes.part').read()
+i=old.index('// ===== LỚP CHUYỂN ĐỘNG CHUNG')
+tail=old[i:]
+head=open('scenes_head.js').read()
+tail=tail.replace("const SPK={lanh:'LA',man:'MA',tu:'TU',na:'NA',gb:'GB'};","const SPK={tam:'TA',hanh:'HA',chin:'CH'};const STILL={bn:1,pile:1};")
+tail=tail.replace("kk==='man'||kk==='na'","kk==='hanh'||kk==='chin'").replace("kk==='lanh'||kk==='tu'","kk==='tam'")
+tail=tail.replace("function motionPre(kk,c,t){","function motionPre(kk,c,t){if(STILL[kk]){c.userData.o0=c.userData.o;return}")
+tail=tail.replace("function motionPost(kk,c,t){","function motionPost(kk,c,t){if(STILL[kk]){c.userData.o=c.userData.o0;return}")
+tail=tail.replace("JAR_E.visible=false;JAR_I.visible=false;JAR_I.position.set(-1.6,0.02,-1.0);foundL.intensity=0;HANDS.forEach(h=>h.visible=false);HOLECAP.visible=true;HOLECAP.scale.setScalar(1);","JAR_E.visible=false;JAR_I.visible=false;foundL.intensity=0;HANDS.forEach(h=>h.visible=false);")
+open('scenes.part','w').write(head+tail)
