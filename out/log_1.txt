@@ -1404,3 +1404,17 @@ loaded V3TurboVieNeuTTS
 99_cm_nfix2 clone:refs/mada8.wav 1 ok 16.4
 99_cm_nfix2 clone:refs/mada8.wav 5 ok 2.5
 99_cm_nfix2 asr ok
+loaded V3TurboVieNeuTTS
+99_cm_dt2 Đức Trí 1 ok 6.1
+99_cm_dt2 asr ok
+99_cm_nfix3 clone:refs/mada8.wav 1 ok 24.3
+99_cm_nfix3 clone:refs/mada8.wav 5 ok 3.5
+99_cm_nfix3 clone:refs/mada8.wav 9 ok 3.3
+99_cm_nfix3 clone:refs/mada8.wav 13 ok 4.6
+99_cm_nfix3 clone:refs/mada8.wav 17 ok 1.8
+99_cm_nfix3 clone:refs/mada8.wav 21 ok 4.2
+99_cm_nfix3 clone:refs/mada8.wav 25 ok 2.1
+99_cm_nfix3 clone:refs/mada8.wav 29 ok 3.6
+99_cm_nfix3 asr ok
+99_cm_ts3 Thái Sơn 1 ok 1.8
+99_cm_ts3 asr ok
