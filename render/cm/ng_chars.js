@@ -80,7 +80,7 @@ function ghostFace(T,o={}){const R0=58,sk=o.skin||'#b8c0b2',open=o.open??0.7;
   ctx.fillStyle='#6a0a10';const len=14+((T*18+sd*7)%26);ctx.fillRect(sd*21-2,24,4,len);circ(sd*21,24+len,3.5,'#6a0a10')}
  // miệng toác răng
  const mh=12+open*9;ctx.fillStyle='#120404';ctx.beginPath();ctx.moveTo(-34,26);ctx.quadraticCurveTo(0,34,34,26);ctx.quadraticCurveTo(0,26+mh*2,-34,26);ctx.fill();
- ctx.fillStyle='#d6d2c0';for(let k=-4;k<=4;k++){ctx.beginPath();ctx.moveTo(k*7-3,30);ctx.lineTo(k*7+3,30);ctx.lineTo(k*7,40);ctx.fill();const yb=26+mh*0.95-Math.abs(k)*1.8;ctx.beginPath();ctx.moveTo(k*7-3,yb+6);ctx.lineTo(k*7+3,yb+6);ctx.lineTo(k*7,yb-4);ctx.fill()}
+ if(!o.noTeeth){ctx.fillStyle='#d6d2c0';}else{ctx.fillStyle='rgba(0,0,0,0)';}for(let k=-4;k<=4;k++){ctx.beginPath();ctx.moveTo(k*7-3,30);ctx.lineTo(k*7+3,30);ctx.lineTo(k*7,40);ctx.fill();const yb=26+mh*0.95-Math.abs(k)*1.8;ctx.beginPath();ctx.moveTo(k*7-3,yb+6);ctx.lineTo(k*7+3,yb+6);ctx.lineTo(k*7,yb-4);ctx.fill()}
  ctx.fillStyle='#5a0a0e';for(let k=0;k<3;k++){const x=-12+k*12,len=14+((T*30+k*17)%40);ctx.fillRect(x-2,26+mh,4,len);circ(x,26+mh+len,4,'#5a0a0e')}}
 // ma Thắm (ngải giả dạng): da xám xanh, gân đỏ, tóc dài sau lưng, mặt lộ rõ
 function maTham(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;if(o.glow!==0)halo(x,fy-280*s,280*s,'255,40,50',0.2);
@@ -324,7 +324,7 @@ function baSau(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.97;halo(x,fy-280
  ctx.translate(x,fy);ctx.scale(s,s);
  ctx.fillStyle='rgba(90,70,40,.45)';for(let k=0;k<8;k++){ctx.beginPath();ctx.ellipse(-30+R0(k)*60,-210+R0(k+3)*90,4+R0(k+5)*8,3+R0(k+7)*6,0,0,7);ctx.fill()}
  ctx.save();ctx.translate(0,-278);ctx.rotate(o.tilt??Math.sin(T*0.5)*0.06);
- ghostFace(T,{skin:'#a3ab9f',open:o.chew===false?0.35:0.3+0.5*Math.max(0,Math.sin(T*7)),glow:0.5});
+ ghostFace(T,{noTeeth:true,skin:'#a3ab9f',open:o.chew===false?0.35:0.3+0.5*Math.max(0,Math.sin(T*7)),glow:0.5});
  for(const sd of [-1,1]){circ(sd*21,10,6,'#f4f6ee');halo(sd*21,10,22,'230,245,235',0.6)}
  if(o.chew!==false){ctx.fillStyle='#e8e2d0';for(let k=0;k<6;k++){ctx.beginPath();ctx.ellipse(-14+k*6,48+R0(k)*10+((T*30+k*7)%20),2.4,1.4,0,0,7);ctx.fill()}}
  ctx.restore();
@@ -363,4 +363,37 @@ function bacHung(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefin
   ctx.fillStyle='#6a4a2c';ctx.beginPath();ctx.moveTo(-20,-222);ctx.lineTo(0,-196);ctx.lineTo(20,-222);ctx.lineTo(10,-222);ctx.lineTo(0,-208);ctx.lineTo(-10,-222);ctx.closePath();ctx.fill();ctx.stroke();for(let k=0;k<2;k++)circ(0,-190+k*14,3,'#e8dcc8');
   ctx.strokeStyle='rgba(90,60,40,.5)';ctx.lineWidth=2;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*36,-276);ctx.lineTo(sd*44,-272);ctx.stroke()}}
  for(const sd of [-1,1]){ctx.fillStyle='#4a3a2a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*20,4,17,7,0,0,7);ctx.fill();ctx.stroke()}
+ ctx.restore()}
+
+// ===== MA bà Sáu kiểu manga (đơn giản mà rợn) — v: 1 hốc mắt+miệng há, 2 cười toét, 3 nghiêng đầu ló =====
+function softHole(cx,cy,rx,ry){const g=ctx.createRadialGradient(cx,cy,0,cx,cy,1);g.addColorStop(0,'#000');g.addColorStop(0.55,'#060606');g.addColorStop(0.8,'rgba(30,30,30,.55)');g.addColorStop(1,'rgba(60,60,60,0)');ctx.save();ctx.translate(cx,cy);ctx.scale(rx,ry);ctx.translate(-cx,-cy);ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,1,0,7);ctx.fill();ctx.restore()}
+function mangaGhost(x,fy,s,T,o={}){const v=o.v||1;ctx.save();ctx.globalAlpha=o.a??0.97;
+ const arm=(o.arm||[undefined,undefined]).slice();if(o.ladle)arm[1]=-0.9+0.2*Math.sin(T*2.5);if(o.reach){arm[0]=-1.3;arm[1]=1.3}
+ ctx.translate(x,fy);ctx.scale(s,s);
+ // tóc dài sau lưng
+ ctx.fillStyle='#0a0a0a';ctx.beginPath();ctx.moveTo(-66,-330);ctx.quadraticCurveTo(-92,-200,-74+Math.sin(T*1.1)*4,-70);ctx.lineTo(74+Math.sin(T*1.1+1)*4,-70);ctx.quadraticCurveTo(92,-200,66,-330);ctx.fill();
+ ctx.restore();ctx.save();ctx.globalAlpha=o.a??0.97;
+ woman(x,fy,s,{shirt:'#d6d0c2',pants:'#2a2624',skin:'#e6e4dc',smile:false,eyes:0.01,arm,headless:false});
+ ctx.translate(x,fy);ctx.scale(s,s);
+ ctx.fillStyle='rgba(90,80,60,.25)';for(let k=0;k<5;k++){ctx.beginPath();ctx.ellipse(-26+R0(k)*52,-200+R0(k+2)*80,6,4,0,0,7);ctx.fill()}
+ const tilt=o.tilt??(v===2?0.35:v===3?-0.55:0.04)+Math.sin(T*0.5)*0.03;
+ ctx.save();ctx.translate(0,-282);ctx.rotate(tilt);
+ ctx.save();ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.ellipse(0,0,70,80,0,0,7);ctx.fill();ctx.restore();
+ // khối tóc
+ ctx.fillStyle='#0a0a0a';ctx.beginPath();ctx.ellipse(0,-4,68,78,0,0,7);ctx.fill();ctx.scale(0.88,0.88);
+ // mặt dài trắng bệch
+ ctx.fillStyle='#f2f1ec';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-44,-50);ctx.quadraticCurveTo(-58,20,-34,70);ctx.quadraticCurveTo(-4,100,30,72);ctx.quadraticCurveTo(58,20,44,-50);ctx.quadraticCurveTo(0,-70,-44,-50);ctx.fill();ctx.stroke();
+ ctx.strokeStyle='rgba(0,0,0,.22)';ctx.lineWidth=1.2;for(const sd of [-1,1])for(let k=0;k<4;k++){ctx.beginPath();ctx.moveTo(sd*(40-k*2),10+k*9);ctx.lineTo(sd*(30-k*2),16+k*9);ctx.stroke()}
+ ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(-3,22);ctx.quadraticCurveTo(-7,34,2,36);ctx.stroke();
+ if(v===2){for(const sd of [-1,1]){ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(sd*19,2,17,14,0,0,7);ctx.fill();ctx.fillStyle='#fbfaf6';ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(sd*19,2,13,10,0,0,7);ctx.fill();ctx.stroke();circ(sd*19+(o.look||0)*3,3,5.5,'#000')}
+  ctx.fillStyle='#000';ctx.beginPath();ctx.moveTo(-34,46);ctx.quadraticCurveTo(0,58,34,42);ctx.quadraticCurveTo(18,86,0,87);ctx.quadraticCurveTo(-22,86,-34,46);ctx.fill();ctx.fillStyle='#f2f1ec';ctx.beginPath();ctx.moveTo(-30,48);ctx.quadraticCurveTo(0,58,30,45);ctx.quadraticCurveTo(0,64,-30,48);ctx.fill()}
+ else{softHole(-19,4,17,21);softHole(19,6,17,21);const op=o.open??(v===1?0.8+0.2*Math.sin(T*2):0.5);softHole(0,58,11+op*5,14+op*20)}
+ // mái + sợi tóc xõa qua mặt
+ ctx.fillStyle='#0a0a0a';ctx.beginPath();ctx.moveTo(-46,-52);ctx.quadraticCurveTo(0,-76,46,-52);ctx.lineTo(36,-28);ctx.quadraticCurveTo(10,-46,-6,-36);ctx.quadraticCurveTo(-26,-46,-46,-20);ctx.fill();
+ ctx.strokeStyle='#0a0a0a';ctx.lineCap='round';for(const [x0,dx,len,w] of [[-26,-8,120,2.2],[22,6,105,1.6]]){ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x0,-40);ctx.bezierCurveTo(x0+dx,0,x0-dx,40,x0+dx*2+Math.sin(T+x0)*2,-40+len);ctx.stroke()}
+ ctx.strokeStyle='#8a8a86';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(30,-44);ctx.quadraticCurveTo(40,10,34,70);ctx.stroke();
+ if(o.rice){ctx.fillStyle='#f6f2e4';for(let k=0;k<5;k++){ctx.beginPath();ctx.ellipse(-8+k*4,70+((T*30+k*9)%24),2.2,1.3,0,0,7);ctx.fill()}}
+ ctx.restore();
+ if(o.ladle){const [hx,hy]=HPW(1,arm[1]);ctx.save();ctx.translate(hx,hy);ctx.rotate(arm[1]+0.6);ctx.fillStyle='#8a6a3a';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.fillRect(-4,-8,8,60);ctx.strokeRect(-4,-8,8,60);ctx.beginPath();ctx.ellipse(0,62,14,18,0,0,7);ctx.fill();ctx.stroke();ctx.restore()}
+ for(const sd of [-1,1]){ctx.fillStyle='#d8d6ce';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4,15,6,0,0,7);ctx.fill();ctx.stroke()}
  ctx.restore()}

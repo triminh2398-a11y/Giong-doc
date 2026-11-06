@@ -80,7 +80,7 @@ function ghostFace(T,o={}){const R0=58,sk=o.skin||'#b8c0b2',open=o.open??0.7;
   ctx.fillStyle='#6a0a10';const len=14+((T*18+sd*7)%26);ctx.fillRect(sd*21-2,24,4,len);circ(sd*21,24+len,3.5,'#6a0a10')}
  // miệng toác răng
  const mh=12+open*9;ctx.fillStyle='#120404';ctx.beginPath();ctx.moveTo(-34,26);ctx.quadraticCurveTo(0,34,34,26);ctx.quadraticCurveTo(0,26+mh*2,-34,26);ctx.fill();
- ctx.fillStyle='#d6d2c0';for(let k=-4;k<=4;k++){ctx.beginPath();ctx.moveTo(k*7-3,30);ctx.lineTo(k*7+3,30);ctx.lineTo(k*7,40);ctx.fill();const yb=26+mh*0.95-Math.abs(k)*1.8;ctx.beginPath();ctx.moveTo(k*7-3,yb+6);ctx.lineTo(k*7+3,yb+6);ctx.lineTo(k*7,yb-4);ctx.fill()}
+ if(!o.noTeeth){ctx.fillStyle='#d6d2c0';}else{ctx.fillStyle='rgba(0,0,0,0)';}for(let k=-4;k<=4;k++){ctx.beginPath();ctx.moveTo(k*7-3,30);ctx.lineTo(k*7+3,30);ctx.lineTo(k*7,40);ctx.fill();const yb=26+mh*0.95-Math.abs(k)*1.8;ctx.beginPath();ctx.moveTo(k*7-3,yb+6);ctx.lineTo(k*7+3,yb+6);ctx.lineTo(k*7,yb-4);ctx.fill()}
  ctx.fillStyle='#5a0a0e';for(let k=0;k<3;k++){const x=-12+k*12,len=14+((T*30+k*17)%40);ctx.fillRect(x-2,26+mh,4,len);circ(x,26+mh+len,4,'#5a0a0e')}}
 // ma Thắm (ngải giả dạng): da xám xanh, gân đỏ, tóc dài sau lưng, mặt lộ rõ
 function maTham(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;if(o.glow!==0)halo(x,fy-280*s,280*s,'255,40,50',0.2);
@@ -324,7 +324,7 @@ function baSau(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.97;halo(x,fy-280
  ctx.translate(x,fy);ctx.scale(s,s);
  ctx.fillStyle='rgba(90,70,40,.45)';for(let k=0;k<8;k++){ctx.beginPath();ctx.ellipse(-30+R0(k)*60,-210+R0(k+3)*90,4+R0(k+5)*8,3+R0(k+7)*6,0,0,7);ctx.fill()}
  ctx.save();ctx.translate(0,-278);ctx.rotate(o.tilt??Math.sin(T*0.5)*0.06);
- ghostFace(T,{skin:'#a3ab9f',open:o.chew===false?0.35:0.3+0.5*Math.max(0,Math.sin(T*7)),glow:0.5});
+ ghostFace(T,{noTeeth:true,skin:'#a3ab9f',open:o.chew===false?0.35:0.3+0.5*Math.max(0,Math.sin(T*7)),glow:0.5});
  for(const sd of [-1,1]){circ(sd*21,10,6,'#f4f6ee');halo(sd*21,10,22,'230,245,235',0.6)}
  if(o.chew!==false){ctx.fillStyle='#e8e2d0';for(let k=0;k<6;k++){ctx.beginPath();ctx.ellipse(-14+k*6,48+R0(k)*10+((T*30+k*7)%20),2.4,1.4,0,0,7);ctx.fill()}}
  ctx.restore();

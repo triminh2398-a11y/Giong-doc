@@ -14,7 +14,7 @@ S.hook=(lt,D,T)=>{CUR='mod';modNight(0.25,T);nightKL.intensity=0.6;mbowls(3,{upr
 S.hook2=(lt,D,T)=>{CUR='mod';modNight(0.5,T,true);STREAM.visible=true;put(C.gs,2.4,-1.72,{a:0.97,chew:true,tilt:lerp(-0.7,0,sm(seg(lt,0,0.35)))});CAMV(T);if(lt>D*0.3){CCTV=0;const c=C.gs;cm([c.position.x+0.3,1.3,c.position.z+lerp(2.0,1.6,sm(lt/D))],[c.position.x,1.2,c.position.z],36)}RED=0.1*(1-sm(lt/D));return 'mod'};
 S.title=(lt,D,T)=>{CUR='mod';modNight(0.35,T);nightKL.intensity=0.9;TITLE=true;mbowls(3,{upright:true});cm([3.4,1.5,1.2],[3.4,0.8,-0.5],44);return 'mod'};
 // ---- mua nhà ----
-S.buy=(lt,D,T)=>{CUR='mod';modDay();const p=sm(lt/D);put(C.vy,-1.6,0.4,{eyes:1,smileF:true,T});put(C.su,-1.0,0.6,{smileF:true,eyes:1,T});const tx=lerp(-2.4,-4.2,sm(seg(lt,D*0.45,D)));put(C.tuan,tx,1.4,{shake:true,eyes:1.2,walk:T*7,phase:T*7,look:-1,T});
+S.buy=(lt,D,T)=>{CUR='mod';modDay();const p=sm(lt/D);put(C.vy,-1.6,0.4,{eyes:1,smileF:true,T});put(C.su,-1.0,0.6,{smileF:true,eyes:1,T});const tz=lerp(2.0,3.8,sm(seg(lt,D*0.45,D)));put(C.tuan,-1.9,tz,{shake:true,eyes:1.2,walk:T*7,phase:T*7,look:-1,T});
  cm([lerp(0.8,0.2,p),1.6,4.4],[lerp(-1.6,-2.6,p),1.0,0.6],46);return 'mod'};
 S.hung=(lt,D,T)=>{CUR='mod';modDay();put(C.hung,1.6,0.2,{eyes:1,look:1,T});put(C.vy,0.6,0.5,{eyes:1,look:1,T});cm([0.4,1.6,3.6],[2.2,1.0,-0.5],46);return 'mod'};
 S.hung1=(lt,D,T)=>{CUR='mod';modDay();put(C.hung,1.6,0.2,{eyes:1.1,point:lt>D*0.55,mouth:TK('HU'),T});close(C.hung,lerp(1.3,1.1,sm(lt/D)),36,0.25);return 'mod'};
@@ -33,10 +33,11 @@ S.su=(lt,D,T)=>{CUR='mod';modDay();put(C.su,-1.2,0.5,{smileF:true,eyes:0.8,mouth
 S.hung2=(lt,D,T)=>{CUR='mod';modNight(0,T);mLamp.intensity=1.6;put(C.hung,-1.6,0.6,{eyes:1.2,mouth:TK('HU'),T});put(C.vy,-0.7,0.9,{eyes:1.2,look:-1,T});close(C.hung,lerp(1.3,1.1,sm(lt/D)),36,0.35);return 'mod'};
 S.hung3=(lt,D,T)=>{CUR='mod';modNight(0,T);mLamp.intensity=1.6;put(C.hung,-1.6,0.6,{eyes:1.3,pupil:2.4,point:lt>D*0.6,mouth:TK('HU'),T});close(C.hung,lerp(1.15,0.9,sm(lt/D)),36,-0.25);return 'mod'};
 // ---- tìm Tuấn ----
-S.find=(lt,D,T)=>{if(lt<D*0.4){CUR='mod';modDay();put(C.vy,-1.4,0.4,{paper:true,eyes:1.1,T});close(C.vy,1.0,36,0.25);return 'mod'}
- CUR='mkt';mktMode(true);const k=sm(seg(lt,D*0.4,D));put(C.tuan,-7.2,-7.6,{eyes:1.1,look:-1,shake:true,T});put(C.vy,-6.3,-7.4,{sit:true,beg:true,tears:true,look:-1,eyes:1,T},-0.2);cm([lerp(-5.0,-5.6,k),1.5,-4.6],[-6.8,1.1,-7.6],42);return 'mkt'};
-S.tu1=(lt,D,T)=>{CUR='mkt';mktMode(true);put(C.tuan,-7.2,-7.6,{eyes:1.35,pupil:2,shake:true,mouth:TK('TU'),T});close(C.tuan,lerp(1.4,1.15,sm(lt/D)),36,0.3);return 'mkt'};
-S.tu2=(lt,D,T)=>{CUR='mod';modNight(0,T);mLamp.intensity=1.2;const p=sm(lt/D);put(C.vy,lerp(-3.6,-1.4,p),1.6,{walk:T*6,eyes:1,T});put(C.tuan,lerp(-4.4,-2.2,p),1.9,{walk:T*6,phase:T*6,shake:true,eyes:1.2,T});cm([0.6,1.6,4.4],[lerp(-3.4,-1.6,p),1.05,1.6],44);return 'mod'};
+S.find=(lt,D,T)=>{CUR='mod';modDay();if(lt<D*0.5){put(C.vy,-1.4,2.0,{paper:true,eyes:1.1,T});close(C.vy,1.0,36,0.25);return 'mod'}put(C.vy,-1.4,2.0,{phone:true,eyes:1.2,T});close(C.vy,1.1,36,-0.25);return 'mod'};
+S.tu1=(lt,D,T)=>{CUR='mkt';mktMode(true);put(C.tuan,-7.2,-7.6,{eyes:1.2,tears:true,armA:[undefined,3.32],shake:true,mouth:TK('TU'),T});close(C.tuan,lerp(1.4,1.15,sm(lt/D)),36,0.3);return 'mkt'};
+S.tu2=(lt,D,T)=>{if(lt<D*0.4){CUR='mkt';mktMode(true);put(C.tuan,-7.2,-7.6,{eyes:0.6,tears:true,shake:true,T});close(C.tuan,1.4,36,0.3);return 'mkt'}CUR='mod';modNight(0,T);mLamp.intensity=0.8;const p=sm(seg(lt,D*0.4,D));put(C.tuan,lerp(-2.0,0.4,p),lerp(3.4,1.0,p),{walk:T*5,phase:T*5,shake:true,eyes:1.2,T});cm([2.2,1.6,4.6],[lerp(-1.6,0.4,p),1.05,lerp(3.0,1.0,p)],44);return 'mod'};
+S.come=(lt,D,T)=>{CUR='mod';kitchen(T,{S:{bowl:false}});MSPILL.visible=true;put(C.tuan,1.5,-0.9,{shake:true,eyes:1.35,pupil:2,T});if(lt<D*0.5)cm([3.6,1.5,1.4],[1.6,1.1,-0.9],42);else close(C.tuan,1.3,36,0.3);return 'mod'};
+S.tu4=(lt,D,T)=>{CUR='mod';kitchen(T,{S:{bowl:false},G:{chew:false}});MSPILL.visible=true;C.gs.position.set(2.5,0.98,-1.2);put(C.tuan,1.8,-0.9,{beg:true,tears:true,eyes:1.1,mouth:TK('TU'),T});cm([1.3,1.5,1.8],[2.2,1.1,-1.0],40);return 'mod'};
 // ---- nửa đêm dưới bếp ----
 const kitchen=(T,o={})=>{modNight(0.9,T,true);mbowls(3,{upright:true});sitSu(Object.assign({sleep:true,bowl:true},o.S||{}));if(o.G!==false)put(C.gs,GX,GZ,Object.assign({ladle:true,a:0.97},o.G||{}))};
 S.night=(lt,D,T)=>{CUR='mod';kitchen(T);const p=sm(lt/D);cm([lerp(2.2,3.2,p),1.5,lerp(2.4,1.6,p)],[3.2,1.0,-1.2],lerp(48,40,p));return 'mod'};
@@ -47,7 +48,7 @@ S.turn=(lt,D,T)=>{CUR='mod';kitchen(T,{S:{bowl:false},G:{tilt:lerp(-0.6,0,sm(seg
 S.tu3=(lt,D,T)=>{CUR='mod';kitchen(T,{S:{bowl:false}});MSPILL.visible=true;put(C.tuan,1.5,-0.9,{beg:true,tears:true,shake:true,eyes:1.2,mouth:TK('TU'),T});close(C.tuan,1.2,36,0.3);return 'mod'};
 S.gs2=(lt,D,T)=>{CUR='mod';kitchen(T,{S:{bowl:false},G:{reach:true,chew:false}});MSPILL.visible=true;C.gs.position.set(lerp(3.0,2.3,sm(lt/D)),0.98,-1.3);put(C.tuan,1.5,-0.9,{beg:true,shake:true,eyes:1.4,T});cm([1.6,1.5,1.8],[2.2,1.1,-1.1],42);return 'mod'};
 S.door=(lt,D,T)=>{CUR='mod';modNight(0,T);mLamp.intensity=1.0;const sl=sm(seg(lt,0,0.25));kdoor(1-sl);const p=sm(seg(lt,D*0.1,D*0.5));put(C.vy,lerp(0.3,-1.8,p),lerp(-0.8,0.6,p),{hug:true,walk:T*8,eyes:1.4,T});put(C.su,lerp(0.6,-1.3,p),lerp(-0.6,0.8,p),{walk:T*8,eyes:1.2,T});
- const hit=lt>D*0.3&&lt<D*0.8;KDOOR.position.x+=hit?0.02*Math.sin(T*40):0;if(hit&&Math.sin(T*9)>0.6)RED=0.14;cm([-2.4,1.5,2.6],[0.9,1.1,-1.0],46);return 'mod'};
+ cm([-2.4,1.5,2.6],[0.9,1.1,-1.0],46);return 'mod'};
 S.morning=(lt,D,T)=>{CUR='mod';modDay();MSPILL.visible=true;mbowls(3,{upright:true});put(C.tuan,SUX+0.55,SUZ,{sit:true,dead:true,potHug:true,T},-0.05);if(lt<D*0.45)KC();else{const c=C.tuan;cm([c.position.x+0.2,1.3,c.position.z+2.1],[c.position.x,1.0,c.position.z],38)}return 'mod'};
 S.end=(lt,D,T)=>{CUR='mod';modDay();put(C.su,-1.0,0.2,{smileF:true,eyes:1,T});put(C.vy,-0.2,0.0,{eyes:0.9,look:-1,T});cm([-0.4,1.6,2.8],[-0.6,1.2,-1.0],44);return 'mod'};
 S.end2=(lt,D,T)=>{CUR='mod';if(lt<D*0.35){modNight(0,T);mLamp.intensity=0.3;put(C.vy,MBED.position.x-0.35,MBED.position.z-0.75,{phone:true,eyes:1.35,pupil:2,T},-0.18);const c=C.vy;cm([c.position.x+0.25,1.4,c.position.z+1.7],[c.position.x,1.15,c.position.z],38);return 'mod'}
