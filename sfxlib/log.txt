@@ -1,13 +1,2 @@
-baby 1 5 0
-baby 2 5 0
-baby 3 5 0
-crying 1 21 0
-crying 2 21 0
-crying 3 21 0
-cry 1 13 0
-cry 2 13 0
-cry 3 13 0
-glass 1 14 0
-glass 2 14 0
-glass 3 14 0
+got baby_cry_long.ogg
 total 872
