@@ -54,6 +54,7 @@ for i, (sh, sp, tx) in enumerate(S):
             cands.append((difflib.SequenceMatcher(None, norm(clean(tx)), norm(got)).ratio(), f))
         if not cands: clips.append(np.zeros(int(SR * (len(tx.split()) * 0.33 + 0.3)))); info.append('MISSING'); continue
         r, f = max(cands); info.append(round(r, 2))
+        if sh == 'title': clips.append(np.zeros(int(SR * 3.2))); continue
         c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.3, extra=0.06)
     else:
         cands = []

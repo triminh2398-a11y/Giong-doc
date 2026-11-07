@@ -28,8 +28,8 @@ DAY=['intro','thay','thay1','cycle','grand','leave']
 bed(1789,NE,.22);bed(1162,NE,.15);bed(2483,NE+['night2','gm'],.15);bed(3081,NI,.2);bed(1789,NI,.06);bed(1234,DAY,.12);bed(1237,DAY,.08);bed(1227,['turns'],.14)
 bed(494,['night1','night2'],.25)
 place(1143,sp('title')[0]+.05,.6)
-CRY=465
-def cry(t,g,d=3,r=1.4):place(CRY,t,g,dur=d,rate=r,fi=.3,fo=.8)
+CRY='baby'
+def cry(t,g,d=3,r=1.0):place(CRY,t,g,dur=d,fi=.3,fo=.8,loop=True)
 cry(S_('hook',.55),.45,4);cry(S_('hook2',.0),.7,3)
 for k in range(4):place(1230,S_('first',.15+k*.08),.45,dur=.8)
 place(199,S_('first',.45),.8,dur=2.5)
@@ -43,7 +43,7 @@ for k in range(5):place(1230,S_('run',.05+k*.07),.4,dur=.7)
 place(532,S_('run',.1),.4,dur=3)
 cry(S_('end',.5),.5,5)
 cry(S_('cta',.3),.35,4)
-JT=[S_('hook2',.06),S_('gm',.3)]
+JT=[S_('hook2',.06),sp('title')[0]+.05,S_('gm',.3)]
 for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.2,s1-s0)[:,None]
 
