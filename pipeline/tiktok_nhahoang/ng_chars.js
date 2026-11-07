@@ -409,7 +409,7 @@ function ghostClean(T,o={}){const R0=58,sk=o.skin||'#c4cabe',open=o.open??0.6;
  for(const sd of [-1,1]){ctx.fillStyle='#030303';ctx.beginPath();ctx.ellipse(sd*21,8,16,o.closed?3:19,sd*0.15,0,7);ctx.fill();
   if(!o.closed){halo(sd*21+(o.look||0)*5,10,14,'230,240,240',0.55);circ(sd*21+(o.look||0)*5,10,3,'#e8eeee')}}
  const mh=10+open*12;ctx.fillStyle='#0c0606';ctx.beginPath();ctx.ellipse(0,40,12+open*4,mh*0.6,0,0,7);ctx.fill();
- // tóc đen ướt: mái rẽ giữa, lọn tóc bết xõa trước mặt
+ if(o.male){ctx.fillStyle=HAIR;ctx.beginPath();ctx.arc(0,0,R0+3,Math.PI*1.02,Math.PI*1.98);for(let i=0;i<=8;i++){ctx.lineTo(R0-i*(2*R0/8),-24+(i%2?12:0))}ctx.closePath();ctx.fill();return}
  ctx.fillStyle=HAIR;ctx.beginPath();ctx.arc(0,0,R0+4,Math.PI*0.95,Math.PI*2.05);ctx.quadraticCurveTo(R0*0.5,-R0*0.6,4,-R0*0.62);ctx.quadraticCurveTo(-R0*0.5,-R0*0.6,-R0-4,R0*0.1);ctx.fill();
  for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*(R0-4),-24);ctx.quadraticCurveTo(sd*(R0+8),40,sd*(R0-6),R0+60);ctx.lineTo(sd*(R0+14),R0+70);ctx.quadraticCurveTo(sd*(R0+18),0,sd*(R0+4),-30);ctx.fill()}
  ctx.strokeStyle=HAIR;ctx.lineCap='round';for(const [x0,w] of [[-10,3],[14,2.5],[30,2]]){ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x0,-36);ctx.quadraticCurveTo(x0-4,10,x0+2+Math.sin(T+x0)*2,56);ctx.stroke()}
@@ -447,3 +447,7 @@ function chau(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]
  ctx.restore()}
 // ma con nít: nhỏ, tóc ngắn ướt bết, áo trắng cũ, mặt hốc mắt đen (không máu)
 function maCon(x,fy,s,T,o={}){maDanBa(x,fy,s*0.6,T,Object.assign({glow:0.8},o))}
+// ma đàn ông: áo bà ba đen cũ, da tái, hốc mắt đen
+function maOng(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;halo(x,fy-280*s,260*s,'190,215,230',0.15*(o.glow??1));
+ person(x,fy,s,{shirt:'#2e2e30',pants:'#1a1a1a',skin:'#c4cabe',eyes:0.01,armA:o.armA||[undefined,undefined]});
+ ctx.translate(x,fy);ctx.scale(s,s);ctx.translate(0,-278);ctx.rotate(o.tilt??Math.sin(T*0.5)*0.04);ghostClean(T,{male:true,open:o.open??0.35,glow:o.glow});ctx.restore()}
