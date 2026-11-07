@@ -452,3 +452,13 @@ function maCon(x,fy,s,T,o={}){maDanBa(x,fy,s*0.6,T,Object.assign({glow:0.8},o))}
 function maOng(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;halo(x,fy-280*s,260*s,'190,215,230',0.15*(o.glow??1));
  person(x,fy,s,{shirt:'#2e2e30',pants:'#1a1a1a',skin:'#c4cabe',eyes:0.01,armA:o.armA||[undefined,undefined]});
  ctx.translate(x,fy);ctx.scale(s,s);ctx.translate(0,-278);ctx.rotate(o.tilt??Math.sin(T*0.5)*0.04);ghostClean(T,{male:true,open:o.open??0.35,glow:o.glow});ctx.restore()}
+// anh Hòa: 35 tuổi, tóc ngắn, áo sơ mi xanh nhạt, quần tây; chị Ngân: tóc dài, áo thun hồng đất, quần đen; bà Năm: tóc bạc, áo bà ba xanh xám
+function anhHoa(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]).slice();if(o.lamp)armA[1]=-0.55;
+ person(x,y,s,Object.assign({shirt:'#7c9cbc',pants:'#2a2a30',skin:'#c99a72',hair:'#121212'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ if(!o.back){ctx.fillStyle='#e8eef4';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-22,-222);ctx.lineTo(0,-198);ctx.lineTo(22,-222);ctx.lineTo(10,-222);ctx.lineTo(0,-210);ctx.lineTo(-10,-222);ctx.closePath();ctx.fill();ctx.stroke();for(let k=0;k<5;k++)circ(0,-190+k*16,2.6,'#e8eef4')}
+ for(const sd of [-1,1]){ctx.fillStyle='#3a2a1a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*20,4,17,7,0,0,7);ctx.fill();ctx.stroke()}
+ if(o.lamp){const [hx,hy]=HPP(1,-0.55);lamp(hx+4,hy+46,0.9,T);circ(hx,hy,9,'#c99a72',INK,3)}
+ if(o.bundle){ctx.fillStyle='#8a7a5a';ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(0,-120,52,34,0,0,7);ctx.fill();ctx.stroke()}
+ ctx.restore()}
+function chiNgan(x,y,s,o={}){vy(x,y,s,Object.assign({shirt:'#a8566a',pants:'#1c1c22'},o));if(o.bundle){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.fillStyle='#6a5a7a';ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(0,-118,46,30,0,0,7);ctx.fill();ctx.stroke();ctx.restore()}}
+function baNam(x,y,s,o={}){baBay(x,y,s,Object.assign({shirt:'#4e5e6e'},o))}

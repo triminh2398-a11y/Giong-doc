@@ -22,40 +22,41 @@ SC={k:(a,b) for k,a,b,ls in T['scenes']}
 sp=lambda k:SC[k];S_=lambda k,f:SC[k][0]+(SC[k][1]-SC[k][0])*f
 def bed(i,keys,g,rate=1.0):
     for k in keys:a,b=SC[k];place(i,a,g,dur=b-a+.3,fi=.6,fo=.6,loop=True,rate=rate)
-NI=['hook2','first','cry','night1','night2','gm']
-NE=['hook','title','run','end','cta']
-DAY=['intro','thay','thay1','cycle','grand','leave']
-bed(1789,NE,.22);bed(1162,NE,.15);bed(2483,NE+['night2','gm'],.15);bed(3081,NI,.2);bed(1789,NI,.06);bed(1234,DAY,.12);bed(1237,DAY,.08);bed(1227,['turns'],.14)
-bed(494,['night1','night2'],.25)
-place(1143,sp('title')[0]+.05,.6)
+NI=['water','kitchen','cry','light','mirror','turn','heavy','gm','night2']
+NE=['hook','hook2','title','end','cta']
+DAY=['move','thay','thay1','cycle','leave']
+bed(1789,NE,.22);bed(1162,NE,.15);bed(2483,NE+['mirror','gm','night2'],.15);bed(3081,NI,.2);bed(1789,NI,.06);bed(1234,DAY,.12);bed(1237,DAY,.08)
+bed(494,['mirror','heavy'],.28)
 CRY='baby'
-def cry(t,g,d=3,r=1.0):place(CRY,t,g,dur=d,fi=.3,fo=.8,loop=True)
-cry(S_('hook',.55),.45,4);cry(S_('hook2',.0),.7,3)
-for k in range(4):place(1230,S_('first',.15+k*.08),.45,dur=.8)
-place(199,S_('first',.45),.8,dur=2.5)
-place(153,S_('first',.78),.9,dur=2);place(565,S_('first',.78),.4,dur=1.2)
-cry(S_('cry',.15),.55,4);cry(S_('cry',.6),.7,4,1.5)
-place(2653,S_('thay',.3),.25,dur=3)
-cry(S_('cycle',.7),.6,3)
-cry(S_('night1',.0),.8,4,1.45);place(2430,S_('night1',.5),.3,dur=1.5)
-cry(S_('night2',.15),.85,6,1.4)
-for k in range(5):place(1230,S_('run',.05+k*.07),.4,dur=.7)
-place(532,S_('run',.1),.4,dur=3)
-cry(S_('end',.5),.5,5)
-cry(S_('cta',.3),.35,4)
-JT=[S_('hook2',.06),sp('title')[0]+.05,S_('gm',.3)]
+def cry(t,g,d=3):place(CRY,t,g,dur=d,fi=.2,fo=.6,loop=True)
+cry(S_('hook',.45),.9,5);cry(S_('hook2',.5),1.0,3);cry(sp('title')[0]+.3,.8,2.5)
+place(3126,S_('water',0),1.0,dur=sp('water')[1]-sp('water')[0],fi=.3,fo=1,loop=True);place(1879,S_('water',.7),.9,dur=3)
+for k in range(4):place(1230,S_('water',.35+k*.1),.5,dur=.8)
+for k in range(10):place(2835,S_('kitchen',.03+k*.05),.9,dur=.7,fo=.15)
+place(2836,S_('kitchen',.2),.8,dur=2);place(2836,S_('kitchen',.38),.8,dur=2)
+cry(S_('cry',.05),1.0,8);cry(S_('cry',.6),1.0,6)
+for k in range(5):place(2895 if False else 565,S_('light',.1+k*.15),.25,dur=.4)
+place(199,S_('light',.3),.9,dur=2.5);place(194,S_('light',.78),1.0,dur=2)
+place(2484,S_('mirror',.5),.5,dur=4);cry(S_('mirror',.5),.9,4)
+place(1879,S_('turn',.55),.9,dur=3)
+place(2653,S_('thay',.3),.3,dur=3)
+cry(S_('cycle',.7),.9,3)
+for k in range(6):place(1922,S_('heavy',.05+k*.08),.8,dur=1)
+cry(S_('night2',.05),1.0,7)
+cry(S_('end',.45),.9,6);cry(S_('cta',.3),.6,4)
+JT=[S_('hook2',.55),sp('title')[0]+.05,S_('mirror',.55),S_('gm',.3)]
 for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.2,s1-s0)[:,None]
 
 # ===== NHẠC NỀN: ma mị suốt truyện; CAO TRÀO (bàn tay nắm chân) dồn dập; KẾT rùng rợn sau câu cuối của bé Na =====
 mu=np.zeros((N,2));hi=np.zeros((N,2));_out=out
 out=mu
-c0=sp('night1')[0];g0=sp('night2')[0];c1=sp('run')[1]
+c0=sp('heavy')[0];g0=sp('gm')[0];c1=sp('night2')[1]
 place(2510,0,.5,dur=c0,fi=2,fo=3,loop=True);place(685,0,.22,dur=c0,fi=3,fo=3,loop=True)
 place(2746,0,.35,dur=c0,fi=3,fo=3,loop=True)
-place(2510,sp('thay')[0],.3,dur=sp('turns')[1]-sp('thay')[0],fi=2,fo=2,loop=True)
+place(2510,sp('thay')[0],.3,dur=sp('cycle')[1]-sp('thay')[0],fi=2,fo=2,loop=True)
 place(685,c0,.5,dur=c1-c0,fi=1.5,fo=2,loop=True)
-place(559,sp('night1')[0],.4,dur=g0-sp('night1')[0],fi=.5,fo=.5,loop=True)
+place(559,sp('heavy')[0],.4,dur=g0-sp('heavy')[0],fi=.5,fo=.5,loop=True)
 place(2482,sp('leave')[0],.4,dur=sp('end')[0]-sp('leave')[0],fi=2,fo=2,loop=True)
 # cao trào: lớp riêng, ít bị nén dưới giọng
 out=hi
