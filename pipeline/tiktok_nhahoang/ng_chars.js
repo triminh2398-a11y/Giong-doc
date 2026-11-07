@@ -416,10 +416,11 @@ function ghostClean(T,o={}){const R0=58,sk=o.skin||'#c4cabe',open=o.open??0.6;
  ctx.fillStyle='rgba(150,190,210,.8)';for(let k=0;k<3;k++){const yy=(T*40+k*30)%90;ctx.beginPath();ctx.ellipse(-R0+4+k*3,40+yy,2,3,0,0,7);ctx.fill()}}
 // ma đàn bà tóc dài ướt sũng, áo bà ba trắng cũ; o.sitBack ngồi quay lưng; o.wave vẫy tay
 function maDanBa(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;halo(x,fy-280*s,260*s,'190,215,230',0.15*(o.glow??1));
- const arm=(o.arm||[undefined,undefined]).slice();if(o.wave)arm[1]=-2.6+0.35*Math.sin(T*3);if(o.reach){arm[0]=-1.3;arm[1]=1.3}
+ const arm=(o.arm||[undefined,undefined]).slice();if(o.wave)arm[1]=-2.6+0.35*Math.sin(T*3);if(o.baby){arm[0]=-0.7;arm[1]=o.wave?arm[1]:0.7}if(o.reach){arm[0]=-1.3;arm[1]=1.3}
  woman(x,fy,s,{shirt:'#d8d4c8',pants:'#2a2a2a',skin:'#c4cabe',back:!!o.sitBack,sit:!!o.sitBack,smile:false,eyes:0.01,arm,t:T});
  ctx.translate(x,fy);ctx.scale(s,s);
  ctx.fillStyle='rgba(120,140,150,.35)';for(let k=0;k<6;k++){ctx.beginPath();ctx.ellipse(-30+R0(k)*60,-200+R0(k+2)*100,8,5,0,0,7);ctx.fill()}
+ if(o.baby){ctx.save();ctx.translate(-6,-160);ctx.rotate(-0.25);ctx.fillStyle='#e4e0d4';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(0,0,52,30,0,0,7);ctx.fill();ctx.stroke();if(!o.sitBack){circ(-30,-6,20,'#c8cec2',INK,3);for(const sd of [-1,1]){ctx.fillStyle='#050505';ctx.beginPath();ctx.ellipse(-30+sd*7,-8,4.5,5.5,0,0,7);ctx.fill();circ(-30+sd*7,-8,1.2,'#e8eeee')}ctx.fillStyle='#0c0606';ctx.beginPath();ctx.ellipse(-30,4,4,3+Math.max(0,Math.sin(T*6))*3,0,0,7);ctx.fill()}ctx.restore();if(!o.wave)for(const sd of [-1,1]){const [hx,hy]=HPW(sd,sd*0.7);circ(hx,hy,8,'#c4cabe',INK,3)}}
  if(o.sitBack){ctx.fillStyle=HAIR;ctx.beginPath();ctx.moveTo(-58,-300);ctx.quadraticCurveTo(-70,-180,-50,-110);ctx.lineTo(50,-110);ctx.quadraticCurveTo(70,-180,58,-300);ctx.fill();ctx.fillStyle='rgba(150,190,210,.8)';for(let k=0;k<4;k++){ctx.beginPath();ctx.ellipse(-40+k*26,-100+((T*40+k*20)%60),2,3,0,0,7);ctx.fill()}}
  else{ctx.translate(0,-278);ctx.rotate(o.tilt??Math.sin(T*0.6)*0.05);ghostClean(T,{open:o.open??(0.4+0.3*Math.max(0,Math.sin(T*2.4))),look:o.look,glow:o.glow})}
  ctx.restore()}

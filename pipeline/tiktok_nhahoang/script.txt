@@ -3,16 +3,16 @@ hook2|N|Gia đình chủ nhà từng mời thầy về trấn yểm, cứ bốn 
 title|N|Câu chuyện hôm nay… Căn nhà bỏ hoang.
 intro|N|Câu chuyện này do người cháu của chủ nhà kể lại. Ngày xưa, ông nội anh cất căn nhà này, tường gạch, mái ngói đỏ, khang trang nhất xóm.
 first|N|Nhưng từ ngày dọn vào, nhà bắt đầu có chuyện lạ. Nửa đêm nghe tiếng bước chân ngoài hiên. Cửa cài then kỹ lưỡng, sáng ra lại mở toang. Chén bát trong tủ rớt xuống bể tan tành.
-cry|N|Lạ nhất là tiếng con nít khóc. Nhà không có đứa nhỏ nào, vậy mà đêm nào cũng nghe tiếng khóc thút thít, lúc ở buồng trong, lúc ở ngay dưới gầm giường.
+cry|N|Lạ nhất là tiếng em bé khóc. Nhà không có đứa nhỏ nào, vậy mà đêm nào cũng nghe tiếng khóc oe oe, lúc ở buồng trong, lúc ở ngay dưới gầm giường.
 thay|N|Ông nội mời thầy về trấn yểm. Thầy dán bùa khắp cửa, chôn bùa bốn góc nhà.
 thay1|TH|Đất này có vong. Tui chỉ trấn được một thời gian thôi. Muốn yên, phải biết nó là ai.
 cycle|N|Được vài tháng thì yên. Rồi mọi chuyện lại bắt đầu. Cứ bốn năm tháng, nhà lại phải mời thầy. Bùa dán chồng lên bùa. Mà tiếng khóc thì mỗi lúc một gần.
 turns|N|Ông nội mất. Con cháu lần lượt thay nhau về ở giữ nhà. Người ở được nửa năm, người chỉ được vài tuần. Rồi ai cũng dọn đi, không ai dám nói rõ vì sao.
 grand|N|Người cháu kể, năm hai mươi tuổi, anh không tin, xin về ở thử một mình.
-night1|N|Đêm thứ ba, tiếng khóc vang lên ngay sát bên giường. Anh soi đèn xuống gầm giường. Không có ai. Chỉ có dấu tay người lớn, lẫn những dấu tay nhỏ xíu in trên lớp bụi.
-night2|N|Đêm thứ bảy, anh giật mình thức giấc. Ở cuối giường, có một đứa nhỏ ngồi quay lưng, tóc ướt sũng, khóc thút thít. Rồi sau lưng nó, một người đàn ông, một người đàn bà, từ từ bước ra từ góc buồng.
+night1|N|Đêm thứ ba, tiếng em bé khóc vang lên ngay sát bên giường. Anh soi đèn xuống gầm giường. Không có ai. Chỉ có mấy dấu tay người lớn in trên lớp bụi.
+night2|N|Đêm thứ bảy, anh giật mình thức giấc. Ở cuối giường, có một người đàn bà ngồi quay lưng, tóc ướt sũng, tay ẵm một đứa nhỏ đang khóc. Rồi trong góc buồng, một người đàn ông từ từ bước ra.
 gm|GM|Nhà này của gia đình tao… đi ra…
-run|N|Anh bỏ chạy ra khỏi nhà ngay trong đêm. Lúc chạy ra tới bãi cỏ, anh ngoái lại. Sau khung cửa sổ, ba cái bóng, một đàn ông, một đàn bà, một đứa nhỏ, đứng sát bên nhau, nhìn theo anh.
+run|N|Anh bỏ chạy ra khỏi nhà ngay trong đêm. Lúc chạy ra tới bãi cỏ, anh ngoái lại. Trước khung cửa sổ, người đàn ông, người đàn bà ẵm đứa nhỏ, đứng sát bên nhau, nhìn theo anh.
 leave|N|Sáng hôm sau, cả nhà quyết định không ai về ở nữa. Căn nhà bị bỏ hoang từ đó tới nay.
 end|N|Bây giờ, cỏ dại đã mọc ngang hông người. Bùa trên cửa bạc màu, tường loang lổ rêu. Vậy mà ban đêm, người đi ngang qua vẫn nghe tiếng con nít khóc vọng ra từ trong nhà.
 cta|N|Nếu đi ngang một căn nhà hoang mà nghe tiếng con nít khóc… bạn có dám bước vào không?
