@@ -19,6 +19,12 @@ for cat in J['mixkit']:
             t=html.unescape(titles[i]).strip() if i<len(titles) else ''
             out[url]={'cat':cat,'title':t}
 os.makedirs('sfxlib/mixkit',exist_ok=True)
+os.makedirs('sfxlib/extra',exist_ok=True)
+for name,u in (J.get('urls') or {}).items():
+    p='sfxlib/extra/'+name
+    if not os.path.exists(p):
+        try: open(p,'wb').write(get(u)); print('got',name)
+        except Exception as e: print('DLERR',u,e)
 for url,meta in out.items():
     if 'file' in meta and os.path.exists(meta['file']): continue
     f='sfxlib/mixkit/'+url.split('/')[-1]
