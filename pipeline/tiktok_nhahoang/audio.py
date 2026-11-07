@@ -22,56 +22,54 @@ SC={k:(a,b) for k,a,b,ls in T['scenes']}
 sp=lambda k:SC[k];S_=lambda k,f:SC[k][0]+(SC[k][1]-SC[k][0])*f
 def bed(i,keys,g,rate=1.0):
     for k in keys:a,b=SC[k];place(i,a,g,dur=b-a+.3,fi=.6,fo=.6,loop=True,rate=rate)
-NI=['hook','hook2','title','water','check','hung2','hung3','tu2','night','gs','stop','turn','tu3','gs2','door','end2','gs3','cta']
-DAY=['buy','hung','hung1','cam','offer','bowls','su1','cam2','find','end','morning']
-bed(3081,NI,.2);bed(2505,DAY,.08);bed(2505,['tu1'],.25)
-bed(2483,['hook2','gs','turn','gs2','gs3'],.15);bed(494,['night','stop'],.25)
+NI=['hook2','first','cry','night1','night2','gm']
+NE=['hook','title','run','end','cta']
+DAY=['intro','thay','thay1','cycle','grand','leave']
+bed(1789,NE,.22);bed(1162,NE,.15);bed(2483,NE+['night2','gm'],.15);bed(3081,NI,.2);bed(1789,NI,.06);bed(1234,DAY,.12);bed(1237,DAY,.08);bed(1227,['turns'],.14)
+bed(494,['night1','night2'],.25)
 place(1143,sp('title')[0]+.05,.6)
-# tiếng nước chảy RÕ: vòi nước + nhỏ giọt
-place(3126,S_('hook2',0),.8,dur=sp('hook2')[1]-sp('hook2')[0],fi=.3,fo=.8,loop=True)
-place(3126,S_('water',.12),.95,dur=sp('check')[1]-S_('water',.12),fi=.4,fo=1.5,loop=True)
-place(2826,S_('water',.3),.7,dur=3)
-for k in range(8):place(2835,S_('water',.42+k*.03),.8,dur=.6,fo=.15)
-place(2835,S_('water',.7),.9,dur=2.5);place(2835,S_('water',.82),.8,dur=2)
-place(1879,S_('check',.55),.9,dur=4)
-for k in range(5):place(1230,S_('check',.05+k*.1),.35,dur=.9)
-place(3126,S_('cam',.3),.6,dur=sp('cam')[1]-S_('cam',.3),fi=.3,fo=.8,loop=True)
-place(2835,S_('offer',.6),.5,dur=2)
-place(2835,S_('night',.25),.6,dur=3)
-place(2827,S_('gs',.1),.6,dur=3);place(2827,S_('turn',.3),.8,dur=3)
-place(194,S_('door',.03),1.0,dur=2,fo=.5)
-for k in range(5):place(2835,S_('door',.35+k*.08),.6-k*.08,dur=1.0)
-place(2462,S_('door',.92),.4,dur=3)
-place(3126,S_('end2',.4),.7,dur=sp('end2')[1]-S_('end2',.4),fi=.4,fo=1,loop=True)
-place(2835,S_('end2',.7),.7,dur=2.5)
-for k in range(4):place(2835,S_('leave2',.45+k*.1),.55,dur=.9)
-JT=[S_('hook2',.05),S_('cam',.72),S_('gs',.3),S_('turn',.45)]
+CRY=465
+def cry(t,g,d=3,r=1.4):place(CRY,t,g,dur=d,rate=r,fi=.3,fo=.8)
+cry(S_('hook',.55),.45,4);cry(S_('hook2',.0),.7,3)
+for k in range(4):place(1230,S_('first',.15+k*.08),.45,dur=.8)
+place(199,S_('first',.45),.8,dur=2.5)
+place(153,S_('first',.78),.9,dur=2);place(565,S_('first',.78),.4,dur=1.2)
+cry(S_('cry',.15),.55,4);cry(S_('cry',.6),.7,4,1.5)
+place(2653,S_('thay',.3),.25,dur=3)
+cry(S_('cycle',.7),.6,3)
+cry(S_('night1',.0),.8,4,1.45);place(2430,S_('night1',.5),.3,dur=1.5)
+cry(S_('night2',.15),.85,6,1.4)
+for k in range(5):place(1230,S_('run',.05+k*.07),.4,dur=.7)
+place(532,S_('run',.1),.4,dur=3)
+cry(S_('end',.5),.5,5)
+cry(S_('cta',.3),.35,4)
+JT=[S_('hook2',.06),S_('gm',.3)]
 for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.2,s1-s0)[:,None]
 
 # ===== NHẠC NỀN: ma mị suốt truyện; CAO TRÀO (bàn tay nắm chân) dồn dập; KẾT rùng rợn sau câu cuối của bé Na =====
 mu=np.zeros((N,2));hi=np.zeros((N,2));_out=out
 out=mu
-c0=sp('night')[0];g0=sp('stop')[0];c1=sp('door')[1]
+c0=sp('night1')[0];g0=sp('night2')[0];c1=sp('run')[1]
 place(2510,0,.5,dur=c0,fi=2,fo=3,loop=True);place(685,0,.22,dur=c0,fi=3,fo=3,loop=True)
 place(2746,0,.35,dur=c0,fi=3,fo=3,loop=True)
-place(2510,sp('hung2')[0],.3,dur=sp('tu2')[1]-sp('hung2')[0],fi=2,fo=2,loop=True)
+place(2510,sp('thay')[0],.3,dur=sp('turns')[1]-sp('thay')[0],fi=2,fo=2,loop=True)
 place(685,c0,.5,dur=c1-c0,fi=1.5,fo=2,loop=True)
-place(559,sp('night')[0],.4,dur=g0-sp('night')[0],fi=.5,fo=.5,loop=True)
-place(2482,sp('morning')[0],.4,dur=sp('end2')[0]-sp('morning')[0],fi=2,fo=2,loop=True)
+place(559,sp('night1')[0],.4,dur=g0-sp('night1')[0],fi=.5,fo=.5,loop=True)
+place(2482,sp('leave')[0],.4,dur=sp('end')[0]-sp('leave')[0],fi=2,fo=2,loop=True)
 # cao trào: lớp riêng, ít bị nén dưới giọng
 out=hi
 place(682,g0-.2,.9,dur=c1-g0+.2,fi=.05,fo=1.5,loop=True)          # trống trầm dồn dập
 place(577,g0,.6,dur=min(6,c1-g0),fi=.05,fo=1,loop=True)           # trống cuộn
 place(493,g0,.7,dur=c1-g0,fi=.1,fo=1.2,loop=True)                 # tim đập nhanh
 place(786,g0-.1,.8,dur=4,fi=.05,fo=1)                             # dâng lên
-place(678,S_('gs2',.2),.7,dur=5,fi=.2,fo=1.5)                    # swell khi lấp hố
+place(678,S_('gm',.2),.7,dur=5,fi=.2,fo=1.5)                    # swell khi lấp hố
 # kết rùng rợn: sau câu cuối của bé Na — hộp nhạc lạc giọng + organ + quét bóng tối, rồi lặng
-e0=sp('gs3')[0];e1=sp('leave2')[1]
+e0=sp('end')[0];e1=sp('end')[1]
 place(2746,e0-.5,.8,dur=DUR-e0+.5,fi=1.5,fo=2,loop=True)
 place(3081,e0,.8,dur=DUR-e0,fi=1,fo=2.5,loop=True)
 place(2630,e1-.4,.9,dur=4,fi=.1,fo=1.5)
-place(2835,e1+.3,.25,dur=2)
+cry(e1+.3,.3,3)
 for t,d in [(x,.6) for x in JT]:
     s0=int((t-d)*SR);s1=int(t*SR);mu[s0:s1]*=np.linspace(1,.1,s1-s0)[:,None];hi[s0:s1]*=np.linspace(1,.1,s1-s0)[:,None]
 mu/=max(1e-6,np.abs(mu).max())*1.05;hi/=max(1e-6,np.abs(hi).max())*1.05
