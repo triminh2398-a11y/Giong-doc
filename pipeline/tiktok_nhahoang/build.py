@@ -11,7 +11,7 @@ PICK = json.load(open(D + 'pick.json')) if os.path.exists(D + 'pick.json') else 
 clean = lambda s: re.sub(r'\s*\[[^\]]*\]\s*', ' ', s).strip()
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 NMAP = {}
-for job in ('99_nh_n', '99_nh_nfix4'):
+for job in ('99_nh_n', '99_nh_nfix4', '99_nh2_n'):
     if not os.path.exists(G + f'jobs/{job}.json'): continue
     J = json.load(open(G + f'jobs/{job}.json')); ND = G + f'out/{job}/clone_refs_mada8_wav/'
     for k, line in enumerate(J['lines']):
@@ -58,7 +58,7 @@ for i, (sh, sp, tx) in enumerate(S):
         c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.3, extra=0.06)
     else:
         cands = []
-        for job in {'TH': ['99_nh_ts'], 'GM': ['99_nh_ts3']}[sp]:
+        for job in {'TH': ['99_nh2_ts'], 'GM': ['99_nh_ts3']}[sp]:
             if not os.path.exists(G + f'out/{job}'): continue
             Jx = json.load(open(G + f'jobs/{job}.json')); vd = [x for x in os.listdir(G + f'out/{job}') if not x.startswith('DONE')][0]
             cands += [G + f'out/{job}/{vd}/{k:02d}' for k, l in enumerate(Jx['lines']) if l == tx and os.path.exists(G + f'out/{job}/{vd}/{k:02d}.wav')]
@@ -72,13 +72,13 @@ nr = np.median([rms(c) for c, (_, sp, _) in zip(clips, S) if sp == 'N' and np.ab
 for k, (_, sp, _) in enumerate(S):
     if sp != 'N' and np.abs(clips[k]).max() > 0: clips[k] = clips[k] * (nr / rms(clips[k])) * (0.9 if sp in ('GM',) else 1.0)
 nd = [len(c) / SR for c in clips]
-SLOW_IN = {'title', 'intro', 'first', 'thay', 'turns', 'grand', 'night1', 'night2', 'run', 'leave', 'end', 'cta'}
+SLOW_IN = {'title', 'move', 'water', 'cry', 'mirror', 'thay', 'heavy', 'leave', 'end', 'cta'}
 st = [0.3]
 for i in range(len(S) - 1):
     g = 0.3 if S[i][0] == S[i + 1][0] else 0.5
     if S[i + 1][0] in SLOW_IN: g = 0.85
     if S[i][0] == 'end': g = 2.0
-    if S[i][0] in ('gm', 'night2'): g = 1.0
+    if S[i][0] in ('gm', 'mirror', 'night2', 'light'): g = 1.0
     st.append(st[i] + nd[i] + g)
 dur = st[-1] + nd[-1] + 1.8
 runs = []
