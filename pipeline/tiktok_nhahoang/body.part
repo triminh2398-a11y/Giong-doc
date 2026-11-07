@@ -333,13 +333,13 @@ for(const sd of [-1,1]){const sh=new THREE.Shape();sh.moveTo(-HD/2-0.3,0);sh.lin
 for(let k=0;k<10;k++){const a=k/10*7+0.4,r=13+R(k)*10;const t=new THREE.Group();t.position.set(Math.cos(a)*r,0,Math.sin(a)*r-6);RG.add(t);box(0.3,3+R(k)*2,0.3,M({color:0x4a3a28}),0,1.6,0,t);for(let j=0;j<4;j++){const s=new THREE.Mesh(new THREE.SphereGeometry(1.4+R(k*j)*0.8,10,8),M({color:R(k+j)>0.5?0x3a6a2a:0x2e5a24}));s.position.set((R(k+j)-0.5)*2,3.8+R(j)*1.4,(R(k*3+j)-0.5)*2);s.castShadow=true;t.add(s)}}
 // cỏ dại (cao khi bỏ hoang)
 const grassGeo=new THREE.PlaneGeometry(0.08,1);grassGeo.translate(0,0.5,0);const NG=5000;const GRASS=new THREE.InstancedMesh(grassGeo,new THREE.MeshStandardMaterial({color:0x6a9a3a,side:THREE.DoubleSide}),NG);
-{const m4=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler();let n=0;for(let i=0;i<NG*3&&n<NG;i++){const x=(R(i)-0.5)*30,z=(R(i+9999)-0.5)*24+4;if(Math.abs(x)<HW/2+0.4&&z<HD/2+0.2&&z>-HD/2-0.4)continue;e.set((R(i+3)-0.5)*0.5,R(i+5)*6,(R(i+7)-0.5)*0.5);q.setFromEuler(e);m4.compose(new THREE.Vector3(x,0,z),q,new THREE.Vector3(1,0.6+R(i+11)*0.8,1));GRASS.setMatrixAt(n++,m4)}GRASS.count=n}
+{const m4=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler();let n=0;for(let i=0;i<NG*3&&n<NG;i++){const x=(R(i)-0.5)*28,z=-HD/2-3+R(i+9999)*(HD+8.5);if(Math.abs(x)<HW/2+0.4&&z<HD/2+0.2&&z>-HD/2-0.4)continue;e.set((R(i+3)-0.5)*0.5,R(i+5)*6,(R(i+7)-0.5)*0.5);q.setFromEuler(e);m4.compose(new THREE.Vector3(x,0,z),q,new THREE.Vector3(1,0.6+R(i+11)*0.8,1));GRASS.setMatrixAt(n++,m4)}GRASS.count=n}
 RG.add(GRASS);
 const rHemi=new THREE.HemisphereLight(0xe8f0ff,0x4a5a30,1.0);ruin.add(rHemi);const rSun=new THREE.DirectionalLight(0xfff2dc,1.8);rSun.position.set(8,12,10);rSun.castShadow=true;Object.assign(rSun.shadow.camera,{left:-15,right:15,top:15,bottom:-15});rSun.shadow.mapSize.set(2048,2048);ruin.add(rSun);
 const rMoon=new THREE.DirectionalLight(0x8aa0d0,0);rMoon.position.set(-6,10,8);ruin.add(rMoon);
 const winGlow=new THREE.PointLight(0xb8d0e0,0,5,1.5);winGlow.position.set(2.8,1.6,HD/2-0.4);ruin.add(winGlow);
 const rFill=new THREE.PointLight(0xc8d0e0,0,8,1.4);ruin.add(rFill);
-function ruinMode(m,old){const ruined=!old;GRASS.scale.set(1,ruined?1.6:0.25,1);GRASS.material.color.set(ruined?0x6a9a3a:0x7aaa4a);wallMat.map=ruined?mossT:wallRT;wallMat.needsUpdate=true;
+function ruinMode(m,old){const ruined=!old;GRASS.scale.set(1,ruined?0.9:0.22,1);GRASS.material.color.set(ruined?0x6a9a3a:0x7aaa4a);wallMat.map=ruined?mossT:wallRT;wallMat.needsUpdate=true;
  if(m==='day'){ruin.background.set(0x8fb8e0);ruin.fog.color.set(0x8fb8e0);rHemi.intensity=1.0;rHemi.color.set(0xe8f0ff);rSun.intensity=1.8;rMoon.intensity=0}
  else if(m==='dusk'){ruin.background.set(0x6a5a6a);ruin.fog.color.set(0x5a4a5a);rHemi.intensity=0.55;rHemi.color.set(0xd0a890);rSun.intensity=0.7;rMoon.intensity=0}
  else{ruin.background.set(0x070a12);ruin.fog.color.set(0x070a12);rHemi.intensity=0.22;rHemi.color.set(0x6070a0);rSun.intensity=0;rMoon.intensity=0.9}}
