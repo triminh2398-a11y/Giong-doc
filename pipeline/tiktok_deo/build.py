@@ -106,8 +106,8 @@ for i, ((sh, sp, tx), s0, d) in enumerate(zip(S, st, nd)):
     toks = clean(tx).split(); chunks = []; cur = []
     for k, t in enumerate(toks):
         cur.append(t)
-        if (t[-1] in '.,?!:' and len(cur) >= 3) or len(cur) >= 8 or k == len(toks) - 1: chunks.append(cur); cur = []
-    if len(chunks) > 1 and len(chunks[-1]) <= 2: last = chunks.pop(); chunks[-1] += last
+        if t[-1] in '.,?!:' or len(cur) >= 2 or k == len(toks) - 1: chunks.append(cur); cur = []
+    
     w = [len(' '.join(c)) + 5 for c in chunks]; tot = sum(w); t0 = s0 + 0.03; dd = d - 0.06
     for c, wi in zip(chunks, w):
         L = dd * wi / tot; s = ' '.join(c)
