@@ -1,0 +1,95 @@
+<!doctype html><meta charset=utf-8><body style="margin:0"><canvas id=c width=1800 height=1250></canvas><script>
+const c=document.getElementById('c'),X=c.getContext('2d');
+const rr=(x,y,w,h,r)=>{X.beginPath();X.roundRect(x,y,w,h,r)};
+function grad(x0,y0,x1,y1,st){const g=X.createLinearGradient(x0,y0,x1,y1);st.forEach(([o,cl])=>g.addColorStop(o,cl));return g}
+function glow(x,y,r,col,a){const g=X.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,col.replace('A',a));g.addColorStop(1,col.replace('A',0));X.fillStyle=g;X.fillRect(x-r,y-r,2*r,2*r)}
+function bokeh(w,h,n,seed,cols){for(let i=0;i<n;i++){const r=(s=>Math.abs(Math.sin(s*12.9898+seed)*43758.5453)%1);const x=r(i)*w,y=r(i+50)*h,rad=10+r(i+9)*40;X.fillStyle=cols[i%cols.length];X.globalAlpha=0.12+r(i+3)*0.15;X.beginPath();X.arc(x,y,rad,0,7);X.fill()}X.globalAlpha=1}
+// ---- nhân vật vector (không viền) ----
+function head(sk,skD,hair,o){ // gốc (0,0)=tâm đầu
+ X.fillStyle=skD;X.beginPath();X.ellipse(0,6,52,60,0,0,7);X.fill();
+ X.fillStyle=sk;X.beginPath();X.ellipse(-6,2,46,58,0,0,7);X.fill();
+ // tai
+ X.fillStyle=skD;for(const s of[-1,1]){X.beginPath();X.ellipse(s*50,6,8,13,0,0,7);X.fill()}
+ // má hồng
+ if(!o.ghost){X.fillStyle='rgba(235,110,110,.4)';for(const s of[-1,1]){X.beginPath();X.ellipse(s*26,22,11,7,0,0,7);X.fill()}}
+ // mắt
+ for(const s of[-1,1]){const ex=s*20,ey=-2;
+  if(o.ghost){X.fillStyle='#07040e';X.beginPath();X.ellipse(ex,ey,12,17,0,0,7);X.fill();X.fillStyle='#fff';X.beginPath();X.arc(ex+3,ey-5,3.2,0,7);X.fill();X.beginPath();X.arc(ex-3,ey+6,1.6,0,7);X.fill()}
+  else{X.fillStyle='#120c14';X.beginPath();X.ellipse(ex,ey,8.5,10.5,0,0,7);X.fill();X.fillStyle='#fff';X.beginPath();X.arc(ex+2.6,ey-3.4,3,0,7);X.fill();X.beginPath();X.arc(ex-2.5,ey+3,1.3,0,7);X.fill()}
+  // lông mày
+  X.strokeStyle=o.brow||'#1a1016';X.lineWidth=o.ghost?0:6;X.lineCap='round';if(!o.ghost){X.beginPath();X.moveTo(ex-12,ey-19+(o.angry?s*-4:0));X.quadraticCurveTo(ex,ey-26-(o.up||0),ex+12,ey-19+(o.angry?s*4:0));X.stroke()}}
+ // mũi + miệng
+ X.strokeStyle='rgba(120,60,40,.55)';X.lineWidth=3;X.beginPath();X.moveTo(-3,12);X.quadraticCurveTo(-8,22,-1,24);X.stroke();
+ if(o.ghost){X.fillStyle='#14070e';X.beginPath();X.ellipse(0,40,8,12,0,0,7);X.fill()}else{X.strokeStyle='#8a3a3a';X.lineWidth=3.5;X.beginPath();X.moveTo(-10,40);X.quadraticCurveTo(0,o.smile?47:38,10,40);X.stroke()}
+ if(o.wr){X.strokeStyle='rgba(90,50,40,.35)';X.lineWidth=2.5;for(const s of[-1,1]){X.beginPath();X.moveTo(s*10,-30);X.lineTo(s*34,-27);X.moveTo(s*30,18);X.quadraticCurveTo(s*34,28,s*26,38);X.stroke()}}
+ if(o.must){X.fillStyle='#e8e4f0';X.beginPath();X.moveTo(0,30);X.quadraticCurveTo(-26,26,-32,44);X.quadraticCurveTo(-12,38,0,38);X.quadraticCurveTo(12,38,32,44);X.quadraticCurveTo(26,26,0,30);X.fill()}
+ // tóc
+ X.fillStyle=hair;
+ if(o.cap){X.fillStyle=o.cap;X.beginPath();X.moveTo(-58,-14);X.quadraticCurveTo(-56,-72,0,-72);X.quadraticCurveTo(56,-72,58,-14);X.quadraticCurveTo(0,-30,-58,-14);X.fill();X.fillStyle=o.capD;X.beginPath();X.ellipse(30,-20,46,10,0.1,0,7);X.fill();X.fillStyle=hair;X.beginPath();X.moveTo(-54,-10);X.lineTo(-58,12);X.lineTo(-44,0);X.fill()}
+ else if(o.hairShort){X.beginPath();X.moveTo(-58,-6);X.quadraticCurveTo(-62,-76,0,-70);X.quadraticCurveTo(62,-76,56,-6);X.quadraticCurveTo(40,-34,0,-34);X.quadraticCurveTo(-40,-34,-58,-6);X.fill();X.fillStyle='rgba(255,255,255,.18)';X.beginPath();X.ellipse(-20,-58,22,6,-0.3,0,7);X.fill()}
+ if(o.long){X.fillStyle=hair;X.beginPath();X.moveTo(-56,0);X.quadraticCurveTo(-64,-80,0,-74);X.quadraticCurveTo(64,-80,56,0);X.quadraticCurveTo(48,-36,0,-40);X.quadraticCurveTo(-48,-36,-56,0);X.fill();X.fillStyle='rgba(120,100,200,.35)';X.beginPath();X.ellipse(-22,-62,24,6,-0.3,0,7);X.fill()}}
+function body(x,y,s,sp){X.save();X.translate(x,y);X.scale(s,s);
+ // chân
+ for(const d of[-1,1]){X.fillStyle=sp.pD;rr(d*24-17,-150,34,150,12);X.fill();X.fillStyle=sp.p;rr(d*24-17,-150,26,150,12);X.fill();X.fillStyle='#1a1424';X.beginPath();X.ellipse(d*28,-4,24,11,0,0,7);X.fill()}
+ // tay sau
+ for(const d of[-1,1]){X.save();X.translate(d*60,-300);X.rotate(d*0.1);X.fillStyle=sp.cD;rr(-17,0,34,138,17);X.fill();X.fillStyle=sp.c;rr(-17,0,24,138,17);X.fill();X.fillStyle=sp.sk;X.beginPath();X.arc(0,142,16,0,7);X.fill();X.restore()}
+ // thân
+ X.fillStyle=sp.cD;rr(-62,-318,124,190,30);X.fill();X.fillStyle=sp.c;rr(-62,-318,96,190,30);X.fill();
+ X.fillStyle='rgba(255,255,255,.12)';rr(-52,-310,16,150,8);X.fill();
+ if(sp.zip){X.strokeStyle='rgba(0,0,0,.35)';X.lineWidth=3;X.beginPath();X.moveTo(0,-318);X.lineTo(0,-130);X.stroke()}
+ if(sp.apron){X.fillStyle='#6a4a3a';rr(-36,-230,72,100,12);X.fill();X.fillStyle='rgba(0,0,0,.2)';rr(0,-230,36,100,12);X.fill()}
+ // cổ + đầu
+ X.fillStyle=sp.skD;X.fillRect(-14,-342,28,34);
+ X.translate(0,-392);head(sp.sk,sp.skD,sp.hair,sp);X.restore()}
+const KHOA={sk:'#e0a878',skD:'#c68a62',hair:'#1c1218',c:'#2a6a8a',cD:'#1e506c',p:'#2c2a4a',pD:'#1e1c36',cap:'#1f8a6a',capD:'#16664e',zip:1,smile:0};
+const SAU={sk:'#d6a07a',skD:'#b8825e',hair:'#dcd8ee',c:'#6a8a4a',cD:'#4e6a36',p:'#4a4658',pD:'#363244',apron:1,must:1,wr:1,hairShort:1,angry:1,brow:'#cfc8e0',up:2};
+const HANH={sk:'#cfd6e6',skD:'#aab4cc',hair:'#1a1230',c:'#3a78e0',cD:'#2858b0',p:'#2a3050',pD:'#1c2240',long:1,ghost:1};
+// ---- nền ----
+function bg(x,y,w,h,mode){X.save();X.beginPath();X.rect(x,y,w,h);X.clip();X.translate(x,y);
+ X.fillStyle=grad(0,0,0,h,[[0,mode=='cab'?'#2a1470':'#1a1060'],[0.6,'#4a1a8a'],[1,'#8a2a8a']]);X.fillRect(0,0,w,h);
+ glow(w*0.75,h*0.16,160,'rgba(255,230,180,A)',0.9);X.fillStyle='#fff3d0';X.beginPath();X.arc(w*0.75,h*0.16,34,0,7);X.fill();X.fillStyle='#4a1a8a';X.beginPath();X.arc(w*0.75+14,h*0.16-6,30,0,7);X.fill();
+ for(let i=0;i<40;i++){X.fillStyle='rgba(255,255,255,'+(0.3+((i*37)%10)/20)+')';X.fillRect((i*131)%w,(i*71)%(h*0.45),2.5,2.5)}
+ // núi lớp
+ const L=[['#3a1a7a',0.52],['#2a1262',0.62],['#1c0c4a',0.72]];L.forEach(([cl,t],k)=>{X.fillStyle=cl;X.beginPath();X.moveTo(0,h);for(let i=0;i<=12;i++)X.lineTo(i*w/12,h*t-(Math.sin(i*1.7+k*2)+1)*h*0.07);X.lineTo(w,h);X.fill()});
+ bokeh(w,h,14,3,['#ff7ad0','#7a9aff','#ffd27a']);X.restore()}
+// khung 1: nhân vật
+X.fillStyle='#0e0a24';X.fillRect(0,0,1800,1250);
+bg(0,0,900,640,'pass');
+body(180,620,1.05,KHOA);body(450,620,1.05,SAU);body(720,620,1.05,HANH);
+glow(720,370,140,'rgba(140,200,255,A)',0.35);
+X.fillStyle='#fff';X.font='bold 26px sans-serif';X.textAlign='center';
+for(const [t,xx] of [['Khoa',180],['ông Sáu',450],['Hạnh (ma)',720]]){X.fillText(t,xx,636)}
+// khung 2: cabin đêm
+(()=>{const x0=920,y0=0,w=880,h=640;X.save();X.beginPath();X.rect(x0,y0,w,h);X.clip();X.translate(x0,y0);
+ X.fillStyle=grad(0,0,0,h,[[0,'#20106a'],[1,'#3a1a80']]);X.fillRect(0,0,w,h);
+ // cửa sổ có thành phố/ánh đèn trượt
+ X.fillStyle='#120a40';rr(60,50,760,300,16);X.fill();X.fillStyle=grad(0,50,0,350,[[0,'#1a0e5a'],[1,'#7a2a9a']]);rr(76,66,728,268,10);X.fill();
+ for(let i=0;i<30;i++){X.fillStyle=['#ffd27a','#ff7ad0','#7ad0ff'][i%3];X.globalAlpha=0.75;rr(90+i*24,200+((i*53)%90),10+(i%4)*6,3,2);X.fill()}X.globalAlpha=1;
+ for(let k=0;k<4;k++){X.fillStyle='#120a40';X.fillRect(76+k*182,66,6,268)}
+ // táp lô và vô lăng
+ X.fillStyle='#2a1a5a';rr(0,480,w,160,0);X.fill();glow(260,470,200,'rgba(120,255,200,A)',0.35);
+ X.strokeStyle='#14102a';X.lineWidth=14;X.beginPath();X.ellipse(280,520,70,54,0.2,0,7);X.stroke();
+ // người trong cabin (nửa thân)
+ X.save();X.translate(280,520);X.scale(0.78,0.78);X.translate(0,-120);X.restore();
+ body(250,720,1.05,KHOA);body(600,720,1.05,HANH);
+ glow(600,300,170,'rgba(140,200,255,A)',0.3);
+ X.fillStyle='#fff';X.font='bold 24px sans-serif';X.textAlign='center';X.fillText('Trong cabin đêm',w/2,34);
+ X.restore()})();
+// khung 3: ngoài đèo + xe tải
+bg(0,660,1800,590,'pass');
+X.fillStyle='#2a1a50';X.fillRect(0,1000,1800,250);X.fillStyle='#463a7a';X.fillRect(0,1000,1800,10);
+for(let i=0;i<14;i++){X.fillStyle='#c8c0e8';X.fillRect(i*140+30,1100,70,8)}
+// lan can
+X.fillStyle='#8a86c8';X.fillRect(0,1000,1800,6);for(let i=0;i<24;i++)X.fillRect(i*78,1000,6,40);
+// xe tải vector
+function truck(x,y,s){X.save();X.translate(x,y);X.scale(s,s);X.fillStyle='#e8e4f4';rr(-300,-190,260,170,14);X.fill();X.fillStyle='#c8c4e0';rr(-300,-190,60,170,14);X.fill();
+ X.fillStyle='#d8344a';rr(-30,-150,150,130,18);X.fill();X.fillStyle='#a8203a';rr(60,-150,60,130,18);X.fill();X.fillStyle='#8ad0ff';rr(70,-132,40,46,8);X.fill();X.fillStyle='rgba(255,255,255,.4)';X.beginPath();X.moveTo(76,-130);X.lineTo(92,-130);X.lineTo(80,-88);X.lineTo(76,-88);X.fill();
+ X.fillStyle='#14102a';for(const wx of[-230,-90,70]){X.beginPath();X.arc(wx,-14,26,0,7);X.fill();X.fillStyle='#8a86c8';X.beginPath();X.arc(wx,-14,10,0,7);X.fill();X.fillStyle='#14102a'}
+ X.fillStyle='#fff7d0';X.beginPath();X.ellipse(122,-60,10,14,0,0,7);X.fill();X.restore()}
+truck(980,1080,1.1);
+{const g=X.createLinearGradient(1100,1020,1700,1060);g.addColorStop(0,'rgba(255,240,190,.65)');g.addColorStop(1,'rgba(255,240,190,0)');X.fillStyle=g;X.beginPath();X.moveTo(1100,1010);X.lineTo(1700,950);X.lineTo(1700,1130);X.lineTo(1100,1040);X.fill()}
+// ma đứng ven đường
+body(1500,1235,0.62,HANH);glow(1500,1090,110,'rgba(140,200,255,A)',0.3);
+X.fillStyle='#fff';X.font='bold 26px sans-serif';X.textAlign='left';X.fillText('Đèo đêm: tím neon, vector phẳng, không viền đen, ánh sáng viền',30,700);
+window.READY=true;
+</script>
