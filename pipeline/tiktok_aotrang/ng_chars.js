@@ -511,7 +511,7 @@ function ghostDread(T,o={}){const R0=58,open=o.open??0.6;
 function shoe(sd,x,y,col,w=1){ctx.save();ctx.translate(x,y);ctx.scale(sd*w,w);ctx.fillStyle=col||'#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-14,-6);ctx.quadraticCurveTo(-16,6,-6,7);ctx.lineTo(16,7);ctx.quadraticCurveTo(24,6,22,-1);ctx.quadraticCurveTo(14,-9,-2,-9);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='rgba(255,255,255,.18)';ctx.beginPath();ctx.ellipse(6,-4,8,2.5,0,0,7);ctx.fill();ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-14,4);ctx.lineTo(20,4);ctx.stroke();ctx.restore()}
 // ===== Áo Trắng Qua Hang =====
 // Linh: 26 tuổi, thợ ảnh dưới xuôi, tóc đen dài buộc thấp; o.white = váy trắng; o.camera ôm máy ảnh
-function linh(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.camera){arm[0]=-0.75;arm[1]=0.75}if(o.cover)arm[1]=-2.9;if(o.torch)arm[1]=-1.4;
+function linh(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.camera){arm[0]=-0.75;arm[1]=0.75}if(o.cover)arm[1]=-2.9;if(o.torch)arm[1]=-1.4;if(o.flash||o.lighter)arm[1]=-1.25;
  const w=!!o.white;woman(x,y,s,Object.assign({shirt:w?'#f2f0ea':'#5a7088',pants:w?'#f2f0ea':'#2e3a52',skin:o.sick?'#d8ccc0':'#ecc8a6',smile:false,dress:w},o,{arm}));
  ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){if(!w){ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,-220);ctx.lineTo(0,-112);ctx.stroke();ctx.fillStyle='#e8e4dc';ctx.beginPath();ctx.moveTo(-14,-222);ctx.lineTo(0,-204);ctx.lineTo(14,-222);ctx.closePath();ctx.fill()}
@@ -519,6 +519,8 @@ function linh(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]
   if(o.sick){ctx.fillStyle='rgba(60,60,80,.28)';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*20,-262,17,11,0,0,7);ctx.fill()}}}
  if(o.camera){ctx.fillStyle='#1c1c20';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(-34,-178,68,44,8);ctx.fill();ctx.stroke();circ(0,-156,16,'#3a3e48',INK,3);circ(0,-156,8,'#6a8ab0');ctx.fillStyle='#c8c8c8';ctx.fillRect(18,-186,10,8)}
  for(const sd of [-1,1]){shoe(sd,sd*20,4,w?'#c8c0b0':'#3a3a3a')}
+ if(o.flash){const [hx,hy]=HPW(1,-1.25);ctx.fillStyle='#2a2a2e';ctx.fillRect(hx-6,hy-34,12,36);if(o.flash>0.5){const g=ctx.createLinearGradient(hx,hy-34,hx+120,hy-160);g.addColorStop(0,'rgba(255,240,190,.35)');g.addColorStop(1,'rgba(255,240,190,0)');ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(hx-6,hy-34);ctx.quadraticCurveTo(hx+20,hy-260,hx+120,hy-260);ctx.quadraticCurveTo(hx+230,hy-160,hx+6,hy-34);ctx.fill()}}
+ if(o.lighter){const [hx,hy]=HPW(1,-1.25);const fl=o.flame??1;ctx.fillStyle='#c83a2a';ctx.fillRect(hx-6,hy-20,12,22);if(fl>0.02){halo(hx,hy-34,40*fl+6,'255,170,70',0.7);ctx.fillStyle='#ffb040';ctx.beginPath();ctx.ellipse(hx,hy-30-6*fl,3+4*fl,4+12*fl,0,0,7);ctx.fill()}}
  if(o.torch){const [hx,hy]=HPW(1,-1.4);const fl=o.flame??1;ctx.fillStyle='#6a4a2a';ctx.fillRect(hx-5,hy-60,10,64);halo(hx,hy-74,70*fl+10,'255,160,60',0.6);ctx.fillStyle='#ffb040';ctx.beginPath();ctx.ellipse(hx,hy-70-10*fl,5+8*fl,6+18*fl+4*Math.sin(T*12),0,0,7);ctx.fill()}
  ctx.restore()}
 // bà Pía: cụ bà người Mường, áo cánh chàm thẫm, váy đen có cạp hoa văn đỏ-vàng, khăn đội đầu màu chàm, tóc bạc búi
