@@ -1,0 +1,60 @@
+<!doctype html><meta charset=utf-8><body style="margin:0"><canvas id=c width=1800 height=1250></canvas><script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');const INK='#14110f';
+function seg(x0,y0,x1,y1,w0,w1,col,dark){const a=Math.atan2(y1-y0,x1-x0)+Math.PI/2;const dx0=Math.cos(a)*w0/2,dy0=Math.sin(a)*w0/2,dx1=Math.cos(a)*w1/2,dy1=Math.sin(a)*w1/2;
+ const g=ctx.createLinearGradient(x0+dx0,y0+dy0,x0-dx0,y0-dy0);g.addColorStop(0,col);g.addColorStop(1,dark);ctx.fillStyle=g;ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x0+dx0,y0+dy0);ctx.lineTo(x1+dx1,y1+dy1);ctx.arc(x1,y1,w1/2,a,a+Math.PI,true);ctx.lineTo(x0-dx0,y0-dy0);ctx.arc(x0,y0,w0/2,a+Math.PI,a+Math.PI*2,true);ctx.closePath();ctx.fill();ctx.stroke()}
+const sh=c=>{let n=parseInt(c.slice(1),16);let r=(n>>16)*0.6,g=((n>>8)&255)*0.6,b=(n&255)*0.6;return `rgb(${r|0},${g|0},${b|0})`};
+function limb2(sx,sy,a1,a2,l1,l2,w,col,hand){const ex=sx+Math.sin(a1)*l1,ey=sy+Math.cos(a1)*l1;const hx=ex+Math.sin(a2)*l2,hy=ey+Math.cos(a2)*l2;seg(sx,sy,ex,ey,w,w*0.85,col,sh(col));seg(ex,ey,hx,hy,w*0.85,w*0.65,col,sh(col));return[hx,hy]}
+function human(x,y,s,sp,P){P=P||{};ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.lineJoin='round';ctx.lineCap='round';
+ const H=420,hipY=-200,shY=-330,sw=P.sw||0,lean=P.lean||0;
+ // legs (thigh 100, shin 100)
+ const L=[[ -22,(P.l1||[0,0])],[22,(P.l2||[0,0])]];
+ for(const [dx,a] of L){const [hx,hy]=limb2(dx,hipY,a[0],a[1],100,98,32,sp.pants);ctx.fillStyle='#17130f';ctx.strokeStyle=INK;ctx.beginPath();ctx.ellipse(hx+6,hy+4,24,11,0,0,7);ctx.fill();ctx.stroke()}
+ // back arm
+ const A1=P.a1||[0.12,0.05],A2=P.a2||[-0.12,-0.05];
+ limb2(-46,shY+14,A1[0],A1[1],78,72,24,sp.sleeve||sp.cloth,0);
+ // torso
+ ctx.save();ctx.translate(lean*40,0);
+ const g=ctx.createLinearGradient(-50,0,50,0);g.addColorStop(0,sp.cloth);g.addColorStop(1,sh(sp.cloth));ctx.fillStyle=g;ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-48,shY);ctx.quadraticCurveTo(0,shY-14,48,shY);ctx.lineTo(40,hipY+10);ctx.quadraticCurveTo(0,hipY+22,-40,hipY+10);ctx.closePath();ctx.fill();ctx.stroke();
+ if(sp.zip){ctx.strokeStyle='rgba(0,0,0,.4)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,shY+8);ctx.lineTo(0,hipY+16);ctx.stroke()}
+ if(sp.apron){ctx.fillStyle='#5a4128';ctx.beginPath();ctx.moveTo(-30,shY+70);ctx.lineTo(30,shY+70);ctx.lineTo(36,hipY+60);ctx.lineTo(-36,hipY+60);ctx.closePath();ctx.fill();ctx.stroke()}
+ // front arm
+ limb2(46,shY+14,A2[0],A2[1],78,72,24,sp.sleeve||sp.cloth,0);
+ // neck+head
+ const hy=shY-52;ctx.fillStyle=sp.skin;ctx.strokeStyle=INK;ctx.fillRect(-11,shY-26,22,28);
+ if(sp.hairBack){ctx.fillStyle=sp.hair;ctx.beginPath();ctx.ellipse(0,hy+20,36,66,0,0,7);ctx.fill();ctx.stroke()}
+ const hg=ctx.createLinearGradient(-30,0,30,0);hg.addColorStop(0,sp.skin);hg.addColorStop(1,sh(sp.skin));ctx.fillStyle=hg;ctx.lineWidth=2.5;ctx.beginPath();ctx.ellipse(0,hy,29,37,0,0,7);ctx.fill();ctx.stroke();
+ // ears
+ for(const k of[-1,1]){ctx.fillStyle=sp.skin;ctx.beginPath();ctx.ellipse(k*29,hy+4,5,9,0,0,7);ctx.fill();ctx.stroke()}
+ // face
+ const ey=hy-2;
+ for(const k of[-1,1]){
+  if(sp.ghost){ctx.fillStyle='#050507';ctx.beginPath();ctx.ellipse(k*12,ey,8,11,0,0,7);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(k*12+1,ey-2,1.6,0,7);ctx.fill()}
+  else{ctx.fillStyle='#efe9dc';ctx.strokeStyle=INK;ctx.lineWidth=1.8;ctx.beginPath();ctx.ellipse(k*12,ey,8.5,5,0,0,7);ctx.fill();ctx.stroke();ctx.fillStyle='#2a1c12';ctx.beginPath();ctx.arc(k*12+1,ey,3.8,0,7);ctx.fill();ctx.fillStyle='#000';ctx.beginPath();ctx.arc(k*12+1,ey,1.8,0,7);ctx.fill()
+   ctx.strokeStyle=sp.brow||'#1a1410';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(k*12-9,ey-10+(k<0?(sp.angry?-3:0):0));ctx.lineTo(k*12+9,ey-11+(k>0?(sp.angry?-3:0):0));ctx.stroke()}}
+ ctx.strokeStyle='rgba(40,25,15,.55)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,ey+4);ctx.lineTo(-3,ey+16);ctx.lineTo(3,ey+17);ctx.stroke();
+ if(sp.ghost){ctx.fillStyle='#14070a';ctx.beginPath();ctx.ellipse(0,hy+24,6,9,0,0,7);ctx.fill()}else{ctx.strokeStyle='#7a3a30';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-8,hy+24);ctx.quadraticCurveTo(0,hy+(P.smile?29:25),8,hy+24);ctx.stroke()}
+ if(sp.mustache){ctx.fillStyle='#e4e0d6';ctx.strokeStyle=INK;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,hy+14);ctx.quadraticCurveTo(-18,hy+12,-20,hy+24);ctx.quadraticCurveTo(-8,hy+20,0,hy+20);ctx.quadraticCurveTo(8,hy+20,20,hy+24);ctx.quadraticCurveTo(18,hy+12,0,hy+14);ctx.fill();ctx.stroke()}
+ if(sp.wrinkle){ctx.strokeStyle='rgba(60,40,30,.5)';ctx.lineWidth=1.5;for(const k of[-1,1]){ctx.beginPath();ctx.moveTo(k*10,hy-26);ctx.lineTo(k*24,hy-24);ctx.moveTo(k*14,hy+8);ctx.lineTo(k*10,hy+18);ctx.stroke()}}
+ // hair
+ ctx.fillStyle=sp.hair;ctx.strokeStyle=INK;ctx.lineWidth=2.5;
+ if(sp.cap){ctx.fillStyle=sp.cap;ctx.beginPath();ctx.ellipse(0,hy-14,32,22,0,Math.PI,0);ctx.closePath();ctx.fill();ctx.stroke();ctx.beginPath();ctx.ellipse(18,hy-14,26,6,0.1,0,7);ctx.fill();ctx.stroke();ctx.fillStyle=sp.hair;ctx.beginPath();ctx.moveTo(-30,hy-12);ctx.lineTo(-33,hy+6);ctx.lineTo(-27,hy-2);ctx.fill()}
+ else if(sp.hairTop){ctx.beginPath();ctx.ellipse(0,hy-18,31,22,0,Math.PI,0);ctx.lineTo(24,hy-8);ctx.quadraticCurveTo(0,hy-22,-24,hy-8);ctx.closePath();ctx.fill();ctx.stroke()}
+ if(sp.hairBack){ctx.beginPath();ctx.moveTo(-31,hy+6);ctx.quadraticCurveTo(-34,hy-44,0,hy-40);ctx.quadraticCurveTo(34,hy-44,31,hy+6);ctx.quadraticCurveTo(26,hy-20,0,hy-24);ctx.quadraticCurveTo(-26,hy-20,-31,hy+6);ctx.fill();ctx.stroke()}
+ ctx.restore();ctx.restore()}
+const K={skin:'#d7ac84',hair:'#15110e',cap:'#2f4f44',cloth:'#4b5f7a',pants:'#2a2b33',zip:1};
+const S={skin:'#c99a72',hair:'#d8d5cb',hairTop:true,mustache:true,wrinkle:true,angry:true,cloth:'#68735a',pants:'#3a382f',apron:true};
+const G={skin:'#c6cdc6',hair:'#0a0a0c',hairBack:true,ghost:true,cloth:'#2d68a8',pants:'#27344a'};
+ctx.fillStyle='#1b2230';ctx.fillRect(0,0,1800,1250);ctx.fillStyle='#e8e2d0';ctx.font='bold 28px sans-serif';ctx.textAlign='center';
+ctx.fillText('F · Người thật, tỉ lệ 7 đầu, khớp tay chân cử động tự nhiên',900,44);
+human(260,720,1.35,K,{});human(560,720,1.35,S,{a1:[0.05,-0.1],a2:[-0.2,-0.9]});human(860,720,1.35,G,{});
+ctx.font='22px sans-serif';ctx.fillStyle='#aab';ctx.fillText('Khoa',260,775);ctx.fillText('ông Sáu',560,775);ctx.fillText('Hạnh (ma)',860,775);
+// walk cycle strip
+ctx.fillStyle='#e8e2d0';ctx.font='bold 24px sans-serif';ctx.fillText('Khoa bước đi (4 khung)',1450,110);
+const W=[{l1:[0.5,0.15],l2:[-0.45,-0.7],a1:[-0.5,-0.3],a2:[0.5,0.3]},{l1:[0.15,0.0],l2:[-0.15,-0.35],a1:[-0.15,-0.05],a2:[0.15,0.1]},{l1:[-0.45,-0.7],l2:[0.5,0.15],a1:[0.5,0.3],a2:[-0.5,-0.3]},{l1:[-0.15,-0.35],l2:[0.15,0],a1:[0.15,0.1],a2:[-0.15,-0.05]}];
+W.forEach((p,i)=>human(1180+i*160,560,0.62,K,{l1:p.l1,l2:p.l2,a1:p.a1,a2:p.a2,lean:0.15}));
+ctx.fillStyle='#e8e2d0';ctx.fillText('Hạnh cận mặt',1450,640);
+ctx.save();ctx.beginPath();ctx.rect(1180,660,540,540);ctx.clip();ctx.fillStyle='#0c1018';ctx.fillRect(1180,660,540,540);ctx.restore();
+ctx.save();ctx.beginPath();ctx.rect(1180,660,540,540);ctx.clip();human(1450,660+250+330*4.1-8,4.1,G,{});ctx.restore();
+ctx.fillStyle='#e8e2d0';ctx.font='24px sans-serif';ctx.fillText('Khoa thảng thốt · ông Sáu chỉ tay',560,900);
+window.READY=true;
+</script>
