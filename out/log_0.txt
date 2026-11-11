@@ -1527,3 +1527,4 @@ loaded V3TurboVieNeuTTS
 99_dc_os Thái Sơn 0 ok 9.5
 99_dc_os Thái Sơn 4 ok 4.9
 99_dc_os asr ok
+loaded V3TurboVieNeuTTS
