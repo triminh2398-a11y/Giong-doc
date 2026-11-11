@@ -57,18 +57,9 @@ for i, (sh, sp, tx) in enumerate(S):
         if sh == 'title': clips.append(np.zeros(int(SR * 3.2))); continue
         c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.3, extra=0.06)
     else:
-        job = {'LANG': '99_at2_lang', 'GM': '99_at2_gm'}[sp]
-        J2 = json.load(open(G + f'jobs/{job}.json')); base = G + f'out/{job}/'
-        cands = []
-        for vd in [d for d in os.listdir(base) if os.path.isdir(base + d)]:
-            for k, line in enumerate(J2['lines']):
-                if line != tx: continue
-                f = base + vd + f'/{k:02d}'
-                if not os.path.exists(f + '.wav'): continue
-                got = open(f + '.txt').read() if os.path.exists(f + '.txt') else ''
-                cands.append((difflib.SequenceMatcher(None, norm(clean(tx)), norm(got)).ratio(), f))
-        r, f = max(cands); info.append((os.path.basename(os.path.dirname(f)), round(r, 2)))
-        c = P.stretch_pauses(P.trim(P.load(f + '.wav')), factor=1.2, extra=0.05)
+        fs = sorted(D + 'el/' + f for f in os.listdir(D + 'el') if f.startswith(f'at_{sh}_'))
+        X = [(expr(P.trim(loadmp3(f))), f) for f in fs]; ex, f = max(X); info.append(os.path.basename(f))
+        c = P.trim(loadmp3(f))
         if sp == 'GM': c = ghost(ff(c, f'asetrate={int(SR*0.94)},aresample={SR},atempo=0.92'), 'ghost')
     clips.append(c)
 # cân âm lượng thoại theo người kể
