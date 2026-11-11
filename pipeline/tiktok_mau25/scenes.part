@@ -54,7 +54,7 @@ function motionPre(kk,c,t){if(STILL[kk]){c.userData.o0=c.userData.o;return}const
  c.userData.o0=c.userData.o;c.userData.o=o}
 function motionPost(kk,c,t){const h=HSH(kk);const o=c.userData.o||{};
  if(o.crawl){c.rotateZ(1.3);}
- if(GHOST[kk]){const g=GLITCH(t,h);c.position.y+=0.03*Math.sin(t*1.2+h*6);c.rotateZ(0.04*Math.sin(t*0.5+h*3)+g*0.12);c.position.x+=g*0.05;c.material.opacity=0.92+0.08*Math.sin(t*23+h)*(g?1:0.3)}
+ if(GHOST[kk]){const g=GLITCH(t,h);c.position.y+=0.03*Math.sin(t*1.2+h*6);c.rotateZ(0.04*Math.sin(t*0.5+h*3)+g*0.12);c.position.x+=g*0.05;c.material.opacity=0.7+0.06*Math.sin(t*23+h)*(g?1:0.3)}
  else{const br=0.012*Math.sin(t*2.2+h*9);c.position.x+=0.012*Math.sin(t*0.7+h*5);c.scale.set(1,1+br,1);c.position.y+=0.98*br;c.rotateZ(0.012*Math.sin(t*0.9+h*4));
   if(o.walk!==undefined){const b=Math.abs(Math.sin(o.walk));c.position.y+=0.035*b;c.scale.y*=1-0.015*b;c.rotateZ(0.025*Math.sin(o.walk))}
   if(speaking(kk))c.rotateZ(0.025*Math.sin(t*4.2+h)*Math.max(0,Math.sin(t*1.3+h)));
@@ -73,13 +73,13 @@ window.draw=function(t){NOW=t;const sc=TLD.scenes.find(s=>t>=s[1]&&t<s[2])||TLD.
  let JF=-1;for(const [jk,jf,jz,hard] of JUMPS.concat(SOFT)){const sc2=TLD.scenes.find(q=>q[0]===jk);if(!sc2)continue;const tj=sc2[1]+(sc2[2]-sc2[1])*jf,dt=t-tj;if(dt<0||dt>1.4)continue;const z=dt<0.1?dt/0.1*jz:jz*Math.max(0,1-(dt-0.1)/1.3);const tv=new THREE.Vector3(...CT);cam.position.lerp(tv,z);if(hard&&dt<0.5){const a2=0.05*(1-dt/0.5);cam.position.x+=(R(t*977)-0.5)*a2*2;cam.position.y+=(R(t*631)-0.5)*a2*2}cam.lookAt(tv);if(hard)JF=dt}
  for(const kk in CC[mode]){const c=CC[mode][kk];if(!c.visible){c.scale.set(1,1,1);continue}motionPre(kk,c,t);c.userData.paint(t);c.scale.set(1,1,1);c.lookAt(cam.position.x,c.position.y,cam.position.z);motionPost(kk,c,t)}
  renderer.render(SCN[mode],cam);renderer.domElement.style.filter=CCTV?"grayscale(1) contrast(1.35) brightness(1.2)":"";
- const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.55)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH);
+ const vg=g2.createRadialGradient(RW/2,RH/2,RH*0.25,RW/2,RH/2,RH*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.2)');g2.fillStyle=vg;g2.fillRect(0,0,RW,RH);
  if(RAIN)rain(RAIN);
  if(FLASH){g2.fillStyle=`rgba(220,230,255,${FLASH})`;g2.fillRect(0,0,RW,RH)}
  if(RED){g2.fillStyle=`rgba(140,0,0,${RED})`;g2.fillRect(0,0,RW,RH)}
  if(JF>=0&&JF<0.3){if(JF<0.06){g2.fillStyle='rgba(255,255,255,.55)';g2.fillRect(0,0,RW,RH)}else{g2.fillStyle=`rgba(160,0,0,${0.35*(1-JF/0.3)})`;g2.fillRect(0,0,RW,RH)}}
  if(BLACK){g2.fillStyle=`rgba(0,0,0,${BLACK})`;g2.fillRect(0,0,RW,RH)}
- grain(CCTV?0.14:0.06);if(CCTV)cctvOv(t);
+ if(CCTV)cctvOv(t);
  if(TITLE)titleTxt(lt,sm(seg(lt,0.1,0.6)));
  if(ctaFlag)ctaTxt(sm(seg(lt,0.1,0.6)));
  const d=Math.min(t-a,b-t);if(d<0.08&&a>0){g2.fillStyle=`rgba(0,0,0,${1-d/0.08})`;g2.fillRect(0,0,RW,RH)}

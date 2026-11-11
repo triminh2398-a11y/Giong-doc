@@ -27,8 +27,8 @@ function fhead(x,y,s,T,o={}){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.ro
  ctx.restore()}
 function woman(cx,fy,s,o={}){ctx.save();ctx.translate(cx,fy);ctx.scale(s,s);ctx.lineJoin='round';ctx.lineCap='round';
  const top=-232,R=56,hy=top-46,t=o.t||0;o.skin=o.skin||'#d2d1c6';const shirt=o.shirt||'#d9d4c6',pants=o.pants||'#1c1c20';
- if(o.back){ctx.save();ctx.translate(0,hy);circ(0,0,R,HAIR,INK,4);ctx.fillStyle=HAIR;ctx.fillRect(-R+4,0,2*R-8,200);ctx.restore()}
- if(!o.headless&&!o.old&&!o.back){ctx.fillStyle=HAIR;ctx.beginPath();ctx.moveTo(-R+2,hy);ctx.quadraticCurveTo(-R-18,hy+110,-48+Math.sin(t*1.3)*4,hy+210);ctx.lineTo(48+Math.sin(t*1.3+1)*4,hy+210);ctx.quadraticCurveTo(R+18,hy+110,R-2,hy);ctx.fill()}
+ if(o.back){ctx.save();ctx.translate(0,hy);circ(0,0,R,o.hairC||HAIR,INK,4);ctx.fillStyle=o.hairC||HAIR;ctx.fillRect(-R+4,0,2*R-8,200);ctx.restore()}
+ if(!o.headless&&!o.old&&!o.back){ctx.fillStyle=o.hairC||HAIR;ctx.beginPath();ctx.moveTo(-R+2,hy);ctx.quadraticCurveTo(-R-18,hy+110,-48+Math.sin(t*1.3)*4,hy+210);ctx.lineTo(48+Math.sin(t*1.3+1)*4,hy+210);ctx.quadraticCurveTo(R+18,hy+110,R-2,hy);ctx.fill()}
  if(o.sit){poly([[-46,-112],[46,-112],[60,-60],[-40,-60]],pants,INK,4)}
  else poly([[-44,-112],[44,-112],[46,0],[-46,0]],pants,INK,4);
  if(o.dress)poly([[-38,top+10],[38,top+10],[56,-40],[-56,-40]],shirt,INK,4);else poly([[-40,top+10],[40,top+10],[48,-108],[-48,-108]],shirt,INK,4);
@@ -37,7 +37,7 @@ function woman(cx,fy,s,o={}){ctx.save();ctx.translate(cx,fy);ctx.scale(s,s);ctx.
  else{ctx.fillStyle=SKIN;ctx.fillRect(-10,top-6,20,18);
   ctx.save();ctx.translate(0,hy);ctx.rotate(o.tilt||0);circ(0,0,R,o.skin||'#e8e4da',INK,4);
   if(o.old){ctx.fillStyle='#8f8e8a';ctx.beginPath();ctx.arc(0,0,R+2,Math.PI*1.02,Math.PI*1.98);ctx.quadraticCurveTo(0,-30,-R,-6);ctx.fill();circ(0,-R-10,20,'#8f8e8a',INK,3)}
-  else{ctx.fillStyle=HAIR;ctx.beginPath();ctx.arc(0,0,R+3,Math.PI*0.96,Math.PI*2.04);ctx.quadraticCurveTo(28,-24,4,-14);ctx.quadraticCurveTo(-28,-28,-R-2,6);ctx.fill()}
+  else{ctx.fillStyle=o.hairC||HAIR;ctx.beginPath();ctx.arc(0,0,R+3,Math.PI*0.96,Math.PI*2.04);ctx.quadraticCurveTo(28,-24,4,-14);ctx.quadraticCurveTo(-28,-28,-R-2,6);ctx.fill()}
   const eo=o.eyes??1;for(const sd of [-1,1]){ctx.fillStyle='rgba(30,25,35,.22)';ctx.beginPath();ctx.ellipse(sd*20,9,17,14,0,0,7);ctx.fill()}
   if(o.creepy){for(const sd of [-1,1]){ctx.fillStyle='#050505';ctx.beginPath();ctx.ellipse(sd*20,6,14,15*(eo>0.15?1:0.15),0,0,7);ctx.fill();if(eo>0.15){circ(sd*20+(o.look||0)*4,6,2.6,'#e8e4d8');halo(sd*20,6,30,'120,255,160',0.15)}}
    ctx.fillStyle='#1a0808';ctx.beginPath();ctx.moveTo(-24,24);ctx.quadraticCurveTo(0,30+(o.grin||0)*16,24,24);ctx.quadraticCurveTo(0,34+(o.grin||0)*30,-24,24);ctx.fill();if(o.grin){ctx.fillStyle='#d8d4c4';for(let k=-3;k<=3;k++)ctx.fillRect(k*6-2,27+o.grin*2,4,5+o.grin*4)}

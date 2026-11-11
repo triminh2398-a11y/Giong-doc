@@ -161,7 +161,7 @@ function man(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined])
  woman(x,y,s,Object.assign({shirt:'#7a5236',pants:'#1c1c24',skin:'#e6c4a0',smile:false},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){for(let k=0;k<4;k++)circ(0,-200+k*22,3,'#e8dcc8')}
  if(o.carry){const T2=T;na(36,-96,1.0,{sit:true,sick:o.carrySick,eyes:o.carryEyes??0.6,look:-1,T:T2,arm:[0.4,undefined]});ctx.save();ctx.translate(38,-210);ctx.rotate(0.62);ctx.strokeStyle=INK;ctx.lineWidth=22;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,90);ctx.stroke();ctx.strokeStyle='#7a5236';ctx.lineWidth=15;ctx.stroke();ctx.restore();const hx=38-92*Math.sin(0.62),hy=-210+92*Math.cos(0.62);circ(hx,hy,9,'#e6c4a0',INK,3)}
- if(!o.sit&&o.walk===undefined){for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4,17,7,0,0,7);ctx.fill();ctx.stroke()}}
+ if(!o.sit&&o.walk===undefined){for(const sd of [-1,1]){shoe(sd,sd*22,4,'#2a2018')}}
  if(o.sit){for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*25+4,2,17,7,0,0,7);ctx.fill();ctx.stroke()}}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
  if(o.earring){for(const sd of [-1,1])circ(sd*56,-262,6,'#e8c040',INK,2)}
@@ -202,7 +202,7 @@ function hanh(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]
  const skin=o.pale?'#d8d0c0':'#ecd0b2';
  woman(x,y,s,Object.assign({shirt:HANH_SHIRT,pants:'#18181e',skin,smile:false},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){babaDeco();ctx.fillStyle=HAIR;ctx.beginPath();ctx.moveTo(-50,-300);ctx.quadraticCurveTo(0,-318,50,-300);ctx.lineTo(48,-288);ctx.quadraticCurveTo(0,-300,-48,-288);ctx.closePath();ctx.fill()}
- if(!o.sit){for(const sd of [-1,1]){const lift=o.walk!==undefined?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4-lift,17,7,0,0,7);ctx.fill();ctx.stroke()}}
+ if(!o.sit){for(const sd of [-1,1]){const lift=o.walk!==undefined?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;shoe(sd,sd*22,4,'#2a2018')}}
  else{for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*25+4,2,17,7,0,0,7);ctx.fill();ctx.stroke()}}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
  if(o.lamp){const [hx,hy]=HPW(1,-0.55);lamp(hx+4,hy+46,0.9,T);circ(hx,hy,8,skin,INK,3)}
@@ -218,7 +218,7 @@ function baChin(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefine
   ctx.strokeStyle='rgba(80,50,30,.55)';ctx.lineWidth=2;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*36,hy+20);ctx.quadraticCurveTo(sd*40,hy+32,sd*34,hy+42);ctx.stroke();ctx.beginPath();ctx.moveTo(sd*30,hy+2);ctx.lineTo(sd*42,hy-2);ctx.stroke()}
   ctx.beginPath();ctx.moveTo(-18,hy-30);ctx.quadraticCurveTo(0,hy-34,18,hy-30);ctx.stroke();
   ctx.fillStyle='#8a1a1e';ctx.fillRect(-9,hy+30,18,5);babaDeco(0,'#9a9690')}
- for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4,16,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*22,4,'#2a2018')}
  {const [hx,hy2]=HPW(-1,arm[0]);ctx.strokeStyle='#8a7a3a';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(hx,hy2-20);ctx.lineTo(hx-18,4);ctx.stroke();ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.stroke();circ(hx,hy2,8,'#d6b896',INK,3)}
  ctx.restore()}
 // BÙ NHÌN: cọc tre chữ thập, áo bà ba căng trên đòn ngang, rơm lòi cổ/tay, đầu bao bố khâu chỉ, nón lá rách
@@ -282,7 +282,7 @@ function lien(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]
  const skin=o.pale?'#dcd2c2':'#e8c8a4';
  woman(x,y,s,Object.assign({shirt:'#8a6420',pants:'#18181e',skin,smile:false},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){babaDeco();ctx.fillStyle=HAIR;ctx.beginPath();ctx.moveTo(-56,-284);ctx.quadraticCurveTo(-30,-344,40,-326);ctx.quadraticCurveTo(-4,-318,-30,-282);ctx.closePath();ctx.fill();circ(44,-300,5,'#c83a3a')}
- if(!o.sit){for(const sd of [-1,1]){const lift=o.walk!==undefined?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4-lift,17,7,0,0,7);ctx.fill();ctx.stroke()}}
+ if(!o.sit){for(const sd of [-1,1]){const lift=o.walk!==undefined?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;shoe(sd,sd*22,4,'#2a2018')}}
  else{for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*25+4,2,17,7,0,0,7);ctx.fill();ctx.stroke()}}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
  if(o.lamp){const [hx,hy]=HPW(1,-0.55);lamp(hx+4,hy+46,0.9,T);circ(hx,hy,8,skin,INK,3)}
@@ -298,7 +298,7 @@ function baBay(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined
   ctx.fillStyle='#8a1a1e';ctx.beginPath();ctx.ellipse(0,hy+33,8,4+(Math.sin(T*5)>0?2:0),0,0,7);ctx.fill();
   ctx.fillStyle='rgba(210,110,100,.3)';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*34,hy+24,10,6,0,0,7);ctx.fill()}babaDeco(0,'#c8b8a0')}
  ctx.fillStyle='#6a3a34';ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-52,-200);ctx.quadraticCurveTo(-64,-150,-52,-108);ctx.lineTo(-44,-108);ctx.lineTo(-42,-200);ctx.fill();ctx.beginPath();ctx.moveTo(52,-200);ctx.quadraticCurveTo(64,-150,52,-108);ctx.lineTo(44,-108);ctx.lineTo(42,-200);ctx.fill();
- for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4,17,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*22,4,'#2a2018')}
  ctx.restore()}
 // ông Tư: hốc hác, tóc muối tiêu rối, râu lởm chởm bạc, quầng mắt thâm, áo bà ba đen bạc màu. o.shake run rẩy; o.kneel; o.dead gục, miệng đầy gạo
 function ongTu(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]).slice();if(o.beg)armA=[-0.55,0.55];
@@ -329,7 +329,7 @@ function baSau(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.97;halo(x,fy-280
  if(o.chew!==false){ctx.fillStyle='#e8e2d0';for(let k=0;k<6;k++){ctx.beginPath();ctx.ellipse(-14+k*6,48+R0(k)*10+((T*30+k*7)%20),2.4,1.4,0,0,7);ctx.fill()}}
  ctx.restore();
  if(o.ladle){const [hx,hy]=HPW(1,arm[1]);ctx.save();ctx.translate(hx,hy);ctx.rotate(arm[1]+0.6);ctx.fillStyle='#8a6a3a';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.fillRect(-4,-8,8,60);ctx.strokeRect(-4,-8,8,60);ctx.beginPath();ctx.ellipse(0,62,14,18,0,0,7);ctx.fill();ctx.stroke();ctx.restore();circ(hx,hy,8,'#b8bcae',INK,3)}
- for(const sd of [-1,1]){ctx.fillStyle='#9aa094';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4,15,6,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*22,4,'#9aa094')}
  ctx.restore()}
 
 // ===== NGƯỜI CHỦ CŨ (bản hiện đại) =====
@@ -340,7 +340,7 @@ function vy(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).
  if(!o.back){ctx.fillStyle='#f2efe8';ctx.beginPath();ctx.moveTo(-16,-222);ctx.lineTo(16,-222);ctx.lineTo(12,-112);ctx.lineTo(-12,-112);ctx.closePath();ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.stroke();
   ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=2;for(let k=0;k<6;k++){ctx.beginPath();ctx.moveTo(-40,-200+k*16);ctx.lineTo(-18,-200+k*16);ctx.moveTo(18,-200+k*16);ctx.lineTo(40,-200+k*16);ctx.stroke()}
   ctx.fillStyle=HAIR;ctx.beginPath();ctx.moveTo(-54,-300);ctx.quadraticCurveTo(-10,-340,52,-306);ctx.quadraticCurveTo(10,-312,-20,-290);ctx.closePath();ctx.fill()}
- for(const sd of [-1,1]){const lift=o.walk!==undefined&&!o.sit?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;ctx.fillStyle='#e8e4dc';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*(o.sit?25:22)+(o.sit?4:0),4-lift,17,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){const lift=o.walk!==undefined&&!o.sit?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;shoe(sd,sd*(o.sit?25:22)+(o.sit?4:0),4,'#e8e4dc')}
  if(o.tears){ctx.strokeStyle='rgba(170,210,240,.9)';ctx.lineWidth=3;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*20,-262);ctx.lineTo(sd*21,-240+(T*20)%12);ctx.stroke()}}
  if(o.phone){ctx.fillStyle='#16161a';ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.fillRect(-18,-170,36,58);ctx.strokeRect(-18,-170,36,58);halo(0,-170,110,'170,200,255',0.35);ctx.fillStyle='rgba(190,215,255,.95)';ctx.fillRect(-14,-166,28,50);for(const sd of [-1,1]){const [hx,hy]=HPW(sd,sd*0.5);circ(hx,hy,8,skin,INK,3)}}
  if(o.paper){ctx.fillStyle='#f4f2ec';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.fillRect(-40,-184,80,62);ctx.strokeRect(-40,-184,80,62);ctx.strokeStyle='rgba(40,40,60,.6)';ctx.lineWidth=2;for(let k=0;k<5;k++){ctx.beginPath();ctx.moveTo(-32,-174+k*10);ctx.lineTo(28,-174+k*10);ctx.stroke()}for(const sd of [-1,1]){const [hx,hy]=HPW(sd,sd*0.55);circ(hx,hy,8,skin,INK,3)}}
@@ -364,7 +364,7 @@ function bacHung(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefin
  if(!o.back){ctx.fillStyle='#e8e6e0';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-20,-252);ctx.quadraticCurveTo(0,-262,20,-252);ctx.quadraticCurveTo(10,-246,0,-249);ctx.quadraticCurveTo(-10,-246,-20,-252);ctx.fill();ctx.stroke();
   ctx.fillStyle='#6a4a2c';ctx.beginPath();ctx.moveTo(-20,-222);ctx.lineTo(0,-196);ctx.lineTo(20,-222);ctx.lineTo(10,-222);ctx.lineTo(0,-208);ctx.lineTo(-10,-222);ctx.closePath();ctx.fill();ctx.stroke();for(let k=0;k<2;k++)circ(0,-190+k*14,3,'#e8dcc8');
   ctx.strokeStyle='rgba(90,60,40,.5)';ctx.lineWidth=2;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*36,-276);ctx.lineTo(sd*44,-272);ctx.stroke()}}
- for(const sd of [-1,1]){ctx.fillStyle='#4a3a2a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*20,4,17,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*20,4,'#4a3a2a')}
  ctx.restore()}
 
 // ===== MA bà Sáu kiểu manga (đơn giản mà rợn) — v: 1 hốc mắt+miệng há, 2 cười toét, 3 nghiêng đầu ló =====
@@ -397,7 +397,7 @@ function mangaGhost(x,fy,s,T,o={}){const v=o.v||1;ctx.save();ctx.globalAlpha=o.a
  if(o.rice){ctx.fillStyle='#f6f2e4';for(let k=0;k<5;k++){ctx.beginPath();ctx.ellipse(-8+k*4,70+((T*30+k*9)%24),2.2,1.3,0,0,7);ctx.fill()}}
  ctx.restore();
  if(o.ladle){const [hx,hy]=HPW(1,arm[1]);ctx.save();ctx.translate(hx,hy);ctx.rotate(arm[1]+0.6);ctx.fillStyle='#8a6a3a';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.fillRect(-4,-8,8,60);ctx.strokeRect(-4,-8,8,60);ctx.beginPath();ctx.ellipse(0,62,14,18,0,0,7);ctx.fill();ctx.stroke();ctx.restore()}
- for(const sd of [-1,1]){ctx.fillStyle='#d8d6ce';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4,15,6,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*22,4,'#d8d6ce')}
  ctx.restore()}
 
 // ===== CĂN NHÀ BỎ HOANG =====
@@ -428,14 +428,14 @@ function maDanBa(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;halo(x,fy-2
 function ongNoi(x,y,s,o={}){person(x,y,s,Object.assign({shirt:'#e2dccc',pants:'#1a1a1e',skin:'#cfa47c',hair:'#c8c8c4'},o));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){ctx.fillStyle='#ecebe6';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-22,-252);ctx.quadraticCurveTo(0,-264,22,-252);ctx.quadraticCurveTo(0,-244,-22,-252);ctx.fill();ctx.stroke();for(let k=0;k<5;k++)circ(0,-208+k*20,3,'#9a948a');
   ctx.strokeStyle='rgba(90,60,40,.5)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-24,-322);ctx.quadraticCurveTo(0,-328,24,-322);ctx.stroke()}
- for(const sd of [-1,1]){ctx.fillStyle='#3a2a1a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*20,4,16,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*20,4,'#3a2a1a')}
  ctx.restore()}
 // thầy pháp: gầy, tóc muối tiêu cắt ngắn, râu dê bạc, áo bà ba nâu đậm, cầm xấp bùa vàng
 function thayPhap(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]).slice();if(o.bua)armA[1]=-1.4+0.15*Math.sin(T*3);if(o.lamp)armA[1]=-0.55;
  person(x,y,s,Object.assign({shirt:'#4a3424',pants:'#1a1a1a',skin:'#c49a72',hair:'#7a7a76',beard:true},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back)for(let k=0;k<5;k++)circ(0,-208+k*20,3,'#c8b890');
  if(o.bua){const [hx,hy]=HPP(1,armA[1]);ctx.save();ctx.translate(hx,hy-10);ctx.rotate(-0.2);ctx.fillStyle='#e8c84a';ctx.strokeStyle='#8a1a10';ctx.lineWidth=2;ctx.fillRect(-12,-44,24,48);ctx.strokeRect(-12,-44,24,48);ctx.beginPath();ctx.moveTo(-6,-36);ctx.lineTo(6,-28);ctx.lineTo(-6,-18);ctx.lineTo(6,-8);ctx.stroke();ctx.restore()}
- for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*20,4,16,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*20,4,'#2a2018')}
  ctx.restore()}
 // người cháu (Khôi): 20 tuổi, tóc ngắn, áo thun xám, quần jean, dép; o.torch cầm đèn pin
 function chau(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]).slice();if(o.torch)armA[1]=-0.9;
@@ -443,7 +443,7 @@ function chau(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]
  person(x,y,s,Object.assign({shirt:'#8a8e94',pants:'#2e3e5e',skin,hair:'#121212'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){ctx.fillStyle='#121212';ctx.beginPath();ctx.moveTo(-58,-306);ctx.quadraticCurveTo(-10,-352,58,-310);ctx.lineTo(50,-292);ctx.quadraticCurveTo(0,-318,-50,-290);ctx.fill();
   ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-16,-226);ctx.quadraticCurveTo(0,-214,16,-226);ctx.stroke()}
- for(const sd of [-1,1]){ctx.fillStyle='#5a4a3a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*18,4,16,6,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*18,4,'#5a4a3a')}
  if(o.torch){const [hx,hy]=HPP(1,-0.9);ctx.save();ctx.translate(hx,hy);ctx.rotate(-0.9);ctx.fillStyle='#2a2a2e';ctx.fillRect(-6,-4,12,34);halo(0,40,90,'255,250,220',0.5);ctx.restore();circ(hx,hy,9,skin,INK,3)}
  ctx.restore()}
 // ma con nít: nhỏ, tóc ngắn ướt bết, áo trắng cũ, mặt hốc mắt đen (không máu)
@@ -456,7 +456,7 @@ function maOng(x,fy,s,T,o={}){ctx.save();ctx.globalAlpha=o.a??0.95;halo(x,fy-280
 function anhHoa(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined]).slice();if(o.lamp)armA[1]=-0.55;
  person(x,y,s,Object.assign({shirt:'#7c9cbc',pants:'#2a2a30',skin:'#c99a72',hair:'#121212'},o,{armA}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){ctx.fillStyle='#e8eef4';ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-22,-222);ctx.lineTo(0,-198);ctx.lineTo(22,-222);ctx.lineTo(10,-222);ctx.lineTo(0,-210);ctx.lineTo(-10,-222);ctx.closePath();ctx.fill();ctx.stroke();for(let k=0;k<5;k++)circ(0,-190+k*16,2.6,'#e8eef4')}
- for(const sd of [-1,1]){ctx.fillStyle='#3a2a1a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*20,4,17,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*20,4,'#3a2a1a')}
  if(o.lamp){const [hx,hy]=HPP(1,-0.55);lamp(hx+4,hy+46,0.9,T);circ(hx,hy,9,'#c99a72',INK,3)}
  if(o.bundle){ctx.fillStyle='#8a7a5a';ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(0,-120,52,34,0,0,7);ctx.fill();ctx.stroke()}
  ctx.restore()}
@@ -475,14 +475,14 @@ function thu(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined])
   if(o.vacant){ctx.fillStyle='rgba(60,60,80,.3)';for(const sd of [-1,1]){ctx.beginPath();ctx.ellipse(sd*20,-262,17,12,0,0,7);ctx.fill()}}}
  // đuôi ngựa
  ctx.fillStyle=HAIR;ctx.beginPath();ctx.moveTo(40,-320);ctx.quadraticCurveTo(80+Math.sin(T*2)*4,-280,64,-220);ctx.lineTo(54,-222);ctx.quadraticCurveTo(64,-280,32,-312);ctx.fill();
- for(const sd of [-1,1]){const lift=o.walk!==undefined?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;ctx.fillStyle='#2a2a2a';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*(o.sit?25:22),4-lift,17,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){const lift=o.walk!==undefined?Math.max(0,Math.sin(o.walk+(sd>0?Math.PI:0)))*12:0;shoe(sd,sd*(o.sit?25:22),4,'#2a2a2a')}
  ctx.restore()}
 // bà Sáu Mai: má Thư, tóc muối tiêu búi thấp không trâm -> để xõa ngang vai, áo bà ba tím than; o.shirtHold cầm áo con; o.bowl chén gạo; o.incense nhang
 function baSau2(x,y,s,o={}){const T=o.T||0;const arm=(o.arm||[undefined,undefined]).slice();if(o.shirtHold){arm[0]=-0.9;arm[1]=0.9}if(o.incense)arm[1]=-1.2;
- woman(x,y,s,Object.assign({shirt:'#4a3a5a',pants:'#141418',skin:'#d8b48e',smile:false},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ woman(x,y,s,Object.assign({shirt:'#4a3a5a',pants:'#141418',skin:'#d8b48e',smile:false,hairC:'#8a8884'},o,{arm,mouth:o.mouth}));ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  if(!o.back){ctx.fillStyle='#8a8884';ctx.beginPath();ctx.arc(0,-278,60,Math.PI*1.0,Math.PI*2.0);ctx.lineTo(56,-250);ctx.quadraticCurveTo(0,-310,-56,-250);ctx.closePath();ctx.fill();
   ctx.strokeStyle='rgba(90,60,40,.5)';ctx.lineWidth=2;for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*34,-262);ctx.quadraticCurveTo(sd*38,-250,sd*32,-240);ctx.stroke()}babaDeco(0,'#a898b0')}
- for(const sd of [-1,1]){ctx.fillStyle='#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(sd*22,4,16,7,0,0,7);ctx.fill();ctx.stroke()}
+ for(const sd of [-1,1]){shoe(sd,sd*22,4,'#2a2018')}
  if(o.shirtHold){ctx.save();ctx.translate(0,-150);ctx.fillStyle='#5a7aa0';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-60,-20);ctx.lineTo(60,-20);ctx.lineTo(52,60);ctx.lineTo(-52,60);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore()}
  if(o.incense){const [hx,hy]=HPW(1,-1.2);ctx.strokeStyle='#8a2a1a';ctx.lineWidth=3;for(let k=-1;k<=1;k++){ctx.beginPath();ctx.moveTo(hx+k*5,hy);ctx.lineTo(hx+k*7,hy-60);ctx.stroke();circ(hx+k*7,hy-60,3,'#ff7a30')}ctx.strokeStyle='rgba(200,200,200,.35)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(hx,hy-62);ctx.bezierCurveTo(hx+20,hy-90,hx-15,hy-120,hx+10+Math.sin(T)*8,hy-160);ctx.stroke()}
  ctx.restore()}
@@ -507,3 +507,5 @@ function ghostDread(T,o={}){const R0=58,open=o.open??0.6;
  // tóc ôm hai bên, chừa mặt
  ctx.fillStyle=HAIR;ctx.beginPath();ctx.arc(0,0,R0+5,Math.PI*0.95,Math.PI*2.05);ctx.quadraticCurveTo(R0*0.45,-R0*0.66,4,-R0*0.7);ctx.quadraticCurveTo(-R0*0.5,-R0*0.64,-R0-5,R0*0.1);ctx.fill();
  for(const sd of [-1,1]){ctx.beginPath();ctx.moveTo(sd*(R0-2),-24);ctx.quadraticCurveTo(sd*(R0+10),40,sd*(R0-4),R0+70);ctx.lineTo(sd*(R0+16),R0+80);ctx.quadraticCurveTo(sd*(R0+20),0,sd*(R0+5),-30);ctx.fill()}}
+
+function shoe(sd,x,y,col,w=1){ctx.save();ctx.translate(x,y);ctx.scale(sd*w,w);ctx.fillStyle=col||'#2a2018';ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-14,-6);ctx.quadraticCurveTo(-16,6,-6,7);ctx.lineTo(16,7);ctx.quadraticCurveTo(24,6,22,-1);ctx.quadraticCurveTo(14,-9,-2,-9);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='rgba(255,255,255,.18)';ctx.beginPath();ctx.ellipse(6,-4,8,2.5,0,0,7);ctx.fill();ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-14,4);ctx.lineTo(20,4);ctx.stroke();ctx.restore()}
