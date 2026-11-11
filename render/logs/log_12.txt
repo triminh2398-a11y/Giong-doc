@@ -4,26 +4,25 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-aotrang-v1
++ TAG=tiktok-aotrang-v2
 ++ jq -r .html job.json
 + HTML=at/index.html
 ++ jq -r .frames job.json
-+ N=7450
++ N=7321
 + S=16
 ++ jq -r '.start // 0' job.json
 + ST=0
-+ A=5587
-+ B=6053
++ A=5490
++ B=5948
 ++ printf %02d 12
 ++ jq -r .w job.json
 ++ jq -r .h job.json
-+ node render_seg.js at/index.html seg_12.mp4 5587 6053 720 1280
-frame 6000
++ node render_seg.js at/index.html seg_12.mp4 5490 5948 720 1280
 + sleep 24
 + for k in 1 2 3 4 5 6
-+ gh release view tiktok-aotrang-v1
-+ gh release create tiktok-aotrang-v1 -t tiktok-aotrang-v1 -n render
-https://github.com/triminh2398-a11y/Giong-doc/releases/tag/tiktok-aotrang-v1
++ gh release view tiktok-aotrang-v2
++ gh release create tiktok-aotrang-v2 -t tiktok-aotrang-v2 -n render
+https://github.com/triminh2398-a11y/Giong-doc/releases/tag/tiktok-aotrang-v2
 ++ printf %02d 12
-+ gh release upload tiktok-aotrang-v1 seg_12.mp4 --clobber
++ gh release upload tiktok-aotrang-v2 seg_12.mp4 --clobber
 + break
