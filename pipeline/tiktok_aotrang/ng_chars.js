@@ -544,7 +544,7 @@ function ongMo(x,y,s,o={}){const T=o.T||0;let armA=(o.armA||[undefined,undefined
  ctx.restore()}
 // ma áo trắng: hốc mắt sâu, miệng há dài, trong suốt 70% (motionPost); o.lika: mặt dần giống Linh
 function maAoTrang(x,fy,s,T,o={}){maDanBa(x,fy,s,T,Object.assign({shirt:'#e8e6e0',pants:'#16161a'},o));if(o.sitBack)return;
- ctx.save();ctx.translate(x,fy);ctx.scale(s,s);ctx.translate(0,-278);ctx.rotate(o.tilt??Math.sin(T*0.6)*0.05);
+ ctx.save();ctx.globalAlpha=o.a??0.95;ctx.translate(x,fy);ctx.scale(s,s);ctx.translate(0,-278);ctx.rotate(o.tilt??Math.sin(T*0.6)*0.05);
  ctx.fillStyle='#ecebe4';ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.moveTo(-64,-14);ctx.quadraticCurveTo(-66,-80,0,-82);ctx.quadraticCurveTo(66,-80,64,-14);ctx.quadraticCurveTo(40,-50,0,-52);ctx.quadraticCurveTo(-40,-50,-64,-14);ctx.closePath();ctx.fill();ctx.stroke();
  ctx.beginPath();ctx.moveTo(58,-20);ctx.quadraticCurveTo(86,30,72,120+6*Math.sin(T*1.3));ctx.lineTo(56,118);ctx.quadraticCurveTo(66,40,48,-4);ctx.closePath();ctx.fill();ctx.stroke();
  ctx.fillStyle='rgba(120,116,104,.35)';for(let k=0;k<14;k++){ctx.beginPath();ctx.arc(-40+R0(k)*80,-30+R0(k+7)*90,1.5+R0(k+3)*2.5,0,7);ctx.fill()}
