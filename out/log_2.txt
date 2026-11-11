@@ -1437,3 +1437,22 @@ loaded V3TurboVieNeuTTS
 99_hv_n clone:refs/mada8.wav 46 ok 4.0
 99_hv_n clone:refs/mada8.wav 50 ok 1.3
 99_hv_n asr ok
+loaded V3TurboVieNeuTTS
+99_dc_gt Thục Đoan 2 ok 2.4
+99_dc_gt asr ok
+99_dc_n clone:refs/mada8.wav 2 ok 26.3
+99_dc_n clone:refs/mada8.wav 6 ok 6.6
+99_dc_n clone:refs/mada8.wav 10 ok 6.4
+99_dc_n clone:refs/mada8.wav 14 ok 8.5
+99_dc_n clone:refs/mada8.wav 18 ok 4.3
+99_dc_n clone:refs/mada8.wav 22 ok 7.9
+99_dc_n clone:refs/mada8.wav 26 ok 7.7
+99_dc_n clone:refs/mada8.wav 30 ok 7.4
+99_dc_n clone:refs/mada8.wav 34 ok 8.5
+99_dc_n clone:refs/mada8.wav 38 ok 5.5
+99_dc_n clone:refs/mada8.wav 42 ok 9.4
+99_dc_n clone:refs/mada8.wav 46 ok 5.2
+99_dc_n clone:refs/mada8.wav 50 ok 2.9
+99_dc_n asr ok
+99_dc_os Thái Sơn 2 ok 9.6
+99_dc_os asr ok
