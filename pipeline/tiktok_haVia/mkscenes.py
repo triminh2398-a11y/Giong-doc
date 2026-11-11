@@ -1,0 +1,12 @@
+old=open('scenes.part').read()
+i=old.index('// ===== LỚP CHUYỂN ĐỘNG CHUNG')
+tail=old[i:]
+head=open('scenes_head.js').read()
+tail=tail.replace("const SPK={lanh:'LA',man:'MA',tu:'TU',na:'NA',gb:'GB'};","const SPK={tuv:'TU',mai:'MA'};const STILL={};")
+tail=tail.replace("kk==='man'||kk==='na'","kk==='thu'||kk==='mai'").replace("kk==='lanh'||kk==='tu'","kk==='tuv'")
+tail=tail.replace("const GHOST={ma:1,ml:1,bm:1,gb:1};","const GHOST={gw:1,gk:1,gm:1};")
+tail=tail.replace("function motionPre(kk,c,t){","function motionPre(kk,c,t){if(STILL[kk]){c.userData.o0=c.userData.o;return}")
+tail=tail.replace("function motionPost(kk,c,t){","function motionPost(kk,c,t){if(STILL[kk]){c.userData.o=c.userData.o0;return}")
+tail=tail.replace("JAR_E.visible=false;JAR_I.visible=false;JAR_I.position.set(-1.6,0.02,-1.0);foundL.intensity=0;HANDS.forEach(h=>h.visible=false);HOLECAP.visible=true;HOLECAP.scale.setScalar(1);","JAR_E.visible=false;JAR_I.visible=false;foundL.intensity=0;HANDS.forEach(h=>h.visible=false);")
+tail=tail.replace('hideAll();ctaFlag=false;','hideAll();ctaFlag=false;CCTV=0;').replace('renderer.render(SCN[mode],cam);','renderer.render(SCN[mode],cam);renderer.domElement.style.filter=CCTV?"grayscale(1) contrast(1.35) brightness(1.2)":"";').replace('grain(0.06);','grain(CCTV?0.14:0.06);if(CCTV)cctvOv(t);')
+open('scenes.part','w').write(head+tail)
