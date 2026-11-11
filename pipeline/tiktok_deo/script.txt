@@ -1,0 +1,23 @@
+hook|N|Tài xế chạy đèo đêm mưa hay kể: trên đoạn đường ấy, có người đã chờ một chuyến xe suốt mười hai năm.
+hook2|N|Và đêm đó, khi Khoa liếc sang bên cạnh, ghế phụ đã có người ngồi.
+title|N|Câu chuyện hôm nay… Chuyến Xe Cuối Đèo.
+intro|N|Khoa hai mươi tám tuổi, lái xe tải chạy hàng đêm để nuôi mẹ già ở quê. Tuần này công ty đổi tuyến, lần đầu tiên anh phải vượt một con đèo miền Trung, vào đúng đêm mưa sương.
+wave|N|Gần nửa đêm, ở một khúc cua vắng, đèn pha quét qua bóng một cô gái mặc áo mưa xanh đang vẫy tay bên lề đường. Quanh đó không có chiếc xe nào. Khoa thấy thương, tấp xe vào.
+ask|GT|Anh cho em đi nhờ… tới khúc cua phía dưới giùm em. Em muốn về nhà.
+ride|N|Cô gái leo lên ghế phụ, không nói thêm lời nào. Cabin lạnh dần, hơi thở của Khoa phủ mờ kính. Khoa chợt để ý: ngoài trời mưa xối xả, mà chiếc áo mưa của cô khô cong, không đọng một giọt.
+face|N|Anh liếc vào kính chiếu hậu trong cabin. Ghế phụ trống trơn. Nhưng quay sang, cô gái vẫn ngồi đó, mặt tái nhợt, đôi mắt đen trống rỗng, không chớp, đang nhìn anh chằm chằm.
+fear|N|Khoa nuốt khan, vặn ga, chỉ muốn xuống chân đèo thật nhanh. Cô gái ngồi im, còn cô thì không có lấy một làn hơi thở.
+curve|N|Tới một khúc cua gấp, bàn tay lạnh ngắt của cô vươn từ ghế phụ sang, giật mạnh vô lăng sang phải. Bánh xe trượt trên mặt đường ướt, chiếc xe tải lao thẳng về khoảng trống giữa hai đoạn lan can gãy.
+brake|N|Khoa đạp thắng chết cứng. Xe trượt dài rồi khựng lại, hai bánh trước đã chồm ra khỏi mép vực, bánh sau vẫn bám mặt đường, đèn pha rọi thẳng xuống thung lũng sâu hoắm. Máy xe tắt ngấm, cabin chúi nghiêng.
+spk|GT|Mười hai năm rồi… anh rọi đèn giùm em… em nằm dưới đó…
+light|N|Dưới ánh đèn pha cao của chiếc xe tải, giữa đám cây rừng, Khoa thấy một chiếc xe máy nát bấy, và một cái mũ bảo hiểm xanh vắt trên cành. Ghế phụ lúc này trống không, chỉ còn cái lạnh buốt như hơi sương.
+back|N|Khoa run bần bật, vặn chìa nổ máy lại. Máy ho khan hai lần rồi mới chịu nổ. Anh cài số lùi, nhích xe khỏi mép vực từng chút một. Khi bánh trước đã lên lại mặt đường, anh mới dám thở.
+dawn|N|Khoa run rẩy chạy nốt đêm, trời sáng mới tới chân đèo, kể lại với ông Sáu, người sửa xe kiêm giữ mấy cái am thờ ven đường. Ông Sáu là lính cũ, chân thọt, đêm nào cũng thắp nhang cho những người đã mất vì tai nạn trên đèo.
+os1|OS|Mười hai năm trước, có cô sinh viên chạy xe máy về quê trong đêm mưa, văng xuống đúng khúc cua đó. Hôm đó sương dày che mất mép vực, vệt bánh xe lại dẫn sang hướng khác, nên gia đình tìm dọc ven đường mà không ai xuống thung lũng kiểm tra.
+os2|OS|Xe con đèn thấp, chạy ngang không rọi tới. Con bé chờ một chiếc xe tải mười hai năm. Đêm qua chú là người đầu tiên dừng lại cho nó.
+down|N|Ông Sáu rủ mấy người trong xóm, cùng Khoa buộc dây leo xuống mé vực. Họ tìm thấy chiếc xe máy, chiếc mũ bảo hiểm có khắc tên Hạnh, và cả cô gái.
+mother|N|Ông Sáu còn nhớ nhà cô ở thành phố, nên Khoa chạy xe tới báo cho mẹ cô, bà Lụa. Bà ôm chiếc mũ khóc nghẹn. Mười hai năm, bà vẫn tin con mình còn ở đâu đó.
+end|N|Mấy ngày sau, bà Lụa lo tang lễ, đưa Hạnh về chôn cạnh ba cô. Ông Sáu dỡ cái am cũ ở khúc cua, dựng lại một cái am nhỏ ghi tên cô. Từ đó, Khoa vẫn chạy đèo, và mỗi lần qua khúc cua ấy, anh đều bóp còi hai tiếng chào.
+end2|N|Từ đó, khúc cua ấy không còn xảy ra tai nạn nào nữa. Và Khoa không còn sợ đi đèo ban đêm, vì anh biết, người chờ anh đã được về nhà.
+cta|N|Nếu đêm mưa có người vẫy xe giữa đèo vắng… bạn có dám dừng lại không?
+cta2|N|Để lại bình luận, và theo dõi Chuyện Đông Tây Kim Cổ nhé.
