@@ -1,0 +1,87 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000;overflow:hidden}</style>
+<script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script></head><body>
+<script type="module">
+import * as THREE from 'three';
+const RW=720,RH=1280;const shot=+(new URLSearchParams(location.search).get('shot')||0);
+const R=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});R.setSize(RW,RH);R.setPixelRatio(1);R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;R.outputColorSpace=THREE.SRGBColorSpace;document.body.appendChild(R.domElement);
+const scn=new THREE.Scene();const cam=new THREE.PerspectiveCamera(40,RW/RH,0.05,300);
+const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:0.75,metalness:0},o));
+const mesh=(g,m,p,par)=>{const x=new THREE.Mesh(g,m);x.castShadow=true;x.receiveShadow=true;if(p)x.position.set(...p);par.add(x);return x};
+const cap=(r,l,m,p,par)=>mesh(new THREE.CapsuleGeometry(r,l,8,16),m,p,par);
+const sph=(r,m,p,par,s)=>{const x=mesh(new THREE.SphereGeometry(r,32,24),m,p,par);if(s)x.scale.set(...s);return x};
+const grp=(p,par)=>{const g=new THREE.Group();if(p)g.position.set(...p);par.add(g);return g};
+// ---- người kiểu đất sét ----
+function human(o){const root=new THREE.Group();const skin=M(o.skin,{roughness:0.6}),cloth=M(o.cloth),pants=M(o.pants),shoe=M(0x2a2228),hairM=M(o.hair,{roughness:0.5});
+ const J={root};J.hips=grp([0,0.9,0],root);
+ // chân
+ for(const s of[-1,1]){const k=s<0?'L':'R';const hp=grp([s*0.1,0,0],J.hips);J['leg'+k]=hp;sph(0.09,pants,[0,-0.02,0],hp);cap(0.085,0.3,pants,[0,-0.21,0],hp);const kn=grp([0,-0.43,0],hp);J['knee'+k]=kn;sph(0.075,pants,[0,0,0],kn);cap(0.07,0.3,pants,[0,-0.2,0],kn);const ft=cap(0.055,0.14,shoe,[0,-0.43,0.05],kn);ft.rotation.x=Math.PI/2}
+ // thân
+ J.spine=grp([0,0.02,0],J.hips);
+ const tor=cap(o.raincoat?0.2:0.18,0.3,cloth,[0,0.26,0],J.spine);tor.scale.set(1.2,1,0.75);sph(0.17,pants,[0,0.0,0],J.spine,[1.1,0.6,0.8]);
+ if(o.raincoat){const sk=mesh(new THREE.CylinderGeometry(0.2,0.27,0.34,24,1,true),cloth,[0,0.0,0],J.spine);sk.scale.z=0.75;sk.material.side=THREE.DoubleSide}
+ if(o.apron){const a=mesh(new THREE.BoxGeometry(0.22,0.34,0.02),M(0x6e4c38),[0,0.18,0.135],J.spine)}
+ if(o.zip){mesh(new THREE.BoxGeometry(0.012,0.4,0.01),M(0x1a2a3a),[0,0.28,0.13],J.spine)}
+ mesh(new THREE.CylinderGeometry(0.05,0.055,0.08,16),skin,[0,0.52,0],J.spine);
+ // tay
+ for(const s of[-1,1]){const k=s<0?'L':'R';const sh=grp([s*0.21,0.44,0],J.spine);J['arm'+k]=sh;sph(0.085,cloth,[0,0,0],sh);cap(0.068,0.2,cloth,[0,-0.15,0],sh);const el=grp([0,-0.3,0],sh);J['elb'+k]=el;sph(0.062,cloth,[0,0,0],el);cap(0.058,0.18,cloth,[0,-0.13,0],el);sph(0.055,skin,[0,-0.3,0.0],el,[0.9,1.15,0.7])}
+ // đầu
+ const hd=grp([0,0.69,0],J.spine);J.head=hd;const H=sph(0.15,skin,[0,0,0],hd,[0.95,1.05,0.95]);
+ for(const s of[-1,1]){sph(0.032,skin,[s*0.143,-0.005,-0.005],hd,[0.6,1,0.9]);
+  const ex=s*0.055,ey=0.01,ez=0.128;
+  if(o.ghost){sph(0.034,M(0x050308,{roughness:0.25}),[ex,ey,ez],hd,[1,1.35,0.5]);sph(0.008,new THREE.MeshBasicMaterial({color:0xffffff}),[ex+0.01,ey+0.018,ez+0.016],hd)}
+  else{sph(0.03,M(0xf8f6f2,{roughness:0.3}),[ex,ey,ez],hd,[1,1.15,0.55]);sph(0.019,M(0x1a1010,{roughness:0.2}),[ex,ey-0.002,ez+0.012],hd,[1,1.15,0.5]);sph(0.006,new THREE.MeshBasicMaterial({color:0xffffff}),[ex+0.007,ey+0.008,ez+0.022],hd);
+   const br=cap(0.008,0.04,M(o.brow||0x241818),[ex,ey+0.058,ez-0.005],hd);br.rotation.z=Math.PI/2+s*(o.angry?0.25:-0.08)}}
+ sph(0.016,skin,[0,-0.03,0.142],hd,[0.9,0.9,0.8]);
+ const mo=sph(0.024,M(o.ghost?0x140608:0x7a2c30,{roughness:0.4}),[0,-0.082,0.132],hd,o.ghost?[0.6,0.85,0.35]:[1.2,0.35,0.4]);
+ if(!o.ghost){for(const s of[-1,1])sph(0.025,M(0xe88a88,{transparent:true,opacity:0.45,roughness:0.9}),[s*0.085,-0.04,0.112],hd,[1,0.6,0.3])}
+ if(o.must){const m=sph(0.045,M(0xe8e4dc),[0,-0.058,0.135],hd,[1.25,0.38,0.5])}
+ // tóc
+ if(o.hairType==='cap'){mesh(new THREE.SphereGeometry(0.157,32,16,Math.PI,Math.PI,0,Math.PI*0.62),hairM,[0,0.0,-0.012],hd);const c=mesh(new THREE.SphereGeometry(0.162,32,16,0,Math.PI*2,0,Math.PI*0.5),M(o.capC),[0,0.075,-0.01],hd);const b=mesh(new THREE.CylinderGeometry(0.1,0.1,0.012,24,1,false,-Math.PI/2,Math.PI),M(o.capC),[0,0.085,0.12],hd);b.rotation.x=0.12}
+ if(o.hairType==='short'){const h=mesh(new THREE.SphereGeometry(0.158,32,16,0,Math.PI*2,0,Math.PI*0.42),hairM,[0,0.01,-0.008],hd);h.rotation.x=-0.18}
+ if(o.hairType==='long'){const h=mesh(new THREE.SphereGeometry(0.16,32,16,0,Math.PI*2,0,Math.PI*0.4),hairM,[0,0.02,-0.02],hd);h.rotation.x=-0.3;const bk=cap(0.13,0.34,hairM,[0,-0.2,-0.07],hd);bk.scale.set(1.05,1,0.5);for(const s of[-1,1]){const sd=cap(0.045,0.32,hairM,[s*0.14,-0.16,0.0],hd);sd.rotation.z=s*0.08}}
+ J.pose=(p={})=>{for(const k in p){const [j,ax,v]=p[k];J[j].rotation[ax]=v}};
+ root.userData.J=J;return root}
+// ---- bối cảnh đèo lúc chạng vạng (pastel) ----
+const skyM=new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:{a:{value:new THREE.Color(0x6a7ab8)},b:{value:new THREE.Color(0xf0b8a0)},c:{value:new THREE.Color(0xffe2c4)}},vertexShader:'varying vec3 p;void main(){p=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'uniform vec3 a,b,c;varying vec3 p;void main(){float h=p.y;vec3 col=h>0.12?mix(b,a,smoothstep(0.12,0.6,h)):mix(c,b,smoothstep(-0.05,0.12,h));gl_FragColor=vec4(col,1.);}'});
+scn.add(new THREE.Mesh(new THREE.SphereGeometry(150,32,16),skyM));
+scn.fog=new THREE.Fog(0xe8b8b0,18,90);
+const hemi=new THREE.HemisphereLight(0xc8d0f0,0x7a6a5a,1.2);scn.add(hemi);
+const sun=new THREE.DirectionalLight(0xffd8b0,2.6);sun.position.set(-8,6,10);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-12,right:12,top:12,bottom:-12,near:1,far:60});sun.shadow.radius=4;scn.add(sun);
+const rim=new THREE.DirectionalLight(0xb8a8ff,1.4);rim.position.set(6,4,-8);scn.add(rim);
+// mặt đường
+const road=mesh(new THREE.PlaneGeometry(7,80),M(0x6a6470,{roughness:0.85}),[0,0,-20],scn);road.rotation.x=-Math.PI/2;
+for(let z=10;z>-60;z-=3){const d=mesh(new THREE.PlaneGeometry(0.14,1.4),M(0xf0e8d8),[0,0.005,z],scn);d.rotation.x=-Math.PI/2}
+const grass=mesh(new THREE.PlaneGeometry(200,200),M(0x7a9a6a),[0,-0.02,-20],scn);grass.rotation.x=-Math.PI/2;
+// lan can
+for(let z=10;z>-60;z-=1.8){cap(0.05,0.5,M(0xd8d4cc),[3.9,0.4,z],scn)}
+{const r=mesh(new THREE.BoxGeometry(0.08,0.18,70),M(0xe8e4dc,{metalness:0.3,roughness:0.4}),[3.9,0.72,-25],scn)}
+// đồi núi mềm
+const hillC=[0x6a8a6a,0x7a9a8a,0x8a9ab8,0x9aa0c8];
+for(let k=0;k<26;k++){const far=k%4;const r=6+far*6+(k*7%5);const x=(k%2?-1:1)*(10+far*12+(k*13%9));const z=-15-far*18-(k*11%17);sph(r,M(hillC[far],{roughness:0.95}),[x,-r*0.55,z],scn,[1.3,0.9,1])}
+// cây tròn
+for(let k=0;k<18;k++){const x=(k%2?-1:1)*(5+(k*7%6));const z=6-k*3.3;const t=grp([x,0,z],scn);cap(0.08,0.9,M(0x6a4a3a),[0,0.5,0],t);sph(0.75+(k%3)*0.2,M([0x5a8a5a,0x6a9a6a,0x4a7a5a][k%3],{roughness:0.9}),[0,1.6,0],t,[1,1.15,1])}
+// xe tải bo tròn
+function tr(){const T=new THREE.Group();const red=M(0xd85a4a,{roughness:0.45}),wh=M(0xf2ece4,{roughness:0.6});
+ const cab=mesh(new THREE.BoxGeometry(2.3,1.7,1.9),red,[0,1.35,0.2],T);mesh(new THREE.BoxGeometry(2.3,0.9,1.0),red,[0,0.9,1.5],T);
+ mesh(new THREE.BoxGeometry(2.0,0.75,0.04),M(0x8ab0d8,{roughness:0.1,metalness:0.2}),[0,1.75,1.16],T);
+ mesh(new THREE.BoxGeometry(2.5,2.6,5),wh,[0,1.9,-3.4],T);
+ for(const sx of[-1.12,1.12])for(const z of[1.4,-4.2,-5.2]){const w=mesh(new THREE.CylinderGeometry(0.48,0.48,0.36,24),M(0x2a2630),[sx,0.48,z],T);w.rotation.z=Math.PI/2}
+ for(const sx of[-0.8,0.8]){sph(0.13,new THREE.MeshBasicMaterial({color:0xfff6dc}),[sx,0.95,2.0],T,[1,1,0.4])}
+ return T}
+const TRK=tr();TRK.position.set(1.6,0,-6);scn.add(TRK);
+// am thờ
+const am=grp([-3.9,0,1.2],scn);mesh(new THREE.BoxGeometry(0.7,0.6,0.55),M(0xd8ccc0),[0,0.6,0],am);cap(0.06,0.5,M(0x9a8a7a),[0,0.25,0],am);const roof=mesh(new THREE.ConeGeometry(0.6,0.35,4),M(0xb85a48),[0,1.07,0],am);roof.rotation.y=Math.PI/4;
+const amL=new THREE.PointLight(0xffa860,1.5,3,1.5);amL.position.set(0,0.7,0.5);am.add(amL);
+// nhân vật
+const khoa=human({skin:0xe2b08a,cloth:0x3a6e8e,pants:0x3a3a5a,hair:0x2a1a18,hairType:'cap',capC:0x3a8a6a,zip:1});scn.add(khoa);
+const hanh=human({skin:0xd8deea,cloth:0x4a8ae0,pants:0x3a4a6a,hair:0x1a1424,hairType:'long',ghost:1,raincoat:1});scn.add(hanh);
+const sau=human({skin:0xd2a07c,cloth:0x7a8a5a,pants:0x5a5650,hair:0xe8e6e0,hairType:'short',must:1,apron:1,brow:0xe0ddd6,angry:1});scn.add(sau);
+const look=(o,x,z)=>{o.lookAt(x,0,z)};
+if(shot===0){khoa.position.set(0.4,0,-2.4);look(khoa,0,8);khoa.userData.J.pose({a:['armR','z',2.6],b:['elbR','z',0.4],c:['armL','z',-0.12],d:['head','y',-0.25]});
+ hanh.position.set(-2.6,0,-4.5);look(hanh,0,6);hanh.userData.J.pose({a:['armR','z',0.05],b:['armL','z',-0.05]});sau.visible=false;
+ cam.position.set(1.6,1.5,4.2);cam.lookAt(-0.6,1.1,-3.5);cam.fov=46}
+if(shot===1){sau.visible=false;khoa.visible=false;hanh.position.set(0,0,0);look(hanh,0,5);hanh.userData.J.pose({h:['head','z',0.08]});cam.position.set(0.2,1.6,1.25);cam.lookAt(0,1.52,0);cam.fov=34;sun.intensity=1.2;hemi.color.set(0x9ab0e8);rim.intensity=2.4}
+if(shot===2){hanh.visible=false;sau.position.set(-3.1,0,2.1);sau.rotation.y=0.5;sau.userData.J.pose({a:['armR','x',-1.0],b:['elbR','x',-0.6],c:['head','x',0.1]});khoa.position.set(-1.9,0,2.6);khoa.rotation.y=-0.7;khoa.userData.J.pose({a:['armL','z',-0.1],b:['armR','z',0.1]});
+ cam.position.set(-0.6,1.45,6.4);cam.lookAt(-2.6,1.0,1.6);cam.fov=40}
+cam.aspect=RW/RH;cam.updateProjectionMatrix();R.render(scn,cam);window.READY=true;
+</script></body></html>
