@@ -101,7 +101,7 @@ export function drawCrouch(g, o) {
   // torso (bent forward)
   g.beginPath(); g.moveTo(228, 600); g.quadraticCurveTo(300, 560, 372, 600); g.lineTo(384, 860); g.quadraticCurveTo(300, 880, 216, 860); g.closePath(); g.fillStyle = p.shade(C, dk(C), 220, 600, 384, 870); g.fill(); g.strokeStyle = INK; g.lineWidth = 10; g.stroke();
   // knees in front
-  for (const s of [-1, 1]) { p.ell(300 + s * 52, 712, 46, 40); p.fillInk(P, 9); }
+  g.beginPath(); g.roundRect(206, 716, 188, 76, 38); p.fillInk(P, 9); p.line([[300, 724], [300, 784]], dk(P, .6), 4);
   // head bowed onto the hands
   const hy = 520 - peek * 10;
   p.ell(300, hy, 104, 110); g.fillStyle = p.shade(S, dk(S), 230, 440, 380, 620); g.fill(); g.strokeStyle = INK; g.lineWidth = 10; g.stroke();
@@ -128,7 +128,7 @@ export function drawDead(g, o) {
     for (const s of [-1, 1]) { p.inkLine([[300 + s * 60, 900], [300 + s * 70, 720]], SK, 34); }
     g.beginPath(); g.moveTo(222, 590); g.quadraticCurveTo(300, 550, 378, 590); g.lineTo(388, 870); g.quadraticCurveTo(300, 890, 212, 870); g.closePath(); p.fillInk(CL, 10);
     p.line([[214, 700], [386, 700]], '#7a2a2a', 10);
-    for (const s of [-1, 1]) { p.ell(300 + s * 52, 712, 44, 38); p.fillInk(SK, 9); }
+    g.beginPath(); g.roundRect(208, 720, 184, 72, 36); p.fillInk(CL, 9); p.line([[214, 756], [386, 756]], '#7a2a2a', 8);
   }
   // long thin arms reaching sideways (toward Khải)
   p.inkLine([[378, 610], [460 + reach * 40, 640], [520 + reach * 50, 600 - reach * 40]], SK, 20);
