@@ -102,6 +102,7 @@ const TRUCK = new THREE.Group(); TRUCK.position.set(32, 0, 10); TRUCK.rotation.y
 add(box(2, .6, 4.6), M.truck, [0, .85, 0], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(2, .5, .1), M.truck, [0, 1.4, 2.25], [1, 1, 1], [0, 0, 0], true, TRUCK); for (const x of [-.95, .95]) add(box(.1, .5, 2.6), M.truck, [x, 1.4, 1.0], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(2, .5, .1), M.truck, [0, 1.4, -.25], [1, 1, 1], [0, 0, 0], true, TRUCK); for (const x of [-.9, .9]) add(box(.08, .7, .08), M.truckDk, [x, 1.5, -1.95], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(1.9, .08, .08), M.truckDk, [0, 1.85, -1.95], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(1.9, .5, .1), M.truckDk, [0, 1.15, -2.25], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(.8, .5, .7), M.truckDk, [-.45, 1.1, -.6], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(.8, .5, .7), M.truckDk, [.45, 1.1, -.6], [1, 1, 1], [0, 0, 0], true, TRUCK);
 
 for (const [x, z] of [[-1, -1.5], [1, -1.5], [-1, 1.5], [1, 1.5]]) add(cyl(.42, .42, .3, 14), M.tire, [x, .42, z], [1, 1, 1], [0, 0, Math.PI / 2], true, TRUCK);
+TRUCK.children.forEach(c => { if (Math.abs(c.position.y - 1.1) < .01 && Math.abs(c.position.z + .6) < .01) c.userData.seat = true; });
 const HEAD = [-.6, .6].map(x => { const l = add(new THREE.SphereGeometry(.12, 8, 6), M.lamp, [x, 1.2, -2.32], [1, 1, 1], [0, 0, 0], false, TRUCK); l.userData.flat = true; return l; });
 // ================= SÀI GÒN APARTMENT (interior at x=300) =================
 const APT = new THREE.Group(); APT.position.set(300, 0, 0); S.add(APT);

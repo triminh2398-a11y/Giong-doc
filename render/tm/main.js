@@ -102,6 +102,7 @@ const TRUCK = new THREE.Group(); TRUCK.position.set(32, 0, 10); TRUCK.rotation.y
 add(box(2, .6, 4.6), M.truck, [0, .85, 0], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(2, .5, .1), M.truck, [0, 1.4, 2.25], [1, 1, 1], [0, 0, 0], true, TRUCK); for (const x of [-.95, .95]) add(box(.1, .5, 2.6), M.truck, [x, 1.4, 1.0], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(2, .5, .1), M.truck, [0, 1.4, -.25], [1, 1, 1], [0, 0, 0], true, TRUCK); for (const x of [-.9, .9]) add(box(.08, .7, .08), M.truckDk, [x, 1.5, -1.95], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(1.9, .08, .08), M.truckDk, [0, 1.85, -1.95], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(1.9, .5, .1), M.truckDk, [0, 1.15, -2.25], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(.8, .5, .7), M.truckDk, [-.45, 1.1, -.6], [1, 1, 1], [0, 0, 0], true, TRUCK); add(box(.8, .5, .7), M.truckDk, [.45, 1.1, -.6], [1, 1, 1], [0, 0, 0], true, TRUCK);
 
 for (const [x, z] of [[-1, -1.5], [1, -1.5], [-1, 1.5], [1, 1.5]]) add(cyl(.42, .42, .3, 14), M.tire, [x, .42, z], [1, 1, 1], [0, 0, Math.PI / 2], true, TRUCK);
+TRUCK.children.forEach(c => { if (Math.abs(c.position.y - 1.1) < .01 && Math.abs(c.position.z + .6) < .01) c.userData.seat = true; });
 const HEAD = [-.6, .6].map(x => { const l = add(new THREE.SphereGeometry(.12, 8, 6), M.lamp, [x, 1.2, -2.32], [1, 1, 1], [0, 0, 0], false, TRUCK); l.userData.flat = true; return l; });
 // ================= SÀI GÒN APARTMENT (interior at x=300) =================
 const APT = new THREE.Group(); APT.position.set(300, 0, 0); S.add(APT);
@@ -246,7 +247,7 @@ const SH = {
     act: (u, f) => ({ kh: { p: KHA, o: { ...KH, arms: 'hands', handWood: u > .35 ? 1 : u * 2, eye: u > .5 ? 'shock' : 'dot', mth: u > .5 ? 'O' : 'dash', brow: u > .5 ? -14 : 0, blink: blinkAt(f, 2), ...idle(f, 2) } }, st: { p: AP(2.3, 1.6) } }) }],
   title: [{ light: 'golden', cam: R2(NMC, { d: 30, h: 22, lh: 2, fov: 46 }, { d: 14, h: 5, lh: 2.4, fov: 40, ease: 'easeOut' }), dof: [0],
     act: () => ({ st: { p: STP }, bird: { p: BIRDP }, st2: { p: NMW(-3.8, 2.2), o: { skin: '#b07a48', wood: 1, arms: 'cheek', hair: 'bun' } }, st3: { p: NMW(4.2, 1.2), o: { wood: 1, arms: 'hang', hair: 'short' } } }) }],
-  s1: [{ light: 'day', cam: R2([-41, 0, 18], { d: 34, yaw: 35, h: 14, lh: 3, fov: 50 }, { d: 22, yaw: 20, h: 5, lh: 3, fov: 46 }), dof: [0],
+  s1: [{ light: 'day', cam: R2([-41, 0, 18], { d: 40, yaw: 35, h: 24, lh: 2, fov: 50 }, { d: 26, yaw: 20, h: 10, lh: 1.5, fov: 46 }), dof: [0],
     act: (u, f) => ({ v0: { p: [lerp(-42, -39, u), 0, lerp(17, 20, u)], o: { ...VL[0], step: f / 15 } }, v1: { p: [-37.5, 0, 16.5], o: { ...VL[1], arms: 'point', ...idle(f, 3) } }, v2: { p: [-36.5, 0, 17.2], o: { ...VL[2], mth: 'smile', ...idle(f, 4) } }, v3: { p: [-44, 0, 15], o: { ...VL[3], ...idle(f, 5) } } }) }],
   s2: [{ light: 'golden', cam: R2(NMW(0, 4.5), { d: 15, h: 2.4, lh: 1.4, fov: 44 }, { d: 13, h: 2.1, lh: 1.4, fov: 40 }), dof: [0], until: .55,
     act: (u, f) => { const r = {}; [[-2.6, 4.6], [-1.2, 5.1], [.4, 5.2], [1.8, 4.9], [3.1, 4.4], [-3.6, 3.8]].forEach(([x, z], i) => r['v' + i] = { p: NMW(x, z), o: { ...VL[i % 4], arms: 'cover', ...idle(f, i) } }); r.st = { p: STP }; r.bird = { p: BIRDP }; return r; } },
@@ -276,7 +277,7 @@ const SH = {
     act: (u, f) => ({ kh: { p: AP(-1.2, -.8), o: { ...KH, carve: M_.smooth((u - .35) / .4), eye: u > .55 ? 'shock' : 'dot', mth: u > .55 ? 'O' : 'dash', brow: u > .55 ? -16 : 0, blink: blinkAt(f, 2) } } }) }],
   s9: [{ light: 'room', cam: R2(AP(1.0, -.6), { d: 2.6, h: 1.5, lh: 1.3, fov: 34 }, { d: 2.2, h: 1.5, lh: 1.3, fov: 32 }), dof: [6, 'kh'], until: .28,
     act: (u, f) => ({ kh: { p: AP(1.0, -.6), o: { ...KH, arms: 'point', carve: .7, eye: 'squeeze', mth: 'teeth', brow: 12, ...idle(f, 2) } }, st: { p: AP(2.3, 1.6) } }) },
-       { light: 'golden', truck: u => spline(ROAD.map(p => [p[0], 0, p[1]]), M_.smooth(.15 + u * .85)), camFollow: [-5.5, 2.4, 3.5], dof: [0], until: .8,
+       { light: 'golden', truck: u => spline(ROAD.map(p => [p[0], 0, p[1]]), M_.smooth(.15 + u * .85)), camFollow: [-8, 3.6, 6.5], dof: [0], until: .8,
     act: () => ({ st: { inTruck: [0, .9, 1.4], scale: .6 } }) },
        { light: 'golden', cam: R2([32, 0, 10], { d: 9, yaw: 70, h: 2, lh: 1, fov: 40 }, { d: 7.5, yaw: 60, h: 1.7, lh: 1, fov: 36 }), dof: [0],
     act: () => ({ st: { inTruck: [0, .9, 1.4], scale: .6 } }) }],
@@ -300,10 +301,10 @@ const SH = {
     act: (u, f) => ({ kh: { p: KHP, o: { ...KH, arms: u < .3 ? 'cover' : 'hands', handWood: .35, eye: 'lid', mth: 'frown', brow: -8, blink: blinkAt(f, 2) } }, st: { p: STP } }) }],
   s17: [{ light: 'dawn', cam: [{ u: 0, at: runP, d: 5, yaw: 150, h: 1.7, lh: 1.1, fov: 40 }, { u: 1, at: runP, d: 4.5, yaw: 130, h: 1.6, lh: 1.1, fov: 38 }], dof: [0], until: .4,
     act: (u, f) => ({ kh: { p: runP(u), o: { ...KH, step: f / 9, eye: 'shock', mth: 'O', brow: -14 } } }) },
-        { light: 'dawn', cam: [{ u: 0, pos: TW(-1.2, 2.9, -3.6), look: TW(-.4, 1.3, -1.0), fov: 32 }, { u: 1, pos: TW(-1.0, 2.7, -3.1), look: TW(-.4, 1.3, -1.0), fov: 26, roll: -3, ease: 'easeOut' }], dof: [5, 'tuW'], kick: .1,
-    act: () => ({ tuW: { p: TW(-.4, .85, -1.0), o: { kind: 'statue' } } }) }],
-  s18: [{ light: 'dawn', cam: [{ u: 0, pos: TW(-.9, 2.7, -2.7), look: TW(-.6, 1.1, -1.1), fov: 26 }, { u: 1, pos: TW(-.8, 2.5, -2.4), look: TW(-.6, 1.1, -1.1), fov: 21 }], dof: [6, 'bird'],
-    act: () => ({ tuW: { p: TW(-.4, .85, -1.0), o: { kind: 'statue' } }, bird: { p: TW(-.75, .95, -1.75), scale: .34 } }) }],
+        { light: 'dawn', cam: [{ u: 0, pos: TW(-2.2, 2.3, -3.4), look: TW(-.45, 1.85, -.75), fov: 32 }, { u: 1, pos: TW(-1.9, 2.2, -2.9), look: TW(-.45, 1.85, -.75), fov: 26, roll: -3, ease: 'easeOut' }], dof: [5, 'tuW'], kick: .1, noBody: true,
+    act: () => ({ tuW: { p: TW(-.45, 1.32, -.75) } }) }],
+  s18: [{ light: 'dawn', cam: [{ u: 0, pos: TW(-.9, 2.0, -2.8), look: TW(-.3, 1.55, -1.2), fov: 28 }, { u: 1, pos: TW(-.75, 1.95, -2.5), look: TW(-.3, 1.55, -1.2), fov: 22 }], dof: [6, 'bird'], noBody: true,
+    act: () => ({ tuW: { p: TW(-.45, 1.32, -.75) }, bird: { p: TW(-.2, 1.32, -1.25), scale: .38 } }) }],
   end: [{ light: 'golden', cam: [{ u: 0, at: u => NMW(2.4, lerp(9, 5.2, M_.smooth(u * 1.2)) + .6), d: 7, yaw: 30, h: 2.5, lh: 1.2, fov: 40 }, { u: 1, at: u => NMW(2.4, lerp(9, 5.2, M_.smooth(u * 1.2)) + .6), d: 6.5, yaw: 20, h: 2.2, lh: 1.2, fov: 40 }], dof: [0], until: .6,
     act: (u, f) => { const r = {}; const z = lerp(9, 5.2, M_.smooth(u * 1.2)); [[1.4, 0], [3.4, 0], [1.4, 1.3], [3.4, 1.3]].forEach(([x, dz], i) => r['v' + i] = { p: NMW(x, z + dz), o: { ...VL[i], arms: 'cover', step: f / 16 + i * .25 } }); r.tuW = { p: NMW(2.4, z + .6), y: .9 }; r.st = { p: STP }; r.bird = { p: BIRDP }; return r; } },
        { light: 'golden', cam: [{ u: 0, at: u => [lerp(44, 54, u), 0, lerp(24, 32, u)], d: 8, yaw: -60, h: 2.5, lh: 1.2, fov: 42 }, { u: 1, at: u => [lerp(44, 54, u), 0, lerp(24, 32, u)], d: 10, yaw: -70, h: 3, lh: 1.2, fov: 42 }], dof: [0],
@@ -314,7 +315,7 @@ const SH = {
 // ================= frame evaluation =================
 const CARDKEY = { kh: C.kh, khC: C.khC, tu: C.tu, tuW: C.tuW, gl: C.gl, st: C.st, bird: C.bird, st2: C.st2, st3: C.st3, dead: C.dead };
 C.v.forEach((c, i) => CARDKEY['v' + i] = c);
-const DEF = { st: { kind: 'statue' }, tuW: { kind: 'statue' }, khC: { kind: 'person' }, bird: {}, dead: {}, st2: { wood: 1, arms: 'cheek', hair: 'bun' }, st3: { wood: 1, hair: 'short' } };
+const DEF = { st: { kind: 'statue' }, tuW: { kind: 'statue', cap: 1, patch: '#c8583a' }, khC: { kind: 'person' }, bird: {}, dead: {}, st2: { wood: 1, arms: 'cheek', hair: 'bun' }, st3: { wood: 1, hair: 'short' } };
 let curLight = '';
 function applyLight(k) { if (k === curLight) return; curLight = k; const p = PRE[k];
   sun.color.set(p.sun); sun.intensity = p.si; hemi.color.set(p.hs); hemi.groundColor.set(p.hg); hemi.intensity = p.hi;
@@ -342,7 +343,7 @@ function frame(t) {
   // truck
   if (sh.truck) { const p = sh.truck(uu), p2 = sh.truck(Math.min(1, uu + .01)); TRUCK.position.set(p[0], Math.abs(Math.sin(f * .9)) * .03, p[2]); TRUCK.rotation.y = Math.atan2(-(p2[0] - p[0]), -(p2[2] - p[2])) || TRUCK.rotation.y; }
   else { TRUCK.position.set(32, 0, 10); TRUCK.rotation.y = .93; }
-  TRUCK.updateMatrixWorld(true);
+  TRUCK.children.forEach(c => { c.visible = !sh.noBody || !!c.userData.seat; }); TRUCK.updateMatrixWorld(true);
   let c;
   if (sh.camFollow) { const o = new THREE.Vector3(...sh.camFollow).applyAxisAngle(new THREE.Vector3(0, 1, 0), TRUCK.rotation.y); c = { pos: TRUCK.position.clone().add(o).toArray(), look: [TRUCK.position.x, 1.2, TRUCK.position.z], fov: 42, roll: 0 }; }
   else c = camEval(sh, uu, fShot);
@@ -382,8 +383,10 @@ const TXT = window.TEXTS || {};
 const CHUNKS = {};
 for (const k of ORDER) { const s = TXT[k]; if (!s || k === 'title') continue; const w = s.split(/\s+/); const ch = []; let cur = [];
   for (const x of w) { cur.push(x); if (cur.length >= 3 || /[.,!?…]$/.test(x)) { ch.push(cur.join(' ')); cur = []; } } if (cur.length) ch.push(cur.join(' ')); CHUNKS[k] = ch; }
-function chunkAt(k, t) { const ch = CHUNKS[k]; if (!ch) return null; const [a, b] = TL[k]; const span = (window.SPEECH && window.SPEECH[k]) || [a + .05, b - .25];
-  const tot = ch.reduce((s, x) => s + x.length + 6, 0); let acc = span[0]; for (const x of ch) { const d = (span[1] - span[0]) * (x.length + 6) / tot; if (t < acc + d) return t >= span[0] ? x : null; acc += d; } return null; }
+function chunkAt(k, t) { const ch = CHUNKS[k]; if (!ch) return null; const [a, b] = TL[k];
+  const V = (window.VOX && window.VOX[k]) || [(window.SPEECH && window.SPEECH[k]) || [a + .05, b - .25]]; const tot = V.reduce((s, v) => s + v[1] - v[0], 0);
+  let el = 0; for (const v of V) { if (t < v[0]) break; el += Math.min(t, v[1]) - v[0]; } if (t < V[0][0] || t > V[V.length - 1][1] + .35) return null;
+  const W_ = ch.map(x => x.length + 6), S_ = W_.reduce((s, x) => s + x, 0); let acc = 0; for (let i = 0; i < ch.length; i++) { acc += W_[i] / S_ * tot; if (el <= acc + 1e-6) return ch[i]; } return ch[ch.length - 1]; }
 function stroke(txt, x, y, size, fill = '#ffffff', w = 14, font = '900') { og.font = `${font} ${size}px "DejaVu Sans"`; og.textAlign = 'center'; og.lineJoin = 'round'; og.lineWidth = w; og.strokeStyle = '#000'; og.strokeText(txt, x, y); og.fillStyle = fill; og.fillText(txt, x, y); }
 function overlay(t, k, u, sh, uu) {
   og.clearRect(0, 0, W, H);
@@ -398,7 +401,7 @@ function overlay(t, k, u, sh, uu) {
 window.draw = t => { frame(t); };
 window.renderFrame = f => frame(f / FPS);
 (async () => {
-  if (!TL) { try { const r = await fetch('tl.json'); if (r.ok) { const j = await r.json(); TL = j.TL; window.SPEECH = j.SPEECH; window.DUR = j.dur; } } catch (e) {} }
+  if (!TL) { try { const r = await fetch('tl.json'); if (r.ok) { const j = await r.json(); TL = j.TL; window.SPEECH = j.SPEECH; window.VOX = j.VOX; window.DUR = j.dur; const B = j.BEAT || {}; const fr = k => (B[k] - TL[k][0]) / (TL[k][1] - TL[k][0]); if (B.s8) SH.s8[0].kick = fr('s8'); if (B.s14) SH.s14[0].until = fr('s14'); if (B.s17) SH.s17[0].until = fr('s17'); } } catch (e) {} }
   if (!TL) TL = fakeTL(TXT);
   window.TLX = TL; window.DUR = window.DUR || TL._end || TL.cta[1] + 1; await document.fonts.ready; window.READY = true; window.ready = true; })();
 window.C = C; window.camObj = cam;

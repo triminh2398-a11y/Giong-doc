@@ -113,6 +113,8 @@ export function drawCrouch(g, o) {
   for (const s of [-1, 1]) { p.ell(300 + s * (34 + sl), hy + 20 + peek * 30, 42, 58); p.fillInk(S, 8); for (let k = -1; k <= 1; k++) p.line([[300 + s * (34 + sl) + k * 14, hy - 26 + peek * 30], [300 + s * (34 + sl) + k * 14, hy + 4 + peek * 30]], dk(S, .6), 4); }
   if (peek > .3 && wood < .5) { g.save(); g.globalAlpha = (peek - .3) / .7; for (const s of [-1, 1]) p.ell(300 + s * 30, hy + 10, 12, 16), p.fillInk('#ffffff', 4), p.dot(300 + s * 30, hy + 12, 5, INK); g.restore(); }
   if (wood > .5) { grain(g, 190, 400, 410, 975, 1, 5); for (const s of [-1, 1]) p.line([[300 + s * 20, hy + 70], [300 + s * 50, hy + 90]], '#6a4426', 5); }
+  if (o.cap) { g.beginPath(); g.moveTo(194, hy - 30); g.bezierCurveTo(200, hy - 140, 400, hy - 140, 406, hy - 30); g.closePath(); p.fillInk(o.capCol || '#94643a', 9); p.poly([[380, hy - 40], [470, hy - 30], [466, hy - 14], [404, hy - 20]]); p.fillInk(o.capCol || '#94643a', 7); grain(g, 190, hy - 150, 480, hy - 10, .8, 9); }
+  if (o.patch) { g.save(); g.globalAlpha = .9; for (const [x, y, r] of [[250, 640, 26], [350, 780, 30], [232, 820, 20], [372, 660, 18]]) { p.ell(x, y, r, r * .8); g.fillStyle = o.patch; g.fill(); } g.restore(); }
   g.restore();
 }
 // ---------- the dead (ghost of an old Jrai man) ----------

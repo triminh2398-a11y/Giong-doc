@@ -1,7 +1,7 @@
 // ================= frame evaluation =================
 const CARDKEY = { kh: C.kh, khC: C.khC, tu: C.tu, tuW: C.tuW, gl: C.gl, st: C.st, bird: C.bird, st2: C.st2, st3: C.st3, dead: C.dead };
 C.v.forEach((c, i) => CARDKEY['v' + i] = c);
-const DEF = { st: { kind: 'statue' }, tuW: { kind: 'statue' }, khC: { kind: 'person' }, bird: {}, dead: {}, st2: { wood: 1, arms: 'cheek', hair: 'bun' }, st3: { wood: 1, hair: 'short' } };
+const DEF = { st: { kind: 'statue' }, tuW: { kind: 'statue', cap: 1, patch: '#c8583a' }, khC: { kind: 'person' }, bird: {}, dead: {}, st2: { wood: 1, arms: 'cheek', hair: 'bun' }, st3: { wood: 1, hair: 'short' } };
 let curLight = '';
 function applyLight(k) { if (k === curLight) return; curLight = k; const p = PRE[k];
   sun.color.set(p.sun); sun.intensity = p.si; hemi.color.set(p.hs); hemi.groundColor.set(p.hg); hemi.intensity = p.hi;
@@ -29,7 +29,7 @@ function frame(t) {
   // truck
   if (sh.truck) { const p = sh.truck(uu), p2 = sh.truck(Math.min(1, uu + .01)); TRUCK.position.set(p[0], Math.abs(Math.sin(f * .9)) * .03, p[2]); TRUCK.rotation.y = Math.atan2(-(p2[0] - p[0]), -(p2[2] - p[2])) || TRUCK.rotation.y; }
   else { TRUCK.position.set(32, 0, 10); TRUCK.rotation.y = .93; }
-  TRUCK.updateMatrixWorld(true);
+  TRUCK.children.forEach(c => { c.visible = !sh.noBody || !!c.userData.seat; }); TRUCK.updateMatrixWorld(true);
   let c;
   if (sh.camFollow) { const o = new THREE.Vector3(...sh.camFollow).applyAxisAngle(new THREE.Vector3(0, 1, 0), TRUCK.rotation.y); c = { pos: TRUCK.position.clone().add(o).toArray(), look: [TRUCK.position.x, 1.2, TRUCK.position.z], fov: 42, roll: 0 }; }
   else c = camEval(sh, uu, fShot);
@@ -69,8 +69,10 @@ const TXT = window.TEXTS || {};
 const CHUNKS = {};
 for (const k of ORDER) { const s = TXT[k]; if (!s || k === 'title') continue; const w = s.split(/\s+/); const ch = []; let cur = [];
   for (const x of w) { cur.push(x); if (cur.length >= 3 || /[.,!?…]$/.test(x)) { ch.push(cur.join(' ')); cur = []; } } if (cur.length) ch.push(cur.join(' ')); CHUNKS[k] = ch; }
-function chunkAt(k, t) { const ch = CHUNKS[k]; if (!ch) return null; const [a, b] = TL[k]; const span = (window.SPEECH && window.SPEECH[k]) || [a + .05, b - .25];
-  const tot = ch.reduce((s, x) => s + x.length + 6, 0); let acc = span[0]; for (const x of ch) { const d = (span[1] - span[0]) * (x.length + 6) / tot; if (t < acc + d) return t >= span[0] ? x : null; acc += d; } return null; }
+function chunkAt(k, t) { const ch = CHUNKS[k]; if (!ch) return null; const [a, b] = TL[k];
+  const V = (window.VOX && window.VOX[k]) || [(window.SPEECH && window.SPEECH[k]) || [a + .05, b - .25]]; const tot = V.reduce((s, v) => s + v[1] - v[0], 0);
+  let el = 0; for (const v of V) { if (t < v[0]) break; el += Math.min(t, v[1]) - v[0]; } if (t < V[0][0] || t > V[V.length - 1][1] + .35) return null;
+  const W_ = ch.map(x => x.length + 6), S_ = W_.reduce((s, x) => s + x, 0); let acc = 0; for (let i = 0; i < ch.length; i++) { acc += W_[i] / S_ * tot; if (el <= acc + 1e-6) return ch[i]; } return ch[ch.length - 1]; }
 function stroke(txt, x, y, size, fill = '#ffffff', w = 14, font = '900') { og.font = `${font} ${size}px "DejaVu Sans"`; og.textAlign = 'center'; og.lineJoin = 'round'; og.lineWidth = w; og.strokeStyle = '#000'; og.strokeText(txt, x, y); og.fillStyle = fill; og.fillText(txt, x, y); }
 function overlay(t, k, u, sh, uu) {
   og.clearRect(0, 0, W, H);
@@ -85,7 +87,7 @@ function overlay(t, k, u, sh, uu) {
 window.draw = t => { frame(t); };
 window.renderFrame = f => frame(f / FPS);
 (async () => {
-  if (!TL) { try { const r = await fetch('tl.json'); if (r.ok) { const j = await r.json(); TL = j.TL; window.SPEECH = j.SPEECH; window.DUR = j.dur; } } catch (e) {} }
+  if (!TL) { try { const r = await fetch('tl.json'); if (r.ok) { const j = await r.json(); TL = j.TL; window.SPEECH = j.SPEECH; window.VOX = j.VOX; window.DUR = j.dur; const B = j.BEAT || {}; const fr = k => (B[k] - TL[k][0]) / (TL[k][1] - TL[k][0]); if (B.s8) SH.s8[0].kick = fr('s8'); if (B.s14) SH.s14[0].until = fr('s14'); if (B.s17) SH.s17[0].until = fr('s17'); } } catch (e) {} }
   if (!TL) TL = fakeTL(TXT);
   window.TLX = TL; window.DUR = window.DUR || TL._end || TL.cta[1] + 1; await document.fonts.ready; window.READY = true; window.ready = true; })();
 window.C = C; window.camObj = cam;
