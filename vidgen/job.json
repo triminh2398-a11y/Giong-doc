@@ -1,4 +1,4 @@
-{"tag":"ltx_test1","w":480,"h":832,"frames":97,"steps":20,"cfg":3.0,
+{"tag":"ltx_test1b","w":480,"h":832,"frames":97,"steps":20,"cfg":3.0,
  "items":[
   {"id":"linh_walk","img":"in_linh.png","seed":1,"p":"Anime style animation. A young woman with long black hair in a white dress, camera strap over her shoulder, stands on a grassy path at dusk in front of a limestone cliff with a cave. She slowly turns her head to the right toward the cave, the evening wind blows her hair and dress, mist drifts across the ground, the camera slowly pushes in. Smooth natural motion, consistent face."},
   {"id":"ghost_close","img":"in_ghost.png","seed":2,"p":"Anime style horror animation. A pale ghost woman in a white ao dai with a white mourning headband and long black hair stands still and stares at the viewer with black eyes. Her long hair and the ribbons of her headband drift slowly as if underwater, she slowly tilts her head to the side, the camera slowly pushes in. Eerie, smooth motion, consistent face."}]}

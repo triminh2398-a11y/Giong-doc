@@ -21,7 +21,7 @@ jobs:
         with: { python-version: '3.11' }
       - uses: actions/cache@v4
         with: { path: ~/.cache/huggingface, key: hf-ltx-video-v1 }
-      - run: pip install -q --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 && pip install -q diffusers==0.32.2 transformers==4.47.1 accelerate==1.2.1 sentencepiece imageio imageio-ffmpeg
+      - run: pip install -q --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 && pip install -q diffusers==0.32.2 transformers==4.47.1 accelerate==1.2.1 sentencepiece protobuf imageio imageio-ffmpeg
         timeout-minutes: 15
       - run: python vidgen/gen.py 2>&1 | tee vidgen/log_${{ matrix.shard }}.txt
         timeout-minutes: 320
