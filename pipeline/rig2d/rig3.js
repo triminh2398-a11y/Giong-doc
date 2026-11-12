@@ -114,18 +114,23 @@ function lantern(o) { g.save(); g.strokeStyle = '#2a2420'; g.lineWidth = 3; g.be
 // ---------------- performance (pure functions of t; springs integrated from t=0) ----------------
 const walkEnd = 0, stopEnd = 0;
 const jumpT = 7.0;
-function rootX(t) { // stands still with a slow weight shift; flinches back at the scare with anticipation + overshoot
+const V0 = 118, WSTOP = 3.5; // walk speed px/s, eases to a stop by WSTOP
+const vel = t => V0 * (1 - sm(seg(t, 2.5, WSTOP)));
+function walkX(t) { let x = -110, n = 80, h = Math.min(t, WSTOP) / n; for (let i = 0; i < n; i++) x += vel((i + .5) * h) * h; return x; }
+function rootX(t) { // walks in, eases to a stop, slow weight shift; flinches back at the scare with anticipation + overshoot
+  const idle = sm(seg(t, 3.3, 4.3));
   const pre = t > 6.82 ? 8 * Math.sin(seg(t, 6.82, 7.0) * Math.PI / 2) * (1 - seg(t, 7.0, 7.1)) : 0;
-  return 215 + 7 * Math.sin(t * 1.1) * (1 - seg(t, 6.6, 7)) + pre - (t > jumpT ? 42 * back(seg(t, jumpT, jumpT + .4), 1.6) : 0); }
+  return walkX(t) + 5 * Math.sin((t - 3.3) * 1.1) * idle * (1 - seg(t, 6.6, 7)) + pre - (t > jumpT ? 42 * back(seg(t, jumpT, jumpT + .4), 1.6) : 0); }
 function pose(t) {
-  const br = Math.sin(t * 2.3), sway = Math.sin(t * 1.1);
-  const o = { t, x: rootX(t), y: 1040, flip: 1, bob: 1.8 * br, lean: 1.5 * sway, bend: 3 + 2 * br,
-    legF: [6 + 2 * sway, -4, 0], legB: [-8 + 2 * sway, -3, 0],
-    armB: [-6 + 3 * br, 16 + 2 * br], armF: [18 + 2 * sway, 30], spine: 0, neck: 0, head: 2 * Math.sin(t * .9) + 1.2 * Math.sin(t * 2.1),
+  const w = vel(t) / V0, ph = (walkX(t) + 110) / 150 * Math.PI * 2, s = Math.sin(ph), c = Math.cos(ph);
+  const br = Math.sin(t * 2.3) * (1 - w), sway = Math.sin(t * 1.1) * (1 - w);
+  const o = { t, x: rootX(t), y: 1040, flip: 1, bob: 1.8 * br - 7 * Math.abs(c) * w, lean: 1.5 * sway + 5 * w, bend: 3 + 2 * br + 3 * w,
+    legF: [lerp(6 + 2 * sway, 26 * s, w), lerp(-4, -40 * Math.max(0, -s) - 6, w), 0], legB: [lerp(-8 + 2 * sway, -26 * s, w), lerp(-3, -40 * Math.max(0, s) - 6, w), 0],
+    armB: [lerp(-6 + 3 * br, -24 * s - 4, w), lerp(16 + 2 * br, 22, w)], armF: [lerp(18 + 2 * sway, 10 * s + 18, w), 30], spine: 0, neck: 0, head: 2 * Math.sin(t * .9) + 1.2 * Math.sin(t * 2.1),
     faceDir: .5, look: .2, blink: 0, brow: 0, mouth: 0, shock: 0, squash: 0, tuft: 0, scarf: 0, lanternSwing: 0 };
   // a slow, eased head turn toward the grave house, the body follows a beat later (overlap)
-  const turn = sm(seg(t, 2.6, 3.8)), body = sm(seg(t, 3.0, 4.3));
-  o.faceDir = lerp(.5, .2, turn); o.look = lerp(.2, .9, turn); o.head += -7 * turn; o.lean += 3 * body; o.bend += 5 * body;
+  const turn = sm(seg(t, 3.2, 4.2)), body = sm(seg(t, 3.5, 4.5));
+  o.faceDir = lerp(.5, .2, turn); o.look = lerp(.2, .9, turn); o.head += -7 * turn + 2.5 * Math.sin(ph) * w; o.lean += 3 * body; o.bend += 5 * body;
   o.armF[0] += 8 * body; o.armF[1] += 6 * body; // lifts the lantern toward the house
   const sp = seg(t, 4.7, 6.1); if (sp > 0 && sp < 1) { o.mouth = Math.abs(Math.sin(t * 13)) * (Math.sin(sp * Math.PI * 3) > -.4 ? .85 : .1); o.brow = 10; }
   if (t > 6.2 && t < 7) { const f = sm(seg(t, 6.2, 6.8)); o.brow = 10 + 6 * f; o.look = .9 + .1 * f; o.bend -= 4 * f; o.head += -3 * f; }
@@ -200,7 +205,7 @@ const MIST = layer(2200, 400, (x, w, h) => { for (let i = 0; i < 40; i++) { cons
 window.draw = (t) => {
   const o = pose(t), sp = springs(t); o.tuft = sp.tuft; o.scarf = sp.scarf; o.lanternSwing = sp.lantern;
   // camera: follow the walk, then drift right, then push in on the ghost eyes
-  const cut = t >= 7.6, cw = sm(seg(t, 0, 7.6)), cc = sm(seg(t, 7.6, 9.4)); const push = cut ? lerp(2.1, 2.45, cc) : lerp(.9, .96, cw); const focus = cut ? [632, lerp(915, 905, cc)] : [lerp(420, 445, cw), lerp(720, 735, cw)];
+  const cut = t >= 7.6, cw = sm(seg(t, 0, 7.6)), cc = sm(seg(t, 7.6, 9.4)); const push = cut ? lerp(2.1, 2.45, cc) : lerp(.9, .96, cw); const focus = cut ? [632, lerp(915, 905, cc)] : [lerp(clamp(walkX(Math.max(0, t - .5)) + 230, 250, 420), 420, sm(seg(t, 2.4, 4.4))) + 25 * cw, lerp(720, 735, cw)];
   const shake = t > 7.0 && t < 7.4 ? (1 - seg(t, 7, 7.4)) * 10 * Math.sin(t * 90) : 0;
   g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(SKY, 0, 0);
   const view = (par) => { g.setTransform(push, 0, 0, push, W / 2 - focus[0] * push * par - (1 - par) * 0 + shake, H / 2 - focus[1] * push + shake * .5); };

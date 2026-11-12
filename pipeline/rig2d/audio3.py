@@ -29,7 +29,8 @@ from scipy.signal import lfilter
 def burst(sec,col=-0.5,d=.05):
     n=int(sec*SR);x=lfilter([1,col],[1],rng.normal(0,1,n))*env(n,.004,d);return st(x/np.abs(x).max())
 place(1789,0,.25,dur=DUR,fi=.5,fo=1,loop=True);place(1736,0,.2,dur=DUR,fi=1,fo=1,loop=True)
-place(burst(.16,-.2,.04),2.9,.3); place(burst(.16,-.2,.04),7.05,.5)  # a shuffle as he turns, a scuff on the recoil
+for i,ts_ in enumerate([np.float64(0.322), np.float64(0.957), np.float64(1.592), np.float64(2.228), np.float64(2.902)]): place(burst(.16,-.2,.04),ts_,.42*(1-.5*max(0,(ts_-2.4)/1.2)))
+place(burst(.16,-.2,.04),7.05,.5)  # a shuffle as he turns, a scuff on the recoil
 place(burst(.12,.5,.03),3.4,.3); place(burst(.12,.5,.03),3.75,.2)  # lantern creak
 mu=np.zeros((N,2));_o=out;out=mu
 place(2510,0,.6,dur=7.0,fi=1.5,fo=.4,loop=True);place(497,6.2,.5,dur=.8,fi=.3,fo=.1)
