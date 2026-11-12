@@ -1,0 +1,113 @@
+// ================= character cards =================
+function makeCard(draw, hgt, { opacity = 1, design = 850 } = {}) {
+  const c = document.createElement('canvas'); c.width = 1200; c.height = 2000; const g = c.getContext('2d'); g.scale(2, 2);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const u = hgt / design, h = 1000 * u, w = 600 * u; const geo = new THREE.PlaneGeometry(w, h); geo.translate(0, h / 2 - 25 * u, 0);
+  const mat = new THREE.MeshBasicMaterial({ map: tex, alphaTest: .02, side: THREE.DoubleSide, transparent: opacity < 1, opacity, depthWrite: opacity >= 1 });
+  const m = new THREE.Mesh(geo, mat); m.castShadow = opacity >= 1; m.userData.card = true; m.userData.ghost = opacity < 1; m.visible = false;
+  m.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: tex, alphaTest: .5 });
+  const blob = new THREE.Mesh(new THREE.CircleGeometry(.32 * hgt / 1.65, 24), new THREE.MeshBasicMaterial({ color: '#000', transparent: true, opacity: .28, depthWrite: false }));
+  blob.rotation.x = -Math.PI / 2; blob.scale.set(1, .55, 1); blob.userData.blob = true; blob.visible = false; S.add(m); S.add(blob);
+  let key = ''; return { m, blob, draw, set(o) { const k = JSON.stringify(o, (_, v) => typeof v === 'number' ? Math.round(v * 20) / 20 : v); if (k !== key) { key = k; draw(g, o); tex.needsUpdate = true; } } };
+}
+const KH = { skin: '#e9bf98', hair: 'short', shirt: '#c9b48a', vest: '#5a6a3e', pants: '#3a3a48', mustache: 1 };
+const TU = { skin: '#f0c8a2', hair: 'cap', capCol: '#2e5a8a', shirt: '#d65a3a', pants: '#2f3a55' };
+const GL = { skin: '#a8714c', hair: 'scarf', shirt: '#2a2430', stripe: '#b23a32', pants: '#2a2430' };
+const VL = [{ skin: '#b07a52', hair: 'bun', shirt: '#2a2430', stripe: '#b23a32', skirt: '#2a2430' }, { skin: '#9c6a46', hair: 'short', shirt: '#2a2430', stripe: '#d8d0c0', pants: '#2a2430' }, { skin: '#a8744e', hair: 'scarf', shirt: '#3a2e3a', stripe: '#b23a32', skirt: '#2a2430' }, { skin: '#96643f', hair: 'grey', shirt: '#2a2430', stripe: '#b23a32', pants: '#2a2430' }];
+const C = {
+  kh: makeCard(drawPerson, 1.68), khC: makeCard(drawCrouch, 1.68 * .62, { design: 600 }), tu: makeCard(drawPerson, 1.64), tuW: makeCard(drawCrouch, 1.64 * .62, { design: 600 }),
+  gl: makeCard(drawPerson, 1.6), st: makeCard(drawCrouch, 1.1, { design: 600 }), bird: makeCard(drawBird, .9, { design: 400 }),
+  st2: makeCard(drawPerson, 1.5), st3: makeCard(drawPerson, 1.4), dead: makeCard(drawDead, 1.25, { opacity: .7, design: 700 }),
+  v: [0, 1, 2, 3, 4, 5].map(() => makeCard(drawPerson, 1.58)),
+};
+const ALL = [C.kh, C.khC, C.tu, C.tuW, C.gl, C.st, C.bird, C.st2, C.st3, C.dead, ...C.v];
+const NMW = (x, z) => [x, 0, z - 30];               // graveyard-local -> world
+const AP = (x, z, y = 0) => [300 + x, y, z];          // apartment-local -> world
+const TW = (x, y, z) => { const v = new THREE.Vector3(x, y, z); TRUCK.updateMatrixWorld(); return v.applyMatrix4(TRUCK.matrixWorld).toArray(); };
+const STP = NMW(3.0, 3.4), BIRDP = NMW(-2.7, 3.6);
+// ================= timeline =================
+let TL = window.TL || null; // {key: [start, end]}, seconds
+const ORDER = ['hook', 'title', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 'end', 'cta'];
+function fakeTL(texts) { let t = 0; const o = {}; for (const k of ORDER) { const n = k === 'title' ? 0 : (texts[k] || '').split(/\s+/).length; const d = k === 'title' ? 2.6 : n * .27 + .55; o[k] = [t, t + d]; t += d; } o._end = t + 1.2; return o; }
+const lineAt = t => { for (const k of ORDER) if (t >= TL[k][0] && t < TL[k][1]) return k; return t < TL.hook[0] ? 'hook' : 'cta'; };
+// ================= shots =================
+const blinkAt = (f, s) => { const per = 46 + (s * 17) % 31, ph = (f + s * 13) % per; return ph < 2 ? .5 : ph < 4 ? 1 : 0; };
+const idle = (f, s) => ({ tilt: 1.2 * Math.sin((f + s * 7) * .05), headTilt: 1.5 * Math.sin((f + s * 5) * .037 + 1) });
+// a shot = {light, set, cam:[{u,pos,look,fov,roll,ease}], dof:[cinf,target], act(u,f) -> cards}
+function cam2(a, b, ease = 'smooth') { return [{ u: 0, ...a }, { u: 1, ease, ...b }]; }
+const KHA = AP(.9, -1.4), NMC = NMW(0, 0), STW = STP, KHP = NMW(2.0, 4.2), DEADP = NMW(.75, 4.0), TUP = NMW(-2.3, 4.0);
+const KHG = [-39.1, 0, 14.2], GLG = [-40.4, 0, 14], mid = (a, b) => a.map((v, i) => (v + b[i]) / 2);
+const R2 = (at, a, b) => [{ u: 0, at, ...a }, { u: 1, at, ease: b.ease || 'smooth', ...b }];
+const walkP = (u) => spline(FOOT.map(q => [q[0], 0, q[1]]), .05 + u * .25);
+const nightWalk = (u) => [lerp(22, 12, u), 0, lerp(3, -5, u)];
+const runP = (u) => [lerp(23, 28.5, u), 0, lerp(2.5, 7.2, u)];
+const SH = {
+  hook: [{ light: 'room', cam: R2(KHA, { d: 2.6, h: 1.45, lh: 1.3, fov: 34 }, { d: 1.8, h: 1.45, lh: 1.3, fov: 30 }), dof: [9, 'kh'],
+    act: (u, f) => ({ kh: { p: KHA, o: { ...KH, arms: 'hands', handWood: u > .35 ? 1 : u * 2, eye: u > .5 ? 'shock' : 'dot', mth: u > .5 ? 'O' : 'dash', brow: u > .5 ? -14 : 0, blink: blinkAt(f, 2), ...idle(f, 2) } }, st: { p: AP(2.3, 1.6) } }) }],
+  title: [{ light: 'golden', cam: R2(NMC, { d: 30, h: 22, lh: 2, fov: 46 }, { d: 14, h: 5, lh: 2.4, fov: 40, ease: 'easeOut' }), dof: [0],
+    act: () => ({ st: { p: STP }, bird: { p: BIRDP }, st2: { p: NMW(-3.8, 2.2), o: { skin: '#b07a48', wood: 1, arms: 'cheek', hair: 'bun' } }, st3: { p: NMW(4.2, 1.2), o: { wood: 1, arms: 'hang', hair: 'short' } } }) }],
+  s1: [{ light: 'day', cam: R2([-41, 0, 18], { d: 34, yaw: 35, h: 14, lh: 3, fov: 50 }, { d: 22, yaw: 20, h: 5, lh: 3, fov: 46 }), dof: [0],
+    act: (u, f) => ({ v0: { p: [lerp(-42, -39, u), 0, lerp(17, 20, u)], o: { ...VL[0], step: f / 15 } }, v1: { p: [-37.5, 0, 16.5], o: { ...VL[1], arms: 'point', ...idle(f, 3) } }, v2: { p: [-36.5, 0, 17.2], o: { ...VL[2], mth: 'smile', ...idle(f, 4) } }, v3: { p: [-44, 0, 15], o: { ...VL[3], ...idle(f, 5) } } }) }],
+  s2: [{ light: 'golden', cam: R2(NMW(0, 4.5), { d: 15, h: 2.4, lh: 1.4, fov: 44 }, { d: 13, h: 2.1, lh: 1.4, fov: 40 }), dof: [0], until: .55,
+    act: (u, f) => { const r = {}; [[-2.6, 4.6], [-1.2, 5.1], [.4, 5.2], [1.8, 4.9], [3.1, 4.4], [-3.6, 3.8]].forEach(([x, z], i) => r['v' + i] = { p: NMW(x, z), o: { ...VL[i % 4], arms: 'cover', ...idle(f, i) } }); r.st = { p: STP }; r.bird = { p: BIRDP }; return r; } },
+       { light: 'golden', cam: R2(NMC, { d: 18, h: 3, lh: 2, fov: 40 }, { d: 22, h: 3.5, lh: 2.2, fov: 40 }), dof: [0],
+    act: (u, f) => { const r = {}; for (let i = 0; i < 4; i++) { const z = 6 + u * 10 + i * .8; r['v' + i] = { p: NMW(-2 + i * 1.3, z), o: { ...VL[i], step: (f + i * 5) / 15, ...idle(f, i) } }; } r.st = { p: STP }; r.bird = { p: BIRDP }; return r; } }],
+  s3: [{ light: 'golden', cam: R2(STP, { d: 3.2, yaw: -30, h: 1.0, lh: .6, fov: 32 }, { d: 2.5, yaw: 15, h: .9, lh: .6, fov: 28 }), dof: [7, 'st'],
+    act: () => ({ st: { p: STP }, bird: { p: BIRDP }, st2: { p: NMW(-3.8, 2.2), o: { skin: '#b07a48', wood: 1, arms: 'cheek', hair: 'bun' } }, st3: { p: NMW(4.2, 1.2), o: { wood: 1, arms: 'hang', hair: 'short' } } }) }],
+  s4: [{ light: 'day', cam: R2(mid(KHG, GLG), { d: 5.2, h: 1.5, lh: 1.2, fov: 38 }, { d: 4.6, h: 1.5, lh: 1.2, fov: 35 }), dof: [5, 'gl'], until: .3,
+    act: (u, f) => ({ kh: { p: KHG, o: { ...KH, mth: 'smile', arms: 'reach', eye: 'dot', ...idle(f, 1) } }, gl: { p: GLG, o: { ...GL, mth: 'frown', brow: 8, headTilt: 7 * Math.sin(f * .25), blink: blinkAt(f, 5) } } }) },
+       { light: 'day', cam: R2(GLG, { d: 2.4, yaw: -10, h: 1.45, lh: 1.3, fov: 32 }, { d: 2.0, yaw: -10, h: 1.45, lh: 1.32, fov: 30 }), dof: [9, 'gl'], until: .82,
+    act: (u, f) => ({ gl: { p: GLG, o: { ...GL, mth: 'talk', open: .5 + .5 * Math.sin(f * .9), brow: 10, blink: blinkAt(f, 5), arms: u > .5 ? 'point' : 'hang', ...idle(f, 5) } } }) },
+       { light: 'golden', cam: R2(STP, { d: 1.9, h: .9, lh: .65, fov: 30 }, { d: 1.5, h: .85, lh: .65, fov: 26 }), dof: [9, 'st'],
+    act: () => ({ st: { p: STP }, bird: { p: BIRDP } }) }],
+  s5: [{ light: 'room', cam: R2(AP(-.3, -.6), { d: 2.2, h: 1.45, lh: 1.35, fov: 32 }, { d: 1.7, h: 1.45, lh: 1.35, fov: 30 }), dof: [8, 'kh'], until: .35,
+    act: (u, f) => ({ kh: { p: AP(-.3, -.6), o: { ...KH, mth: 'teeth', eye: 'lid', look: 1, brow: 6, ...idle(f, 1) } } }) },
+       { light: 'night', cam: [{ u: 0, at: nightWalk, d: 5.5, yaw: 70, h: 1.9, lh: 1.1, fov: 42 }, { u: 1, at: nightWalk, d: 5, yaw: 50, h: 1.7, lh: 1.1, fov: 40 }], dof: [0],
+    act: (u, f) => ({ kh: { p: nightWalk(u), o: { ...KH, arms: 'flash', prop: 'flash', step: f / 14, mth: 'dash' } }, tu: { p: [lerp(23.4, 13.4, u), 0, lerp(4.2, -3.8, u)], o: { ...TU, step: f / 14 + .5, eye: 'side', mth: 'wave', arms: 'flash', prop: 'flash' } } }) }],
+  s6: [{ light: 'night', cam: R2(mid(NMW(2.3, 4.0), STP), { d: 3.8, yaw: 25, h: 1.2, lh: .6, fov: 34 }, { d: 3.3, yaw: 20, h: 1.1, lh: .6, fov: 30 }), dof: [6, 'st'], until: .45,
+    act: (u, f) => ({ khC: { p: NMW(2.3, 4.0), o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', peek: 1, shake: 1, t: f / 30 } }, st: { p: STP } }) },
+       { light: 'night', cam: R2(TUP, { d: 2.6, yaw: -20, h: 1.45, lh: 1.25, fov: 32 }, { d: 2.1, yaw: -20, h: 1.45, lh: 1.25, fov: 28 }), dof: [7, 'tu'],
+    act: (u, f) => ({ tu: { p: TUP, o: { ...TU, arms: 'pocket', prop: u < .6 ? 'bird' : null, eye: 'side', look: -1, mth: 'smile', ...idle(f, 3) } } }) }],
+  s7: [{ light: 'room', cam: R2(AP(1.3, -.8), { d: 2.3, h: 1.45, lh: 1.3, fov: 32 }, { d: 1.8, h: 1.45, lh: 1.25, fov: 28 }), dof: [9, 'kh'], until: .62,
+    act: (u, f) => ({ kh: { p: AP(1.3, -.8), o: { ...KH, arms: 'hands', handWood: u, eye: u > .5 ? 'shock' : 'dot', mth: u > .5 ? 'frown' : 'dash', brow: -6, ...idle(f, 2) } } }) },
+       { light: 'room', cam: R2(AP(-.8, -.4), { d: 2.3, h: 1.45, lh: 1.3, fov: 34 }, { d: 1.9, h: 1.45, lh: 1.3, fov: 30 }), dof: [9, 'tu'],
+    act: (u, f) => ({ tu: { p: AP(-.8, -.4), o: { ...TU, arms: 'hands', handWood: .6, eye: 'lid', mth: 'wave', brow: -8, ...idle(f, 3) } } }) }],
+  s8: [{ light: 'room', cam: R2(AP(-1.2, -.8), { d: 1.7, yaw: -90, h: 1.55, lh: 1.5, fov: 30 }, { d: 1.35, yaw: -90, h: 1.55, lh: 1.52, fov: 24, roll: 3 }), dof: [9, 'kh'], mirror: true, kick: .62,
+    act: (u, f) => ({ kh: { p: AP(-1.2, -.8), o: { ...KH, carve: M_.smooth((u - .35) / .4), eye: u > .55 ? 'shock' : 'dot', mth: u > .55 ? 'O' : 'dash', brow: u > .55 ? -16 : 0, blink: blinkAt(f, 2) } } }) }],
+  s9: [{ light: 'room', cam: R2(AP(1.0, -.6), { d: 2.6, h: 1.5, lh: 1.3, fov: 34 }, { d: 2.2, h: 1.5, lh: 1.3, fov: 32 }), dof: [6, 'kh'], until: .28,
+    act: (u, f) => ({ kh: { p: AP(1.0, -.6), o: { ...KH, arms: 'point', carve: .7, eye: 'squeeze', mth: 'teeth', brow: 12, ...idle(f, 2) } }, st: { p: AP(2.3, 1.6) } }) },
+       { light: 'golden', truck: u => spline(ROAD.map(p => [p[0], 0, p[1]]), M_.smooth(.15 + u * .85)), camFollow: [-5.5, 2.4, 3.5], dof: [0], until: .8,
+    act: () => ({ st: { inTruck: [0, .9, 1.4], scale: .6 } }) },
+       { light: 'golden', cam: R2([32, 0, 10], { d: 9, yaw: 70, h: 2, lh: 1, fov: 40 }, { d: 7.5, yaw: 60, h: 1.7, lh: 1, fov: 36 }), dof: [0],
+    act: () => ({ st: { inTruck: [0, .9, 1.4], scale: .6 } }) }],
+  s10: [{ light: 'night', cam: [{ u: 0, at: walkP, d: 4.6, yaw: 60, h: 1.9, lh: 1.5, fov: 40 }, { u: 1, at: walkP, d: 4.2, yaw: 40, h: 1.8, lh: 1.5, fov: 40 }], dof: [0], until: .55,
+    act: (u, f) => { const p = walkP(u); return { kh: { p, o: { ...KH, arms: 'carry', step: f / 16, eye: 'squeeze', mth: 'teeth', handWood: .8 } }, st: { p: [p[0], 1.45, p[2]], scale: .7, carried: true } }; } },
+        { light: 'night', cam: [{ u: 0, pos: TW(-1.6, 2.6, -3.4), look: TW(-.4, 1.7, -1.0), fov: 34 }, { u: 1, pos: TW(-1.4, 2.5, -3.0), look: TW(-.4, 1.7, -1.0), fov: 30 }], dof: [5, 'tu'],
+    act: (u, f) => ({ tu: { p: TW(-.4, .5, -1.0), o: { ...TU, arms: 'pocket', prop: 'bird', handWood: .7, eye: 'side', look: 1, mth: 'wave', brow: -10, ...idle(f, 3) } } }) }],
+  s11: [{ light: 'night', cam: R2(mid(KHP, STP), { d: 5.2, yaw: 0, h: 1.5, lh: .9, fov: 38 }, { d: 4.6, yaw: 0, h: 1.45, lh: .9, fov: 34 }), dof: [5, 'kh'],
+    act: (u, f) => ({ kh: { p: KHP, o: { ...KH, arms: 'hoe', prop: 'hoe', handWood: 1, eye: 'squeeze', mth: 'teeth', tilt: 6 * Math.sin(f * .35), brow: 10 } }, st: { p: STP, rise: M_.smooth(u * 1.4) } }) }],
+  s12: [{ light: 'night', cam: R2(KHP, { d: 2.6, h: 1.45, lh: 1.3, fov: 34 }, { d: 1.9, h: 1.45, lh: 1.3, fov: 28, roll: -4, ease: 'easeOut' }), dof: [8, 'kh'], kick: .55,
+    act: (u, f) => ({ kh: { p: KHP, o: { ...KH, arms: u > .5 ? 'cheek' : 'hoe', prop: u > .5 ? null : 'hoe', handWood: 1, eye: u > .5 ? 'shock' : 'dot', mth: u > .5 ? 'O' : 'dash', brow: -16 } }, st: { p: STP } }) }],
+  s13: [{ light: 'night', cam: R2(mid(KHP, STP), { d: 5.6, h: 1.1, lh: .55, fov: 34 }, { d: 4.8, h: 1.0, lh: .55, fov: 30 }), dof: [5, 'khC'],
+    act: () => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', skin: '#c99a6a' } }, st: { p: STP } }) }],
+  s14: [{ light: 'night', cam: R2(mid(KHP, DEADP), { d: 5.6, h: 1.0, lh: .6, fov: 34 }, { d: 4.8, h: 1.0, lh: .6, fov: 30 }), dof: [4, 'khC'], until: .45,
+    act: (u, f) => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', skin: '#c99a6a', shake: u > .5 ? 1 : 0, t: f / 30 } }, st: { p: STP }, dead: { p: DEADP, o: { reach: M_.smooth(u), scream: 0, headTilt: Math.floor(f / 4) % 2 ? 8 : -3 }, pop: true } }) },
+        { light: 'night', cam: R2(DEADP, { d: 2.6, yaw: 10, h: .95, lh: .75, fov: 30 }, { d: 2.0, yaw: 10, h: .95, lh: .78, fov: 26, roll: 4 }), dof: [6, 'dead'], kick: .05,
+    act: (u, f) => ({ dead: { p: DEADP, o: { reach: 1, scream: M_.smooth(u * 2), headTilt: Math.floor(f / 3) % 2 ? 10 : -4 } }, khC: { p: KHP, o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', skin: '#c99a6a', shake: 1, t: f / 30 } } }) }],
+  s15: [{ light: 'night', lightTo: ['dawn', .6], cam: R2(NMW(1.6, 3.5), { d: 8, h: 3, lh: .8, fov: 40 }, { d: 14, h: 7, lh: .8, fov: 42 }), dof: [0],
+    act: (u, f) => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', skin: '#c99a6a', shake: u < .5 ? 1 : 0, t: f / 30 } }, st: { p: STP }, dead: { p: DEADP, o: { reach: 1 - u }, fade: 1 - M_.smooth((u - .3) / .5) } }) }],
+  s16: [{ light: 'dawn', cam: R2(KHP, { d: 2.4, h: 1.45, lh: 1.3, fov: 32 }, { d: 2.0, h: 1.45, lh: 1.3, fov: 28 }), dof: [7, 'kh'],
+    act: (u, f) => ({ kh: { p: KHP, o: { ...KH, arms: u < .3 ? 'cover' : 'hands', handWood: .35, eye: 'lid', mth: 'frown', brow: -8, blink: blinkAt(f, 2) } }, st: { p: STP } }) }],
+  s17: [{ light: 'dawn', cam: [{ u: 0, at: runP, d: 5, yaw: 150, h: 1.7, lh: 1.1, fov: 40 }, { u: 1, at: runP, d: 4.5, yaw: 130, h: 1.6, lh: 1.1, fov: 38 }], dof: [0], until: .4,
+    act: (u, f) => ({ kh: { p: runP(u), o: { ...KH, step: f / 9, eye: 'shock', mth: 'O', brow: -14 } } }) },
+        { light: 'dawn', cam: [{ u: 0, pos: TW(-1.2, 2.9, -3.6), look: TW(-.4, 1.3, -1.0), fov: 32 }, { u: 1, pos: TW(-1.0, 2.7, -3.1), look: TW(-.4, 1.3, -1.0), fov: 26, roll: -3, ease: 'easeOut' }], dof: [5, 'tuW'], kick: .1,
+    act: () => ({ tuW: { p: TW(-.4, .85, -1.0), o: { kind: 'statue' } } }) }],
+  s18: [{ light: 'dawn', cam: [{ u: 0, pos: TW(-.9, 2.7, -2.7), look: TW(-.6, 1.1, -1.1), fov: 26 }, { u: 1, pos: TW(-.8, 2.5, -2.4), look: TW(-.6, 1.1, -1.1), fov: 21 }], dof: [6, 'bird'],
+    act: () => ({ tuW: { p: TW(-.4, .85, -1.0), o: { kind: 'statue' } }, bird: { p: TW(-.75, .95, -1.75), scale: .34 } }) }],
+  end: [{ light: 'golden', cam: [{ u: 0, at: u => NMW(2.4, lerp(9, 5.2, M_.smooth(u * 1.2)) + .6), d: 7, yaw: 30, h: 2.5, lh: 1.2, fov: 40 }, { u: 1, at: u => NMW(2.4, lerp(9, 5.2, M_.smooth(u * 1.2)) + .6), d: 6.5, yaw: 20, h: 2.2, lh: 1.2, fov: 40 }], dof: [0], until: .6,
+    act: (u, f) => { const r = {}; const z = lerp(9, 5.2, M_.smooth(u * 1.2)); [[1.4, 0], [3.4, 0], [1.4, 1.3], [3.4, 1.3]].forEach(([x, dz], i) => r['v' + i] = { p: NMW(x, z + dz), o: { ...VL[i], arms: 'cover', step: f / 16 + i * .25 } }); r.tuW = { p: NMW(2.4, z + .6), y: .9 }; r.st = { p: STP }; r.bird = { p: BIRDP }; return r; } },
+       { light: 'golden', cam: [{ u: 0, at: u => [lerp(44, 54, u), 0, lerp(24, 32, u)], d: 8, yaw: -60, h: 2.5, lh: 1.2, fov: 42 }, { u: 1, at: u => [lerp(44, 54, u), 0, lerp(24, 32, u)], d: 10, yaw: -70, h: 3, lh: 1.2, fov: 42 }], dof: [0],
+    act: (u, f) => ({ kh: { p: [lerp(44, 54, u), 0, lerp(24, 32, u)], o: { ...KH, step: f / 16, eye: 'lid', mth: 'frown', handWood: .35 } } }) }],
+  cta: [{ light: 'night', cam: R2(mid(NMW(2.0, 3.9), STP), { d: 4.2, yaw: 15, h: 1.2, lh: .6, fov: 34 }, { d: 3.4, yaw: 10, h: 1.1, lh: .6, fov: 30 }), dof: [5, 'tuW'],
+    act: () => ({ st: { p: STP }, tuW: { p: NMW(2.0, 3.9) }, bird: { p: NMW(1.6, 4.3), scale: .45 } }) }],
+};

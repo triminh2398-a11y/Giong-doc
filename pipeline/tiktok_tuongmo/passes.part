@@ -1,0 +1,56 @@
+// ---------- passes ----------
+const rtC = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: 4 });
+const rtN = new THREE.WebGLRenderTarget(W, H, { type: THREE.FloatType });
+const rtI = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType });
+const ndM = new THREE.ShaderMaterial({ vertexShader: `varying vec3 vN; varying float vD;
+  void main(){ vec3 p=position; vec3 n=normal;
+  #ifdef USE_INSTANCING
+  p=(instanceMatrix*vec4(p,1.)).xyz; n=mat3(instanceMatrix)*n;
+  #endif
+  vec4 mv=modelViewMatrix*vec4(p,1.); vN=normalize(normalMatrix*n); vD=-mv.z; gl_Position=projectionMatrix*mv; }`,
+  fragmentShader: 'varying vec3 vN; varying float vD; void main(){ gl_FragColor=vec4(normalize(vN)*.5+.5, vD); }' });
+const cardND = new Map();
+const cardNDMat = (map) => new THREE.ShaderMaterial({ uniforms: { map: { value: map } }, side: THREE.DoubleSide,
+  vertexShader: 'varying vec2 vUv; varying float vD; void main(){ vUv=uv; vec4 mv=modelViewMatrix*vec4(position,1.); vD=-mv.z; gl_Position=projectionMatrix*mv; }',
+  fragmentShader: 'uniform sampler2D map; varying vec2 vUv; varying float vD; void main(){ if(texture2D(map,vUv).a<.5) discard; gl_FragColor=vec4(0.,0.,0.,vD); }' });
+const fsq = (frag, uniforms) => { const m = new THREE.ShaderMaterial({ uniforms, vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }', fragmentShader: frag }); const q = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), m); const sc = new THREE.Scene(); sc.add(q); return { m, sc }; };
+const INKSH = `uniform sampler2D col, nd; uniform vec2 res; uniform float px, sat, vig, flash; uniform vec3 fogCol, lift, gain; varying vec2 vUv;
+float edgeAt(vec2 uv, float r){
+vec4 c = texture2D(nd, uv); if (dot(c.rgb,c.rgb) < .01) return 0.; float d = c.a; vec3 n = c.rgb*2.-1.;
+float e = 0.; float rr = r * clamp(7./d, .62, 1.25);
+for (int i=0;i<16;i++){ float a = float(i)*.785398 + (i>7 ? .39 : 0.); float k = i>7 ? .5 : 1.;
+vec2 o = vec2(cos(a), sin(a))*rr*k/res; vec4 s = texture2D(nd, uv+o);
+float ds = s.a; bool card = dot(s.rgb,s.rgb) < .01;
+if (card && ds > 0.) continue;
+if (card) ds = 1e4;
+vec3 ns = s.rgb*2.-1.;
+e = max(e, smoothstep(.006, .02, (ds - d)/d));
+if (!card && abs(ds-d)/d < .06) e = max(e, smoothstep(.88, .72, dot(n, ns)) * .9);
+}
+return e * (1. - smoothstep(140., 520., d)*.8);
+}
+void main(){
+vec3 c = texture2D(col, vUv).rgb;
+float e = edgeAt(vUv, px);
+c = mix(c, vec3(.012,.01,.014), e);
+if (flash < -0.5) c = vec3(e);
+float l = dot(c, vec3(.299,.587,.114)); c = mix(vec3(l), c, sat);
+c = c*gain + lift;
+vec2 q = vUv-.5; c *= 1. - vig*dot(q*vec2(1.,.75), q*vec2(1.,.75))*2.2;
+c = mix(c, vec3(1.), flash);
+gl_FragColor = vec4(c,1.); }`;
+const DOF = `uniform sampler2D src, nd; uniform vec2 res; uniform float focus, cinf, near; varying vec2 vUv;
+float coc(vec2 uv){ float d = texture2D(nd, uv).a; if (d <= 0.) d = 2000.; float k = 1. - focus/d; return k > 0. ? cinf*k : min(-k*cinf*near, cinf*1.4); }
+void main(){
+float c0 = coc(vUv);
+if (cinf < .5 || c0 < .6) { gl_FragColor = linearToOutputTexel(vec4(texture2D(src, vUv).rgb, 1.)); return; }
+vec3 acc = vec3(0.); float wsum = 0.;
+for (int i=0;i<48;i++){ float fi = float(i); float r = sqrt((fi+.5)/48.); float a = fi*2.39996;
+vec2 o = vec2(cos(a), sin(a))*r*c0/res; float cs = coc(vUv+o);
+float w = smoothstep(r*c0-1.5, r*c0+.5, cs + .5);
+acc += texture2D(src, vUv+o).rgb*w; wsum += w; }
+gl_FragColor = linearToOutputTexel(vec4(acc/max(wsum,1e-3), 1.)); }`;
+const ink = fsq(INKSH, { col: { value: rtC.texture }, nd: { value: rtN.texture }, res: { value: new THREE.Vector2(W, H) }, px: { value: 2.5 }, sat: { value: 1.12 }, vig: { value: .3 }, flash: { value: 0 }, fogCol: { value: HORIZON }, lift: { value: new THREE.Color('#05050c') }, gain: { value: new THREE.Color('#f2ecff') } });
+const dof = fsq(DOF, { src: { value: rtI.texture }, nd: { value: rtN.texture }, res: { value: new THREE.Vector2(W, H) }, focus: { value: 4 }, cinf: { value: 0 }, near: { value: 1 } });
+
+// ---------- story (pure functions of f) ----------

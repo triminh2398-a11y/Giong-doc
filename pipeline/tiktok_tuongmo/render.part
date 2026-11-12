@@ -1,0 +1,91 @@
+// ================= frame evaluation =================
+const CARDKEY = { kh: C.kh, khC: C.khC, tu: C.tu, tuW: C.tuW, gl: C.gl, st: C.st, bird: C.bird, st2: C.st2, st3: C.st3, dead: C.dead };
+C.v.forEach((c, i) => CARDKEY['v' + i] = c);
+const DEF = { st: { kind: 'statue' }, tuW: { kind: 'statue' }, khC: { kind: 'person' }, bird: {}, dead: {}, st2: { wood: 1, arms: 'cheek', hair: 'bun' }, st3: { wood: 1, hair: 'short' } };
+let curLight = '';
+function applyLight(k) { if (k === curLight) return; curLight = k; const p = PRE[k];
+  sun.color.set(p.sun); sun.intensity = p.si; hemi.color.set(p.hs); hemi.groundColor.set(p.hg); hemi.intensity = p.hi;
+  skyM.uniforms.top.value.set(p.top); skyM.uniforms.hor.value.set(p.hor); skyM.uniforms.disc.value.set(p.disc);
+  const az = p.az * Math.PI / 180, el = p.el * Math.PI / 180; skyM.uniforms.sun.value.set(Math.sin(az) * Math.cos(el), Math.sin(el), -Math.cos(az) * Math.cos(el));
+  S.fog.color.set(p.hor); S.fog.near = p.fog[0]; S.fog.far = p.fog[1]; APTLAMP.intensity = k === 'room' ? 4 : 0;
+  ink.m.uniforms.gain.value.set(p.gain); ink.m.uniforms.lift.value.set(p.lift); ink.m.uniforms.sat.value = p.sat; ink.m.uniforms.vig.value = p.vig;
+  for (const c of ALL) c.m.material.color.set(c === C.dead ? '#d6e6f0' : p.tint); for (const c of clouds) c.material.color.set(p.cloud);
+  for (const h of HEAD) h.visible = k === 'night'; }
+const fix = (v, y) => (v[1] === 0 ? [v[0], y, v[2]] : v);
+function pick(k, u) { const L = SH[k]; let a = 0; for (let i = 0; i < L.length; i++) { const b = L[i].until ?? 1; if (u < b || i === L.length - 1) return { sh: L[i], uu: clamp((u - a) / (b - a)), i, a, b }; a = b; } }
+function camEval(sh, uu, fShot) {
+  let c; const K = sh.cam;
+  const relK = (k, uu) => { if (!k.at) return k; const at = typeof k.at === 'function' ? k.at(uu) : k.at; const y = (k.yaw || 0) * Math.PI / 180; return { ...k, pos: [at[0] + Math.sin(y) * k.d, (at[1] || 0) + k.h, at[2] + Math.cos(y) * k.d], look: [at[0], (at[1] || 0) + k.lh, at[2]] }; };
+  if (K) { const a = relK(K[0], uu), b = relK(K[K.length - 1], uu), t = (M_[b.ease || 'smooth'])(uu);
+    c = { pos: lerp3(a.at ? a.pos : fix(a.pos, a.y ?? 1.5), b.at ? b.pos : fix(b.pos, b.y ?? 1.5), t), look: lerp3(a.at ? a.look : fix(a.look, 1.2), b.at ? b.look : fix(b.look, 1.2), t), fov: lerp(a.fov, b.fov, t), roll: lerp(a.roll || 0, b.roll || 0, t) }; }
+  c.fov *= 1 - .00012 * fShot;
+  if (sh.kick !== undefined) { const d = fShot - Math.round(sh.kick * sh._len); if (d >= 0 && d < 7) { const s = (d % 2 ? -1 : 1) * .06 * (1 - d / 7); c.look = [c.look[0] + s * 3, c.look[1] + s * 2, c.look[2]]; c.roll += s * 20; } }
+  return c; }
+let LAST = null;
+function frame(t) {
+  const f = Math.round(t * FPS); const k = lineAt(t); const [la, lb] = TL[k]; const u = clamp((t - la) / (lb - la)); const P = pick(k, u), sh = P.sh, uu = P.uu;
+  sh._len = Math.max(1, Math.round((lb - la) * (P.b - P.a) * FPS)); const fShot = Math.round((t - la - (lb - la) * P.a) * FPS);
+  applyLight(sh.lightTo && uu > sh.lightTo[1] ? sh.lightTo[0] : sh.light);
+  // truck
+  if (sh.truck) { const p = sh.truck(uu), p2 = sh.truck(Math.min(1, uu + .01)); TRUCK.position.set(p[0], Math.abs(Math.sin(f * .9)) * .03, p[2]); TRUCK.rotation.y = Math.atan2(-(p2[0] - p[0]), -(p2[2] - p[2])) || TRUCK.rotation.y; }
+  else { TRUCK.position.set(32, 0, 10); TRUCK.rotation.y = .93; }
+  TRUCK.updateMatrixWorld(true);
+  let c;
+  if (sh.camFollow) { const o = new THREE.Vector3(...sh.camFollow).applyAxisAngle(new THREE.Vector3(0, 1, 0), TRUCK.rotation.y); c = { pos: TRUCK.position.clone().add(o).toArray(), look: [TRUCK.position.x, 1.2, TRUCK.position.z], fov: 42, roll: 0 }; }
+  else c = camEval(sh, uu, fShot);
+  cam.position.set(...c.pos); cam.up.set(0, 1, 0); cam.lookAt(...c.look); cam.rotateZ(c.roll * Math.PI / 180); cam.fov = c.fov; cam.updateProjectionMatrix(); sky.position.copy(cam.position);
+  // actors
+  for (const cd of ALL) { cd.m.visible = false; cd.blob.visible = false; cd.m.scale.setScalar(1); }
+  const A = sh.act(uu, f); const ki = ORDER.indexOf(k); STUMP.visible = ki >= ORDER.indexOf('s6') && ki < ORDER.indexOf('s11') && !(k === 's6' && P.i === 0 && uu < .8);
+  for (const [name, a] of Object.entries(A)) { const cd = CARDKEY[name]; if (!cd || a.vis === false) continue;
+    let p = a.inTruck ? TW(...a.inTruck) : a.p.slice(); if (a.y !== undefined) p[1] = a.y; if (a.rise !== undefined) p[1] = -1.0 * (1 - a.rise);
+    cd.set({ ...(DEF[name] || {}), ...(a.o || {}) }); cd.m.position.set(...p); cd.m.visible = true;
+    let sc = a.scale ?? 1; if (a.pop) sc *= M_.back(clamp(fShot / 6), 2.2); cd.m.scale.setScalar(Math.max(.001, sc));
+    if (cd === C.dead) cd.m.material.opacity = .7 * (a.fade ?? 1) * (f % 19 < 2 ? .55 : 1);
+    if (p[1] < .05 && !a.carried && cd !== C.dead) { cd.blob.visible = true; cd.blob.position.set(p[0], .02, p[2]); }
+    cd.m.rotation.y = Math.atan2(cam.position.x - p[0], cam.position.z - p[2]); }
+  // sun + shadow camera centred on the action
+  const tgt = new THREE.Vector3(...c.look); const pr = PRE[curLight], az = pr.az * Math.PI / 180, el = pr.el * Math.PI / 180;
+  sun.target.position.copy(tgt); sun.position.set(tgt.x + Math.sin(az) * Math.cos(el) * 70, tgt.y + Math.sin(el) * 70, tgt.z - Math.cos(az) * Math.cos(el) * 70);
+  const ext = Math.min(40, Math.max(8, cam.position.distanceTo(tgt) * .9)); Object.assign(sun.shadow.camera, { left: -ext, right: ext, top: ext, bottom: -ext, near: 1, far: 220 }); sun.shadow.camera.updateProjectionMatrix();
+  // passes
+  R.setRenderTarget(rtC); R.render(S, cam);
+  const saved = []; S.traverse(o => { if (!o.isMesh) return; saved.push([o, o.material, o.visible]);
+    if (o.userData.sky || o.userData.blob || o.userData.cloud || o.userData.noink || o.userData.ghost) o.visible = false;
+    else if (o.userData.card) { if (!cardND.has(o)) cardND.set(o, cardNDMat(o.material.map)); const m = cardND.get(o); m.uniforms.map.value = o.material.map; o.material = m; }
+    else o.material = ndM; });
+  const fog = S.fog; S.fog = null; R.setClearColor(0x000000, 0); R.setRenderTarget(rtN); R.clear(); R.render(S, cam); S.fog = fog;
+  for (const [o, m, v] of saved) { o.material = m; o.visible = v; }
+  const fl = (k === 'title' && fShot < 6) ? 1 - fShot / 6 : 0; ink.m.uniforms.flash.value = fl;
+  R.setRenderTarget(rtI); R.render(ink.sc, fsCam);
+  const tg = sh.dof && sh.dof[1] ? CARDKEY[sh.dof[1]] : null; dof.m.uniforms.focus.value = tg ? cam.position.distanceTo(tg.m.position.clone().add(new THREE.Vector3(0, .9 * tg.m.scale.y, 0))) : 10; dof.m.uniforms.cinf.value = sh.dof ? sh.dof[0] || 0 : 0;
+  R.setRenderTarget(null); R.render(dof.sc, fsCam);
+  overlay(t, k, u, sh, uu);
+}
+const fsCam = new THREE.Camera();
+// ================= 2D overlay: title, captions, mirror frame, disclaimer =================
+const OV = document.getElementById('o'), og = OV.getContext('2d');
+const TXT = window.TEXTS || {};
+const CHUNKS = {};
+for (const k of ORDER) { const s = TXT[k]; if (!s || k === 'title') continue; const w = s.split(/\s+/); const ch = []; let cur = [];
+  for (const x of w) { cur.push(x); if (cur.length >= 3 || /[.,!?…]$/.test(x)) { ch.push(cur.join(' ')); cur = []; } } if (cur.length) ch.push(cur.join(' ')); CHUNKS[k] = ch; }
+function chunkAt(k, t) { const ch = CHUNKS[k]; if (!ch) return null; const [a, b] = TL[k]; const span = (window.SPEECH && window.SPEECH[k]) || [a + .05, b - .25];
+  const tot = ch.reduce((s, x) => s + x.length + 6, 0); let acc = span[0]; for (const x of ch) { const d = (span[1] - span[0]) * (x.length + 6) / tot; if (t < acc + d) return t >= span[0] ? x : null; acc += d; } return null; }
+function stroke(txt, x, y, size, fill = '#ffffff', w = 14, font = '900') { og.font = `${font} ${size}px "DejaVu Sans"`; og.textAlign = 'center'; og.lineJoin = 'round'; og.lineWidth = w; og.strokeStyle = '#000'; og.strokeText(txt, x, y); og.fillStyle = fill; og.fillText(txt, x, y); }
+function overlay(t, k, u, sh, uu) {
+  og.clearRect(0, 0, W, H);
+  if (sh.mirror) { og.save(); og.strokeStyle = '#3a2a22'; og.lineWidth = 70; og.strokeRect(35, 35, W - 70, H - 70); og.strokeStyle = '#7a5a3e'; og.lineWidth = 14; og.strokeRect(70, 70, W - 140, H - 140); og.restore(); }
+  if (k === 'title') { const lt = t - TL.title[0], d = TL.title[1] - TL.title[0]; const a = Math.min(clamp(lt / .25), clamp((d - lt) / .35)); const sc = M_.back(clamp(lt / .5), 1.4);
+    og.save(); og.globalAlpha = a; og.translate(W / 2, H * .42); og.scale(sc, sc); og.shadowColor = 'rgba(255,90,60,.9)'; og.shadowBlur = 40;
+    for (const [s, y, sz] of [['TƯỢNG', -40, 190], ['NHÀ MỒ', 150, 190]]) { og.font = `900 ${sz}px "DejaVu Serif"`; const tw = og.measureText(s).width; const fs = Math.min(sz, sz * 900 / tw); og.font = `900 ${fs}px "DejaVu Serif"`; og.textAlign = 'center'; og.lineJoin = 'round'; og.lineWidth = 22; og.strokeStyle = '#120806'; og.strokeText(s, 0, y); og.fillStyle = '#f6e8d4'; og.fillText(s, 0, y); }
+    og.shadowBlur = 0; og.font = 'italic bold 50px "DejaVu Serif"'; og.globalAlpha = a * clamp((lt - .5) / .4); og.lineWidth = 10; og.strokeStyle = '#000'; og.strokeText('Đừng lấy gì của người chết', 0, 280); og.fillStyle = '#f0c8b8'; og.fillText('Đừng lấy gì của người chết', 0, 280); og.restore(); return; }
+  const c = chunkAt(k, t); if (c) stroke(c.toUpperCase(), W / 2, H * .66, 84, k === 'hook' ? '#ffe9a8' : '#ffffff', 18);
+  if (k === 'cta') { og.save(); og.globalAlpha = .55 * clamp((t - TL.cta[0]) / .6); og.font = 'italic 34px "DejaVu Sans"'; og.textAlign = 'center'; og.fillStyle = '#ffffff'; og.fillText('Câu chuyện chỉ là hư cấu', W / 2, H - 120); og.restore(); }
+}
+window.draw = t => { frame(t); };
+window.renderFrame = f => frame(f / FPS);
+(async () => {
+  if (!TL) { try { const r = await fetch('tl.json'); if (r.ok) { const j = await r.json(); TL = j.TL; window.SPEECH = j.SPEECH; window.DUR = j.dur; } } catch (e) {} }
+  if (!TL) TL = fakeTL(TXT);
+  window.TLX = TL; window.DUR = window.DUR || TL._end || TL.cta[1] + 1; await document.fonts.ready; window.READY = true; window.ready = true; })();
+window.C = C; window.camObj = cam;
