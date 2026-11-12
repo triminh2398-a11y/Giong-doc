@@ -75,7 +75,7 @@ for k in range(3):place(gong(76,6,k),S_('s15',.0)+k*1.8,.3*(1-k*.3))
 place(crackle(sp('s14')[1]-B['s14'],26),B['s14'],.55,fi=.1,fo=.4)   # tay gỗ răng rắc
 place(2234,S_('s14',.05),.25,dur=4,rate=0.85)                              # hơi thở lạnh
 place(burst(.5,-.1,.15),S_('s17',.05),.3)
-B=T['BEAT'];JT=[sp('title')[0]+.05,B['s8'],B['s14'],B['s17']]
+B=T['BEAT'];JT=[sp('title')[0]+.05,B['s8'],B['s14'],B['s17']]+([B['hook']] if 'hook' in B else [])
 for t in JT:
     s0=int((t-.6)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.2,s1-s0)[:,None]
 mu=np.zeros((N,2));hi=np.zeros((N,2));_out=out;out=mu

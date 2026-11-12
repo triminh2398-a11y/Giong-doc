@@ -1,4 +1,4 @@
-hook|N|Nếu một sáng thức dậy, bạn thấy đầu ngón tay mình cứng đơ và nổi lên những đường vân gỗ, thì hãy nhớ lại xem... bạn đã lấy thứ gì của người chết.
+hook|N|Nếu đi ngang một nhà mồ giữa rừng, bạn thấy bức tượng gỗ đang ngồi ôm mặt bỗng hé tay ra nhìn bạn... thì đừng bao giờ nhìn lại. Vì nó đang chọn người ngồi thế chỗ.
 title|N|Tượng nhà mồ.
 s1|N|Người Jrai ở Tây Nguyên tin rằng chết chưa phải là hết. Người chết vẫn ở đó, trong nhà mồ giữa rừng.
 s2|N|Sau lễ bỏ mả, cả buôn khóc lần cuối, rồi để lại nhà mồ và mọi thứ quanh nó cho người chết. Người sống không quay lại nữa.

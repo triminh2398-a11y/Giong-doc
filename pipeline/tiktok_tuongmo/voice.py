@@ -5,7 +5,7 @@ G = '/home/claude/giong-doc/'; D = G + 'pipeline/tiktok_tuongmo/'
 spec = importlib.util.spec_from_file_location('pace', G + 'pipeline/lib/pace.py'); P = importlib.util.module_from_spec(spec); spec.loader.exec_module(P)
 SR = 48000; ND = G + 'out/99_tm_n/clone_refs_mada8_wav/'
 L = [l.split('|', 2) for l in open(D + 'script.txt', encoding='utf-8').read().strip().split('\n')]
-J = json.load(open(G + 'jobs/99_tm_n.json')); J2 = json.load(open(G + 'jobs/99_tm_hook.json')); ND2 = G + 'out/99_tm_hook/clone_refs_mada8_wav/'
+J = json.load(open(G + 'jobs/99_tm_n.json')); J2 = json.load(open(G + 'jobs/99_tm_hook2.json')); ND2 = G + 'out/99_tm_hook2/clone_refs_mada8_wav/'
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 GAP = {'hook': .7, 's3': .6, 's4': .6, 's8': .8, 's12': .7, 's14': .7, 's15': .6, 's16': .6, 's17': .9, 's18': .6, 'end': .7}
 out = [np.zeros(int(.3 * SR))]; t = .3; TL = {}; SPEECH = {}; picks = {}; VOX = {}
@@ -43,7 +43,7 @@ ks = [k for k, _, _ in L]
 for i in range(1, len(ks)): TL[ks[i]][0] = TL[ks[i - 1]][1]
 y = np.concatenate(out); wavfile.write(D + 'voice.wav', SR, (y / np.abs(y).max() * .9 * 32767).astype(np.int16))
 BEAT = {}
-for k, f in [('s8', .62), ('s14', .45), ('s17', .4)]:
+for k, f in [('hook', .5), ('s8', .62), ('s14', .45), ('s17', .4)]:
     a, b = TL[k]; tgt = a + (b - a) * f; pauses = [(x[1], y[0]) for x, y in zip(VOX[k], VOX[k][1:]) if y[0] - x[1] > .2] + [(SPEECH[k][1], b)]
     p = min(pauses, key=lambda q: abs(q[0] - tgt)); BEAT[k] = round(p[0] + .05, 3)
 print('BEAT', BEAT)

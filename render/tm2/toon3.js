@@ -161,6 +161,7 @@ export function drawPerson(g, o) {
 }
 // ---------- crouching mourner (wood statue, or a live person in the same pose) ----------
 export function drawCrouch(g, o) {
+  if ((o.kind || 'statue') === 'statue') return drawStatue(g, o);
   const p = new Pen(g); g.clearRect(0, 0, 600, 1000);
   const { kind = 'statue', skin = '#ffe2c2', shirt = '#7a8a6a', pants = '#3b3f52', hairCol = '#1e1a22', wood = kind === 'statue' ? 1 : 0, peek = 0, cut = 0, shake = 0 } = o;
   const Wd = wood > .5, C = Wd ? '#a8743f' : shirt, P = Wd ? '#94643a' : pants, S = Wd ? '#b5804a' : skin, H = Wd ? '#8a5a32' : hairCol;
@@ -179,6 +180,9 @@ export function drawCrouch(g, o) {
   for (const s of [-1, 1]) p.part(p.ell(300 + s * (34 + sl), hy + 20 + peek * 30, 44, 60), S, OW * .8);
   p.flush();
   for (const s of [-1, 1]) for (let k = -1; k <= 1; k++) p.line([[300 + s * (34 + sl) + k * 15, hy - 28 + peek * 30], [300 + s * (34 + sl) + k * 15, hy - 4 + peek * 30]], 'rgba(36,23,38,.55)', 3.5);
+  if (o.stare && peek > .25) { const a = Math.min(1, (peek - .25) / .35); g.save(); g.globalAlpha = a; for (const s of [-1, 1]) { const ex = 300 + s * 30, ey = hy + 6;
+      g.beginPath(); g.ellipse(ex, ey, 17, 21, 0, 0, 7); g.fillStyle = '#030204'; g.fill();
+      const gl = g.createRadialGradient(ex, ey, 0, ex, ey, 12); gl.addColorStop(0, 'rgba(235,245,240,1)'); gl.addColorStop(1, 'rgba(235,245,240,0)'); g.fillStyle = gl; g.beginPath(); g.arc(ex + (o.look || 0) * 3, ey + 3, 4.2, 0, 7); g.fill(); } g.restore(); } // hollow wooden eyes with a pale stare
   if (peek > .3 && !Wd) { g.save(); g.globalAlpha = (peek - .3) / .7; for (const s of [-1, 1]) { p.fillInk(() => { g.beginPath(); g.ellipse(300 + s * 30, hy + 10, 12, 16, 0, 0, 7); }, '#fff', 4); p.dot(300 + s * 30, hy + 12, 5, INK); } g.restore(); }
   if (Wd) { grain(g, 186, 400, 414, 975, 1, 5); for (const s of [-1, 1]) p.line([[300 + s * 20, hy + 72], [300 + s * 52, hy + 92]], '#5e3c20', 5); }
   shadeOver(g, .22);
@@ -186,3 +190,40 @@ export function drawCrouch(g, o) {
 }
 export function drawBird(g) { const p = new Pen(g); g.clearRect(0, 0, 600, 1000); p.part(p.ell(300, 900, 90, 50, -.15), ['#b07a48', '#7a5030'], OW); p.part(p.ell(380, 840, 40, 36), '#b07a48', OW); p.flush(); p.fillInk(p.poly([[414, 836], [450, 846], [414, 852]]), '#8a5a32', 4); p.dot(388, 832, 6, INK); grain(g, 200, 800, 430, 960, .8, 4); }
 export function drawDead(g, o) { g.clearRect(0, 0, 600, 1000); }
+// ---------- weathered Jrai grave statue: hewn with an adze, faceted planes, cracks and lichen (not a soft toy) ----------
+export function drawStatue(g, o) {
+  g.clearRect(0, 0, 600, 1000);
+  const { peek = 0, cut = 0, shake = 0, stare = 0 } = o; let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const B = '#665040', L = '#866a52', D = '#3f3128', K = '#160f12';
+  const poly = (pts, fill, w = 4) => { g.beginPath(); g.moveTo(...pts[0]); for (const p of pts.slice(1)) g.lineTo(...p); g.closePath(); g.fillStyle = fill; g.fill(); if (w) { g.strokeStyle = K; g.lineWidth = w; g.lineJoin = 'miter'; g.stroke(); } };
+  g.save(); g.translate(shake * Math.sin((o.t || 0) * 40), 0);
+  poly([[222, 975], [378, 975], [370, 906], [230, 900]], cut ? '#b08a5c' : D, 5);                       // stump plinth
+  for (const sx of [-1, 1]) { poly([[300 + sx * 30, 906], [300 + sx * 92, 906], [300 + sx * 96, 876], [300 + sx * 34, 872]], D);   // feet
+    poly([[300 + sx * 36, 880], [300 + sx * 88, 880], [300 + sx * 82, 730], [300 + sx * 40, 724]], sx < 0 ? D : B); }          // shins
+  poly([[228, 880], [372, 880], [364, 600], [300, 572], [236, 600]], B, 5);                              // hunched torso
+  poly([[300, 572], [364, 600], [372, 880], [318, 880]], D, 0);                                            // shaded side plane
+  for (const sx of [-1, 1]) poly([[300 + sx * 18, 752], [300 + sx * 100, 744], [300 + sx * 104, 806], [300 + sx * 20, 812]], sx < 0 ? L : B); // knees
+  // long angular head, jaw resting on the hands
+  const hy = 470; poly([[236, hy - 104], [364, hy - 110], [376, hy - 40], [356, hy + 96], [300, hy + 118], [244, hy + 96], [224, hy - 40]], B, 5);
+  poly([[300, hy - 108], [364, hy - 110], [376, hy - 40], [356, hy + 96], [300, hy + 118]], D, 0);
+  poly([[230, hy - 52], [370, hy - 56], [366, hy - 38], [234, hy - 34]], L, 3);                           // heavy brow ledge
+  // carved face (visible only between the parting hands)
+  const gap = peek * 46;
+  if (peek > .05) { g.save(); g.beginPath(); g.rect(300 - gap - 6, hy - 40, (gap + 6) * 2, 170); g.clip();
+    for (const sx of [-1, 1]) { g.beginPath(); g.ellipse(300 + sx * 30, hy - 4, 18, 13, sx * .15, 0, 7); g.fillStyle = '#050304'; g.fill(); }
+    if (stare) for (const sx of [-1, 1]) { const gl = g.createRadialGradient(300 + sx * 30, hy - 3, 0, 300 + sx * 30, hy - 3, 7); gl.addColorStop(0, 'rgba(230,240,235,1)'); gl.addColorStop(1, 'rgba(230,240,235,0)'); g.fillStyle = gl; g.beginPath(); g.arc(300 + sx * 30, hy - 3, 5, 0, 7); g.fill(); }
+    poly([[294, hy + 2], [306, hy + 2], [310, hy + 52], [290, hy + 52]], L, 3);                          // nose ridge
+    g.strokeStyle = K; g.lineWidth = 5; g.beginPath(); g.moveTo(268, hy + 86); g.lineTo(300, hy + 78); g.lineTo(332, hy + 86); g.stroke(); g.restore(); }
+  // forearms rise from the knees, flat hands spread over the face; fingers are carved grooves
+  for (const sx of [-1, 1]) { const hx = 300 + sx * (40 + gap);
+    poly([[300 + sx * 70, 760], [300 + sx * 112, 752], [hx + sx * 40, hy + 60], [hx - sx * 6, hy + 70]], sx < 0 ? L : B);
+    poly([[hx - 36, hy - 70], [hx + 36, hy - 74], [hx + 40, hy + 72], [hx - 34, hy + 78]], sx < 0 ? L : B);
+    g.strokeStyle = 'rgba(22,15,18,.7)'; g.lineWidth = 3.5; for (const k of [-18, 0, 18]) { g.beginPath(); g.moveTo(hx + k, hy - 66); g.lineTo(hx + k + 2, hy - 18); g.stroke(); } }
+  // adze marks, cracks, lichen
+  g.save(); g.globalCompositeOperation = 'source-atop';
+  g.strokeStyle = 'rgba(30,20,16,.35)'; g.lineWidth = 2.4; for (let i = 0; i < 70; i++) { const x = 215 + r() * 170, y = 360 + r() * 540; g.beginPath(); g.moveTo(x, y); g.lineTo(x + 10 + r() * 8, y + 4 + r() * 6); g.stroke(); }
+  g.strokeStyle = 'rgba(14,9,10,.75)'; g.lineWidth = 2; for (let i = 0; i < 6; i++) { let x = 240 + r() * 120, y = 380 + r() * 400; g.beginPath(); g.moveTo(x, y); for (let k = 0; k < 6; k++) { x += (r() - .5) * 8; y += 14 + r() * 10; g.lineTo(x, y); } g.stroke(); }
+  for (let i = 0; i < 14; i++) { g.fillStyle = `rgba(${120 + r() * 30 | 0},${130 + r() * 30 | 0},${100 + r() * 20 | 0},.25)`; g.beginPath(); g.ellipse(220 + r() * 160, 380 + r() * 520, 4 + r() * 9, 3 + r() * 6, r() * 3, 0, 7); g.fill(); }
+  const gr = g.createLinearGradient(0, 360, 0, 975); gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,.35)'); g.fillStyle = gr; g.fillRect(0, 0, 600, 1000);
+  g.restore(); g.restore();
+}

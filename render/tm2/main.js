@@ -177,6 +177,7 @@ S.traverse(o => { if (o.isMesh && o.material === M.lamp && o.parent && o.parent 
 const PRE = {
   day: { az: 200, el: 50, sun: '#fff3df', si: 2.45, hs: '#d2e2f6', hg: '#a8905e', hi: 1.1, top: '#2d74d4', hor: '#cfe3f5', disc: '#fffbe8', gain: '#ffffff', lift: '#000000', sat: 1.12, vig: .2, tint: '#ffffff', fog: [120, 1300], cloud: '#ffffff', lamp: 0 },
   golden: { az: 220, el: 11, sun: '#ffb46a', si: 2.9, hs: '#a99bcc', hg: '#7a5040', hi: .98, top: '#6474c0', hor: '#ffc485', disc: '#fff0c8', gain: '#fff0e0', lift: '#000000', sat: 1.15, vig: .26, tint: '#ffe2c4', fog: [140, 1100], cloud: '#ffd9c0', lamp: 3 },
+  deep: { az: 140, el: 22, sun: '#9fb0ee', si: 1.0, hs: '#3e4c86', hg: '#171c30', hi: .85, top: '#070b22', hor: '#1c2a55', disc: '#e8ecff', gain: '#c9d3ff', lift: '#020308', sat: 1.0, vig: .5, tint: '#8f9cc8', fog: [18, 220], cloud: '#4d5a88', lamp: 0 },
   night: { az: 160, el: 34, sun: '#b9c8ff', si: 1.55, hs: '#6a7cc0', hg: '#2c3450', hi: 1.2, top: '#0f1a44', hor: '#3d5596', disc: '#f4f6ff', gain: '#e6ecff', lift: '#05070f', sat: 1.08, vig: .32, tint: '#d0daff', fog: [60, 700], cloud: '#7d8cc0', lamp: 10 },
   dawn: { az: 120, el: 8, sun: '#ffc0b0', si: 1.9, hs: '#b6a8d8', hg: '#6a5060', hi: 1.05, top: '#5d6cab', hor: '#f2b8a8', disc: '#fff0e8', gain: '#fff0f0', lift: '#020204', sat: 1.08, vig: .28, tint: '#f4dede', fog: [80, 900], cloud: '#f0c8c8', lamp: 2 },
   room: { az: 230, el: 40, sun: '#fff3df', si: 1.2, hs: '#f2e6d6', hg: '#8a7060', hi: 1.35, top: '#2d74d4', hor: '#cfe3f5', disc: '#fffbe8', gain: '#fff8f0', lift: '#000000', sat: 1.1, vig: .24, tint: '#fff4ea', fog: [200, 1300], cloud: '#ffffff', lamp: 4 },
@@ -281,8 +282,9 @@ const walkP = (u) => spline(FOOT.map(q => [q[0], 0, q[1]]), .05 + u * .25);
 const nightWalk = (u) => [lerp(22, 12, u), 0, lerp(3, -5, u)];
 const runP = (u) => [lerp(23, 28.5, u), 0, lerp(2.5, 7.2, u)];
 const SH = {
-  hook: [{ light: 'room', cam: R2(KHB, { d: 3.6, h: 1.35, lh: 1.08, fov: 34 }, { d: 3.0, h: 1.35, lh: 1.1, fov: 32 }), dof: [14, 'kh'],
-    act: (u, f) => ({ kh: { p: KHB, o: { ...KH, skin: '#ffe2c2', arms: 'hands', handWood: clamp((u - .2) / .25), eye: u > .62 ? 'shock' : 'dot', mth: u > .62 ? 'O' : 'dash', brow: u > .62 ? -14 : (u > .3 ? 8 : 0), blink: blinkAt(f, 2), ...idle(f, 2) } }, st: { p: AP(2.3, 1.6) } }) }],
+  hook: [{ light: 'deep', cam: R2(STP, { d: 4.4, yaw: -10, h: 1.0, lh: .66, fov: 34 }, { d: 2.1, yaw: 0, h: .78, lh: .68, fov: 28 }), dof: [12, 'st'],
+    act: (u, f) => { const pk = M_.smooth((u - .38) / .13); return { st: { p: STP, o: { stare: 1, peek: pk * .75, look: 0, shake: u > .5 ? .6 * Math.sin(f * .9) * (1 - M_.smooth((u - .5) / .3)) : 0, t: f / 30 } },
+      st2: { p: NMW(-3.8, 2.2), o: { skin: '#b07a48', wood: 1, arms: 'cheek', hair: 'bun' } }, st3: { p: NMW(4.2, 1.2), o: { wood: 1, arms: 'hang', hair: 'short' } }, bird: { p: BIRDP } }; } }],
   title: [{ light: 'golden', cam: R2(NMC, { d: 30, h: 22, lh: 2, fov: 46 }, { d: 14, h: 5, lh: 2.4, fov: 40, ease: 'easeOut' }), dof: [0],
     act: () => ({ st: { p: STP }, bird: { p: BIRDP }, st2: { p: NMW(-3.8, 2.2), o: { skin: '#b07a48', wood: 1, arms: 'cheek', hair: 'bun' } }, st3: { p: NMW(4.2, 1.2), o: { wood: 1, arms: 'hang', hair: 'short' } } }) }],
   s1: [{ light: 'golden', cam: R2([-41, 0, 18], { d: 40, yaw: 35, h: 24, lh: 2, fov: 50 }, { d: 26, yaw: 20, h: 10, lh: 1.5, fov: 46 }), dof: [0],
