@@ -1478,3 +1478,5 @@ loaded V3TurboVieNeuTTS
 99_rig_k asr ok
 loaded V3TurboVieNeuTTS
 99_tm_hook asr ok
+loaded V3TurboVieNeuTTS
+99_tm_hook2 asr ok
