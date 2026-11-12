@@ -247,24 +247,70 @@ function ghostB(ctx, t) { const ev = { face: 7.6 }; const seg = (t, a, b) => Mat
         const sg = ctx.createLinearGradient(0, 30, 0, 110); sg.addColorStop(0, 'rgba(9,8,11,0)'); sg.addColorStop(1, 'rgba(9,8,11,.95)'); ctx.fillStyle = sg; ctx.fillRect(-60, 30, 120, 100);
       }
 }
+// the dead of the grave house: tall, gaunt, hunched in the doorway (reference-style creature, not chibi)
+function ghostTall(ctx, t) {
+  const sg = (t, a, b) => Math.max(0, Math.min(1, (t - a) / (b - a))), io = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+  const INK = '#0e0d12', SK = '#8d9a90', SKD = '#66736b', SKL = '#a7b3aa', HAIR = '#23242c';
+  const mo = io(sg(t, 8.5, 9.1)), grip = io(sg(t, 7.9, 8.5)), br = Math.sin(t * 2.1);
+  const line = (pts, w = 3, c = INK) => { ctx.beginPath(); ctx.moveTo(...pts[0]); for (let i = 1; i < pts.length; i++) ctx.lineTo(...pts[i]); ctx.strokeStyle = c; ctx.lineWidth = w; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke(); };
+  const shape = (fn, fill, w = 3) => { ctx.beginPath(); fn(); ctx.closePath(); ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = w; ctx.lineJoin = 'round'; ctx.stroke(); };
+  // long hair falling behind the shoulders
+  shape(() => { ctx.moveTo(-46, -40); ctx.bezierCurveTo(-60, -110, 60, -110, 46, -40); ctx.bezierCurveTo(78, 40, 88, 140, 74, 210); ctx.lineTo(60, 190); ctx.lineTo(52, 222); ctx.lineTo(40, 170); ctx.lineTo(-40, 170); ctx.lineTo(-50, 226); ctx.lineTo(-62, 186); ctx.lineTo(-76, 206); ctx.bezierCurveTo(-90, 140, -80, 40, -46, -40); }, HAIR);
+  for (const s of [-1, 1]) for (let k = 0; k < 4; k++) line([[s * (40 + k * 6), -50 + k * 6], [s * (62 + k * 5), 60], [s * (56 + k * 6), 180 + k * 8]], 1.6, 'rgba(150,165,180,.35)');
+  // left arm hangs long past the knee, fingers curled, dark nails
+  const armL = [[-58, 96], [-88, 170], [-92, 252]];
+  shape(() => { ctx.moveTo(-66, 90); ctx.quadraticCurveTo(-104, 170, -102, 254); ctx.lineTo(-84, 254); ctx.quadraticCurveTo(-82, 172, -50, 104); }, SK);
+  for (let k = 0; k < 4; k++) { const fx = -104 + k * 7; line([[fx, 252], [fx - 2, 276 + (k % 2) * 6], [fx + 3, 286 + (k % 2) * 6]], 4.5, SKD); line([[fx + 3, 284 + (k % 2) * 6], [fx + 5, 292 + (k % 2) * 6]], 3.5, '#151317'); }
+  // legs: thin, knees bent, feet splayed (partly behind the fence)
+  for (const s of [-1, 1]) shape(() => { ctx.moveTo(s * 14, 232); ctx.quadraticCurveTo(s * 40, 256, s * 30, 296); ctx.lineTo(s * 56, 304); ctx.lineTo(s * 54, 312); ctx.lineTo(s * 16, 310); ctx.quadraticCurveTo(s * 18, 262, s * 2, 240); }, SKD);
+  // emaciated torso: narrow waist, ribs, collarbones; breathes slowly
+  shape(() => { ctx.moveTo(-24, 66); ctx.quadraticCurveTo(-66, 74, -68, 100); ctx.quadraticCurveTo(-50, 150, -36, 214); ctx.lineTo(36, 214); ctx.quadraticCurveTo(50, 150, 68, 100); ctx.quadraticCurveTo(66, 74, 24, 66); }, SK);
+  ctx.save(); ctx.beginPath(); ctx.moveTo(10, 70); ctx.quadraticCurveTo(70, 90, 40, 214); ctx.lineTo(80, 214); ctx.lineTo(80, 60); ctx.closePath(); ctx.fillStyle = 'rgba(40,50,46,.35)'; ctx.fill(); ctx.restore();
+  for (let k = 0; k < 4; k++) { const y = 118 + k * 15 + br; line([[-34 + k * 2, y], [-14, y + 6], [-4, y + 2]], 2.2, 'rgba(14,13,18,.65)'); line([[34 - k * 2, y], [14, y + 6], [4, y + 2]], 2.2, 'rgba(14,13,18,.65)'); }
+  line([[-44, 84], [-10, 90]], 2.4, 'rgba(14,13,18,.7)'); line([[44, 84], [10, 90]], 2.4, 'rgba(14,13,18,.7)'); line([[0, 100], [0, 180]], 2, 'rgba(14,13,18,.4)');
+  // tattered woven Jrai skirt: dark with faded red bands, ragged hem
+  shape(() => { ctx.moveTo(-40, 196); ctx.lineTo(40, 196); ctx.lineTo(48, 252); for (let k = 0; k < 8; k++) ctx.lineTo(48 - k * 12 - 6, 252 + (k % 2 ? 16 : 4)); ctx.lineTo(-48, 252); }, '#24212a');
+  ctx.fillStyle = 'rgba(122,42,38,.85)'; ctx.fillRect(-42, 206, 84, 7); ctx.fillRect(-45, 232, 90, 5);
+  line([[-40, 196], [40, 196]], 3);
+  // right arm reaches up and grips the door frame (long fingers wrap the post)
+  const hx = lerp(70, 150, grip), hy = lerp(150, 70, grip);
+  shape(() => { ctx.moveTo(56, 86); ctx.quadraticCurveTo(lerp(110, 120, grip), lerp(140, 84, grip), hx - 6, hy + 8); ctx.lineTo(hx + 10, hy + 14); ctx.quadraticCurveTo(lerp(124, 136, grip), lerp(150, 96, grip), 66, 104); }, SK);
+  for (let k = 0; k < 4; k++) { const fy = hy - 8 + k * 8; line([[hx + 2, fy], [hx + 16, fy - 3], [hx + 20, fy + 6]], 4.5, SKD); line([[hx + 20, fy + 6], [hx + 18, fy + 12]], 3.5, '#151317'); } // fingers curl around the door post
+  // long thin neck
+  shape(() => { ctx.moveTo(-13, 30); ctx.lineTo(-15, 74); ctx.lineTo(15, 74); ctx.lineTo(13, 30); }, SKD, 2.5);
+  line([[-6, 40], [-8, 66]], 2, 'rgba(14,13,18,.5)'); line([[6, 40], [8, 66]], 2, 'rgba(14,13,18,.5)');
+  // head: long gaunt skull-like face, hair framing it
+  ctx.save(); ctx.rotate(-.08 + .03 * Math.sin(t * .9));
+  shape(() => { ctx.moveTo(0, -62); ctx.bezierCurveTo(36, -62, 44, -24, 40, 4); ctx.bezierCurveTo(36, 34, 18, 54, 0, 56); ctx.bezierCurveTo(-18, 54, -36, 34, -40, 4); ctx.bezierCurveTo(-44, -24, -36, -62, 0, -62); }, SKL);
+  for (const s of [-1, 1]) { const cg = ctx.createRadialGradient(s * 22, 26, 2, s * 22, 26, 18); cg.addColorStop(0, 'rgba(40,50,46,.6)'); cg.addColorStop(1, 'rgba(40,50,46,0)'); ctx.fillStyle = cg; ctx.fillRect(s * 22 - 18, 8, 36, 36); } // hollow cheeks
+  for (const s of [-1, 1]) { ctx.beginPath(); ctx.ellipse(s * 16, -2, 14, 15, s * .15, 0, 7); ctx.fillStyle = '#0a090c'; ctx.fill(); } // deep sockets
+  line([[-2, 10], [-4, 24], [2, 25]], 2.4, 'rgba(14,13,18,.7)');
+  const mh = 6 + 26 * mo; ctx.beginPath(); ctx.ellipse(0, 38 + mh * .35, 7 + 3 * mo, mh * .5, 0, 0, 7); ctx.fillStyle = '#060507'; ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 2.5; ctx.stroke();
+  line([[-30, -26], [-8, -20]], 2, 'rgba(14,13,18,.5)'); line([[30, -26], [8, -20]], 2, 'rgba(14,13,18,.5)'); // brow ridge
+  // hair over the crown, parted, stringy locks down the temples (face stays clear)
+  shape(() => { ctx.moveTo(-2, -66); ctx.bezierCurveTo(-34, -70, -50, -40, -46, 6); ctx.lineTo(-38, -8); ctx.lineTo(-34, 16); ctx.bezierCurveTo(-36, -30, -22, -50, -2, -54); }, HAIR, 2.5);
+  for (const s of [-1, 1]) line([[s * 4, -62], [s * 30, -50], [s * 40, -6]], 1.6, 'rgba(150,165,180,.4)');
+  shape(() => { ctx.moveTo(2, -66); ctx.bezierCurveTo(34, -70, 50, -40, 46, 6); ctx.lineTo(38, -8); ctx.lineTo(34, 16); ctx.bezierCurveTo(36, -30, 22, -50, 2, -54); }, HAIR, 2.5);
+  ctx.restore();
+}
 function ghost(t, wx, wy) { const a = sm(seg(t, 6.2, 6.9)); if (a <= 0) return; const jit = Math.floor(t * 12); const dx = (jit % 3 - 1) * 1.5;
   g.save(); g.translate(wx + dx, wy);
-  const fa = .7 * sm(seg(t, 7.6, 8.6)); if (fa > 0) { const L = ghost.L || (ghost.L = document.createElement('canvas')); L.width = 420; L.height = 560; const lc = L.getContext('2d'); lc.translate(210, 160); ghostB(lc, t); g.save(); g.translate(0, -4 + 3 * Math.sin(t * 1.6)); g.rotate(rad(jit % 7 < 3 ? 6 : -3) * seg(t, 8.2, 8.4)); g.scale(.6, .6); g.globalAlpha = fa; g.drawImage(L, -210, -160); g.restore(); g.globalAlpha = 1; }
-  for (const s of [-1, 1]) { const ex = s * (fa > 0 ? 13 : 18), ey = fa > 0 ? 3.6 : 4 + (s > 0 ? 4 : 0); const hl = g.createRadialGradient(ex, ey, 0, ex, ey, 30); hl.addColorStop(0, `rgba(190,255,220,${(fa > 0 ? .12 : .55) * a})`); hl.addColorStop(1, 'rgba(190,255,220,0)'); g.fillStyle = hl; g.fillRect(ex - 30, ey - 30, 60, 60);
-    g.fillStyle = `rgba(230,255,240,${a})`; g.beginPath(); g.ellipse(ex, ey, fa > 0 ? 2.2 : 4.5, fa > 0 ? 2.2 : 3.2, 0, 0, 7); g.fill(); }
+  const fa = .7 * sm(seg(t, 7.6, 8.6)); if (fa > 0) { const L = ghost.L || (ghost.L = document.createElement('canvas')); L.width = 560; L.height = 720; const lc = L.getContext('2d'); lc.translate(260, 200); ghostTall(lc, t); g.save(); g.translate(0, 2 * Math.sin(t * 1.6)); g.rotate(rad(jit % 7 < 3 ? 3 : -2) * seg(t, 8.2, 8.4)); g.scale(.62, .62); g.globalAlpha = fa; g.drawImage(L, -260, -200); g.restore(); g.globalAlpha = 1; }
+  for (const s of [-1, 1]) { const ex = s * (fa > 0 ? 10 : 18), ey = fa > 0 ? -1 : 4 + (s > 0 ? 4 : 0); const hl = g.createRadialGradient(ex, ey, 0, ex, ey, 30); hl.addColorStop(0, `rgba(110,255,170,${(fa > 0 ? .35 : .55) * a})`); hl.addColorStop(1, 'rgba(110,255,170,0)'); g.fillStyle = hl; g.fillRect(ex - 30, ey - 30, 60, 60);
+    g.fillStyle = `rgba(200,255,215,${a})`; g.beginPath(); g.ellipse(ex, ey, fa > 0 ? 3 : 4.5, fa > 0 ? 2.6 : 3.2, 0, 0, 7); g.fill(); }
   g.restore(); }
 // ---------------- frame ----------------
 const MIST = layer(2200, 400, (x, w, h) => { for (let i = 0; i < 40; i++) { const gr = x.createRadialGradient(0, 0, 0, 0, 0, 1); x.save(); x.translate(rnd() * w, 120 + rnd() * 220); x.scale(160 + rnd() * 200, 30 + rnd() * 30); const r = x.createRadialGradient(0, 0, 0, 0, 0, 1); r.addColorStop(0, 'rgba(170,184,200,.22)'); r.addColorStop(1, 'rgba(170,184,200,0)'); x.fillStyle = r; x.beginPath(); x.arc(0, 0, 1, 0, 7); x.fill(); x.restore(); } });
 window.draw = (t) => {
   const o = smoothPose(t), sp = springs(t); o.tuft = sp.tuft; o.scarf = sp.scarf; o.lanternSwing = sp.lantern;
   // camera: follow the walk, then drift right, then push in on the ghost eyes
-  const cut = t >= 7.6, cw = sm(seg(t, 0, 7.6)), cc = sm(seg(t, 7.6, 9.4)); const push = cut ? lerp(2.1, 2.45, cc) : lerp(.9, .96, cw); const focus = cut ? [632, lerp(915, 905, cc)] : [lerp(clamp(walkX(Math.max(0, t - .5)) + 230, 250, 420), 420, sm(seg(t, 2.4, 4.4))) + 25 * cw, lerp(720, 735, cw)];
+  const cut = t >= 7.6, cw = sm(seg(t, 0, 7.6)), cc = sm(seg(t, 7.6, 9.4)); const push = cut ? lerp(1.75, 2.0, cc) : lerp(.9, .96, cw); const focus = cut ? [640, lerp(930, 905, cc)] : [lerp(clamp(walkX(Math.max(0, t - .5)) + 230, 250, 420), 420, sm(seg(t, 2.4, 4.4))) + 25 * cw, lerp(720, 735, cw)];
   const shake = t > 7.0 && t < 7.4 ? (1 - seg(t, 7, 7.4)) * 10 * Math.sin(t * 90) : 0;
   g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(SKY, 0, 0);
   const view = (par) => { g.setTransform(push, 0, 0, push, W / 2 - focus[0] * push * par - (1 - par) * 0 + shake, H / 2 - focus[1] * push + shake * .5); };
   view(.15); g.drawImage(FAR, -200 + focus[0] * .85 * (1 - .15) * 0, 0); view(.45); g.drawImage(MID, -300, 0);
   view(1); g.drawImage(GROUND, -400, 860); g.drawImage(ROCK, 250, 165, 765, 935);
-  ghost(t, 632, 905);
+  ghost(t, 632, 858);
   // character + lantern light pool
   const lx = o.x + 40, ly = o.y - 150; const pool = g.createRadialGradient(lx, ly, 10, lx, ly, 320); pool.addColorStop(0, 'rgba(255,190,110,.32)'); pool.addColorStop(1, 'rgba(255,190,110,0)');
   character(o);
