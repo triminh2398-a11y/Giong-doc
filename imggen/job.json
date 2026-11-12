@@ -1,32 +1,52 @@
 {
- "tag": "axl_test1",
+ "tag": "axl_test2",
  "xl": true,
  "model": "cagliostrolab/animagine-xl-4.0",
  "steps": 20,
  "cfg": 5,
  "w": 832,
  "h": 1216,
- "style": "masterpiece, high score, great score, absurdres, anime screenshot, clean lineart, soft cel shading",
- "neg": "lowres, bad anatomy, bad hands, text, error, missing finger, extra digits, fewer digits, cropped, worst quality, low quality, low score, bad score, average score, signature, watermark, username, blurry, nsfw, blood, fangs, weapon",
+ "style": "masterpiece, high score, great score, absurdres, anime screenshot",
+ "neg": "lowres, bad anatomy, bad hands, text, error, missing finger, extra digits, fewer digits, cropped, worst quality, low quality, low score, bad score, average score, signature, watermark, username, blurry, nsfw, blood, fangs, weapon, chibi, cute, smile, blush, multiple girls, spirit, wisp, hitodama, floating creature",
  "items": [
   {
-   "id": "linh",
-   "p": "1girl, solo, vietnamese woman, adult, long hair, straight hair, black hair, brown eyes, white dress, puffy short sleeves, camera, camera strap, white sneakers, full body, standing, looking at viewer, arms at sides, simple background, grey background",
-   "seed": 7
+   "id": "ghost_a",
+   "p": "1girl, solo, vietnamese woman, adult, white ao dai, white pants, white headband, long hair, black hair, pale skin, grey skin, dark circles, empty eyes, black sclera, expressionless, horror (theme), creepy, barefoot, full body, standing, looking at viewer, arms at sides, simple background, grey background",
+   "seed": 21
   },
   {
-   "id": "ghost",
-   "p": "1girl, solo, ghost, vietnamese woman, adult, ao dai, white ao dai, white pants, white headband, long hair, black hair, pale skin, grey skin, black eyes, empty eyes, expressionless, barefoot, full body, standing, looking at viewer, arms at sides, simple background, grey background",
-   "seed": 11
+   "id": "ghost_b",
+   "p": "1girl, solo, vietnamese woman, adult, white ao dai, white pants, white headband, long hair, black hair, pale skin, grey skin, dark circles, empty eyes, black sclera, expressionless, horror (theme), creepy, barefoot, full body, standing, looking at viewer, arms at sides, simple background, grey background",
+   "seed": 34
   },
   {
-   "id": "bg_cave",
-   "p": "no humans, scenery, limestone cliff, cave entrance, vines, moss, rice terraces, stilt house, karst mountains, dusk, purple sky, orange sky, mist, dirt path, grass",
-   "seed": 3
+   "id": "ghost_c",
+   "p": "1girl, solo, vietnamese woman, adult, white ao dai, white pants, white headband, long hair, black hair, pale skin, grey skin, dark circles, empty eyes, black sclera, expressionless, horror (theme), creepy, barefoot, full body, standing, looking at viewer, arms at sides, simple background, grey background",
+   "seed": 55
   },
   {
-   "id": "bg_village",
-   "p": "no humans, scenery, vietnamese village, stilt house, wooden house, rice terraces, mountains, evening, lantern light, mist, banana tree",
+   "id": "cave_a",
+   "p": "no humans, scenery, limestone cliff, cave, large cave entrance, dark cave interior, vines, moss, dirt path, grass, karst mountains in distance, dusk, purple sky, orange clouds, mist, eerie, horror (theme)",
+   "seed": 8
+  },
+  {
+   "id": "cave_b",
+   "p": "no humans, scenery, limestone cliff, cave, large cave entrance, dark cave interior, vines, moss, dirt path, grass, karst mountains in distance, dusk, purple sky, orange clouds, mist, eerie, horror (theme)",
+   "seed": 13
+  },
+  {
+   "id": "cave_c",
+   "p": "no humans, scenery, limestone cliff, cave, large cave entrance, dark cave interior, vines, moss, dirt path, grass, karst mountains in distance, dusk, purple sky, orange clouds, mist, eerie, horror (theme)",
+   "seed": 89
+  },
+  {
+   "id": "cave_in",
+   "p": "no humans, scenery, inside cave, limestone cave, stalactites, narrow rocky passage, dim light from entrance behind, damp rocks, darkness, blue tint, eerie, horror (theme)",
+   "seed": 4
+  },
+  {
+   "id": "village_dusk",
+   "p": "no humans, scenery, vietnamese village, stilt house, rice terraces, mountains, dusk, purple sky, lantern light, mist, eerie, quiet",
    "seed": 5
   }
  ]
