@@ -151,28 +151,28 @@ function lantern(o) { g.save(); g.strokeStyle = '#2a2420'; g.lineWidth = 3; g.be
 // ---------------- performance (pure functions of t; springs integrated from t=0) ----------------
 const walkEnd = 0, stopEnd = 0;
 const jumpT = 7.0;
-const V0 = 135, WSTOP = 3.5, STRIDE = 230; // walk speed px/s, eases to a stop by WSTOP
+const V0 = 160, WSTOP = 3.5, STRIDE = 150; // walk speed px/s, eases to a stop by WSTOP
 const vel = t => V0 * (1 - sm(seg(t, 2.5, WSTOP)));
-function walkX(t) { let x = -110, n = 80, h = Math.min(t, WSTOP) / n; for (let i = 0; i < n; i++) x += vel((i + .5) * h) * h; return x; }
+function walkX(t) { let x = -185, n = 80, h = Math.min(t, WSTOP) / n; for (let i = 0; i < n; i++) x += vel((i + .5) * h) * h; return x; }
 function rootX(t) { // walks in, eases to a stop, slow weight shift; flinches back at the scare with anticipation + overshoot
   const idle = sm(seg(t, 3.3, 4.3));
   const pre = t > 6.82 ? 8 * Math.sin(seg(t, 6.82, 7.0) * Math.PI / 2) * (1 - seg(t, 7.0, 7.1)) : 0;
   return walkX(t) + 5 * Math.sin((t - 3.3) * 1.1) * idle * (1 - seg(t, 6.6, 7)) + pre - (t > jumpT ? 42 * back(seg(t, jumpT, jumpT + .4), 1.6) : 0); }
 function pose(t) {
-  const w = vel(t) / V0, ph = (walkX(t) + 110) / STRIDE * Math.PI * 2, s = Math.sin(ph), c = Math.cos(ph);
+  const w = vel(t) / V0, ph = (walkX(t) + 185) / STRIDE * Math.PI * 2, s = Math.sin(ph), c = Math.cos(ph);
   // gait for one leg at phase u (0..1): thigh swings ±24; swing phase (thigh travelling forward) bends the knee hard and lifts the foot,
   // stance keeps the leg nearly straight so the planted foot stays put; the foot rolls toe-down at lift and toe-up at heel strike
-  const gait = (p) => { const u = ((p / (2 * Math.PI)) % 1 + 1) % 1, th = 24 * Math.sin(2 * Math.PI * u), sp = ((u - .75) % 1 + 1) % 1, sw = sp < .5 ? sp / .5 : -1;
-    const knee = sw >= 0 ? -62 * Math.sin(Math.PI * Math.pow(sw, .8)) - 4 : -4 - 6 * Math.sin(Math.PI * (sp - .5) / .5), foot = sw >= 0 ? (sw < .7 ? 22 * Math.sin(Math.PI * sw / .7) : -14 * Math.sin(Math.PI * (sw - .7) / .3)) : 0;
+  const gait = (p) => { const u = ((p / (2 * Math.PI)) % 1 + 1) % 1, th = 18 * Math.sin(2 * Math.PI * u), sp = ((u - .75) % 1 + 1) % 1, sw = sp < .5 ? sp / .5 : -1;
+    const knee = sw >= 0 ? -105 * Math.sin(Math.PI * Math.pow(sw, .6)) - 6 : -4 - 6 * Math.sin(Math.PI * (sp - .5) / .5), foot = sw >= 0 ? (sw < .7 ? 22 * Math.sin(Math.PI * sw / .7) : -14 * Math.sin(Math.PI * (sw - .7) / .3)) : 0;
     return [th, knee, foot]; };
   const gF = gait(ph), gB = gait(ph + Math.PI);
   // arms swing against the legs; the elbow bends more as the arm comes forward
-  const armSw = (p) => { const a = -28 * Math.sin(p); return [a, 14 + 22 * Math.max(0, -Math.sin(p)) + 6 * Math.max(0, Math.cos(p))]; };
+  const armSw = (p) => { const a = -26 * Math.sin(p); return [a, 82 + 14 * Math.max(0, -Math.sin(p))]; }; // brisk walk: elbows held near 90, fists pump
   const aB = armSw(ph), aF = armSw(ph + Math.PI);
   const br = Math.sin(t * 2.3) * (1 - w), sway = Math.sin(t * 1.1) * (1 - w);
-  const o = { t, x: rootX(t), y: 1040, flip: 1, bob: 1.8 * br + 9 * s * s * w, lean: 1.5 * sway + 5 * w, bend: 3 + 2 * br + 3 * w,
+  const o = { t, x: rootX(t), y: 1040, flip: 1, bob: 1.8 * br + 9 * s * s * w, lean: 1.5 * sway + 8 * w, bend: 3 + 2 * br + 3 * w,
     legF: [lerp(6 + 2 * sway, gF[0], w), lerp(-4, gF[1], w), gF[2] * w], legB: [lerp(-8 + 2 * sway, gB[0], w), lerp(-3, gB[1], w), gB[2] * w],
-    armB: [lerp(-6 + 3 * br, aB[0] - 4, w), lerp(16 + 2 * br, aB[1], w)], armF: [lerp(4 + 2 * sway, aF[0] * .5 + 6, w), lerp(58 + 3 * br, 50 + aF[1] * .5, w)], spine: 0, neck: 0, head: 2 * Math.sin(t * .9) + 1.2 * Math.sin(t * 2.1),
+    armB: [lerp(-6 + 3 * br, aB[0] - 4, w), lerp(16 + 2 * br, aB[1], w)], armF: [lerp(4 + 2 * sway, aF[0] * .5 + 6, w), lerp(58 + 3 * br, 44 + aF[1] * .12, w)], spine: 0, neck: 0, head: 2 * Math.sin(t * .9) + 1.2 * Math.sin(t * 2.1),
     faceDir: .5, look: .2, blink: 0, brow: 0, mouth: 0, shock: 0, squash: 0, tuft: 0, scarf: 0, lanternSwing: 0 };
   // a slow, eased head turn toward the grave house, the body follows a beat later (overlap)
   const turn = sm(seg(t, 3.2, 4.2)), body = sm(seg(t, 3.5, 4.5));
