@@ -105,36 +105,32 @@ function boot(e, dark, fa = 0) { g.save(); g.translate(...e.end); g.rotate(rad(f
   g.strokeStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.moveTo(-10, 9); g.lineTo(28, 9); g.stroke(); g.restore(); }
 function character(o) {
   g.save(); g.translate(o.x, o.y + o.bob * 1.35); g.scale(1.35 * o.flip, 1.35); g.scale(1 + o.squash * .06, 1 - o.squash * .08);
-  const T = o.lean + o.spine, L1 = 54, L2 = 52, A1 = 44, A2 = 42, bd = o.bend || 0;
-  const hip = [0, -(L1 + L2) + 2], chest0 = add2(hip, 180 + T, 88 + (o.bob || 0) * .4), chest = [chest0[0] + bd, chest0[1]], neck = add2(chest, 180 + T + bd * .6, 6);
+  const T = o.lean + o.spine, L1 = 37, L2 = 35, A1 = 33, A2 = 31, bd = o.bend || 0;
+  const hip = [0, -(L1 + L2) + 2], chest0 = add2(hip, 180 + T, 74 + (o.bob || 0) * .4), chest = [chest0[0] + bd, chest0[1]], neck = add2(chest, 180 + T + bd * .6, 6);
   const leg = (q, x) => { const h = [hip[0] + x, hip[1] + 6], k = add2(h, q[0] + o.lean * .3, L1), f = add2(k, q[0] + q[1] + o.lean * .3, L2); return [h, k, f]; };
   const arm = (q, sh) => { const e = add2(sh, q[0] + o.lean, A1), hd = add2(e, q[0] + q[1] + o.lean, A2); return [sh, e, hd]; };
-  const LB = leg(o.legB, -9), LF = leg(o.legF, 9), AB = arm(o.armB, [chest[0] - 14, chest[1] + 12]), AF = arm(o.armF, [chest[0] + 12, chest[1] + 12]);
+  const LB = leg(o.legB, -9), LF = leg(o.legF, 9), AB = arm(o.armB, [chest[0] - 10, chest[1] + 14]), AF = arm(o.armF, [chest[0] + 10, chest[1] + 14]);
   // back arm + back leg (in shadow)
-  cuffHand(fleshLimb(AB, [15, 13.5, 12], '#3a4258', '#2c3244', 1.5), '#262b3a', P.skinD);
-  boot(fleshLimb(LB, [16, 14, 13], '#1c1f28', '#15171e', 1.5), 1, o.legB[2] || 0);
+  cuffHand(fleshLimb(AB, [14, 13, 13], '#3a4258', '#2c3244', 1.5), '#262b3a', P.skinD);
+  boot(fleshLimb(LB, [17, 16, 15], '#17181e', '#101116', 1), 1, o.legB[2] || 0);
   // front leg
-  boot(fleshLimb(LF, [16, 14, 13], P.pants, '#1c1f29', 1.5), 0, o.legF[2] || 0);
+  boot(fleshLimb(LF, [17, 16, 15], '#1e2028', '#15161c', 1), 0, o.legF[2] || 0);
   // jacket: full body with shoulders, a hem that covers the hips, collar, zip, pocket and a shaded side
   g.save(); g.translate(...hip); g.rotate(rad(T));
-  const J = () => { g.beginPath(); g.moveTo(-36, 22); g.quadraticCurveTo(-46 + bd * .5, -40, -38 + bd, -86); g.quadraticCurveTo(-22 + bd, -100, bd, -100); g.quadraticCurveTo(22 + bd, -100, 38 + bd, -86); g.quadraticCurveTo(46 + bd * .5, -40, 38, 22); g.quadraticCurveTo(0, 30, -36, 22); g.closePath(); };
+  const J = () => { g.beginPath(); g.moveTo(-38, 40); g.quadraticCurveTo(-40 + bd * .4, -20, -30 + bd, -70); g.quadraticCurveTo(-18 + bd, -80, bd, -80); g.quadraticCurveTo(18 + bd, -80, 30 + bd, -70); g.quadraticCurveTo(40 + bd * .4, -20, 38, 40); g.quadraticCurveTo(0, 46, -38, 40); g.closePath(); };
   J(); g.fillStyle = P.jacket; g.fill();
-  g.save(); J(); g.clip(); g.fillStyle = P.jacketD; g.beginPath(); g.moveTo(14 + bd, -110); g.quadraticCurveTo(22 + bd * .6, -40, 16, 40); g.lineTo(60, 40); g.lineTo(60, -110); g.fill();
-  g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(-50, 8, 100, 30); // hem band
-  g.restore(); J(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
-  g.strokeStyle = INK; g.lineWidth = 2; g.beginPath(); g.moveTo(-34, 9); g.quadraticCurveTo(0, 16, 36, 9); g.stroke();
-  g.strokeStyle = 'rgba(0,0,0,.45)'; g.beginPath(); g.moveTo(2 + bd, -92); g.quadraticCurveTo(3 + bd * .5, -40, 2, 24); g.stroke(); // zip
-  g.fillStyle = '#3e4660'; g.strokeStyle = INK; g.lineWidth = 2.2; g.beginPath(); g.roundRect(-30 + bd * .3, -30, 20, 18, 3); g.fill(); g.stroke(); g.beginPath(); g.moveTo(-30 + bd * .3, -25); g.lineTo(-10 + bd * .3, -25); g.stroke(); // pocket
-  for (const s of [-1, 1]) { g.fillStyle = s < 0 ? '#56607e' : '#3e4660'; g.beginPath(); g.moveTo(bd + s * 4, -98); g.lineTo(bd + s * 24, -94); g.lineTo(bd + s * 8, -74); g.closePath(); g.fill(); g.stroke(); } // collar
-  g.beginPath(); g.ellipse(bd, -97, 22, 8, 0, 0, 7); g.fillStyle = P.scarf; g.fill(); g.stroke();
-  g.save(); g.translate(-12 + bd, -94); g.rotate(rad(o.scarf)); g.beginPath(); g.moveTo(-7, 0); g.quadraticCurveTo(-12, 34, -5, 58); g.lineTo(8, 55); g.quadraticCurveTo(3, 30, 7, 0); g.closePath(); g.fillStyle = P.scarf; g.fill(); g.stroke(); g.restore();
+  g.save(); J(); g.clip(); g.fillStyle = P.jacketD; g.beginPath(); g.moveTo(12 + bd, -90); g.quadraticCurveTo(20 + bd * .6, -20, 16, 60); g.lineTo(60, 60); g.lineTo(60, -90); g.fill(); g.restore();
+  J(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
+  g.strokeStyle = 'rgba(0,0,0,.5)'; g.lineWidth = 2; g.beginPath(); g.moveTo(4 + bd, -76); g.quadraticCurveTo(5 + bd * .5, -20, 4, 43); g.stroke(); // placket
+  g.fillStyle = '#1c1a22'; for (let k = 0; k < 4; k++) { const yy = -62 + k * 22; g.beginPath(); g.arc(9 + bd * (1 - (yy + 76) / 120), yy, 2.6, 0, 7); g.fill(); } // buttons
+  g.fillStyle = 'rgba(0,0,0,.18)'; g.strokeStyle = INK; g.lineWidth = 2; g.beginPath(); g.roundRect(-30, 10, 20, 16, 3); g.fill(); g.stroke(); g.beginPath(); g.moveTo(-31, 15); g.lineTo(-9, 15); g.stroke(); // low pocket
+  g.strokeStyle = INK; g.lineWidth = 2.5; g.fillStyle = '#56607e'; g.beginPath(); g.moveTo(bd - 16, -78); g.quadraticCurveTo(bd, -70, bd + 16, -78); g.lineTo(bd + 14, -84); g.quadraticCurveTo(bd, -78, bd - 14, -84); g.closePath(); g.fill(); g.stroke(); // stand collar
   g.restore();
   // front arm with the lantern
-  const fa = fleshLimb(AF, [15, 13.5, 12], P.jacket, P.jacketD, 1.5); cuffHand(fa, '#2c3244', P.skin);
+  const fa = fleshLimb(AF, [14, 13, 13], P.jacket, P.jacketD, 1.5); cuffHand(fa, '#2c3244', P.skin);
   g.save(); g.translate(...AF[2]); g.translate(0, 4); g.rotate(rad(o.lanternSwing)); lantern(o); g.restore();
   // neck + head
-  g.save(); g.translate(...neck); g.rotate(rad(T * .5 - o.neck)); g.fillStyle = P.skinD; g.fillRect(-8, -12, 16, 16); g.strokeStyle = INK; g.lineWidth = 2.5; g.strokeRect(-8, -12, 16, 16);
-  g.translate(0, -64); g.rotate(rad(-o.head)); face(o); g.restore();
+  g.save(); g.translate(...neck); g.rotate(rad(T * .5 - o.neck)); g.translate(0, -58); g.rotate(rad(-o.head)); face(o); g.restore();
   g.restore();
 }
 // temporal smoothing + follow-through: every joint is a weighted average of nearby times, limbs and head trail the body slightly
@@ -144,22 +140,22 @@ function smoothPose(t) { const ks = [-3, -2, -1, 0, 1, 2, 3], wt = ks.map(k => M
     return out; };
   const o = avg(t), lag = avg(Math.max(0, t - .06)), lagH = avg(Math.max(0, t - .04));
   o.armB = lag.armB; o.armF = lag.armF; o.head = lagH.head; o.faceDir = lagH.faceDir; o.blink = pose(t).blink; o.mouth = pose(t).mouth; o.shock = pose(t).shock; return o; }
-function lantern(o) { g.save(); g.strokeStyle = '#2a2420'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, 44); g.stroke();
-  g.translate(0, 44); g.fillStyle = '#3a2e22'; g.fillRect(-16, 0, 32, 8); const fl = .85 + .15 * Math.sin(o.t * 23) * Math.sin(o.t * 7);
+function lantern(o) { g.save(); g.strokeStyle = '#2a2420'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, 18); g.stroke();
+  g.translate(0, 18); g.fillStyle = '#3a2e22'; g.fillRect(-16, 0, 32, 8); const fl = .85 + .15 * Math.sin(o.t * 23) * Math.sin(o.t * 7);
   const gl = g.createRadialGradient(0, 30, 2, 0, 30, 26); gl.addColorStop(0, `rgba(255,236,170,${fl})`); gl.addColorStop(1, 'rgba(255,150,60,.85)'); g.fillStyle = gl; g.beginPath(); g.roundRect(-14, 8, 28, 44, 8); g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
   g.fillStyle = '#3a2e22'; g.fillRect(-16, 50, 32, 7); g.restore(); }
 // ---------------- performance (pure functions of t; springs integrated from t=0) ----------------
 const walkEnd = 0, stopEnd = 0;
 const jumpT = 7.0;
-const V0 = 160, WSTOP = 3.5, STRIDE = 150; // walk speed px/s, eases to a stop by WSTOP
+const V0 = 125, WSTOP = 3.5, STRIDE = 110; // walk speed px/s, eases to a stop by WSTOP
 const vel = t => V0 * (1 - sm(seg(t, 2.5, WSTOP)));
-function walkX(t) { let x = -185, n = 80, h = Math.min(t, WSTOP) / n; for (let i = 0; i < n; i++) x += vel((i + .5) * h) * h; return x; }
+function walkX(t) { let x = -80, n = 80, h = Math.min(t, WSTOP) / n; for (let i = 0; i < n; i++) x += vel((i + .5) * h) * h; return x; }
 function rootX(t) { // walks in, eases to a stop, slow weight shift; flinches back at the scare with anticipation + overshoot
   const idle = sm(seg(t, 3.3, 4.3));
   const pre = t > 6.82 ? 8 * Math.sin(seg(t, 6.82, 7.0) * Math.PI / 2) * (1 - seg(t, 7.0, 7.1)) : 0;
   return walkX(t) + 5 * Math.sin((t - 3.3) * 1.1) * idle * (1 - seg(t, 6.6, 7)) + pre - (t > jumpT ? 42 * back(seg(t, jumpT, jumpT + .4), 1.6) : 0); }
 function pose(t) {
-  const w = vel(t) / V0, ph = (walkX(t) + 185) / STRIDE * Math.PI * 2, s = Math.sin(ph), c = Math.cos(ph);
+  const w = vel(t) / V0, ph = (walkX(t) + 80) / STRIDE * Math.PI * 2, s = Math.sin(ph), c = Math.cos(ph);
   // gait for one leg at phase u (0..1): thigh swings ±24; swing phase (thigh travelling forward) bends the knee hard and lifts the foot,
   // stance keeps the leg nearly straight so the planted foot stays put; the foot rolls toe-down at lift and toe-up at heel strike
   const gait = (p) => { const u = ((p / (2 * Math.PI)) % 1 + 1) % 1, th = 18 * Math.sin(2 * Math.PI * u), sp = ((u - .75) % 1 + 1) % 1, sw = sp < .5 ? sp / .5 : -1;
@@ -170,7 +166,7 @@ function pose(t) {
   const armSw = (p) => { const a = -26 * Math.sin(p); return [a, 82 + 14 * Math.max(0, -Math.sin(p))]; }; // brisk walk: elbows held near 90, fists pump
   const aB = armSw(ph), aF = armSw(ph + Math.PI);
   const br = Math.sin(t * 2.3) * (1 - w), sway = Math.sin(t * 1.1) * (1 - w);
-  const o = { t, x: rootX(t), y: 1040, flip: 1, bob: 1.8 * br + 9 * s * s * w, lean: 1.5 * sway + 8 * w, bend: 3 + 2 * br + 3 * w,
+  const o = { t, x: rootX(t), y: 1040, flip: 1, bob: 1.8 * br + 5 * s * s * w, lean: 1.5 * sway + 8 * w, bend: 3 + 2 * br + 3 * w,
     legF: [lerp(6 + 2 * sway, gF[0], w), lerp(-4, gF[1], w), gF[2] * w], legB: [lerp(-8 + 2 * sway, gB[0], w), lerp(-3, gB[1], w), gB[2] * w],
     armB: [lerp(-6 + 3 * br, aB[0] - 4, w), lerp(16 + 2 * br, aB[1], w)], armF: [lerp(4 + 2 * sway, aF[0] * .5 + 6, w), lerp(58 + 3 * br, 44 + aF[1] * .12, w)], spine: 0, neck: 0, head: 2 * Math.sin(t * .9) + 1.2 * Math.sin(t * 2.1),
     faceDir: .5, look: .2, blink: 0, brow: 0, mouth: 0, shock: 0, squash: 0, tuft: 0, scarf: 0, lanternSwing: 0 };
