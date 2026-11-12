@@ -1474,3 +1474,5 @@ loaded V3TurboVieNeuTTS
 99_tm_n clone:refs/mada8.wav 55 ok 3.6
 99_tm_n clone:refs/mada8.wav 59 ok 4.9
 99_tm_n asr ok
+loaded V3TurboVieNeuTTS
+99_rig_k asr ok
