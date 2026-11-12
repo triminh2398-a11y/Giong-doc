@@ -4,7 +4,7 @@
 + node -e 'console.log(require('\''ffmpeg-static'\''))'
 /home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
 ++ jq -r .tag job.json
-+ TAG=tiktok-tuongmo-v2
++ TAG=tiktok-tuongmo-v4
 ++ jq -r .html job.json
 + HTML=tm/index.html
 ++ jq -r .frames job.json
