@@ -144,7 +144,7 @@ TRUCK.children.forEach(c => { if (Math.abs(c.position.y - 1.1) < .01 && Math.abs
 const HEAD = [-.6, .6].map(x => { const l = add(new THREE.SphereGeometry(.12, 8, 6), M.lamp, [x, 1.2, -2.32], [1, 1, 1], [0, 0, 0], false, TRUCK); l.userData.flat = true; return l; });
 // ================= SÀI GÒN APARTMENT (interior at x=300) =================
 const APT = new THREE.Group(); APT.position.set(300, 0, 0); S.add(APT);
-add(box(6, .1, 6), M.floor, [0, -.05, 0], [1, 1, 1], [0, 0, 0], true, APT);
+add(box(6, .1, 6), M.floor, [0, -.03, 0], [1, 1, 1], [0, 0, 0], true, APT);
 for (const [p, r, w] of [[[0, 1.6, -3], [0, 0, 0], 6], [[-3, 1.6, 0], [0, Math.PI / 2, 0], 6], [[3, 1.6, 0], [0, -Math.PI / 2, 0], 6]]) { const m = add(new THREE.PlaneGeometry(w, 3.2), M.wall, p, [1, 1, 1], r, false, APT); m.receiveShadow = true; }
 add(box(6, .1, 6), M.wall, [0, 3.2, 0], [1, 1, 1], [0, 0, 0], false, APT);
 // window with a city skyline
@@ -282,7 +282,7 @@ const nightWalk = (u) => [lerp(22, 12, u), 0, lerp(3, -5, u)];
 const runP = (u) => [lerp(23, 28.5, u), 0, lerp(2.5, 7.2, u)];
 const SH = {
   hook: [{ light: 'room', cam: R2(KHB, { d: 3.6, h: 1.35, lh: 1.08, fov: 34 }, { d: 3.0, h: 1.35, lh: 1.1, fov: 32 }), dof: [14, 'kh'],
-    act: (u, f) => ({ kh: { p: KHB, o: { ...KH, skin: '#ffe2c2', arms: 'hands', handWood: u > .35 ? 1 : u * 2, eye: u > .5 ? 'shock' : 'dot', mth: u > .5 ? 'O' : 'dash', brow: u > .5 ? -14 : 0, blink: blinkAt(f, 2), ...idle(f, 2) } }, st: { p: AP(2.3, 1.6) } }) }],
+    act: (u, f) => ({ kh: { p: KHB, o: { ...KH, skin: '#ffe2c2', arms: 'hands', handWood: clamp((u - .2) / .25), eye: u > .62 ? 'shock' : 'dot', mth: u > .62 ? 'O' : 'dash', brow: u > .62 ? -14 : (u > .3 ? 8 : 0), blink: blinkAt(f, 2), ...idle(f, 2) } }, st: { p: AP(2.3, 1.6) } }) }],
   title: [{ light: 'golden', cam: R2(NMC, { d: 30, h: 22, lh: 2, fov: 46 }, { d: 14, h: 5, lh: 2.4, fov: 40, ease: 'easeOut' }), dof: [0],
     act: () => ({ st: { p: STP }, bird: { p: BIRDP }, st2: { p: NMW(-3.8, 2.2), o: { skin: '#b07a48', wood: 1, arms: 'cheek', hair: 'bun' } }, st3: { p: NMW(4.2, 1.2), o: { wood: 1, arms: 'hang', hair: 'short' } } }) }],
   s1: [{ light: 'golden', cam: R2([-41, 0, 18], { d: 40, yaw: 35, h: 24, lh: 2, fov: 50 }, { d: 26, yaw: 20, h: 10, lh: 1.5, fov: 46 }), dof: [0],

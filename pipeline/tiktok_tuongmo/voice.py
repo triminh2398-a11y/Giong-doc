@@ -5,7 +5,7 @@ G = '/home/claude/giong-doc/'; D = G + 'pipeline/tiktok_tuongmo/'
 spec = importlib.util.spec_from_file_location('pace', G + 'pipeline/lib/pace.py'); P = importlib.util.module_from_spec(spec); spec.loader.exec_module(P)
 SR = 48000; ND = G + 'out/99_tm_n/clone_refs_mada8_wav/'
 L = [l.split('|', 2) for l in open(D + 'script.txt', encoding='utf-8').read().strip().split('\n')]
-J = json.load(open(G + 'jobs/99_tm_n.json'))
+J = json.load(open(G + 'jobs/99_tm_n.json')); J2 = json.load(open(G + 'jobs/99_tm_hook.json')); ND2 = G + 'out/99_tm_hook/clone_refs_mada8_wav/'
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
 GAP = {'hook': .7, 's3': .6, 's4': .6, 's8': .8, 's12': .7, 's14': .7, 's15': .6, 's16': .6, 's17': .9, 's18': .6, 'end': .7}
 out = [np.zeros(int(.3 * SR))]; t = .3; TL = {}; SPEECH = {}; picks = {}; VOX = {}
@@ -26,9 +26,10 @@ for k, sp, tx in L:
     if k == 'title':
         TL[k] = [t, t + 2.6]; out.append(np.zeros(int(2.6 * SR))); t += 2.6; continue
     best = None
-    for i, line in enumerate(J['lines']):
+    JJ, NDD = (J2, ND2) if k == 'hook' else (J, ND)
+    for i, line in enumerate(JJ['lines']):
         if line != tx: continue
-        f = ND + f'{i:02d}'
+        f = NDD + f'{i:02d}'
         try: got = open(f + '.txt', encoding='utf-8').read()
         except Exception: got = ''
         r = difflib.SequenceMatcher(None, norm(tx), norm(got)).ratio()
