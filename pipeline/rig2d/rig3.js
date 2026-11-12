@@ -196,10 +196,17 @@ function springs(T) { // integrate secondary motion deterministically
 function ghostB(ctx, t) { const ev = { face: 7.6 }; const seg = (t, a, b) => Math.max(0, Math.min(1, (t - a) / (b - a))); const ease = { inOutQuad: x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2 };
       const V = 'B';
       // body: thin shoulders in a dark cloth, so it reads as a person, not a floating mask
-      ctx.fillStyle = '#16171c'; ctx.beginPath(); ctx.moveTo(-50, 108); ctx.lineTo(50, 108); ctx.quadraticCurveTo(70, 150, 112, 300); ctx.lineTo(-112, 300); ctx.quadraticCurveTo(-70, 150, -50, 108); ctx.fill();
+      // full body (chibi, like the living characters): a long dark burial robe to the ankles, long sleeves, thin pale hands, bare feet
+      const SK = '#8f9a95', RB = '#23252c', RBL = '#2e313a';
+      for (const s of [-1, 1]) { ctx.fillStyle = SK; ctx.beginPath(); ctx.ellipse(s * 22, 214, 11, 6, 0, 0, 7); ctx.fill(); } // feet
+      ctx.fillStyle = RB; ctx.beginPath(); ctx.moveTo(-14, 112); ctx.quadraticCurveTo(-44, 118, -50, 150); ctx.quadraticCurveTo(-60, 190, -58, 210); ctx.quadraticCurveTo(0, 218, 58, 210); ctx.quadraticCurveTo(60, 190, 50, 150); ctx.quadraticCurveTo(44, 118, 14, 112); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = RBL; ctx.beginPath(); ctx.moveTo(-14, 112); ctx.quadraticCurveTo(-44, 118, -50, 150); ctx.quadraticCurveTo(-60, 190, -58, 210); ctx.quadraticCurveTo(-30, 214, -18, 213); ctx.quadraticCurveTo(-24, 160, -6, 116); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,.45)'; ctx.lineWidth = 2; for (const xx of [-20, 4, 26]) { ctx.beginPath(); ctx.moveTo(xx * .6, 130); ctx.quadraticCurveTo(xx, 170, xx * 1.15, 210); ctx.stroke(); } // cloth folds
+      for (const s of [-1, 1]) { ctx.fillStyle = RB; ctx.beginPath(); ctx.moveTo(s * 30, 120); ctx.quadraticCurveTo(s * 58, 140, s * 56, 196); ctx.lineTo(s * 40, 198); ctx.quadraticCurveTo(s * 40, 150, s * 24, 132); ctx.closePath(); ctx.fill(); // sleeves
+        ctx.fillStyle = SK; ctx.beginPath(); ctx.moveTo(s * 42, 196); ctx.quadraticCurveTo(s * 47, 214, s * 50, 226); ctx.lineTo(s * 55, 225); ctx.quadraticCurveTo(s * 56, 210, s * 55, 196); ctx.closePath(); ctx.fill(); } // long thin fingers
       ctx.fillStyle = '#7d8984'; ctx.fillRect(-10, 104, 20, 40);
       // hair mass behind, middle-parted, frames the face
-      ctx.fillStyle = '#1d1f26'; ctx.beginPath(); ctx.moveTo(0, -108); ctx.bezierCurveTo(-92, -106, -98, 40, -92, 290); ctx.lineTo(-80, 262); ctx.lineTo(-70, 300); ctx.lineTo(-56, 250); ctx.lineTo(-48, 110); ctx.lineTo(48, 110); ctx.lineTo(54, 270); ctx.lineTo(68, 306); ctx.lineTo(80, 258); ctx.lineTo(94, 290); ctx.bezierCurveTo(100, 40, 92, -106, 0, -108); ctx.fill();
+      ctx.fillStyle = '#1d1f26'; ctx.beginPath(); ctx.moveTo(0, -108); ctx.bezierCurveTo(-92, -106, -98, 40, -86, 190); ctx.lineTo(-76, 176); ctx.lineTo(-66, 200); ctx.lineTo(-54, 168); ctx.lineTo(-48, 110); ctx.lineTo(48, 110); ctx.lineTo(54, 172); ctx.lineTo(66, 204); ctx.lineTo(76, 174); ctx.lineTo(88, 192); ctx.bezierCurveTo(100, 40, 92, -106, 0, -108); ctx.fill();
       // human face: cheekbones, tapering jaw
       const gr = ctx.createLinearGradient(0, -80, 0, 130); gr.addColorStop(0, '#b3bdb7'); gr.addColorStop(1, '#8a9590'); ctx.fillStyle = gr;
       ctx.beginPath(); ctx.moveTo(0, -84); ctx.bezierCurveTo(44, -84, 56, -44, 56, -4); ctx.bezierCurveTo(56, 40, 46, 84, 26, 110); ctx.quadraticCurveTo(0, 130, -26, 110); ctx.bezierCurveTo(-46, 84, -56, 40, -56, -4); ctx.bezierCurveTo(-56, -44, -44, -84, 0, -84); ctx.fill();
@@ -242,7 +249,7 @@ function ghostB(ctx, t) { const ev = { face: 7.6 }; const seg = (t, a, b) => Mat
 }
 function ghost(t, wx, wy) { const a = sm(seg(t, 6.2, 6.9)); if (a <= 0) return; const jit = Math.floor(t * 12); const dx = (jit % 3 - 1) * 1.5;
   g.save(); g.translate(wx + dx, wy);
-  const fa = .7 * sm(seg(t, 7.6, 8.6)); if (fa > 0) { const L = ghost.L || (ghost.L = document.createElement('canvas')); L.width = 420; L.height = 560; const lc = L.getContext('2d'); lc.translate(210, 160); ghostB(lc, t); g.save(); g.rotate(rad(jit % 7 < 3 ? 6 : -3) * seg(t, 8.2, 8.4)); g.scale(.6, .6); g.globalAlpha = fa; g.drawImage(L, -210, -160); g.restore(); g.globalAlpha = 1; }
+  const fa = .7 * sm(seg(t, 7.6, 8.6)); if (fa > 0) { const L = ghost.L || (ghost.L = document.createElement('canvas')); L.width = 420; L.height = 560; const lc = L.getContext('2d'); lc.translate(210, 160); ghostB(lc, t); g.save(); g.translate(0, -4 + 3 * Math.sin(t * 1.6)); g.rotate(rad(jit % 7 < 3 ? 6 : -3) * seg(t, 8.2, 8.4)); g.scale(.6, .6); g.globalAlpha = fa; g.drawImage(L, -210, -160); g.restore(); g.globalAlpha = 1; }
   for (const s of [-1, 1]) { const ex = s * (fa > 0 ? 13 : 18), ey = fa > 0 ? 3.6 : 4 + (s > 0 ? 4 : 0); const hl = g.createRadialGradient(ex, ey, 0, ex, ey, 30); hl.addColorStop(0, `rgba(190,255,220,${(fa > 0 ? .12 : .55) * a})`); hl.addColorStop(1, 'rgba(190,255,220,0)'); g.fillStyle = hl; g.fillRect(ex - 30, ey - 30, 60, 60);
     g.fillStyle = `rgba(230,255,240,${a})`; g.beginPath(); g.ellipse(ex, ey, fa > 0 ? 2.2 : 4.5, fa > 0 ? 2.2 : 3.2, 0, 0, 7); g.fill(); }
   g.restore(); }
