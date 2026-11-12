@@ -107,8 +107,8 @@ const crossed = (tex, w, h, N, place, opts = {}) => { const mt = new THREE.MeshL
 const tallGrass = spriteTex(128, 256, (g, w, h) => { let s = 5; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
   for (let i = 0; i < 34; i++) { const x0 = 20 + r() * 88, lean = (r() - .5) * 70, top = 20 + r() * 90; const gr = g.createLinearGradient(0, h, 0, top); gr.addColorStop(0, '#3f5f2c'); gr.addColorStop(.6, ['#7ea04c', '#8fae58', '#6f9442'][i % 3]); gr.addColorStop(1, '#a89a5e');
     g.strokeStyle = gr; g.lineWidth = 3 + r() * 3; g.lineCap = 'round'; g.beginPath(); g.moveTo(x0, h); g.quadraticCurveTo(x0 + lean * .3, (h + top) / 2, x0 + lean, top); g.stroke(); } });
-crossed(tallGrass, 1.1, 1.7, 1400, () => { const a = rnd() * Math.PI * 2, d = 6.5 + Math.pow(rnd(), .7) * 26, x = Math.sin(a) * d, z = -30 + Math.cos(a) * d * .9; if (z > -22 && Math.abs(x) < 3) return null; return [x, z, rnd() * 3, .7 + rnd() * .7]; });
-crossed(tallGrass, 1.1, 1.5, 900, () => { const x = (rnd() - .5) * 120, z = 30 - rnd() * 110; if (!clear(x, z) && Math.hypot(x, z + 30) > 6) return null; if (Math.hypot(x, z + 30) < 7) return null; return [x, z, rnd() * 3, .6 + rnd() * .6]; });
+crossed(tallGrass, 1.1, 1.7, 1400, () => { const a = rnd() * Math.PI * 2, d = 6.5 + Math.pow(rnd(), .7) * 26, x = Math.sin(a) * d, z = -30 + Math.cos(a) * d * .9; if (z > -27.5 && Math.abs(x) < 11) return null; if (Math.hypot(x - 2, z + 25) < 9) return null; return [x, z, rnd() * 3, .7 + rnd() * .7]; });
+crossed(tallGrass, 1.1, 1.5, 900, () => { const x = (rnd() - .5) * 120, z = 30 - rnd() * 110; if (!clear(x, z) && Math.hypot(x, z + 30) > 6) return null; if (Math.hypot(x, z + 30) < 7) return null; if (z > -28 && z < -10 && Math.abs(x) < 12) return null; return [x, z, rnd() * 3, .6 + rnd() * .6]; });
 // bụi le: dense clumps of thin leaning bamboo with leaf sprays
 const leBush = spriteTex(256, 384, (g, w, h) => { let s = 11; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
   for (let i = 0; i < 22; i++) { const x0 = 100 + r() * 56, x1 = x0 + (r() - .5) * 220, y1 = 20 + r() * 120; g.strokeStyle = ['#6f8a3a', '#7f9a44', '#5c7430'][i % 3]; g.lineWidth = 4; g.beginPath(); g.moveTo(x0, h); g.quadraticCurveTo((x0 + x1) / 2, h * .5, x1, y1); g.stroke();
@@ -177,7 +177,7 @@ S.traverse(o => { if (o.isMesh && o.material === M.lamp && o.parent && o.parent 
 const PRE = {
   day: { az: 200, el: 50, sun: '#fff3df', si: 2.45, hs: '#d2e2f6', hg: '#a8905e', hi: 1.1, top: '#2d74d4', hor: '#cfe3f5', disc: '#fffbe8', gain: '#ffffff', lift: '#000000', sat: 1.12, vig: .2, tint: '#ffffff', fog: [120, 1300], cloud: '#ffffff', lamp: 0 },
   golden: { az: 220, el: 11, sun: '#ffb46a', si: 2.9, hs: '#a99bcc', hg: '#7a5040', hi: .98, top: '#6474c0', hor: '#ffc485', disc: '#fff0c8', gain: '#fff0e0', lift: '#000000', sat: 1.15, vig: .26, tint: '#ffe2c4', fog: [140, 1100], cloud: '#ffd9c0', lamp: 3 },
-  deep: { az: 140, el: 22, sun: '#9fb0ee', si: 1.0, hs: '#3e4c86', hg: '#171c30', hi: .85, top: '#070b22', hor: '#1c2a55', disc: '#e8ecff', gain: '#c9d3ff', lift: '#020308', sat: 1.0, vig: .5, tint: '#8f9cc8', fog: [18, 220], cloud: '#4d5a88', lamp: 0 },
+  deep: { az: 140, el: 30, sun: '#b4c2f6', si: 1.9, hs: '#5868a8', hg: '#262c4c', hi: 1.35, top: '#0a1030', hor: '#26386a', disc: '#e8ecff', gain: '#dfe6ff', lift: '#020308', sat: 1.0, vig: .5, tint: '#8f9cc8', fog: [18, 220], cloud: '#4d5a88', lamp: 0 },
   night: { az: 160, el: 34, sun: '#b9c8ff', si: 1.55, hs: '#6a7cc0', hg: '#2c3450', hi: 1.2, top: '#0f1a44', hor: '#3d5596', disc: '#f4f6ff', gain: '#e6ecff', lift: '#05070f', sat: 1.08, vig: .32, tint: '#d0daff', fog: [60, 700], cloud: '#7d8cc0', lamp: 10 },
   dawn: { az: 120, el: 8, sun: '#ffc0b0', si: 1.9, hs: '#b6a8d8', hg: '#6a5060', hi: 1.05, top: '#5d6cab', hor: '#f2b8a8', disc: '#fff0e8', gain: '#fff0f0', lift: '#020204', sat: 1.08, vig: .28, tint: '#f4dede', fog: [80, 900], cloud: '#f0c8c8', lamp: 2 },
   room: { az: 230, el: 40, sun: '#fff3df', si: 1.2, hs: '#f2e6d6', hg: '#8a7060', hi: 1.35, top: '#2d74d4', hor: '#cfe3f5', disc: '#fffbe8', gain: '#fff8f0', lift: '#000000', sat: 1.1, vig: .24, tint: '#fff4ea', fog: [200, 1300], cloud: '#ffffff', lamp: 4 },
@@ -257,7 +257,7 @@ const VL = [{ skin: '#b98a62', hair: 'bun', shirt: '#24273a', stripe: '#b23a32',
 const C = {
   kh: makeCard(drawPerson, 1.68), khC: makeCard(drawCrouch, 1.68 * .62, { design: 600 }), tu: makeCard(drawPerson, 1.64), tuW: makeCard(drawCrouch, 1.64 * .62, { design: 600 }),
   gl: makeCard(drawPerson, 1.6), st: makeCard(drawCrouch, 1.1, { design: 600 }), bird: makeCard(drawBird, .9, { design: 400 }),
-  st2: makeCard(drawPerson, 1.5), st3: makeCard(drawPerson, 1.4), dead: makeCard(drawDead, 1.25, { opacity: .7, design: 700 }),
+  st2: makeCard(drawCrouch, 1.05, { design: 600 }), st3: makeCard(drawCrouch, .95, { design: 600 }), dead: makeCard(drawDead, 1.25, { opacity: .7, design: 700 }),
   v: [0, 1, 2, 3, 4, 5].map(() => makeCard(drawPerson, 1.58)),
 };
 const ALL = [C.kh, C.khC, C.tu, C.tuW, C.gl, C.st, C.bird, C.st2, C.st3, C.dead, ...C.v];
@@ -282,7 +282,7 @@ const walkP = (u) => spline(FOOT.map(q => [q[0], 0, q[1]]), .05 + u * .25);
 const nightWalk = (u) => [lerp(22, 12, u), 0, lerp(3, -5, u)];
 const runP = (u) => [lerp(23, 28.5, u), 0, lerp(2.5, 7.2, u)];
 const SH = {
-  hook: [{ light: 'deep', cam: R2(STP, { d: 4.4, yaw: -10, h: 1.0, lh: .66, fov: 34 }, { d: 2.1, yaw: 0, h: .78, lh: .68, fov: 28 }), dof: [12, 'st'],
+  hook: [{ light: 'deep', cam: R2(STP, { d: 3.1, yaw: -10, h: .95, lh: .66, fov: 34 }, { d: 2.1, yaw: 0, h: .78, lh: .68, fov: 28 }), dof: [12, 'st'],
     act: (u, f) => { const pk = M_.smooth((u - .38) / .13); return { st: { p: STP, o: { stare: 1, peek: pk * .75, look: 0, shake: u > .5 ? .6 * Math.sin(f * .9) * (1 - M_.smooth((u - .5) / .3)) : 0, t: f / 30 } },
       st2: { p: NMW(-3.8, 2.2), o: { skin: '#b07a48', wood: 1, arms: 'cheek', hair: 'bun' } }, st3: { p: NMW(4.2, 1.2), o: { wood: 1, arms: 'hang', hair: 'short' } }, bird: { p: BIRDP } }; } }],
   title: [{ light: 'golden', cam: R2(NMC, { d: 30, h: 22, lh: 2, fov: 46 }, { d: 14, h: 5, lh: 2.4, fov: 40, ease: 'easeOut' }), dof: [0],
@@ -330,13 +330,13 @@ const SH = {
   s12: [{ light: 'night', cam: R2(KHP, { d: 2.6, h: 1.45, lh: 1.3, fov: 34 }, { d: 1.9, h: 1.45, lh: 1.3, fov: 28, roll: -4, ease: 'easeOut' }), dof: [8, 'kh'], kick: .55,
     act: (u, f) => ({ kh: { p: KHP, o: { ...KH, arms: u > .5 ? 'cheek' : 'hoe', prop: u > .5 ? null : 'hoe', handWood: 1, eye: u > .5 ? 'shock' : 'dot', mth: u > .5 ? 'O' : 'dash', brow: -16 } }, st: { p: STP } }) }],
   s13: [{ light: 'night', cam: R2(mid(KHP, STP), { d: 5.6, h: 1.1, lh: .55, fov: 34 }, { d: 4.8, h: 1.0, lh: .55, fov: 30 }), dof: [5, 'khC'],
-    act: () => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', skin: '#c99a6a' } }, st: { p: STP } }) }],
+    act: () => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#55688a', pants: '#2c2f3d', hair: 'short', skin: '#f1cda8' } }, st: { p: STP } }) }],
   s14: [{ light: 'night', cam: R2(mid(KHP, DEADP), { d: 5.6, h: 1.0, lh: .6, fov: 34 }, { d: 4.8, h: 1.0, lh: .6, fov: 30 }), dof: [4, 'khC'], until: .45,
-    act: (u, f) => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', skin: '#c99a6a', shake: u > .5 ? 1 : 0, t: f / 30 } }, st: { p: STP }, dead: { p: DEADP, o: { reach: M_.smooth(u), scream: 0, headTilt: Math.floor(f / 4) % 2 ? 8 : -3 }, pop: true } }) },
+    act: (u, f) => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#55688a', pants: '#2c2f3d', hair: 'short', skin: '#f1cda8', shake: u > .5 ? 1 : 0, t: f / 30 } }, st: { p: STP }, dead: { p: DEADP, o: { reach: M_.smooth(u), scream: 0, headTilt: Math.floor(f / 4) % 2 ? 8 : -3 }, pop: true } }) },
         { light: 'night', cam: R2(DEADP, { d: 2.6, yaw: 10, h: .95, lh: .75, fov: 30 }, { d: 2.0, yaw: 10, h: .95, lh: .78, fov: 26, roll: 4 }), dof: [6, 'dead'], kick: .05,
-    act: (u, f) => ({ dead: { p: DEADP, o: { reach: 1, scream: M_.smooth(u * 2), headTilt: Math.floor(f / 3) % 2 ? 10 : -4 } }, khC: { p: KHP, o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', skin: '#c99a6a', shake: 1, t: f / 30 } } }) }],
+    act: (u, f) => ({ dead: { p: DEADP, o: { reach: 1, scream: M_.smooth(u * 2), headTilt: Math.floor(f / 3) % 2 ? 10 : -4 } }, khC: { p: KHP, o: { kind: 'person', shirt: '#55688a', pants: '#2c2f3d', hair: 'short', skin: '#f1cda8', shake: 1, t: f / 30 } } }) }],
   s15: [{ light: 'night', lightTo: ['dawn', .6], cam: R2(NMW(1.6, 3.5), { d: 8, h: 3, lh: .8, fov: 40 }, { d: 14, h: 7, lh: .8, fov: 42 }), dof: [0],
-    act: (u, f) => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#c9b48a', pants: '#3a3a48', hair: 'short', skin: '#c99a6a', shake: u < .5 ? 1 : 0, t: f / 30 } }, st: { p: STP }, dead: { p: DEADP, o: { reach: 1 - u }, fade: 1 - M_.smooth((u - .3) / .5) } }) }],
+    act: (u, f) => ({ khC: { p: KHP, o: { kind: 'person', shirt: '#55688a', pants: '#2c2f3d', hair: 'short', skin: '#f1cda8', shake: u < .5 ? 1 : 0, t: f / 30 } }, st: { p: STP }, dead: { p: DEADP, o: { reach: 1 - u }, fade: 1 - M_.smooth((u - .3) / .5) } }) }],
   s16: [{ light: 'dawn', cam: R2(KHP, { d: 2.4, h: 1.45, lh: 1.3, fov: 32 }, { d: 2.0, h: 1.45, lh: 1.3, fov: 28 }), dof: [7, 'kh'],
     act: (u, f) => ({ kh: { p: KHP, o: { ...KH, arms: u < .3 ? 'cover' : 'hands', handWood: .35, eye: 'lid', mth: 'frown', brow: -8, blink: blinkAt(f, 2) } }, st: { p: STP } }) }],
   s17: [{ light: 'dawn', cam: [{ u: 0, at: runP, d: 5, yaw: 150, h: 1.7, lh: 1.1, fov: 40 }, { u: 1, at: runP, d: 4.5, yaw: 130, h: 1.6, lh: 1.1, fov: 38 }], dof: [0], until: .4,
