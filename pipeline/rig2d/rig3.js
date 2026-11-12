@@ -156,6 +156,7 @@ function character(o) {
   const leg = (q, x) => { const h = [hip[0] + x, hip[1] + 6], k = add2(h, q[0] + o.lean * .3, L1), f = add2(k, q[0] + q[1] + o.lean * .3, L2); return [h, k, f]; };
   const arm = (q, sh) => { const e = add2(sh, q[0] + o.lean, A1), hd = add2(e, q[0] + q[1] + o.lean, A2); return [sh, e, hd]; };
   const LB = leg(o.legB, -9), LF = leg(o.legF, 9), AB = arm(o.armB, [chest[0] - 10, chest[1] + 14]), AF = arm(o.armF, [chest[0] + 10, chest[1] + 14]);
+  let late = null;
   if (o.ghost) { // the dead wear a long, dirty-white burial robe crossed at the chest, wide ragged sleeves, no feet showing
     const RB = '#d2d6d1', RBD = '#a7ada8', RBS = '#8e948f', tt = o.t;
     const thinHand = (e) => { g.save(); g.translate(...e.end); g.rotate(-e.dir); g.fillStyle = P.skinD; g.strokeStyle = INK; g.lineWidth = 2.5;
@@ -191,7 +192,7 @@ function character(o) {
       return e; };
     const leg = (Lg, back, fa) => { if (F.bottom === 'pants') { const e = fleshLimb(Lg, [17, 16, 15], back ? F.botD : F.bot, back ? shade(F.botD, .8) : F.botD, 1); boot(e, back ? 1 : 0, fa); return; }
       const e = fleshLimb(Lg, [12, 11, 9.5], back ? P.skinD : P.skin, P.skinD, 1.5); if (F.feet === 'bare') bareFoot(e); else boot(e, back ? 1 : 0, fa); };
-    arm(AB, true); if (F.bottom !== 'skirt') { leg(LB, true, o.legB[2] || 0); leg(LF, false, o.legF[2] || 0); }
+    if (!o.handsFront) arm(AB, true); if (F.bottom !== 'skirt' && !o.legsFront) { leg(LB, true, o.legB[2] || 0); leg(LF, false, o.legF[2] || 0); }
     g.save(); g.translate(...hip); g.rotate(rad(T));
     if (F.bottom === 'skirt') { // long woven wrap skirt to the ankles with bands; bare feet peek out
       for (const s of [-1, 1]) { g.save(); g.translate(s * 12, 66); g.fillStyle = P.skinD; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.ellipse(6, 4, 14, 6, 0, 0, 7); g.fill(); g.stroke(); g.restore(); }
@@ -217,11 +218,23 @@ function character(o) {
       (F.trim || []).forEach((c, k) => { g.fillStyle = c; g.fillRect(-9, hem + 22 + k * 7, 16, 4); }); }
     g.restore();
     if (o.stick) { g.strokeStyle = INK; g.lineWidth = 9; g.lineCap = 'round'; g.beginPath(); g.moveTo(AF[2][0] + 2, AF[2][1] - 14); g.lineTo(AF[2][0] + 10, 4); g.stroke(); g.strokeStyle = '#6b4a2e'; g.lineWidth = 5; g.stroke(); } // walking stick, gripped by the front hand
-    arm(AF, false);
+    if (o.legsFront) { leg(LB, true, o.legB[2] || 0); leg(LF, false, o.legF[2] || 0); }
+    if (o.handsFront) late = () => { arm(AB, true); arm(AF, false); }; else arm(AF, false);
   }
   if (!o.ghost && !o.noLantern) { g.save(); g.translate(...AF[2]); g.translate(0, 4); g.rotate(rad(o.lanternSwing)); lantern(o); g.restore(); }
   // neck + head
+  if (o.prop === 'hoe') { const h = AF[2], k = [AF[2][0] - 22, AF[2][1] - 30], tip = [h[0] + 34, -6], dx = tip[0] - k[0], dy = tip[1] - k[1], l = Math.hypot(dx, dy) || 1, ux = dx / l, uy = dy / l;
+    g.strokeStyle = INK; g.lineWidth = 9; g.lineCap = 'round'; g.beginPath(); g.moveTo(k[0] - ux * 20, k[1] - uy * 20); g.lineTo(...tip); g.stroke(); g.strokeStyle = '#7a5638'; g.lineWidth = 5; g.stroke();
+    g.save(); g.translate(...tip); g.rotate(Math.atan2(uy, ux) - Math.PI / 2); g.fillStyle = '#6f747c'; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.moveTo(-4, -4); g.lineTo(6, -4); g.lineTo(10, 26); g.lineTo(-14, 26); g.closePath(); g.fill(); g.stroke(); g.restore(); }
+  if (o.prop === 'mirror') { const h = AF[2]; g.save(); g.translate(h[0] + 10, h[1] - 24); g.fillStyle = '#5a4a3a'; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.roundRect(-14, -26, 28, 44, 5); g.fill(); g.stroke(); g.fillStyle = '#9fb2bf'; g.beginPath(); g.roundRect(-10, -22, 20, 36, 3); g.fill(); g.restore(); }
+  // neck + head
   g.save(); g.translate(...neck); g.rotate(rad(T * .5 - o.neck)); g.translate(0, -66); g.rotate(rad(-o.head)); face(o); g.restore();
+  if (late) late();
+  if (o.prop === 'statue') { // the wooden grave statue carried on the shoulder, both hands holding it
+    g.save(); g.translate(chest[0] - 46, chest[1] - 70); g.rotate(rad(-14)); g.fillStyle = '#7a5638'; g.strokeStyle = INK; g.lineWidth = 3;
+    g.beginPath(); g.roundRect(-22, 20, 44, 26, 5); g.fill(); g.stroke(); g.beginPath(); g.ellipse(0, -10, 28, 36, 0, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.ellipse(0, -64, 25, 27, 0, 0, 7); g.fill(); g.stroke();
+    g.fillStyle = '#6a4a30'; for (const s of [-1, 1]) { g.beginPath(); g.ellipse(s * 11, -62, 12, 17, s * .15, 0, 7); g.fill(); g.stroke(); } g.restore(); }
+  if (o.woodHands) { for (const hh of [AF[2], AB[2]]) { g.strokeStyle = 'rgba(90,55,30,.75)'; g.lineWidth = 1.8; for (let k = -1; k <= 1; k++) { g.beginPath(); g.moveTo(hh[0] - 7, hh[1] + 2 + k * 5); g.quadraticCurveTo(hh[0], hh[1] + 6 + k * 5, hh[0] + 7, hh[1] + 3 + k * 5); g.stroke(); } } }
   g.restore();
 }
 // temporal smoothing + follow-through: every joint is a weighted average of nearby times, limbs and head trail the body slightly
@@ -439,3 +452,37 @@ window.sheet = (who) => {
   if (o.ghost) { const L = document.createElement('canvas'); L.width = W; L.height = H; const keep = g; g = L.getContext('2d'); character(o); g = keep; g.save(); g.globalAlpha = .7; g.drawImage(L, 0, 0); g.restore(); } else character(o); Object.assign(P, pal);
   g.setTransform(1, 0, 0, 1, 0, 0); g.font = "700 26px DejaVu Sans"; g.textAlign = 'center'; g.fillStyle = '#e9e6de'; g.fillText(C.label, W / 2, H * .86);
 };
+
+window.poses = (who) => {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#2a3040'; g.fillRect(0, 0, W, H);
+  const base = { t: 0, flip: 1, bob: 0, lean: 0, spine: 0, bend: 3, squash: 0, legF: [6, -4, 0], legB: [-8, -3, 0], armB: [-6, 16], armF: [10, 22], neck: 0, head: 0, faceDir: .25, look: .1, blink: 0, brow: 0, mouth: 0, shock: 0, scarf: 0, lanternSwing: 0, noLantern: true };
+  const SIT = { y: 94, legsFront: true, legF: [160, -165, 0], legB: [150, -160, 0], bend: 6, lean: -25 };
+  const set = {
+    khai: { pal: {}, hair: 'short', outfit: { top: 'coat' }, list: [
+      ['Đi bộ', { legF: [16, -8, 0], legB: [-14, -70, 18], armB: [-24, 84], armF: [20, 84], lean: 7, bob: 3 }],
+      ['Vác tượng', { prop: 'statue', handsFront: true, armF: [170, 70], armB: [180, 60], lean: 4, bend: -4, legF: [12, -10, 0], legB: [-10, -6, 0], head: 6, brow: 10 }],
+      ['Cầm cuốc đào đất', { prop: 'hoe', armF: [40, 20], armB: [30, 40], lean: -16, bend: 14, head: -10, legF: [18, -16, 0], legB: [-16, -4, 0], brow: 10, woodHands: true }],
+      ['Soi gương hoảng sợ', { prop: 'mirror', armF: [70, 100], armB: [10, 30], shock: 1, mouth: .7, brow: 18, look: .8, lean: -6, bend: -4 }],
+      ['Nhìn tay hóa gỗ', { armF: [60, 70], armB: [50, 80], head: 14, look: .4, lean: 6, bend: 10, brow: 14, mouth: .2, woodHands: true }],
+      ['Ngồi bó gối ôm mặt', { ...SIT, handsFront: true, armF: [160, 120], armB: [166, 112], head: -15, blink: 1 }],
+    ] },
+    tung: { pal: { skin: '#e8c7a8' }, hair: 'cap', outfit: { top: 'tee', sleeve: 'short', col: '#b8523f', colD: '#8e3c2f', bot: '#2e4466', botD: '#22334d' }, list: [
+      ['Nhét chim gỗ vào túi', { handsFront: true, armF: [20, 150], armB: [-4, 12], head: -4, look: -.4, faceDir: .1, mouth: 0, brow: -6 }],
+      ['Than tay tê cứng', { armF: [70, 80], armB: [60, 90], head: 10, brow: 14, mouth: .4, woodHands: true }],
+      ['Ngồi sợ trên xe', { ...SIT, lean: -10, armF: [120, 70], armB: [114, 76], head: 0, brow: 18, look: .6, blink: 0 }],
+      ['Hóa gỗ, ôm mặt', { ...SIT, handsFront: true, armF: [160, 120], armB: [166, 112], head: -15, blink: 1, wood: true }],
+    ] },
+    gia: { pal: { skin: '#a97b55', skinD: '#87603f' }, hair: 'white', outfit: { top: 'vest', sleeve: 'none', col: '#1f2233', colD: '#171a28', trim: ['#a3332c', '#e8e0d0', '#a3332c'], bottom: 'loin', bot: '#1f2233', feet: 'bare' }, list: [
+      ['Chống gậy', { stick: true, bend: 14, lean: 7, head: -6, armF: [24, 30], legF: [10, -12, 0], legB: [-6, -10, 0] }],
+      ['Lắc đầu từ chối', { stick: true, bend: 14, lean: 7, head: -14, faceDir: -.2, armF: [24, 30], legF: [10, -12, 0], legB: [-6, -10, 0], brow: -10 }],
+      ['Giơ tay cảnh báo', { bend: 10, lean: 4, armF: [120, 40], armB: [-4, 12], head: -4, brow: -14, mouth: .5, legF: [10, -12, 0], legB: [-6, -10, 0] }],
+    ] } }[who];
+  const pal = { ...P }; Object.assign(P, set.pal); const n = set.list.length, cols = n > 4 ? 3 : 2, rows = Math.ceil(n / cols), cw = W / cols, ch = H / rows;
+  set.list.forEach(([label, p], i) => { const cx = (i % cols + .5) * cw, cy = (Math.floor(i / cols) + .78) * ch;
+    if (p.wood) { const keep = { ...P }; Object.assign(P, { skin: '#9a6e46', skinD: '#7a5636' }); character({ ...base, hair: set.hair, outfit: { ...set.outfit, col: '#8a6040', colD: '#6e4c32', bot: '#7a5638', botD: '#5e432b' }, ...p, x: cx, y: cy + (p.y || 0) * .62, sc: .62 }); Object.assign(P, keep); }
+    else character({ ...base, hair: set.hair, outfit: set.outfit, ...p, x: cx, y: cy + (p.y || 0) * .62, sc: .62 });
+    g.setTransform(1, 0, 0, 1, 0, 0); g.font = '700 22px DejaVu Sans'; g.textAlign = 'center'; g.fillStyle = '#e9e6de'; g.fillText(label, cx, cy + 40); });
+  Object.assign(P, pal); };
+window.poseTest = (list) => { g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#2a3040'; g.fillRect(0, 0, W, H);
+  const base = { t: 0, flip: 1, bob: 0, lean: 0, spine: 0, bend: 3, squash: 0, legF: [6, -4, 0], legB: [-8, -3, 0], armB: [-6, 16], armF: [10, 22], neck: 0, head: 0, faceDir: .25, look: .1, blink: 1, brow: 0, mouth: 0, shock: 0, scarf: 0, lanternSwing: 0, noLantern: true, hair: 'short', outfit: { top: 'coat' } };
+  list.forEach((p, i) => { const cx = (i % 3 + .5) * W / 3, cy = (Math.floor(i / 3) + .78) * H / 2; character({ ...base, ...p, x: cx, y: cy + (p.y || 0) * .62, sc: .62 }); g.setTransform(1, 0, 0, 1, 0, 0); g.font = '16px DejaVu Sans'; g.fillStyle = '#fff'; g.textAlign = 'center'; g.fillText(JSON.stringify(p).slice(0, 60), cx, cy + 40); }); };
