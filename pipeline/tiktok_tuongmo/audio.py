@@ -31,7 +31,7 @@ CLICK=st(rng.normal(0,1,int(.015*SR))*env(int(.015*SR),.001,.003));CLICK/=np.abs
 def drag(sec):
     n=int(sec*SR);x=lfilter([1],[1,-0.97],rng.normal(0,1,n));m=0.5+0.5*np.abs(np.sin(np.arange(n)/SR*2*np.pi*0.9));x=x*m;return st(x/np.abs(x).max())
 
-SC={k:tuple(v) for k,v in T['TL'].items()}
+SC={k:tuple(v) for k,v in T['TL'].items()};B=T['BEAT']
 sp=lambda k:SC[k];S_=lambda k,f:SC[k][0]+(SC[k][1]-SC[k][0])*f
 def bed(i,keys,g,rate=1.0):
     for k in keys:a,b=SC[k];place(i,a,g,dur=b-a+.3,fi=.6,fo=.6,loop=True,rate=rate)
@@ -72,10 +72,10 @@ for k in range(4):place(gong(84,5,k*.7),S_('s12',.5+k*.12),.9 if k==0 else .55)
 for k in range(5):place(gong(80,5,k),S_('s13',.0)+k*1.9,.32)
 for k in range(5):place(gong(78,5,k),S_('s14',.0)+k*1.7,.38)
 for k in range(3):place(gong(76,6,k),S_('s15',.0)+k*1.8,.3*(1-k*.3))
-place(crackle(sp('s14')[1]-S_('s14',.4),26),S_('s14',.4),.55,fi=.1,fo=.4)   # tay gỗ răng rắc
+place(crackle(sp('s14')[1]-B['s14'],26),B['s14'],.55,fi=.1,fo=.4)   # tay gỗ răng rắc
 place(2234,S_('s14',.05),.25,dur=4,rate=0.85)                              # hơi thở lạnh
 place(burst(.5,-.1,.15),S_('s17',.05),.3)
-JT=[sp('title')[0]+.05,S_('s8',.62),SC['s14'][0]+(SC['s14'][1]-SC['s14'][0])*.45,S_('s17',.4)]
+B=T['BEAT'];JT=[sp('title')[0]+.05,B['s8'],B['s14'],B['s17']]
 for t in JT:
     s0=int((t-.6)*SR);s1=int(t*SR);out[s0:s1]*=np.linspace(1,.2,s1-s0)[:,None]
 mu=np.zeros((N,2));hi=np.zeros((N,2));_out=out;out=mu
@@ -86,8 +86,8 @@ place(3081,sp('end')[0],.6,dur=DUR-sp('end')[0],fi=1,fo=2.5,loop=True)
 out=hi
 place(497,sp('s12')[0],.5,dur=sp('s14')[0]-sp('s12')[0],fi=1,fo=.3,loop=True)
 place(682,sp('s14')[0]-.2,.85,dur=c1-sp('s14')[0],fi=.05,fo=1.5,loop=True)
-place(577,S_('s14',.45),.55,dur=min(6,c1-S_('s14',.45)),fi=.05,fo=1,loop=True)
-place(786,S_('s14',.45)-.1,.8,dur=4,fi=.05,fo=1)
+place(577,B['s14'],.55,dur=min(6,c1-B['s14']),fi=.05,fo=1,loop=True)
+place(786,B['s14']-.1,.8,dur=4,fi=.05,fo=1)
 place(2630,sp('cta')[1]-2.5,.8,dur=3,fi=.1,fo=1.5)
 for t in JT:
     s0=int((t-.6)*SR);s1=int(t*SR);mu[s0:s1]*=np.linspace(1,.1,s1-s0)[:,None];hi[s0:s1]*=np.linspace(1,.1,s1-s0)[:,None]
