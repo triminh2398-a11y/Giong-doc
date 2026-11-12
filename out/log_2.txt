@@ -1501,3 +1501,6 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 99_rig_k Thái Sơn 2 ok 0.8
 99_rig_k asr ok
+loaded V3TurboVieNeuTTS
+99_tm_hook clone:refs/mada8.wav 2 ok 24.3
+99_tm_hook asr ok
