@@ -1,10 +1,14 @@
 import json, os, sys, time, torch
-from diffusers import StableDiffusionPipeline, LCMScheduler, DPMSolverMultistepScheduler
+from diffusers import StableDiffusionPipeline, StableDiffusionXLPipeline, LCMScheduler, DPMSolverMultistepScheduler, EulerAncestralDiscreteScheduler
 J = json.load(open('imggen/job.json')); SH = int(os.environ.get('SHARD', 0)); NS = int(os.environ.get('NSHARD', 1))
 torch.set_num_threads(os.cpu_count())
 PIPES = {}
 def get(m):
     if m not in PIPES:
+        if J.get('xl'):
+            p = StableDiffusionXLPipeline.from_pretrained(m, torch_dtype=torch.float32, use_safetensors=True)
+            p.scheduler = EulerAncestralDiscreteScheduler.from_config(p.scheduler.config)
+            PIPES[m] = p; return p
         p = StableDiffusionPipeline.from_pretrained(m, torch_dtype=torch.float32, safety_checker=None)
         if J.get('lcm', True):
             p.scheduler = LCMScheduler.from_config(p.scheduler.config)

@@ -1,39 +1,33 @@
 {
- "tag": "deo_real1",
- "style": "",
- "style_pre": "photorealistic horror movie still, 35mm film, cinematic lighting, high detail, dread, ",
- "neg": "cartoon, anime, drawing, painting, illustration, 3d render, text, watermark, logo, deformed, extra limbs, extra fingers, bad anatomy, bad hands, blurry, lowres, nsfw, nude, blood, gore, fangs, weapon, knife",
- "steps": 25,
- "cfg": 6,
- "lcm": false,
- "w": 576,
- "h": 1024,
- "model": "SG161222/Realistic_Vision_V5.1_noVAE",
+ "tag": "axl_test1",
+ "xl": true,
+ "model": "cagliostrolab/animagine-xl-4.0",
+ "steps": 20,
+ "cfg": 5,
+ "w": 832,
+ "h": 1216,
+ "style": "masterpiece, high score, great score, absurdres, anime screenshot, clean lineart, soft cel shading",
+ "neg": "lowres, bad anatomy, bad hands, text, error, missing finger, extra digits, fewer digits, cropped, worst quality, low quality, low score, bad score, average score, signature, watermark, username, blurry, nsfw, blood, fangs, weapon",
  "items": [
   {
-   "id": "deo_ghost_cabin",
-   "p": "view from driver seat inside a night truck cabin, a pale young Vietnamese woman in a blue raincoat sitting in the passenger seat turned toward the camera, face fully visible, empty black hollow eyes, expressionless, wet foggy windshield, dashboard glow, rain outside",
+   "id": "linh",
+   "p": "1girl, solo, vietnamese woman, adult, long hair, straight hair, black hair, brown eyes, white dress, puffy short sleeves, camera, camera strap, white sneakers, full body, standing, looking at viewer, arms at sides, simple background, grey background",
+   "seed": 7
+  },
+  {
+   "id": "ghost",
+   "p": "1girl, solo, ghost, vietnamese woman, adult, ao dai, white ao dai, white pants, white headband, long hair, black hair, pale skin, grey skin, black eyes, empty eyes, expressionless, barefoot, full body, standing, looking at viewer, arms at sides, simple background, grey background",
    "seed": 11
   },
   {
-   "id": "deo_ghost_cabin2",
-   "p": "inside a night truck cabin, pale young Vietnamese woman in blue raincoat in passenger seat staring at camera, whole face clearly visible and lit, dark empty eyes, no hair covering face, dim dashboard light",
-   "seed": 23
-  },
-  {
-   "id": "deo_driver",
-   "p": "young Vietnamese truck driver in green cap and blue work jacket gripping steering wheel, sweating, frightened, looking sideways, night, dashboard light, rain on windshield",
-   "seed": 5
-  },
-  {
-   "id": "deo_shrine",
-   "p": "old Vietnamese man with white hair and moustache, olive work jacket and apron, limping, lighting incense at a small roadside shrine on a mountain pass at night, fog, tyre repair shop behind",
-   "seed": 8
-  },
-  {
-   "id": "deo_edge",
-   "p": "truck headlights shining over a mountain pass guardrail gap into a deep foggy ravine at night, rain, a distant blue helmet on a tree branch far below",
+   "id": "bg_cave",
+   "p": "no humans, scenery, limestone cliff, cave entrance, vines, moss, rice terraces, stilt house, karst mountains, dusk, purple sky, orange sky, mist, dirt path, grass",
    "seed": 3
+  },
+  {
+   "id": "bg_village",
+   "p": "no humans, scenery, vietnamese village, stilt house, wooden house, rice terraces, mountains, evening, lantern light, mist, banana tree",
+   "seed": 5
   }
  ]
 }
