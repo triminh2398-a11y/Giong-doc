@@ -25,17 +25,19 @@ const ROCK = layer(900, 1100, (x) => { x.fillStyle = '#2a2f3a'; x.strokeStyle = 
   const gr = x.createLinearGradient(0, 600, 0, 1100); gr.addColorStop(0, 'rgba(5,4,8,0)'); gr.addColorStop(1, 'rgba(5,4,8,.6)'); x.fillStyle = gr; x.fillRect(200, 600, 420, 500); });
 // ---------------- skeletal rig ----------------
 // bones: angles in degrees, 0 = straight down, positive = clockwise (toward facing direction)
-const P = { skin: '#e6cbb2', skinD: '#c9a88e', jacket: '#3a4256', jacketD: '#2a3042', pants: '#262a36', scarf: '#7a3a3a', hair: '#14121a', shoe: '#18161c' };
+const P = { skin: '#e6cbb2', skinD: '#c9a88e', jacket: '#4a5470', jacketD: '#353d54', pants: '#262a36', scarf: '#7a3a3a', hair: '#14121a', shoe: '#18161c' };
 function limb(len, w0, w1, col, colD) { // tapered capsule along +y
   g.beginPath(); g.moveTo(-w0, 0); g.quadraticCurveTo(-w0 - 2, len * .5, -w1, len); g.arc(0, len, w1, Math.PI, 0, true); g.quadraticCurveTo(w0 + 2, len * .5, w0, 0); g.arc(0, 0, w0, 0, Math.PI, true); g.closePath();
   const gr = g.createLinearGradient(-w0, 0, w0, 0); gr.addColorStop(0, col); gr.addColorStop(1, colD); g.fillStyle = gr; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke(); }
 function bone(ang, len, draw, child) { g.save(); g.rotate(rad(-ang)); draw && draw(); if (child) { g.translate(0, len); child(); } g.restore(); }
 function face(o) {
   const d = o.faceDir, ex = d * 26, R = 74;
+  // ear peeks out behind the head on the far side
+  if (Math.abs(d) > .15) { g.beginPath(); g.ellipse(-Math.sign(d) * (R - 4), 10, 12, 17, 0, 0, 7); g.fillStyle = P.skinD; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke(); }
   // head shape
   g.beginPath(); g.ellipse(0, 0, R, R * 1.05, 0, 0, 7); const gr = g.createRadialGradient(-20 + d * 10, -20, 10, 0, 0, R * 1.1); gr.addColorStop(0, P.skin); gr.addColorStop(1, P.skinD); g.fillStyle = gr; g.fill(); g.strokeStyle = INK; g.lineWidth = 3.5; g.stroke();
   // ear on the far side
-  g.beginPath(); g.ellipse(-d * 64 - (d >= 0 ? 4 : -4), 8, 11, 16, 0, 0, 7); g.fillStyle = P.skinD; g.fill(); g.stroke();
+
   // eyes with dark rings
   for (const s of [-1, 1]) { const x = ex + s * 27 * (1 - Math.abs(d) * .25), y = 6, sc = 1 - (s === Math.sign(-d) ? Math.abs(d) * .25 : 0);
     g.fillStyle = 'rgba(60,40,60,.35)'; g.beginPath(); g.ellipse(x, y + 6, 20 * sc, 20, 0, 0, 7); g.fill();
@@ -51,26 +53,39 @@ function face(o) {
   g.fillStyle = P.hair; g.beginPath(); g.ellipse(-d * 4, -34, R + 4, R * .72, 0, Math.PI * 1.02, Math.PI * 1.98); g.quadraticCurveTo(R * .7 + d * 10, -6, R * .4, -24); for (let k = 0; k < 5; k++) { const bx = R * .4 - k * 30; g.quadraticCurveTo(bx - 14, -6 + (k % 2) * 6, bx - 30, -26); } g.quadraticCurveTo(-R - 6, 0, -R - 2, -20); g.closePath(); g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
   g.save(); g.translate(-d * 10, -R * .95); g.rotate(rad(o.tuft)); g.beginPath(); g.moveTo(-6, 6); g.quadraticCurveTo(-4, -26, 14, -34); g.quadraticCurveTo(4, -12, 8, 6); g.fill(); g.restore();
 }
+// joint positions by forward kinematics (0 deg = straight down, + = toward facing side), then each limb is stroked as ONE continuous path
+const dirv = a => [Math.sin(rad(a)), Math.cos(rad(a))];
+const add2 = (p, a, l) => { const d = dirv(a); return [p[0] + d[0] * l, p[1] + d[1] * l]; };
+function stroke3(pts, w, col, ink = 3) { g.lineCap = 'round'; g.lineJoin = 'round';
+  const path = () => { g.beginPath(); g.moveTo(...pts[0]); g.quadraticCurveTo(...pts[1], (pts[1][0] + pts[2][0]) / 2, (pts[1][1] + pts[2][1]) / 2); g.lineTo(...pts[2]); };
+  path(); g.strokeStyle = INK; g.lineWidth = w + ink * 2; g.stroke(); path(); g.strokeStyle = col; g.lineWidth = w; g.stroke(); }
 function character(o) {
-  g.save(); g.translate(o.x, o.y); g.scale(1.35 * o.flip, 1.35); g.scale(1 + o.squash * .06, 1 - o.squash * .08);
-  const hipY = -o.legLen; g.translate(0, hipY + o.bob); g.rotate(rad(o.lean));
-  const leg = (a) => bone(a[0], 72, () => limb(72, 15, 12, P.pants, '#1c1f28'), () => bone(a[1], 70, () => limb(70, 12, 10, P.pants, '#1c1f28'), () => bone(a[2] || 0, 0, () => { g.beginPath(); g.ellipse(10, 6, 22, 11, 0, 0, 7); g.fillStyle = P.shoe; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke(); })));
-  const arm = (a, hand) => bone(a[0], 64, () => limb(64, 13, 11, P.jacket, P.jacketD), () => bone(a[1], 58, () => limb(58, 11, 9, P.jacket, P.jacketD), () => { g.beginPath(); g.arc(0, 6, 11, 0, 7); g.fillStyle = P.skin; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke(); hand && hand(); }));
-  // far limbs (dimmer)
-  g.save(); g.filter = 'brightness(.72)'; leg(o.legB); g.translate(0, -118); arm(o.armB); g.restore();
-  leg(o.legF);
-  // torso
-  g.save(); g.rotate(rad(-o.spine)); g.beginPath(); g.moveTo(-34, 0); g.quadraticCurveTo(-40, -70, -30, -124); g.quadraticCurveTo(0, -136, 32, -124); g.quadraticCurveTo(40, -70, 36, 0); g.quadraticCurveTo(0, 10, -34, 0); g.closePath();
-  const gr = g.createLinearGradient(-34, 0, 36, 0); gr.addColorStop(0, P.jacket); gr.addColorStop(1, P.jacketD); g.fillStyle = gr; g.fill(); g.strokeStyle = INK; g.lineWidth = 3.5; g.stroke();
-  g.strokeStyle = 'rgba(0,0,0,.35)'; g.lineWidth = 2; g.beginPath(); g.moveTo(4, -120); g.lineTo(2, -4); g.stroke();
-  // scarf + spring tail
-  g.save(); g.translate(0, -124); g.beginPath(); g.ellipse(0, 0, 36, 13, 0, 0, 7); g.fillStyle = P.scarf; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
-  g.save(); g.translate(-18, 4); g.rotate(rad(o.scarf)); g.beginPath(); g.moveTo(-8, 0); g.quadraticCurveTo(-14, 40, -6, 70); g.lineTo(10, 66); g.quadraticCurveTo(4, 36, 8, 0); g.closePath(); g.fill(); g.stroke(); g.restore(); g.restore();
-  // front arm holds the lantern
-  g.save(); g.translate(0, -118); arm(o.armF, () => { g.save(); g.translate(0, 14); g.rotate(rad(-(o.lean - o.armF[0] - o.armF[1]) + o.lanternSwing)); lantern(o); g.restore(); }); g.restore();
+  g.save(); g.translate(o.x, o.y + o.bob * 1.35); g.scale(1.35 * o.flip, 1.35); g.scale(1 + o.squash * .06, 1 - o.squash * .08);
+  const T = o.lean + o.spine, L1 = 58, L2 = 56, A1 = 46, A2 = 44;
+  const hip = [0, -(L1 + L2) + 4], chest = add2(hip, 180 + T, 92), neck = add2(chest, 180 + T, 8);
+  const shB = add2(chest, 180 + T - 90, 0), shF = chest;
+  const leg = (q, x) => { const h = [hip[0] + x, hip[1]], k = add2(h, q[0] + o.lean * .3, L1), f = add2(k, q[0] + q[1] + o.lean * .3, L2); return [h, k, f]; };
+  const arm = (q, sh) => { const e = add2(sh, q[0] + o.lean, A1), hd = add2(e, q[0] + q[1] + o.lean, A2); return [sh, e, hd]; };
+  const LB = leg(o.legB, -4), LF = leg(o.legF, 4), AB = arm(o.armB, [chest[0] - 6, chest[1] + 10]), AF = arm(o.armF, [chest[0] + 6, chest[1] + 10]);
+  const shoe = (p, dark) => { g.save(); g.translate(p[0], p[1]); g.beginPath(); g.ellipse(9, 2, 19, 9.5, 0, 0, 7); g.fillStyle = dark ? '#0f0e12' : P.shoe; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke(); g.restore(); };
+  // back limbs (darker)
+  stroke3(AB, 15, P.jacketD); g.beginPath(); g.arc(...AB[2], 8.5, 0, 7); g.fillStyle = P.skinD; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
+  stroke3(LB, 20, '#1b1e27'); shoe(LB[2], 1);
+  // torso: one shape from hips to shoulders, following lean
+  g.save(); g.translate(...hip); g.rotate(rad(-T) * -1 * -1); g.rotate(rad(T)); g.beginPath(); g.moveTo(-32, 8); g.quadraticCurveTo(-40, -50, -30, -94); g.quadraticCurveTo(0, -106, 32, -94); g.quadraticCurveTo(40, -50, 32, 8); g.quadraticCurveTo(0, 16, -32, 8); g.closePath();
+  const gr = g.createLinearGradient(-26, 0, 26, 0); gr.addColorStop(0, P.jacket); gr.addColorStop(1, P.jacketD); g.fillStyle = gr; g.fill(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
+  g.strokeStyle = 'rgba(0,0,0,.35)'; g.lineWidth = 2; g.beginPath(); g.moveTo(5, -90); g.lineTo(4, 4); g.stroke();
+  g.beginPath(); g.ellipse(0, -94, 28, 10, 0, 0, 7); g.fillStyle = P.scarf; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
+  g.save(); g.translate(-14, -90); g.rotate(rad(o.scarf)); g.beginPath(); g.moveTo(-7, 0); g.quadraticCurveTo(-12, 34, -5, 58); g.lineTo(8, 55); g.quadraticCurveTo(3, 30, 7, 0); g.closePath(); g.fill(); g.stroke(); g.restore();
+  g.restore();
+  // front leg, then front arm with the lantern (lantern hangs straight down + spring swing)
+  stroke3(LF, 20, P.pants); shoe(LF[2], 0);
+  stroke3(AF, 15, P.jacket); g.save(); g.translate(...AF[2]); g.beginPath(); g.arc(0, 0, 8.5, 0, 7); g.fillStyle = P.skin; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
+  g.translate(0, 6); g.rotate(rad(o.lanternSwing)); lantern(o); g.restore();
   // neck + head
-  g.translate(0, -132); g.rotate(rad(-o.neck)); g.fillStyle = P.skinD; g.fillRect(-10, -14, 20, 18); g.translate(0, -70); g.rotate(rad(-o.head)); face(o);
-  g.restore(); g.restore();
+  g.save(); g.translate(...neck); g.rotate(rad(T * .5 - o.neck)); g.fillStyle = P.skinD; g.fillRect(-8, -12, 16, 16); g.strokeStyle = INK; g.lineWidth = 2.5; g.strokeRect(-8, -12, 16, 16);
+  g.translate(0, -64); g.rotate(rad(-o.head)); face(o); g.restore();
+  g.restore();
 }
 function lantern(o) { g.save(); g.strokeStyle = '#2a2420'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, 44); g.stroke();
   g.translate(0, 44); g.fillStyle = '#3a2e22'; g.fillRect(-16, 0, 32, 8); const fl = .85 + .15 * Math.sin(o.t * 23) * Math.sin(o.t * 7);
@@ -83,8 +98,8 @@ function pose(t) {
   const walking = t < walkEnd, ph = rootX(Math.min(t, walkEnd)) / 150 * Math.PI * 2, w = walking ? 1 : 1 - sm(seg(t, walkEnd, stopEnd));
   const s = Math.sin(ph), c = Math.cos(ph);
   const o = { t, x: rootX(t), y: 1040, flip: 1, legLen: 142, bob: -7 * Math.abs(c) * w + 3 * Math.sin(t * 2) * (1 - w), lean: 4 * w,
-    legF: [26 * s * w, -40 * Math.max(0, -s) * w - 6, 0], legB: [-26 * s * w, -40 * Math.max(0, s) * w - 6, 0],
-    armB: [-24 * s * w + 6, -18], armF: [10 * s * w - 25, -55], spine: 2 * w, neck: 0, head: 1.5 * Math.sin(t * 1.7),
+    legF: [24 * s * w, -38 * Math.max(0, -s) * w - 4, 0], legB: [-24 * s * w, -38 * Math.max(0, s) * w - 4, 0],
+    armB: [-22 * s * w - 4, 18], armF: [12 * s * w + 18, 34], spine: 2 * w, neck: 0, head: 1.5 * Math.sin(t * 1.7),
     faceDir: .55, look: .3, blink: 0, brow: 0, mouth: 0, shock: 0, squash: 0, tuft: 0, scarf: 0, lanternSwing: 0, lanternWorld: 0 };
   // stop: settle, then turn the head toward the cave (right) and the viewer
   const turn = sm(seg(t, 3.7, 4.4)); o.faceDir = lerp(.55, .15, turn); o.look = lerp(.3, .9, turn); o.head += -6 * turn;
@@ -92,7 +107,7 @@ function pose(t) {
   const sp = seg(t, 4.7, 6.1); if (sp > 0 && sp < 1) { o.mouth = Math.abs(Math.sin(t * 13)) * (Math.sin(sp * Math.PI * 3) > -.4 ? .9 : .1); o.brow = 10; }
   const B = [1.2, 4.55, 6.5]; for (const b of B) { const d = Math.abs(t - b); if (d < .07) o.blink = 1; }
   // startle at 7.0: squash, jump back, arms up, eyes wide
-  const st = seg(t, 7.0, 7.25); if (t > 7.0) { o.shock = 1; o.squash = Math.sin(st * Math.PI) * 1.4; o.armB = [lerp(o.armB[0], 120, back(st)), -60]; o.armF = [lerp(o.armF[0], 50, back(st)), -90]; o.lean = -8 * back(st); o.head -= 6; o.mouth = .9; o.brow = 18; o.faceDir = .1; o.look = 1; o.legF[0] = -10; o.legB[0] = 18; }
+  const st = seg(t, 7.0, 7.25); if (t > 7.0) { o.shock = 1; o.squash = Math.sin(st * Math.PI) * 1.4; o.armB = [lerp(o.armB[0], 150, back(st)), 30]; o.armF = [lerp(o.armF[0], 160, back(st)), 25]; o.lean = -8 * back(st); o.head -= 6; o.mouth = .9; o.brow = 18; o.faceDir = .1; o.look = 1; o.legF[0] = -10; o.legB[0] = 18; }
   return o;
 }
 function springs(T) { // integrate secondary motion deterministically
