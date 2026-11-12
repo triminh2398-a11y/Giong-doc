@@ -1528,3 +1528,21 @@ loaded V3TurboVieNeuTTS
 99_at2_n clone:refs/mada8.wav 53 ok 5.1
 99_at2_n clone:refs/mada8.wav 57 ok 1.8
 99_at2_n asr ok
+loaded V3TurboVieNeuTTS
+99_tm_n clone:refs/mada8.wav 1 ok 30.1
+99_tm_n clone:refs/mada8.wav 5 ok 4.3
+99_tm_n clone:refs/mada8.wav 9 ok 4.8
+99_tm_n clone:refs/mada8.wav 13 ok 12.7
+99_tm_n clone:refs/mada8.wav 17 ok 3.7
+99_tm_n clone:refs/mada8.wav 21 ok 7.0
+99_tm_n clone:refs/mada8.wav 25 ok 5.9
+99_tm_n clone:refs/mada8.wav 29 ok 9.9
+99_tm_n clone:refs/mada8.wav 33 ok 4.7
+99_tm_n clone:refs/mada8.wav 37 ok 4.9
+99_tm_n clone:refs/mada8.wav 41 ok 3.8
+99_tm_n clone:refs/mada8.wav 45 ok 3.3
+99_tm_n clone:refs/mada8.wav 49 ok 6.9
+99_tm_n clone:refs/mada8.wav 53 ok 4.7
+99_tm_n clone:refs/mada8.wav 57 ok 7.8
+99_tm_n clone:refs/mada8.wav 61 ok 3.6
+99_tm_n asr ok
