@@ -121,7 +121,7 @@ export function drawCrouch(g, o) {
 export function drawDead(g, o) {
   const p = new Pen(g); g.clearRect(0, 0, 600, 1000);
   const { pose = 'crouch', scream = 0, headTilt = 0, reach = 0 } = o;
-  const SK = '#a9b6b0', SKD = '#76847e', CL = '#2a2630';
+  const SK = '#a7b3a8', SKD = '#6c7a6e', CL = '#2a2630';
   g.save();
   // crouched body, black Jrai cloth with a red stripe
   if (pose === 'crouch') {
@@ -134,14 +134,21 @@ export function drawDead(g, o) {
   p.inkLine([[378, 610], [460 + reach * 40, 640], [520 + reach * 50, 600 - reach * 40]], SK, 20);
   for (let k = -1; k <= 1; k++) p.line([[520 + reach * 50, 600 - reach * 40], [548 + reach * 50, 592 - reach * 40 + k * 12]], SKD, 6);
   p.inkLine([[222, 610], [200, 720], [230, 800]], SK, 20);
-  // head: gaunt, white hair, hollow eyes, long open mouth (no fangs)
+  // head: long gaunt face, stringy grey hair hanging beside it (never over it), small staring eyes in deep sockets
   g.save(); g.translate(300, 560); g.rotate(rad(headTilt)); g.translate(-300, -560);
-  p.inkLine([[300, 500], [300, 570]], SK, 26);
-  p.ell(300, 420, 96, 122); g.fillStyle = p.shade(SK, SKD, 220, 330, 390, 540); g.fill(); g.strokeStyle = INK; g.lineWidth = 10; g.stroke();
-  g.beginPath(); g.moveTo(206, 400); g.bezierCurveTo(200, 286, 400, 286, 394, 400); g.quadraticCurveTo(360, 336, 300, 330); g.quadraticCurveTo(240, 336, 206, 400); g.closePath(); p.fillInk('#d9d6dc', 8);
-  for (const s of [-1, 1]) { const x = 300 + s * 36, y = 430; p.ell(x, y + 4, 30, 30); g.fillStyle = 'rgba(30,20,40,.5)'; g.fill(); p.ell(x, y, 15 + scream * 2, 21 + scream * 4); g.fillStyle = '#040206'; g.fill(); p.dot(x, y - 2, 3, 'rgba(220,235,240,.85)'); }
-  p.ell(300, 505 + scream * 10, 9 + scream * 5, 7 + scream * 28); g.fillStyle = '#120a10'; g.fill(); g.strokeStyle = INK; g.lineWidth = 5; g.stroke();
-  for (const s of [-1, 1]) p.line([[300 + s * 26, 470], [300 + s * 32, 486]], SKD, 4);
+  p.inkLine([[300, 510], [300, 575]], SK, 22);
+  for (const s of [-1, 1]) for (let k = 0; k < 5; k++) p.line([[300 + s * (60 + k * 8), 330 + k * 4], [300 + s * (82 + k * 6), 440], [300 + s * (76 + k * 9), 560 + k * 14]], k % 2 ? '#8e8a92' : '#bdb9c2', 5);
+  g.beginPath(); g.moveTo(300, 296); g.bezierCurveTo(372, 296, 386, 380, 376, 450); g.bezierCurveTo(366, 520, 330, 552, 300, 552); g.bezierCurveTo(270, 552, 234, 520, 224, 450); g.bezierCurveTo(214, 380, 228, 296, 300, 296); g.closePath();
+  g.fillStyle = p.shade(SK, SKD, 230, 320, 380, 540); g.fill(); g.strokeStyle = INK; g.lineWidth = 9; g.stroke();
+  g.save(); g.clip(); g.fillStyle = 'rgba(40,50,48,.28)'; for (const s of [-1, 1]) { p.ell(300 + s * 52, 470, 22, 40); g.fill(); } p.ell(300, 300, 90, 26); g.fillStyle = 'rgba(30,30,36,.35)'; g.fill(); g.restore();
+  g.beginPath(); g.moveTo(232, 352); g.quadraticCurveTo(300, 300, 368, 352); g.quadraticCurveTo(300, 330, 232, 352); p.fillInk('#bdb9c2', 6);
+  for (const [s, dy] of [[-1, 0], [1, 7]]) { const x = 300 + s * 34, y = 418 + dy;
+    p.ell(x, y, 26, 20); g.fillStyle = 'rgba(20,14,26,.75)'; g.fill();
+    p.ell(x, y + 1, 13, 10 + scream * 3); g.fillStyle = '#050307'; g.fill();
+    p.dot(x + (o.look || 0) * 3, y + 1, 2.6, '#e8eef0'); }
+  p.line([[294, 440], [290, 470], [298, 474]], SKD, 4);
+  p.ell(300, 505 + scream * 12, 13 + scream * 3, 3 + scream * 30); g.fillStyle = '#0c0608'; g.fill(); g.strokeStyle = INK; g.lineWidth = 4; g.stroke();
+  for (const s of [-1, 1]) p.line([[300 + s * 14, 506 + scream * 10], [300 + s * 24, 516 + scream * 12]], SKD, 4);
   g.restore(); g.restore();
 }
 // ---------- wooden bird (small grave statue) ----------
