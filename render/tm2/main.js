@@ -113,7 +113,7 @@ crossed(tallGrass, 1.1, 1.5, 900, () => { const x = (rnd() - .5) * 120, z = 30 -
 const leBush = spriteTex(256, 384, (g, w, h) => { let s = 11; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
   for (let i = 0; i < 22; i++) { const x0 = 100 + r() * 56, x1 = x0 + (r() - .5) * 220, y1 = 20 + r() * 120; g.strokeStyle = ['#6f8a3a', '#7f9a44', '#5c7430'][i % 3]; g.lineWidth = 4; g.beginPath(); g.moveTo(x0, h); g.quadraticCurveTo((x0 + x1) / 2, h * .5, x1, y1); g.stroke();
     for (let k = 0; k < 6; k++) { const t = .4 + k * .1, x = x0 + (x1 - x0) * t * t, y = h + (y1 - h) * t; g.fillStyle = ['#4f7a34', '#5f8c3c', '#3f6a2c'][k % 3]; g.beginPath(); g.ellipse(x + 12, y, 22, 6, (x1 > x0 ? -.4 : .4), 0, 7); g.fill(); g.beginPath(); g.ellipse(x - 12, y + 6, 20, 5, (x1 > x0 ? .5 : -.5), 0, 7); g.fill(); } } });
-crossed(leBush, 4.2, 6.2, 160, () => { const a = rnd() * Math.PI * 2, d = 14 + rnd() * 40, x = Math.sin(a) * d, z = -30 + Math.cos(a) * d; if (z > -16 && Math.abs(x) < 8) return null; return [x, z, rnd() * 3, .7 + rnd() * .6]; }, { shadow: true });
+crossed(leBush, 4.2, 6.2, 160, () => { const a = rnd() * Math.PI * 2, d = 14 + rnd() * 40, x = Math.sin(a) * d, z = -30 + Math.cos(a) * d; if (z > -24 && Math.abs(x) < 16) return null; return [x, z, rnd() * 3, .7 + rnd() * .6]; }, { shadow: true });
 // carved grave posts (cột nhà mồ) around the fence: tall posts topped with gourd knobs, horns and a bird
 { const TOP = new THREE.Group(); NM.add(TOP);
   for (let i = 0; i < 12; i++) { const a = (i + .5) / 12 * Math.PI * 2, x = Math.cos(a) * 5.4, z = Math.sin(a) * 4.3; if (z > 3.6 && Math.abs(x) < 2) continue; const h = 2.4 + (i % 3) * .5;
