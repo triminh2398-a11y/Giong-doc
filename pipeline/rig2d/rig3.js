@@ -90,7 +90,10 @@ function fleshLimb(p, w, col, colD, bulge = 0) {
   const poly = (A, B) => { g.beginPath(); g.moveTo(...A[0]); for (const q of A) g.lineTo(...q); for (let i = B.length - 1; i >= 0; i--) g.lineTo(...B[i]); g.closePath(); };
   g.lineJoin = 'round'; poly(L, R); g.fillStyle = col; g.fill();
   poly(S, R); g.fillStyle = colD; g.fill();
-  poly(L, R); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
+  // outline only along the two sides, starting below the shoulder, so the sleeve grows out of the coat with no visible joint
+  const from = Math.round(N * (fleshLimb.seam || 0)); g.strokeStyle = INK; g.lineWidth = 3; g.lineCap = 'round';
+  for (const side of [L, R]) { g.beginPath(); g.moveTo(...side[from]); for (let i = from + 1; i <= N; i++) g.lineTo(...side[i]); g.stroke(); }
+  if (!fleshLimb.seam) { g.beginPath(); g.moveTo(...L[0]); g.lineTo(...R[0]); g.stroke(); }
   // crease on the inside of the bend
   const m = 9; g.strokeStyle = 'rgba(0,0,0,.35)'; g.lineWidth = 2; g.beginPath(); g.moveTo(...L[m - 2]); g.quadraticCurveTo(...L[m], ...L[m + 2].map((v, k) => v + (S[m][k] - L[m][k]) * .35)); g.stroke();
   return { end: p[2], dir: Math.atan2(p[2][0] - p[1][0], p[2][1] - p[1][1]) };
@@ -111,8 +114,8 @@ function character(o) {
   const arm = (q, sh) => { const e = add2(sh, q[0] + o.lean, A1), hd = add2(e, q[0] + q[1] + o.lean, A2); return [sh, e, hd]; };
   const LB = leg(o.legB, -9), LF = leg(o.legF, 9), AB = arm(o.armB, [chest[0] - 10, chest[1] + 14]), AF = arm(o.armF, [chest[0] + 10, chest[1] + 14]);
   // back arm + back leg (in shadow)
-  cuffHand(fleshLimb(AB, [14, 13, 13], '#3a4258', '#2c3244', 1.5), '#262b3a', P.skinD);
-  boot(fleshLimb(LB, [17, 16, 15], '#17181e', '#101116', 1), 1, o.legB[2] || 0);
+  fleshLimb.seam = .32; cuffHand(fleshLimb(AB, [14, 13, 13], '#3a4258', '#2c3244', 1.5), '#262b3a', P.skinD);
+  fleshLimb.seam = 0; boot(fleshLimb(LB, [17, 16, 15], '#17181e', '#101116', 1), 1, o.legB[2] || 0);
   // front leg
   boot(fleshLimb(LF, [17, 16, 15], '#1e2028', '#15161c', 1), 0, o.legF[2] || 0);
   // jacket: full body with shoulders, a hem that covers the hips, collar, zip, pocket and a shaded side
@@ -127,7 +130,7 @@ function character(o) {
   g.strokeStyle = INK; g.lineWidth = 2.5; g.fillStyle = '#56607e'; g.beginPath(); g.moveTo(bd - 16, -78); g.quadraticCurveTo(bd, -70, bd + 16, -78); g.lineTo(bd + 14, -84); g.quadraticCurveTo(bd, -78, bd - 14, -84); g.closePath(); g.fill(); g.stroke(); // stand collar
   g.restore();
   // front arm with the lantern
-  const fa = fleshLimb(AF, [14, 13, 13], P.jacket, P.jacketD, 1.5); cuffHand(fa, '#2c3244', P.skin);
+  fleshLimb.seam = .32; const fa = fleshLimb(AF, [14, 13, 13], P.jacket, P.jacket, 1.5); fleshLimb.seam = 0; cuffHand(fa, '#2c3244', P.skin);
   g.save(); g.translate(...AF[2]); g.translate(0, 4); g.rotate(rad(o.lanternSwing)); lantern(o); g.restore();
   // neck + head
   g.save(); g.translate(...neck); g.rotate(rad(T * .5 - o.neck)); g.translate(0, -58); g.rotate(rad(-o.head)); face(o); g.restore();
