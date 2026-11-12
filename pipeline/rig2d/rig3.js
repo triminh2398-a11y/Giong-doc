@@ -128,6 +128,26 @@ function character(o) {
   const leg = (q, x) => { const h = [hip[0] + x, hip[1] + 6], k = add2(h, q[0] + o.lean * .3, L1), f = add2(k, q[0] + q[1] + o.lean * .3, L2); return [h, k, f]; };
   const arm = (q, sh) => { const e = add2(sh, q[0] + o.lean, A1), hd = add2(e, q[0] + q[1] + o.lean, A2); return [sh, e, hd]; };
   const LB = leg(o.legB, -9), LF = leg(o.legF, 9), AB = arm(o.armB, [chest[0] - 10, chest[1] + 14]), AF = arm(o.armF, [chest[0] + 10, chest[1] + 14]);
+  if (o.ghost) { // the dead wear a long, dirty-white burial robe crossed at the chest, wide ragged sleeves, no feet showing
+    const RB = '#d2d6d1', RBD = '#a7ada8', RBS = '#8e948f', tt = o.t;
+    const thinHand = (e) => { g.save(); g.translate(...e.end); g.rotate(-e.dir); g.fillStyle = P.skinD; g.strokeStyle = INK; g.lineWidth = 2.5;
+      g.beginPath(); g.ellipse(0, 10, 6, 9, 0, 0, 7); g.fill(); g.stroke(); for (const k of [-4, 0, 4]) { g.beginPath(); g.moveTo(k, 16); g.quadraticCurveTo(k * 1.4, 28, k * .8 + 1, 34); g.strokeStyle = INK; g.lineWidth = 4.5; g.stroke(); g.strokeStyle = P.skinD; g.lineWidth = 2.2; g.stroke(); } g.restore(); };
+    const ragCuff = (e, col) => { g.save(); g.translate(...e.end); g.rotate(-e.dir); g.fillStyle = col; g.strokeStyle = INK; g.lineWidth = 2.5; g.beginPath(); g.moveTo(-20, -6); g.lineTo(20, -6); for (let k = 0; k <= 6; k++) g.lineTo(20 - k * 6.6, 4 + (k % 2) * 7 + Math.sin(tt * 3 + k) * 1.5); g.closePath(); g.fill(); g.stroke(); g.restore(); };
+    fleshLimb.seam = .32; const eb = fleshLimb(AB, [15, 17, 20], RBD, RBS, 0); thinHand(eb); ragCuff(eb, RBD);
+    g.save(); g.translate(...hip); g.rotate(rad(T));
+    const R_ = () => { g.beginPath(); g.moveTo(-30 + bd, -74); g.quadraticCurveTo(bd, -84, 30 + bd, -74); g.quadraticCurveTo(46, -10, 54, 70);
+      for (let k = 0; k <= 10; k++) { const xx = 54 - k * 10.8, yy = 74 + (k % 2 ? 12 : 0) + 4 * Math.sin(tt * 2.2 + k * .9); g.lineTo(xx + 3 * Math.sin(tt * 1.7 + k), yy); }
+      g.quadraticCurveTo(-46, -10, -30 + bd, -74); g.closePath(); };
+    R_(); g.fillStyle = RB; g.fill();
+    g.save(); R_(); g.clip(); g.fillStyle = RBD; g.beginPath(); g.moveTo(10 + bd, -90); g.quadraticCurveTo(26, 0, 22, 100); g.lineTo(70, 100); g.lineTo(70, -90); g.fill();
+    g.fillStyle = 'rgba(110,100,80,.22)'; for (const [sx, sy, sr] of [[-20, 30, 12], [14, 54, 9], [-34, 62, 7], [26, -20, 8]]) { g.beginPath(); g.ellipse(sx, sy, sr * 1.3, sr, .4, 0, 7); g.fill(); } // old stains
+    g.strokeStyle = 'rgba(60,64,62,.45)'; g.lineWidth = 2; for (const fx of [-26, -8, 12, 32]) { g.beginPath(); g.moveTo(fx * .5 + bd * .5, -40); g.quadraticCurveTo(fx, 20, fx * 1.25 + 2 * Math.sin(tt * 2 + fx), 78); g.stroke(); } // folds
+    g.restore(); R_(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
+    g.strokeStyle = INK; g.lineWidth = 2.5; g.beginPath(); g.moveTo(-24 + bd, -76); g.quadraticCurveTo(0 + bd * .5, -40, 30, -6); g.stroke(); // crossed front
+    g.beginPath(); g.moveTo(-36, 6); g.quadraticCurveTo(0, 14, 40, 4); g.strokeStyle = 'rgba(40,40,44,.6)'; g.lineWidth = 4; g.stroke(); // cloth tie at the waist
+    g.restore();
+    const ef = fleshLimb(AF, [15, 17, 21], RB, RBD, 0); fleshLimb.seam = 0; thinHand(ef); ragCuff(ef, RB);
+  } else {
   // back arm + back leg (in shadow)
   fleshLimb.seam = .32; cuffHand(fleshLimb(AB, [14, 13, 13], '#3a4258', '#2c3244', 1.5), '#262b3a', P.skinD);
   fleshLimb.seam = 0; boot(fleshLimb(LB, [17, 16, 15], '#17181e', '#101116', 1), 1, o.legB[2] || 0);
@@ -146,6 +166,7 @@ function character(o) {
   g.restore();
   // front arm with the lantern
   fleshLimb.seam = .32; const fa = fleshLimb(AF, [14, 13, 13], P.jacket, P.jacket, 1.5); fleshLimb.seam = 0; cuffHand(fa, '#2c3244', P.skin);
+  }
   if (!o.ghost) { g.save(); g.translate(...AF[2]); g.translate(0, 4); g.rotate(rad(o.lanternSwing)); lantern(o); g.restore(); }
   // neck + head
   g.save(); g.translate(...neck); g.rotate(rad(T * .5 - o.neck)); g.translate(0, -66); g.rotate(rad(-o.head)); face(o); g.restore();
