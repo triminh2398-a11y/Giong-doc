@@ -64,7 +64,7 @@ function face(o) {
     g.fillStyle = HAIR; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
   } else { for (const s of [-1, 1]) { g.beginPath(); g.ellipse(s * 52 + d * 4, 18, 9, 13, 0, 0, 7); g.fillStyle = P.skinD; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke(); } } // ears
   // face
-  g.beginPath(); g.ellipse(d * 4, 16, 52, 58, 0, 0, 7);
+  g.beginPath(); if (HS === 'white') g.ellipse(d * 2, 4, 54, 72, 0, 0, 7); else g.ellipse(d * 4, 16, 52, 58, 0, 0, 7);
   if (G_) g.fillStyle = '#dfe3e0'; else { const gr = g.createRadialGradient(-14 + d * 10, 0, 8, 0, 14, 62); gr.addColorStop(0, P.skin); gr.addColorStop(1, P.skinD); g.fillStyle = gr; }
   g.fill(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
   // eyes: the living have pupils; the dead stare with empty grey-white eyes in black-ringed sockets
@@ -86,8 +86,23 @@ function face(o) {
     g.strokeStyle = HAIR; g.lineWidth = 5; g.lineCap = 'round'; for (const s of [-1, 1]) { g.beginPath(); g.moveTo(hx + s * 46, -10); g.quadraticCurveTo(hx + s * 54, 40, hx + s * 46, 92); g.stroke(); g.lineWidth = 3.5; g.beginPath(); g.moveTo(hx + s * 38, 0); g.quadraticCurveTo(hx + s * 50, 50, hx + s * 40, 70); g.stroke(); g.lineWidth = 5; }
     g.strokeStyle = 'rgba(140,150,165,.3)'; g.lineWidth = 1.6; for (const k of [-34, -12, 14, 36]) { g.beginPath(); g.moveTo(hx + k * .3, -92); g.quadraticCurveTo(hx + k, -60, hx + k * 1.4, -20); g.stroke(); }
     return; }
-  if (HS === 'white') { g.strokeStyle = 'rgba(80,50,40,.45)'; g.lineWidth = 2; for (const s of [-1, 1]) { g.beginPath(); g.moveTo(ex + s * 34, 26); g.quadraticCurveTo(ex + s * 38, 34, ex + s * 34, 42); g.stroke(); } g.beginPath(); g.moveTo(ex - 14, -12); g.lineTo(ex + 14, -12); g.stroke(); g.beginPath(); g.moveTo(ex - 10, -18); g.lineTo(ex + 10, -18); g.stroke();
-    g.fillStyle = HAIR; g.strokeStyle = INK; g.lineWidth = 2.5; g.beginPath(); g.moveTo(ex - 12, 64); g.quadraticCurveTo(ex, 86, ex + 12, 64); g.quadraticCurveTo(ex, 70, ex - 12, 64); g.fill(); g.stroke(); } // a few forehead lines + a wisp of white beard
+  if (HS === 'white') { // old age: heavy lids, eye bags, sunken cheeks, deep lines, bushy white brows, balding crown, long thin white beard
+    const W_ = 'rgba(70,40,30,.55)'; g.strokeStyle = W_; g.lineWidth = 2.2; g.lineCap = 'round';
+    for (const s of [-1, 1]) { const x = ex + s * 21;
+      g.fillStyle = P.skinD; g.beginPath(); g.moveTo(x - 14, 8); g.quadraticCurveTo(x, -2, x + 14, 8); g.lineTo(x + 14, 12); g.quadraticCurveTo(x, 6, x - 14, 12); g.closePath(); g.fill(); g.strokeStyle = INK; g.lineWidth = 2.5; g.stroke(); // drooping upper lid
+      g.strokeStyle = W_; g.lineWidth = 2; g.beginPath(); g.moveTo(x - 10, 30); g.quadraticCurveTo(x, 35, x + 10, 30); g.stroke(); // eye bag
+      g.beginPath(); g.moveTo(x + s * 15, 12); g.lineTo(x + s * 22, 8); g.moveTo(x + s * 15, 18); g.lineTo(x + s * 23, 19); g.stroke(); // crow's feet
+      g.beginPath(); g.moveTo(ex + s * 12, 40); g.quadraticCurveTo(ex + s * 22, 52, ex + s * 18, 64); g.stroke(); // nasolabial fold
+      const cg = g.createRadialGradient(ex + s * 32, 46, 2, ex + s * 32, 46, 16); cg.addColorStop(0, 'rgba(70,40,30,.35)'); cg.addColorStop(1, 'rgba(70,40,30,0)'); g.fillStyle = cg; g.fillRect(ex + s * 32 - 16, 30, 32, 32); } // sunken cheeks
+    for (const yy of [-28, -20, -12]) { g.beginPath(); g.moveTo(ex - 22, yy); g.quadraticCurveTo(ex, yy - 4, ex + 22, yy); g.stroke(); } // forehead
+    g.fillStyle = '#ece9e2'; g.strokeStyle = INK; g.lineWidth = 2; for (const s of [-1, 1]) { const x = ex + s * 21; g.beginPath(); g.moveTo(x - 13, -2); g.quadraticCurveTo(x, -12 - 2, x + 13, -2 + s * 2); g.quadraticCurveTo(x, -6, x - 13, -2); g.fill(); g.stroke(); } // bushy white brows
+    g.fillStyle = '#ece9e2'; g.beginPath(); g.moveTo(ex - 16, 60); g.quadraticCurveTo(ex - 10, 100, ex + 2, 118); g.quadraticCurveTo(ex + 12, 98, ex + 16, 60); g.quadraticCurveTo(ex, 70, ex - 16, 60); g.closePath(); g.fill(); g.stroke(); // beard
+    g.strokeStyle = 'rgba(150,150,150,.6)'; g.lineWidth = 1.5; for (const k of [-6, 0, 6]) { g.beginPath(); g.moveTo(ex + k, 68); g.lineTo(ex + k * .6 + 1, 108); g.stroke(); }
+    g.fillStyle = 'rgba(90,55,35,.35)'; for (const [sx, sy] of [[-26, -34], [18, -40], [30, 48]]) { g.beginPath(); g.arc(ex + sx, sy, 3, 0, 7); g.fill(); } // age spots
+    // balding: bare crown, thin white hair only around the sides and back
+    g.fillStyle = '#ece9e2'; g.strokeStyle = INK; g.lineWidth = 2.5; for (const s of [-1, 1]) { g.beginPath(); g.moveTo(hx + s * 30, -66); g.bezierCurveTo(hx + s * 58, -60, hx + s * 64, -24, hx + s * 56, 14); g.lineTo(hx + s * 48, 4); g.lineTo(hx + s * 50, -14); g.lineTo(hx + s * 44, -30); g.quadraticCurveTo(hx + s * 44, -50, hx + s * 24, -60); g.closePath(); g.fill(); g.stroke(); }
+    g.fillStyle = 'rgba(255,255,255,.18)'; g.beginPath(); g.ellipse(hx - 8, -62, 16, 8, -.3, 0, 7); g.fill(); // shine on the bald crown
+    return; }
   if (HS === 'bun') { // women: hair drawn back smooth, middle part, a bun at the nape
     g.beginPath(); g.arc(hx - 52, -30, 24, 0, 7); g.fillStyle = HAIR; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
     g.beginPath(); g.moveTo(hx - 54, 10); g.bezierCurveTo(hx - 64, -60, hx - 30, -86, hx + 2, -86); g.bezierCurveTo(hx + 40, -86, hx + 66, -60, hx + 54, 10); g.quadraticCurveTo(hx + 42, -40, hx + 2, -50); g.quadraticCurveTo(hx - 40, -40, hx - 54, 10); g.closePath(); g.fillStyle = HAIR; g.fill(); g.stroke(); return; }
@@ -164,11 +179,14 @@ function character(o) {
     // ---- the living: outfit is data (top, sleeves, bottom, feet, trim) so every character can be dressed for the script ----
     const F = Object.assign({ top: 'coat', sleeve: 'long', bottom: 'pants', feet: 'boots', col: P.jacket, colD: P.jacketD, bot: '#1e2028', botD: '#15161c', trim: null }, o.outfit || {});
     const skinArm = (A, back) => fleshLimb(A, [10.5, 9.5, 8.5], back ? P.skinD : P.skin, P.skinD, 1);
-    const roundHand = (e, skin) => { g.save(); g.translate(...e.end); g.rotate(-e.dir); g.fillStyle = skin; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.ellipse(0, 8, 9.5, 11, 0, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.ellipse(8, 3, 4, 6.5, -.5, 0, 7); g.fill(); g.stroke(); g.restore(); };
+    const roundHand = (e, skin) => { g.save(); g.translate(...e.end); g.rotate(-e.dir); g.fillStyle = skin; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.ellipse(0, 6, 9.5, 11, 0, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.ellipse(8, 2, 4, 6.5, -.5, 0, 7); g.fill(); g.stroke(); g.restore(); };
     const bareFoot = (e) => { g.save(); g.translate(...e.end); g.fillStyle = P.skinD; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.moveTo(-10, -4); g.quadraticCurveTo(-12, 9, -6, 10); g.lineTo(24, 10); g.quadraticCurveTo(28, 2, 14, -2); g.closePath(); g.fill(); g.stroke(); g.restore(); };
     const arm = (A, back) => { const c = back ? F.colD : F.col, cd = back ? shade(F.colD, .8) : F.colD;
       if (F.sleeve === 'long') { fleshLimb.seam = .32; const e = fleshLimb(A, [14, 13, 13], c, back ? cd : c, 1.5); fleshLimb.seam = 0; cuffHand(e, shade(c, .75), back ? P.skinD : P.skin); return e; }
-      const e = skinArm(A, back); roundHand(e, back ? P.skinD : P.skin);
+      // hand first, then the arm over it with open ends, so wrist and shoulder flow into the hand and the garment (no separate blobs)
+      const pre = { end: A[2], dir: Math.atan2(A[2][0] - A[1][0], A[2][1] - A[1][1]) }; roundHand(pre, back ? P.skinD : P.skin);
+      fleshLimb.seam = .3; const e = skinArm(A, back); fleshLimb.seam = 0;
+      if (F.sleeve === 'none') { g.save(); g.translate(...A[0]); g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.arc(0, 4, 13, .1 * Math.PI, .9 * Math.PI); g.stroke(); g.restore(); } // just the armhole edge line
       if (F.sleeve === 'short') { const m = [A[0], [lerp(A[0][0], A[1][0], .55), lerp(A[0][1], A[1][1], .55)], [lerp(A[0][0], A[1][0], .95), lerp(A[0][1], A[1][1], .95)]]; fleshLimb.seam = .5; fleshLimb(m, [14, 14, 14], c, c, 0); fleshLimb.seam = 0; }
       return e; };
     const leg = (Lg, back, fa) => { if (F.bottom === 'pants') { const e = fleshLimb(Lg, [17, 16, 15], back ? F.botD : F.bot, back ? shade(F.botD, .8) : F.botD, 1); boot(e, back ? 1 : 0, fa); return; }
@@ -198,6 +216,7 @@ function character(o) {
       g.fillStyle = F.bot; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.moveTo(-38, hem - 2); g.lineTo(38, hem - 2); g.lineTo(34, hem + 14); g.lineTo(12, hem + 16); g.lineTo(8, hem + 44); g.lineTo(-10, hem + 44); g.lineTo(-14, hem + 16); g.lineTo(-34, hem + 14); g.closePath(); g.fill(); g.stroke();
       (F.trim || []).forEach((c, k) => { g.fillStyle = c; g.fillRect(-9, hem + 22 + k * 7, 16, 4); }); }
     g.restore();
+    if (o.stick) { g.strokeStyle = INK; g.lineWidth = 9; g.lineCap = 'round'; g.beginPath(); g.moveTo(AF[2][0] + 2, AF[2][1] - 14); g.lineTo(AF[2][0] + 10, 4); g.stroke(); g.strokeStyle = '#6b4a2e'; g.lineWidth = 5; g.stroke(); } // walking stick, gripped by the front hand
     arm(AF, false);
   }
   if (!o.ghost && !o.noLantern) { g.save(); g.translate(...AF[2]); g.translate(0, 4); g.rotate(rad(o.lanternSwing)); lantern(o); g.restore(); }
@@ -409,7 +428,7 @@ window.sheet = (who) => {
   const C = {
     khai: { label: 'Khải – dân buôn đồ cổ Sài Gòn', pal: {}, o: { hair: 'short', outfit: { top: 'coat' } } },
     tung: { label: 'Tùng – bạn đi cùng', pal: { skin: '#e8c7a8' }, o: { hair: 'cap', outfit: { top: 'tee', sleeve: 'short', col: '#b8523f', colD: '#8e3c2f', bot: '#2e4466', botD: '#22334d', feet: 'boots' } } },
-    gia: { label: 'Già làng Jrai', pal: { skin: '#b9875e', skinD: '#986a45' }, o: { hair: 'white', bend: 8, lean: 4, outfit: { top: 'vest', sleeve: 'none', col: '#1f2233', colD: '#171a28', trim: ['#a3332c', '#e8e0d0', '#a3332c'], bottom: 'loin', bot: '#1f2233', feet: 'bare' } } },
+    gia: { label: 'Già làng Jrai', pal: { skin: '#a97b55', skinD: '#87603f' }, o: { hair: 'white', bend: 14, lean: 7, head: -6, stick: true, armF: [24, 30], legF: [10, -12, 0], legB: [-6, -10, 0], outfit: { top: 'vest', sleeve: 'none', col: '#1f2233', colD: '#171a28', trim: ['#a3332c', '#e8e0d0', '#a3332c'], bottom: 'loin', bot: '#1f2233', feet: 'bare' } } },
     danNam: { label: 'Dân làng (nam)', pal: { skin: '#b9875e', skinD: '#986a45', hair: '#121016' }, o: { hair: 'short', outfit: { top: 'vest', sleeve: 'none', col: '#26293a', colD: '#1c1f2c', trim: ['#a3332c', '#e8e0d0'], bottom: 'loin', bot: '#26293a', feet: 'bare' } } },
     danNu: { label: 'Dân làng (nữ)', pal: { skin: '#c08f66', skinD: '#9c6f4a' }, o: { hair: 'bun', outfit: { top: 'blouse', sleeve: 'long', col: '#22253a', colD: '#1a1c2c', trim: ['#a3332c', '#e8e0d0', '#a3332c'], bottom: 'skirt', bot: '#22253a', trim: ['#a3332c', '#e8e0d0', '#a3332c'] } } },
     ma: { label: 'Người chết nhà mồ (ma, mờ 70%)', pal: { skin: '#dfe3e0', skinD: '#b8bfbb', hair: '#15141a' }, o: { ghost: true, flip: -1, faceDir: -.05, head: 9, mouth: .5, armB: [-4, 8], armF: [4, 6] } },
