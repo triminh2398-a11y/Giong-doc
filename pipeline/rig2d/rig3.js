@@ -99,7 +99,7 @@ function cuffHand(e, dark, skin) { g.save(); g.translate(...e.end); g.rotate(-e.
   g.fillStyle = dark; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.roundRect(-13, -6, 26, 9, 3); g.fill(); g.stroke();
   g.fillStyle = skin; g.beginPath(); g.ellipse(0, 12, 10, 12, 0, 0, 7); g.fill(); g.stroke();
   g.beginPath(); g.ellipse(9, 6, 4.5, 7, -.5, 0, 7); g.fill(); g.stroke(); g.restore(); }
-function boot(e, dark) { g.save(); g.translate(...e.end); g.fillStyle = dark ? '#121015' : P.shoe; g.strokeStyle = INK; g.lineWidth = 3;
+function boot(e, dark, fa = 0) { g.save(); g.translate(...e.end); g.rotate(rad(fa)); g.fillStyle = dark ? '#121015' : P.shoe; g.strokeStyle = INK; g.lineWidth = 3;
   g.beginPath(); g.roundRect(-13, -12, 26, 10, 3); g.fillStyle = dark ? '#191b22' : '#2c303c'; g.fill(); g.stroke(); // pant hem
   g.fillStyle = dark ? '#121015' : P.shoe; g.beginPath(); g.moveTo(-14, -3); g.quadraticCurveTo(-16, 10, -10, 12); g.lineTo(30, 12); g.quadraticCurveTo(32, 2, 18, -1); g.quadraticCurveTo(4, -6, -14, -3); g.fill(); g.stroke();
   g.strokeStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.moveTo(-10, 9); g.lineTo(28, 9); g.stroke(); g.restore(); }
@@ -112,9 +112,9 @@ function character(o) {
   const LB = leg(o.legB, -9), LF = leg(o.legF, 9), AB = arm(o.armB, [chest[0] - 14, chest[1] + 12]), AF = arm(o.armF, [chest[0] + 12, chest[1] + 12]);
   // back arm + back leg (in shadow)
   cuffHand(fleshLimb(AB, [15, 13.5, 12], '#3a4258', '#2c3244', 1.5), '#262b3a', P.skinD);
-  boot(fleshLimb(LB, [16, 14, 13], '#1c1f28', '#15171e', 1.5), 1);
+  boot(fleshLimb(LB, [16, 14, 13], '#1c1f28', '#15171e', 1.5), 1, o.legB[2] || 0);
   // front leg
-  boot(fleshLimb(LF, [16, 14, 13], P.pants, '#1c1f29', 1.5), 0);
+  boot(fleshLimb(LF, [16, 14, 13], P.pants, '#1c1f29', 1.5), 0, o.legF[2] || 0);
   // jacket: full body with shoulders, a hem that covers the hips, collar, zip, pocket and a shaded side
   g.save(); g.translate(...hip); g.rotate(rad(T));
   const J = () => { g.beginPath(); g.moveTo(-36, 22); g.quadraticCurveTo(-46 + bd * .5, -40, -38 + bd, -86); g.quadraticCurveTo(-22 + bd, -100, bd, -100); g.quadraticCurveTo(22 + bd, -100, 38 + bd, -86); g.quadraticCurveTo(46 + bd * .5, -40, 38, 22); g.quadraticCurveTo(0, 30, -36, 22); g.closePath(); };
@@ -151,7 +151,7 @@ function lantern(o) { g.save(); g.strokeStyle = '#2a2420'; g.lineWidth = 3; g.be
 // ---------------- performance (pure functions of t; springs integrated from t=0) ----------------
 const walkEnd = 0, stopEnd = 0;
 const jumpT = 7.0;
-const V0 = 118, WSTOP = 3.5; // walk speed px/s, eases to a stop by WSTOP
+const V0 = 135, WSTOP = 3.5, STRIDE = 230; // walk speed px/s, eases to a stop by WSTOP
 const vel = t => V0 * (1 - sm(seg(t, 2.5, WSTOP)));
 function walkX(t) { let x = -110, n = 80, h = Math.min(t, WSTOP) / n; for (let i = 0; i < n; i++) x += vel((i + .5) * h) * h; return x; }
 function rootX(t) { // walks in, eases to a stop, slow weight shift; flinches back at the scare with anticipation + overshoot
@@ -159,11 +159,20 @@ function rootX(t) { // walks in, eases to a stop, slow weight shift; flinches ba
   const pre = t > 6.82 ? 8 * Math.sin(seg(t, 6.82, 7.0) * Math.PI / 2) * (1 - seg(t, 7.0, 7.1)) : 0;
   return walkX(t) + 5 * Math.sin((t - 3.3) * 1.1) * idle * (1 - seg(t, 6.6, 7)) + pre - (t > jumpT ? 42 * back(seg(t, jumpT, jumpT + .4), 1.6) : 0); }
 function pose(t) {
-  const w = vel(t) / V0, ph = (walkX(t) + 110) / 150 * Math.PI * 2, s = Math.sin(ph), c = Math.cos(ph);
+  const w = vel(t) / V0, ph = (walkX(t) + 110) / STRIDE * Math.PI * 2, s = Math.sin(ph), c = Math.cos(ph);
+  // gait for one leg at phase u (0..1): thigh swings ±24; swing phase (thigh travelling forward) bends the knee hard and lifts the foot,
+  // stance keeps the leg nearly straight so the planted foot stays put; the foot rolls toe-down at lift and toe-up at heel strike
+  const gait = (p) => { const u = ((p / (2 * Math.PI)) % 1 + 1) % 1, th = 24 * Math.sin(2 * Math.PI * u), sp = ((u - .75) % 1 + 1) % 1, sw = sp < .5 ? sp / .5 : -1;
+    const knee = sw >= 0 ? -62 * Math.sin(Math.PI * Math.pow(sw, .8)) - 4 : -4 - 6 * Math.sin(Math.PI * (sp - .5) / .5), foot = sw >= 0 ? (sw < .7 ? 22 * Math.sin(Math.PI * sw / .7) : -14 * Math.sin(Math.PI * (sw - .7) / .3)) : 0;
+    return [th, knee, foot]; };
+  const gF = gait(ph), gB = gait(ph + Math.PI);
+  // arms swing against the legs; the elbow bends more as the arm comes forward
+  const armSw = (p) => { const a = -28 * Math.sin(p); return [a, 14 + 22 * Math.max(0, -Math.sin(p)) + 6 * Math.max(0, Math.cos(p))]; };
+  const aB = armSw(ph), aF = armSw(ph + Math.PI);
   const br = Math.sin(t * 2.3) * (1 - w), sway = Math.sin(t * 1.1) * (1 - w);
-  const o = { t, x: rootX(t), y: 1040, flip: 1, bob: 1.8 * br - 7 * Math.abs(c) * w, lean: 1.5 * sway + 5 * w, bend: 3 + 2 * br + 3 * w,
-    legF: [lerp(6 + 2 * sway, 26 * s, w), lerp(-4, -40 * Math.max(0, -s) - 6, w), 0], legB: [lerp(-8 + 2 * sway, -26 * s, w), lerp(-3, -40 * Math.max(0, s) - 6, w), 0],
-    armB: [lerp(-6 + 3 * br, -24 * s - 4, w), lerp(16 + 2 * br, 22, w)], armF: [lerp(18 + 2 * sway, 10 * s + 18, w), 30], spine: 0, neck: 0, head: 2 * Math.sin(t * .9) + 1.2 * Math.sin(t * 2.1),
+  const o = { t, x: rootX(t), y: 1040, flip: 1, bob: 1.8 * br + 9 * s * s * w, lean: 1.5 * sway + 5 * w, bend: 3 + 2 * br + 3 * w,
+    legF: [lerp(6 + 2 * sway, gF[0], w), lerp(-4, gF[1], w), gF[2] * w], legB: [lerp(-8 + 2 * sway, gB[0], w), lerp(-3, gB[1], w), gB[2] * w],
+    armB: [lerp(-6 + 3 * br, aB[0] - 4, w), lerp(16 + 2 * br, aB[1], w)], armF: [lerp(4 + 2 * sway, aF[0] * .5 + 6, w), lerp(58 + 3 * br, 50 + aF[1] * .5, w)], spine: 0, neck: 0, head: 2 * Math.sin(t * .9) + 1.2 * Math.sin(t * 2.1),
     faceDir: .5, look: .2, blink: 0, brow: 0, mouth: 0, shock: 0, squash: 0, tuft: 0, scarf: 0, lanternSwing: 0 };
   // a slow, eased head turn toward the grave house, the body follows a beat later (overlap)
   const turn = sm(seg(t, 3.2, 4.2)), body = sm(seg(t, 3.5, 4.5));
@@ -253,7 +262,7 @@ window.draw = (t) => {
   const lx = o.x + 40, ly = o.y - 150; const pool = g.createRadialGradient(lx, ly, 10, lx, ly, 320); pool.addColorStop(0, 'rgba(255,190,110,.32)'); pool.addColorStop(1, 'rgba(255,190,110,0)');
   character(o);
   g.globalCompositeOperation = 'lighter'; g.fillStyle = pool; g.fillRect(lx - 340, ly - 340, 680, 680); g.globalCompositeOperation = 'source-over';
-  g.globalAlpha = .9; g.drawImage(MIST, -600 + (t * 30) % 600, 820); g.globalAlpha = 1;
+  g.globalAlpha = .55; g.drawImage(MIST, -600 + (t * 30) % 600, 860); g.globalAlpha = 1;
   // grade: cold tint + vignette, then blackout at the end
   g.setTransform(1, 0, 0, 1, 0, 0); const v = g.createRadialGradient(W / 2, H * .55, H * .25, W / 2, H * .55, H * .75); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,8,.55)'); g.fillStyle = v; g.fillRect(0, 0, W, H);
   if (t > 7.0 && t < 7.08) { g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(0, 0, W, H); }
