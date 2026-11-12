@@ -1576,3 +1576,6 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 99_tm_hook clone:refs/mada8.wav 0 ok 20.2
 99_tm_hook asr ok
+loaded V3TurboVieNeuTTS
+99_tm_hook2 clone:refs/mada8.wav 0 ok 26.4
+99_tm_hook2 asr ok
