@@ -1596,3 +1596,19 @@ loaded V3TurboVieNeuTTS
 99_ck_old asr ok
 99_ck_yng Thái Sơn 0 ok 1.0
 99_ck_yng asr ok
+loaded V3TurboVieNeuTTS
+99_ck3_n clone:refs/mada8.wav 0 ok 28.5
+99_ck3_n clone:refs/mada8.wav 4 ok 1.7
+99_ck3_n clone:refs/mada8.wav 8 ok 15.3
+99_ck3_n clone:refs/mada8.wav 12 ok 13.4
+99_ck3_n clone:refs/mada8.wav 16 ok 5.0
+99_ck3_n clone:refs/mada8.wav 20 ok 15.5
+99_ck3_n asr ok
+99_ck3_thay Thái Sơn 0 ok 2.4
+99_ck3_thay Thái Sơn 4 ok 2.5
+99_ck3_thay Thái Sơn 8 ok 11.7
+99_ck3_thay asr ok
+99_ck3_yng Adam 0 ok 1.7
+99_ck3_yng Adam 4 ok 2.1
+99_ck3_yng Adam 8 ok 1.7
+99_ck3_yng asr ok
