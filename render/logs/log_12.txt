@@ -1,1 +1,27 @@
-nolog
++ fc-list
++ grep -ci dejavu
+22
++ node -e 'console.log(require('\''ffmpeg-static'\''))'
+/home/runner/work/Giong-doc/Giong-doc/render/node_modules/ffmpeg-static/ffmpeg
+++ jq -r .tag job.json
++ TAG=tiktok-conglang-25d-v1b
+++ jq -r .html job.json
++ HTML=ck3/index.html
+++ jq -r .frames job.json
++ N=5571
++ S=16
+++ jq -r '.start // 0' job.json
++ ST=0
++ A=4178
++ B=4526
+++ printf %02d 12
+++ jq -r .w job.json
+++ jq -r .h job.json
++ node render_seg.js ck3/index.html seg_12.mp4 4178 4526 720 1280
+frame 4200
++ sleep 24
++ for k in 1 2 3 4 5 6
++ gh release view tiktok-conglang-25d-v1b
+++ printf %02d 12
++ gh release upload tiktok-conglang-25d-v1b seg_12.mp4 --clobber
++ break
