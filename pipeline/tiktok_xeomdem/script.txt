@@ -1,0 +1,21 @@
+hook|N|Nếu chạy xe ôm ban đêm, có người ôm một tấm chăn kín mít nhờ chở về quê... thì đừng bao giờ quát người ngồi sau. Vì người đang ôm sát lưng bạn... có khi không còn sống.
+title|N|Cuốc xe ôm đêm.
+s1|N|Lâm chạy xe ôm trước cổng bệnh viện tỉnh. Một giờ sáng, trời mưa lâm râm. Có cô gái gầy gò ngồi co ro ở cổng từ chiều, bên cạnh là một bọc chăn dài, không ai chịu chở.
+M1|NHUNG|Anh ơi... chở giùm em về quê. Xa lắm, sáu chục cây, đi đường đê... em trả gấp ba.
+s2|N|Lâm ngần ngừ. Tiền gấp ba bằng cả tuần chạy. Anh gật đầu.
+s3|N|Cô gái lấy dây cột bọc chăn ngồi trước mình, kẹp sát lưng Lâm, như có người thứ ba ngồi chung xe.
+M2|NHUNG|Mẹ em ngủ rồi... anh chạy êm êm giùm em.
+s4|N|Ra tới đường đê, sương sông trùm kín mặt đường. Lâm thấy lưng mình lạnh buốt, rồi có cái gì nặng nặng tựa lên vai anh. Cô gái bắt đầu khóc, khóc tới nấc lên từng hồi.
+P1|LAM|Thôi! Khóc hoài vậy ai mà chạy nổi!
+s5|N|Cô gái im bặt. Nhưng ngay sát tai Lâm, có một giọng khàn khàn, rất già, thì thào.
+B1|BA|Chạy nhanh đi con... nhà đang chờ.
+s6|N|Lâm thắng gấp. Anh rọi đèn pin vào bọc chăn. Mép chăn tuột xuống, lộ ra khuôn mặt một bà cụ, trắng bệch, mắt nhắm nghiền, môi tím ngắt.
+P2|LAM|Trong chăn... là ai vậy?
+M3|NHUNG|Mẹ em mất hồi chiều anh ơi. Xe chở xác đòi ba triệu, em không có. Ở quê thầy đã coi giờ, năm giờ sáng phải liệm... không thì mẹ em không yên.
+s7|N|Lâm run bắn. Bỏ hai mẹ con giữa đê thì anh không nỡ. Anh kéo mép chăn lại, rồ ga chạy tiếp, mắt chỉ dán vào vệt đèn trước mặt.
+s8|N|Suốt quãng đê còn lại, trên vai anh vẫn có một sức nặng, như có bàn tay ai đặt lên. Anh tự nhủ là tay cô gái vịn cho chắc.
+s9|N|Bốn giờ rưỡi, xe về tới đầu xóm. Người nhà chạy ra, khóc rống lên, đỡ bọc chăn xuống.
+s10|N|Lâm cởi áo mưa. Trên vai áo khoác của anh có một dấu tay ướt sũng, năm ngón dài gầy guộc. Mà suốt đường, hai tay cô gái chỉ ôm chặt bọc chăn.
+s11|N|Người nhà mở chăn ra. Bàn tay phải của bà cụ đã cứng đờ, co lên ngang ngực, năm ngón khum khum... đúng hình đang vịn lên vai một người.
+end|N|Bà cụ được liệm đúng năm giờ sáng. Từ đó, nhà nào nghèo có người mất trong viện, bác sĩ lại chỉ ra cổng tìm Lâm. Anh chưa từ chối cuốc nào. Chỉ có một điều anh không bao giờ làm nữa: quát người ngồi sau xe.
+cta|N|Nếu là bạn, đêm đó bạn có dám chở tiếp không?
