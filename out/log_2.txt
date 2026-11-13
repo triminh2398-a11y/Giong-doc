@@ -1559,3 +1559,21 @@ stv_xophoi_01 Mai Anh 26 ok 2.4
 stv_xophoi_01 Mai Anh 30 ok 1.0
 stv_xophoi_01 Mai Anh 34 ok 0.8
 stv_xophoi_01 asr ok
+loaded V3TurboVieNeuTTS
+99_vg_luc Minh Triết 2 ok 2.1
+99_vg_luc Minh Triết 6 ok 1.4
+99_vg_luc asr ok
+99_vg_n clone:refs/mada8.wav 2 ok 24.5
+99_vg_n clone:refs/mada8.wav 6 ok 6.0
+99_vg_n clone:refs/mada8.wav 10 ok 7.9
+99_vg_n clone:refs/mada8.wav 14 ok 4.6
+99_vg_n clone:refs/mada8.wav 18 ok 10.9
+99_vg_n clone:refs/mada8.wav 22 ok 8.1
+99_vg_n clone:refs/mada8.wav 26 ok 7.4
+99_vg_n clone:refs/mada8.wav 30 ok 8.3
+99_vg_n clone:refs/mada8.wav 34 ok 1.9
+99_vg_n clone:refs/mada8.wav 38 ok 1.0
+99_vg_n asr ok
+99_vg_thin Thái Sơn 2 ok 3.0
+99_vg_thin Thái Sơn 6 ok 2.2
+99_vg_thin asr ok
