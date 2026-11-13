@@ -1,4 +1,4 @@
-hook|N|Nếu đi thuyền qua một vũng nước lặng mà thấy dân sông dừng lại thắp hương, thì đừng bao giờ thả câu ở đó. Vì thứ cắn câu... không phải cá.
+hook|N|Nếu đi ghe qua một vũng nước lặng mà thấy dân sông dừng lại thắp hương, thì đừng bao giờ thả câu ở đó. Vì thứ cắn câu... không phải cá.
 title|N|Câu chuyện hôm nay... Vũng giữ xác.
 s1|N|Ở một khúc sông chảy xiết giữa vùng núi, có một vũng nước lặng như mặt gương. Ai chết đuối mà tìm hoài không thấy xác, dân sông nói là vũng đã giữ lại.
 s2|N|Thuyền nào đi ngang cũng dừng, thắp một nén hương lên cái miếu nhỏ nửa chìm nửa nổi bên vũng. Người già nói, vũng không giữ ai mãi. Nó trả dần... theo thứ tự. Ai xuống trước, thì về trước.
@@ -6,8 +6,8 @@ s3|N|Ba năm trước, hai anh em Lực và Đạt cùng chạy đò ở bến d
 L1|LUC|Đạt ơi... về với anh đi em.
 s4|N|Năm nay nước cạn hơn mọi năm. Một đêm gần sáng, cần câu lần đầu tiên oằn xuống. Lực kéo lên. Không phải cá. Là một chiếc dép nhựa của đàn bà, quấn đầy rong.
 s5|N|Sáng ra, xác một người đàn bà mất tích năm năm trước nổi lên ngay bến đò, chân còn mang chiếc dép còn lại của đôi. Cả bến xúm lại khóc. Không ai để ý tới Lực đang đứng ngay đó.
-s6|N|Đêm sau, Lực câu lên cái lược gỗ. Đêm sau nữa, chiếc đồng hồ rỉ sét. Mỗi sáng lại có một cái xác nổi lên ở bến, đúng của người mất món đồ đó. Có một đêm, một người khách lạ ghé ghe ngồi câu kế bên Lực. Được một lúc, ông ta nhìn xuống mặt nước... rồi bỏ cả cần câu, chèo đi thục mạng.
-s7|N|Chỉ có ông Thìn, người lái đò già nhất bến, là đứng nhìn Lực rất lâu. Còn mỗi sáng Lực về tới nhà, trên sàn luôn có một hàng dấu chân ướt, đi từ cửa... tới tận chỗ Lực nằm.
+s6|N|Đêm sau, Lực câu lên cái lược gỗ. Đêm sau nữa, chiếc đồng hồ rỉ sét. Mỗi sáng lại có một cái xác nổi lên ở bến, đúng của người mất món đồ đó. Có một đêm, một người khách lạ ghé ghe ngồi câu kế bên Lực. Được một lúc, ông ta nhìn xuống mặt nước. Dưới nước chỉ có bóng của một mình ông. Ông bỏ cả cần câu, chèo đi thục mạng.
+s7|N|Chỉ có ông Thìn, người lái đò già nhất bến, người ta nói ông thấy được những thứ người khác không thấy, là đứng nhìn Lực rất lâu. Còn mỗi sáng Lực về tới nhà, trên sàn luôn có một hàng dấu chân ướt, đi từ mép sông... tới tận chỗ Lực nằm.
 s8|N|Đêm thứ tư, cần câu oằn mạnh hơn mọi lần. Lực kéo lên chiếc nón lá rách của Đạt. Sáng ra, xác Đạt nổi lên ở bến, sau ba năm. Lực chạy xuống, ôm lấy em, gào khóc. Cả bến vẫn không ai quay lại nhìn anh.
 L2|LUC|Sao không ai nói gì hết vậy? Em tui về rồi mà!
 s9|N|Ông Thìn bước tới, nhìn thẳng vào Lực. Lực cúi xuống mặt nước. Không có bóng mình. Chỉ có một gương mặt trắng bệch, tóc bết đầy rong, đang mở mắt nhìn lên. Là mặt của chính Lực.
