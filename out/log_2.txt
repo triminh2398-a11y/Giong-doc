@@ -1536,3 +1536,6 @@ loaded V3TurboVieNeuTTS
 99_ck3_yng Adam 2 ok 1.3
 99_ck3_yng Adam 6 ok 1.4
 99_ck3_yng asr ok
+loaded V3TurboVieNeuTTS
+99_ck3_title clone:refs/mada8.wav 2 ok 15.3
+99_ck3_title asr ok
