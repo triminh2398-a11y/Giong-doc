@@ -1539,3 +1539,23 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 99_ck3_title clone:refs/mada8.wav 2 ok 15.3
 99_ck3_title asr ok
+loaded V3TurboVieNeuTTS
+stv_xophoi_01 Hải Đăng 2 ok 2.4
+stv_xophoi_01 Hải Đăng 6 ok 1.4
+stv_xophoi_01 Hải Đăng 10 ok 0.5
+stv_xophoi_01 Hải Đăng 14 ok 1.3
+stv_xophoi_01 Hải Đăng 18 ok 0.4
+stv_xophoi_01 Hải Đăng 22 ok 2.0
+stv_xophoi_01 Hải Đăng 26 ok 2.2
+stv_xophoi_01 Hải Đăng 30 ok 0.8
+stv_xophoi_01 Hải Đăng 34 ok 0.7
+stv_xophoi_01 Mai Anh 2 ok 2.6
+stv_xophoi_01 Mai Anh 6 ok 1.4
+stv_xophoi_01 Mai Anh 10 ok 0.5
+stv_xophoi_01 Mai Anh 14 ok 1.5
+stv_xophoi_01 Mai Anh 18 ok 0.4
+stv_xophoi_01 Mai Anh 22 ok 2.2
+stv_xophoi_01 Mai Anh 26 ok 2.4
+stv_xophoi_01 Mai Anh 30 ok 1.0
+stv_xophoi_01 Mai Anh 34 ok 0.8
+stv_xophoi_01 asr ok
