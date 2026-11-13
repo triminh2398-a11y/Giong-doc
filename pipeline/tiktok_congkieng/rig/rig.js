@@ -192,7 +192,8 @@ function character(o) {
     const roundHand = (e, skin) => { g.save(); g.translate(...e.end); g.rotate(-e.dir); g.fillStyle = skin; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.ellipse(0, 6, 9.5, 11, 0, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.ellipse(8, 2, 4, 6.5, -.5, 0, 7); g.fill(); g.stroke(); g.restore(); };
     const bareFoot = (e) => { g.save(); g.translate(...e.end); g.fillStyle = P.skinD; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.moveTo(-10, -4); g.quadraticCurveTo(-12, 9, -6, 10); g.lineTo(24, 10); g.quadraticCurveTo(28, 2, 14, -2); g.closePath(); g.fill(); g.stroke(); g.restore(); };
     const arm = (A, back) => { const c = back ? F.colD : F.col, cd = back ? shade(F.colD, .8) : F.colD;
-      if (F.sleeve === 'long') { fleshLimb.seam = .32; const e = fleshLimb(A, [14, 13, 13], c, back ? cd : c, 1.5); fleshLimb.seam = 0; cuffHand(e, shade(c, .75), back ? P.skinD : P.skin); return e; }
+      if (F.sleeve === 'long') { fleshLimb.seam = .32; const e = fleshLimb(A, [14, 13, 13], c, back ? cd : c, 1.5); fleshLimb.seam = 0; cuffHand(e, shade(c, .75), back ? P.skinD : P.skin);
+        if (SYM) { g.save(); g.translate(...A[0]); g.fillStyle = c; g.beginPath(); g.arc(0, 2, 15, 0, 7); g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.arc(0, 2, 15, 1.05 * Math.PI, 1.95 * Math.PI); g.stroke(); g.restore(); } return e; }
       // hand first, then the arm over it with open ends, so wrist and shoulder flow into the hand and the garment (no separate blobs)
       const pre = { end: A[2], dir: Math.atan2(A[2][0] - A[1][0], A[2][1] - A[1][1]) }; roundHand(pre, back ? P.skinD : P.skin);
       fleshLimb.seam = .3; const e = skinArm(A, back); fleshLimb.seam = 0;

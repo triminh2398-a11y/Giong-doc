@@ -55,10 +55,11 @@ window.draw = (t) => {
   g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W, H); const k = at(t);
   if (k === 'hook' || k === 'title') { // night: gate in the wind, slow push; at the beat an old man is suddenly sitting there, white eyes
     const u = U('hook', t), z = lerp(.95, 1.35, sm(Math.min(1, (t - TL.hook[0]) / (TL.hook[1] - TL.hook[0])))) + (k === 'title' ? .05 * U('title', t) : 0);
-    g.setTransform(1, 0, 0, 1, 0, 0); cam(380, 760, 1); highlandBG(t, 'night'); cam(380, lerp(760, 720, u), z); villageGate(380, 900, t, 1.6); rain(t, .25);
+    const pu = t > BEAT.hook ? sm(clamp((t - BEAT.hook - .05) / .35)) : 0, cx_ = lerp(380, 560, pu), cy_ = lerp(lerp(760, 720, u), 845, pu), cz = lerp(z, 2.4, pu);
+    g.setTransform(1, 0, 0, 1, 0, 0); cam(380, 760, 1); highlandBG(t, 'night'); cam(cx_, cy_, cz); villageGate(380, 900, t, 1.6); rain(t, .25);
     if (t > BEAT.hook) { const a = Math.min(1, (t - BEAT.hook) * 6); g.fillStyle = '#5a5a5e'; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.ellipse(560, 902, 34, 14, 0, 0, 7); g.fill(); g.stroke();
       ghostMan(560, 896 + 52, .55, { view: 'front', faceDir: 0, legsFront: true, legF: [150, -150, 0], legB: [140, -146, 0], lean: -6, armF: [80, 70], armB: [76, 76], blink: 0, dead: true }, .7 * a); }
-    tint('#0a1030', .25); vignette(.65); if (t > BEAT.hook && t < BEAT.hook + .08) tint('#ffffff', .35);
+    tint('#0a1030', .12); vignette(.5); if (t > BEAT.hook && t < BEAT.hook + .08) tint('#ffffff', .35);
     if (k === 'title') titleCard(t); captions(t); return; }
   if (k === 's1' || k === 's2') { // the custom: dusk, the bản behind the gate, push to the hanging knives; then the shaman with smoke
     const u = k === 's1' ? U('s1', t) : U('s2', t);
@@ -75,7 +76,7 @@ window.draw = (t) => {
       motorbike(bx, 1060 + bump, .8, 1, '#7a2a20'); C('khang', bx - 10, 1000 + bump, .66, { view: 'side', legF: [70, -70, 0], legB: [64, -66, 0], armF: [100, 30], armB: [96, 34], lean: 6 }, t, 1);
       motorbike(bx - 230, 1110 + bump, .8, 1, '#2a4a6a'); C('vu', bx - 236, 1050 + bump, .66, { view: 'side', legF: [70, -70, 0], legB: [64, -66, 0], armF: [100, 30], armB: [96, 34], lean: 6 }, t, 2); C('duy', bx - 290, 1040 + bump, .6, { view: 'side', legF: [70, -70, 0], legB: [64, -66, 0], armF: [40, 60], armB: [30, 60], lean: 4 }, t, 4);
       rain(t, .3); tint('#1a2030', .15); vignette(); captions(t); return; }
-    if (k === 'O1') { const u = U('O1', t); cam(380, 760, 1); highlandBG(t, 'dusk'); cam(560, 760, lerp(2.0, 2.2, u)); villageGate(380, 900, t, 1);
+    if (k === 'O1') { const u = U('O1', t); cam(380, 760, 1); highlandBG(t, 'dusk'); cam(560, 870, lerp(2.0, 2.2, u)); villageGate(380, 900, t, 1);
       g.fillStyle = '#5a5a5e'; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.ellipse(565, 902, 34, 14, 0, 0, 7); g.fill(); g.stroke();
       C('ong', 560, 948, .55, { view: 'front', faceDir: 0, legsFront: true, legF: [150, -150, 0], legB: [140, -146, 0], lean: -6, armF: [150 + 25 * Math.sin(t * 7), 50], armB: [76, 76], mouth: talk(t, speaking('O1', t)) }, t, 5);
       rain(t, .3); tint('#1a2030', .15); vignette(); captions(t); return; }
@@ -104,12 +105,12 @@ window.draw = (t) => {
     if (t < photoT) { cam(W / 2, H / 2, 1); roomBG(t, .8); C('vu', 150, 905, .58, { view: 'front', faceDir: 0, legsFront: true, legF: [90, -10, 0], legB: [86, -12, 0], armF: [140, 40], armB: [134, 46], look: .5, brow: 10 }, t, 2);
       C('khang', 560, 905, .58, { view: 'back', legsFront: true, legF: [90, -10, 0], legB: [86, -12, 0] }, t, 1);
       if (Math.sin(t * 17) > .7) { g.strokeStyle = 'rgba(200,200,220,.5)'; g.lineWidth = 3; for (const dx of [-16, 0, 16]) { g.beginPath(); g.moveTo(600 + dx, 230); g.lineTo(612 + dx, 210); g.stroke(); } } }
-    else { const zu = t > BEAT.s6 ? sm(clamp((t - BEAT.s6) / 1.5)) : 0; cam(lerp(W / 2, 420, zu), lerp(H / 2, 560, zu), (1 + .08 * U('s6', t)) * lerp(1, 2.6, zu)); phoneShot(t > BEAT.s6 ? 'turned' : 'normal', t); }
+    else { const zu = t > BEAT.s6 ? sm(clamp((t - BEAT.s6) / 1.5)) : 0; cam(lerp(W / 2, 420, zu), lerp(H / 2, 648, zu), (1 + .08 * U('s6', t)) * lerp(1, 2.6, zu)); phoneShot(t > BEAT.s6 ? 'turned' : 'normal', t); }
     tint('#0a1030', .25); vignette(.7); if (t > BEAT.s6 && t < BEAT.s6 + .1) tint('#ffffff', .4); captions(t); return; }
   if (k === 's7' || k === 'K1') { const u = U(k, t), sh = 2 * Math.sin(t * 40);
     if (k === 's7') { cam(W / 2, H / 2, 1); roomBG(t, .5); C('khang', 560 + sh * .3, 905, .58, { view: 'side', flip: -1, legsFront: true, legF: [90, -10, 0], legB: [86, -12, 0], armF: [40, 40], armB: [30, 50], blink: 1, head: -6, mouth: Math.abs(Math.sin(t * 9)) * .3 }, t, 1);
       C('vu', 150, 905, .58, { view: 'three', faceDir: .4, legsFront: true, legF: [90, -10, 0], legB: [86, -12, 0], shock: 1, mouth: .5, look: .8 }, t, 2); }
-    else { cam(W / 2, H / 2, 1); roomBG(t, .5); cam(560, 700, 2.3 + .2 * u); C('khang', 560 + sh * .2, 905, .58, { view: 'front', faceDir: 0, legsFront: true, legF: [90, -10, 0], legB: [86, -12, 0], armF: [40, 40], armB: [30, 50], blink: 0, mouth: talk(t, speaking('K1', t)) * .6 }, t, 1); }
+    else { cam(W / 2, H / 2, 1); roomBG(t, .5); cam(560, 780, 2.3 + .2 * u); C('khang', 560 + sh * .2, 905, .58, { view: 'front', faceDir: 0, legsFront: true, legF: [90, -10, 0], legB: [86, -12, 0], armF: [40, 40], armB: [30, 50], blink: 0, mouth: talk(t, speaking('K1', t)) * .6 }, t, 1); }
     tint('#0a1030', .28); vignette(.7); captions(t); return; }
   if (['s8', 'T1', 'T2'].includes(k)) { // morning at the gate: the shaman stays inside; Vũ hands him the phone
     const u = U(k, t); cam(380, 760, 1); highlandBG(t, 'dusk'); tint('#c8d8f0', .12);
