@@ -1,0 +1,18 @@
+hook|N|Nếu đi ngang một bản vùng cao mà thấy cổng làng treo dao gỗ và cánh gà, thì đừng bao giờ bước qua. Vì thứ dân bản đang đuổi đi... sẽ theo bạn về.
+title|N|Cổng làng treo dao gỗ.
+s1|N|Ở nhiều bản vùng cao, khi có người chết bất thường, dân bản làm lễ cấm bản. Cổng làng treo ta leo, dao gỗ và cánh gà. Ba ngày liền, người trong không ra, người ngoài không vào.
+s2|N|Người già nói, đó là lúc thầy cúng đưa hồn người chết ra khỏi bản. Nếu có người lạ bước qua cổng, hồn sẽ bám theo người đó... mà đi lạc.
+s3|N|Khang, Vũ và Duy chạy xe máy lên vùng cao săn mây. Chiều mưa, ba người dừng trước một cổng bản treo đầy dao gỗ. Bên cổng có một ông cụ mặc áo chàm bạc màu, ngồi im, rồi vẫy tay gọi.
+O1|ONG|Vào đi... vào chụp tấm hình đi con.
+s4|N|Khang cười, bước qua sợi dây chắn, đứng giữa cổng. Ông cụ đứng dậy, đặt một bàn tay lên vai anh. Vũ bấm máy.
+D1|DUY|Khang, ra đi mày! Người ta treo dao gỗ kìa!
+s5|N|Ba người nổ máy đi. Vũ ngoái lại. Cổng làng trống trơn, không còn ai.
+s6|N|Đêm đó ở nhà nghỉ dưới thị trấn, hai giờ sáng, có tiếng gỗ gõ lách cách ngoài cửa sổ. Vũ mở điện thoại ra coi lại tấm hình. Khang vẫn đứng giữa cổng. Nhưng ông cụ đã quay hẳn mặt về phía ống kính, đôi mắt trắng dã.
+s7|N|Bàn tay ông cụ không còn đặt trên vai Khang nữa. Nó giơ thẳng lên, chỉ về con đèo phía sau lưng ba người... đúng con đèo mà bốn giờ sáng nay, cả nhóm định chạy lên săn mây.
+V1|VU|Dậy! Tụi bây dậy coi nè... ổng chỉ lên đèo!
+s8|N|Không ai dám đi nữa. Ba người ngồi trong phòng, nghe tiếng gỗ gõ ngoài cửa sổ tới gần năm giờ sáng. Rồi cả thị trấn rung lên một tiếng ầm. Một mảng núi trên đèo sụt xuống, vùi kín mặt đường.
+s9|N|Trưa hôm đó, ba người quay lại bản. Thầy cúng đứng sát mép cổng, phía bên trong. Vũ đưa tấm hình. Thầy cúng nhìn rất lâu.
+T1|THAY|Ông này chết dưới con đèo đó hôm kia... cũng vì núi lở.
+T2|THAY|Hồn theo người lạ ra khỏi bản là đi lạc, không về với ông bà được nữa. Ổng biết vậy... mà vẫn gọi các cậu vào.
+end|N|Vũ mở lại tấm hình. Ông cụ đã biến mất, chỉ còn Khang đứng một mình giữa cổng. Nhưng trên vai áo Khang trong hình... vẫn in rõ năm ngón tay. Khang giữ tấm hình đó tới giờ, không dám xóa. Vì không ai biết, nếu xóa đi... ông cụ sẽ đi đâu.
+cta|N|Nếu là bạn, bạn có bước qua cái cổng đó không?
