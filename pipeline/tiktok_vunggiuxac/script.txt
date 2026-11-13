@@ -1,19 +1,17 @@
-hook|N|Nếu đi thuyền qua một vũng nước lặng mà thấy dân sông dừng lại thắp hương, thì đừng bao giờ thả câu ở đó. Vì thứ cắn câu... không phải cá.
+hook|N|Nếu đi thuyền qua một vũng nước lặng mà thấy dân sông dừng lại thắp hương, thì đừng bao giờ thả câu ở đó. Vì người ngồi câu bên cạnh bạn... chưa chắc còn sống.
 title|N|Câu chuyện hôm nay... Vũng giữ xác.
 s1|N|Ở một khúc sông chảy xiết giữa vùng núi, có một vũng nước lặng như mặt gương. Ai chết đuối mà tìm hoài không thấy xác, dân sông nói là vũng đã giữ lại.
-s2|N|Thuyền nào đi ngang cũng dừng, thắp một nén hương lên cái miếu nhỏ nửa chìm nửa nổi bên vũng. Và người già chỉ dặn một câu: vũng giữ thứ gì thì để yên thứ đó.
-s3|N|Lực chạy đò ở bến dưới, nợ nần chồng chất. Mấy nhà có người mất tích trên sông treo thưởng cho ai tìm được xác. Một đêm, Lực chèo ghe ra giữa vũng, thả câu.
-s4|N|Gần sáng, cần câu oằn xuống. Lực kéo lên. Không phải cá. Là một chiếc dép nhựa của đàn bà, quấn đầy rong.
-L1|LUC|Xui thiệt... câu cả đêm được cái dép.
-s5|N|Sáng hôm đó, xác một người đàn bà mất tích ba năm trước nổi lên ngay bến đò, một chân còn mang chiếc dép còn lại của đôi. Nhà người ta khóc, rồi đưa Lực tiền thưởng.
-s6|N|Ông Thìn, người lái đò già nhất bến, kéo Lực ra một góc.
-TH1|THIN|Vũng trả một người... thì nó giữ lại một chỗ. Mày đừng ra đó nữa.
-s7|N|Lực cười, cầm tiền đi trả nợ. Đêm thứ hai, rồi đêm thứ ba, Lực lại ra vũng. Lần thì cái lược gỗ, lần thì chiếc đồng hồ rỉ sét. Mỗi sáng lại có một cái xác nổi lên ở bến, đúng của người mất món đồ đó.
-s8|N|Nhưng từ đêm thứ hai, mỗi lần Lực về tới nhà, trên sàn nhà luôn có một hàng dấu chân ướt, đi từ cửa... tới tận chỗ giường Lực nằm.
-s9|N|Đêm thứ tư, cần câu oằn mạnh hơn mọi lần. Lực kéo lên một chiếc dép tổ ong cũ mòn gót. Lực đứng chết trân. Là dép của chính mình... chiếc dép mà chiều đó Lực còn để dưới gầm giường.
-L2|LUC|Không... không phải... tao còn sống mà!
-s10|N|Lực bỏ cần câu, chèo thục mạng vô bờ, chạy tới nhà ông Thìn. Ông già nhìn chiếc dép, rồi nhìn xuống chân Lực, đang ướt sũng dù trời không mưa.
-TH2|THIN|Vũng đã trả ba người. Giờ nó đòi một người thay... và nó chọn mày rồi.
-s11|N|Lực bỏ bến, bỏ sông, lên trên núi ở, thật xa nước. Nhưng mỗi sáng thức dậy, dưới chân giường của Lực luôn có một vũng nước nhỏ. Và vũng nước đó... cứ lớn dần.
-end|N|Mùa lũ năm đó, một đêm Lực tự dưng bỏ nhà trên núi, đi bộ suốt đêm xuống lại bến sông. Sáng ra, người ta thấy chiếc ghe của Lực trôi lững lờ ngay giữa vũng. Trên ghe không có người, chỉ có đôi dép tổ ong cũ mòn gót. Xác Lực chưa bao giờ nổi lên. Vũng đã giữ Lực lại.
-cta|N|Nếu là bạn, bạn có dám thả câu ở cái vũng đó không?
+s2|N|Thuyền nào đi ngang cũng dừng, thắp một nén hương lên cái miếu nhỏ nửa chìm nửa nổi bên vũng. Người già nói, vũng không giữ ai mãi. Nó trả dần... theo thứ tự. Ai xuống trước, thì về trước.
+s3|N|Ba năm trước, hai anh em Lực và Đạt cùng chạy đò ở bến dưới. Một chiều mưa, ghe lật ngay giữa vũng. Người ta tìm hoài không thấy xác Đạt. Từ đó, đêm nào Lực cũng chèo ghe ra giữa vũng, thả câu, mong câu được em mình về.
+L1|LUC|Đạt ơi... về với anh đi em.
+s4|N|Đêm đó, gần sáng, cần câu oằn xuống. Lực kéo lên. Không phải cá. Là một chiếc dép nhựa của đàn bà, quấn đầy rong.
+s5|N|Sáng ra, xác một người đàn bà mất tích năm năm trước nổi lên ngay bến đò, chân còn mang chiếc dép còn lại của đôi. Cả bến xúm lại khóc. Không ai để ý tới Lực đang đứng ngay đó.
+s6|N|Đêm sau, Lực câu lên cái lược gỗ. Đêm sau nữa, chiếc đồng hồ rỉ sét. Mỗi sáng lại có một cái xác nổi lên ở bến, đúng của người mất món đồ đó. Có một đêm, một người khách lạ ghé ghe ngồi câu kế bên Lực. Được một lúc, ông ta nhìn xuống mặt nước... rồi bỏ cả cần câu, chèo đi thục mạng.
+s7|N|Chỉ có ông Thìn, người lái đò già nhất bến, là đứng nhìn Lực rất lâu. Còn mỗi sáng Lực về tới nhà, trên sàn luôn có một hàng dấu chân ướt, đi từ cửa... tới tận chỗ Lực nằm.
+s8|N|Đêm thứ tư, cần câu oằn mạnh hơn mọi lần. Lực kéo lên chiếc nón lá rách của Đạt. Sáng ra, xác Đạt nổi lên ở bến, sau ba năm. Lực chạy xuống, ôm lấy em, gào khóc. Cả bến vẫn không ai quay lại nhìn anh.
+L2|LUC|Sao không ai nói gì hết vậy? Em tui về rồi mà!
+s9|N|Ông Thìn bước tới, nhìn thẳng vào Lực. Lực cúi xuống mặt nước. Không có bóng mình. Chỉ có một gương mặt trắng bệch, tóc bết đầy rong, đang mở mắt nhìn lên. Là mặt của chính Lực.
+TH1|THIN|Lực à... bữa lật ghe, hai anh em bây chết chung một lượt. Thằng Đạt xuống trước. Giờ nó về rồi.
+TH2|THIN|Tới lượt mày về đó con. Đừng ra vũng câu nữa.
+end|N|Sáng hôm sau, xác Lực nổi lên ngay bến, tay còn nắm chặt sợi dây câu. Người ta chôn hai anh em nằm cạnh nhau. Từ đó, ở khúc sông đó không ai dám thả câu ban đêm nữa. Vì ai cũng sợ... người ngồi câu bên cạnh mình... đã chết từ lâu.
+cta|N|Nếu là bạn, bạn có dám ngồi câu một mình ở cái vũng đó không?
