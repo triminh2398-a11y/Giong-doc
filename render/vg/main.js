@@ -194,8 +194,8 @@ S.s3 = (lt, D) => { const u = lt / D; if (u < .55) { mood('rain'); RAIN = .3; co
     cm([4, 2, 9], [0, .8, 0], 40); return 'ext'; }
   mood('night'); const p = sm(seg(u, .55, 1)); fishing(lerp(-6, 0, p), lerp(6, 0, p), .25, 0, -1, 1); cm([-2, 2.2, 10], [0, .8, 0], 40); return 'ext'; };
 S.L1 = (lt, D) => { mood('night'); fishing(0, 0, .25, 0, -1, 1, { look: -.4, head: -6 }); cm([.8, 1.2, 3.2], [.1, .95, 0], 34); return 'ext'; };
-S.s4 = (lt, D) => { mood('night'); const u = lt / D, pull = sm(seg(u, .25, .7)); fishing(0, 0, .25, pull, u > .55 ? 0 : -1, 1, u > .7 ? { shock: 1, look: .5 } : {});
-  if (u > .72) cm([2.6, .9, 1.6], [3.2, .85, -.85], 30); else cm([4.5, 1.8, 6], [1.2, .7, 0], 40); return 'ext'; };
+S.s4 = (lt, D) => { mood('night'); const u = lt / D, pull = sm(seg(NOW, BEAT.s4 - 2.5, BEAT.s4 - .3)); fishing(0, 0, .25, pull, NOW > BEAT.s4 - .6 ? 0 : -1, 1, NOW > BEAT.s4 ? { shock: 1, look: .5 } : {});
+  if (NOW > BEAT.s4 - .2) cm([2.6, .9, 1.6], [3.2, .85, -.85], 30); else cm([4.5, 1.8, 6], [1.2, .7, 0], 40); return 'ext'; };
 // morning at the bến: villagers round a covered body; Lực stands at the edge, nobody looks at him
 // the body lies at the bank end of the pier; the camera stands out on the pier looking back at the bank and the houses
 function benCrowd(u, who = 0) { mood('dawn'); SHROUD.visible = true; SHROUD.position.set(-6.8, .82, 23); const cry = 2 * Math.sin(NOW * 6);
@@ -217,9 +217,9 @@ S.s8 = (lt, D) => { const u = lt / D; if (u < .3) { mood('night'); fishing(0, 0,
   cm([-5.8, 1.9, 29.8], [-7, .9, 22.4], 38); return 'ext'; };
 S.L2 = (lt, D) => { benCrowd(0); put(CE.luc, ...LUCB, life({ face: .1, armF: [100, 40], armB: [60, 30], brow: 14, shock: .6 }, 1, 'LUC'), .58); cm([-8.9, 1.5, 24.8], [-8.7, 1.25, 21.3], 32); return 'ext'; };
 S.s9 = (lt, D) => { const u = lt / D; benCrowd(0); const wk = seg(u, 0, .3); put(CE.thin, lerp(-5.5, -7.6, sm(wk)), lerp(22.7, 22.2, sm(wk)), life({ face: -2.26, ...(wk > 0 && wk < 1 ? gait(wk * 3 * Math.PI, .6) : {}) }, 7), .58);
-  if (u < .35) { put(CE.luc, ...LUCB, life({ face: .5, look: .2 }, 1), .58); cm([-8.0, 1.7, 27.0], [-8.0, 1.25, 21.6], 36); return 'ext'; }
+  if (NOW < BEAT.s9look) { put(CE.luc, ...LUCB, life({ face: .5, look: .2 }, 1), .58); cm([-8.0, 1.7, 27.0], [-8.0, 1.25, 21.6], 36); return 'ext'; }
   // looking down off the pier: no reflection, only his own drowned face under the water
-  put(CE.luc, -8.1, 20.4, life({ face: -Math.PI / 2 - .5, bend: 30, lean: 18, head: 20, look: .4 }, 1), .58); FACE = { p: [-9.6, -.05, 19.8], s: 5.2 };
+  put(CE.luc, -8.1, 20.4, life({ face: -Math.PI / 2 - .5, bend: 30, lean: 18, head: 20, look: .4 }, 1), .58); if (NOW >= BEAT.s9) FACE = { p: [-9.6, -.05, 19.8], s: 5.2 };
   cm([-11.0, 3.4, 17.0], [-9.4, .2, 19.8], 44); return 'ext'; };
 S.TH1 = (lt, D) => { benCrowd(0); put(CE.thin, -7.6, 22.2, life({ face: -2.26, armF: [40, 40] }, 7, 'THIN'), .58); cm([-9.7, 1.45, 19.6], [-7.6, 1.15, 22.2], 34); return 'ext'; };
 S.TH2 = (lt, D) => { benCrowd(0); const u = lt / D; put(CE.thin, -7.6, 22.2, life({ face: -2.26, armF: u > .3 ? [70, 30] : [20, 30] }, 7, 'THIN'), .58); put(CE.luc, ...LUCB, life({ face: .7, blink: u > .7 ? 1 : 0, head: 8 }, 1), .58);
