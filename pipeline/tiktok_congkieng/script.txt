@@ -1,0 +1,21 @@
+hook|N|Nếu đi ngang một bản vùng cao mà thấy cổng làng treo dao gỗ và cánh gà, thì đừng bao giờ bước qua. Vì thứ dân bản đang đuổi đi... sẽ theo bạn về.
+title|N|Cổng làng treo dao gỗ.
+s1|N|Ở nhiều bản vùng cao, khi có người chết bất thường, dân bản làm lễ cấm bản. Cổng làng treo ta leo, dao gỗ và cánh gà. Ba ngày liền, người trong không ra, người ngoài không vào.
+s2|N|Người già nói, đó là lúc thầy cúng đuổi ma ra khỏi bản. Mà ma không tự đi được. Nó phải bám theo người lạ bước qua cổng.
+s3|N|Khang, Vũ và Duy chạy xe máy lên vùng cao săn mây. Chiều mưa, ba người dừng trước một cổng bản treo đầy dao gỗ. Một ông già đứng chắn giữa lối.
+O1|ONG|Không vào! Bản đang cấm. Ba ngày nữa hẵng vào.
+K1|KHANG|Có cái cổng thôi mà ông. Con chụp một tấm rồi đi liền.
+s4|N|Khang cười, bước qua sợi dây chắn, đứng giữa cổng chụp hình. Lúc quay ra, trên tay anh có thêm một con dao gỗ, giật từ cổng xuống làm kỷ niệm.
+D1|DUY|Khang! Trả lại đi mày, người ta đang cúng đó!
+s6|N|Đêm đó, ở nhà nghỉ dưới thị trấn, Vũ giật mình tỉnh dậy lúc hai giờ sáng. Khang đứng ở cửa sổ, quay mặt về phía núi, tay cầm con dao gỗ, lẩm bẩm một thứ tiếng không ai hiểu.
+s7|N|Vũ gọi. Khang từ từ quay lại. Đôi mắt anh trắng dã, không có con ngươi.
+K2|KHANG|Ra rồi... ra được rồi...
+s8|N|Sáng ra, Khang sốt li bì, không nhớ gì. Hai bàn chân anh dính đầy bùn đỏ, mà cửa phòng vẫn khóa trong.
+s9|N|Ba người quay lại bản. Thầy cúng ra đứng sát mép cổng, không bước ra ngoài.
+T1|THAY|Nó theo cậu ra rồi. Muốn trả, đêm nay cậu tự tay đem con dao về cắm lại chỗ cũ. Một mình. Ai đi theo, nó bám luôn người đó.
+s10|N|Nửa đêm, Khang chạy xe lên bản một mình. Hai giờ sáng, điện thoại Vũ đổ chuông. Đầu dây chỉ có tiếng thở của Khang, và tiếng dao gỗ gõ lách cách trong gió... rồi tắt máy.
+s11|N|Trời vừa sáng, hai người chạy lên. Xe của Khang dựng ngoài cổng. Con dao gỗ đã được cắm lại chỗ cũ. Đôi dép của Khang để ngay ngắn... nhưng ở phía bên trong cổng. Khang thì không thấy đâu.
+s13|N|Hai người ngồi chờ ngoài cổng suốt ba ngày cấm. Sáng ngày thứ tư, cổng mở. Khang ngồi dưới gốc cây cổ thụ cuối bản, người gầy rộc, mắt nhìn đăm đăm về phía cổng làng.
+T2|THAY|Cậu ấy dẫn nó đi tới đây... thì nó không chịu đi nữa. Giờ cậu ấy phải ở lại giữ nó.
+end|N|Khang không về xuôi nữa. Từ đó, mỗi lần bản làm lễ cấm, người đứng chắn khách ở cổng làng... là một người Kinh, không bao giờ nói tiếng Kinh nữa.
+cta|N|Nếu là bạn, bạn có bước qua cái cổng đó không?
