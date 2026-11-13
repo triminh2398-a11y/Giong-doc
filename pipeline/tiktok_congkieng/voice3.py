@@ -7,7 +7,7 @@ G = '/home/claude/giong-doc/'; D = G + 'pipeline/tiktok_congkieng/'; sys.path.in
 from ghostfx import ghost
 spec = importlib.util.spec_from_file_location('pace', G + 'pipeline/lib/pace.py'); P = importlib.util.module_from_spec(spec); spec.loader.exec_module(P)
 SR = 48000
-SRC = {'N': [('99_ck3_n', 'clone_refs_mada8_wav'), ('99_ck_n', 'clone_refs_mada8_wav')], 'ONG': [('99_ck_old', 'duc_tri')],
+SRC = {'N': [('99_ck3_title', 'clone_refs_mada8_wav'), ('99_ck3_n', 'clone_refs_mada8_wav'), ('99_ck_n', 'clone_refs_mada8_wav')], 'ONG': [('99_ck_old', 'duc_tri')],
        'DUY': [('99_ck3_yng', 'adam')], 'VU': [('99_ck3_yng', 'adam')], 'THAY': [('99_ck3_thay', 'thai_son')]}
 L = [l.split('|', 2) for l in open(D + 'script_v3.txt', encoding='utf-8').read().strip().split('\n')]
 norm = lambda s: re.sub(r'[^\w\s]', '', s.lower()).split()
@@ -37,6 +37,7 @@ for k, sp, tx in L:
         os.system(f'ffmpeg -v error -y -i {el} -ar {SR} -ac 1 /tmp/_el.wav'); best = (1.0, '/tmp/_el')
     else:
         for job, vd in SRC[sp]:
+            if not os.path.exists(G + f'jobs/{job}.json'): continue
             J = json.load(open(G + f'jobs/{job}.json'))
             for i, line in enumerate(J['lines']):
                 if line != tx: continue
@@ -65,7 +66,7 @@ for k, f in [('hook', .55), ('s6', .75), ('s7', .3), ('end', .5)]:
     a, b = TL[k]; tgt = a + (b - a) * f; ps = pauses(k) + [(SPEECH[k][1], b)]
     BEAT[k] = round(min(ps, key=lambda q: abs(q[0] - tgt))[0] + .05, 3)
 ps = pauses('s8'); print('s8 pauses', [round(p[0] - SPEECH['s8'][0], 2) for p in ps])
-BEAT['boom'] = round(ps[min(3, len(ps) - 1)][0] - .25, 3) if ps else TL['s8'][0] + 10  # end of "...rung lên một tiếng ầm"
-BEAT['knockoff'] = round(ps[min(2, len(ps) - 1)][0], 3) if ps else TL['s8'][0] + 7     # "tiếng gõ tắt hẳn"
+# s8: pause after "...một tiếng ầm" is the 7th of 8 (sentences + commas); knocking stops at the 6th ("tắt hẳn")
+pp = [p[0] for p in ps]; BEAT['knockoff'] = round(pp[5] if len(pp) >= 8 else TL['s8'][0] + 12, 3); BEAT['boom'] = round(pp[6] - .2 if len(pp) >= 8 else TL['s8'][0] + 15, 3)
 json.dump({'TL': TL, 'SPEECH': SPEECH, 'VOX': VOX, 'BEAT': BEAT, 'SPK': SPK, 'dur': t}, open(D + 'tl3.json', 'w'), indent=0)
 print('dur', round(t, 1), 'BEAT', BEAT, 'picks', picks)
