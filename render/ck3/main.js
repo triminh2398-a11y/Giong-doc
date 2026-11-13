@@ -22,24 +22,50 @@ const skyT = { dusk: ['#3e4a66', '#7a8098', '#a8a0a4'], night: ['#060a18', '#1a2
 const SKY = {}; for (const k in skyT) SKY[k] = ctex(16, 512, (g, w, h) => { const q = g.createLinearGradient(0, 0, 0, h); q.addColorStop(0, skyT[k][0]); q.addColorStop(.55, skyT[k][1]); q.addColorStop(1, skyT[k][2]); g.fillStyle = q; g.fillRect(0, 0, w, h); });
 ext.fog = new THREE.Fog(0x7a8098, 30, 230);
 const grassT = ctex(512, 512, (g, w, h) => { g.fillStyle = '#4b5a37'; g.fillRect(0, 0, w, h); for (let k = 0; k < 5000; k++) { g.strokeStyle = R(k) > .6 ? '#5f7044' : R(k + 1) > .5 ? '#3c4a2c' : '#55663d'; g.lineWidth = 2; const x = R(k * 3) * w, y = R(k * 7) * h; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (R(k) - .5) * 4, y - 6 - R(k + 2) * 8); g.stroke(); } }, [30, 30]);
-{ const gr = new THREE.Mesh(new THREE.PlaneGeometry(240, 240), M({ map: grassT })); gr.rotation.x = -Math.PI / 2; gr.receiveShadow = true; ext.add(gr); }
+// value noise + fbm for terrain
+const hsh = (x, y) => { const v = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return v - Math.floor(v); };
+const vn = (x, y) => { const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf); return lerp(lerp(hsh(xi, yi), hsh(xi + 1, yi), u), lerp(hsh(xi, yi + 1), hsh(xi + 1, yi + 1), u), v); };
+const fbm = (x, y) => { let a = 0, f = 1, w = .5; for (let k = 0; k < 5; k++) { a += w * vn(x * f, y * f); f *= 2.03; w *= .5; } return a; };
+const ss = (a, b, x) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+// the bản sits in a flat valley floor around the road; hills rise around it, terraced fields on the lower slopes, mountains behind
+function terrH(x, z) { const dx = x / 1.4, dz = (z + 12) / 1.9, d = Math.sqrt(dx * dx + dz * dz); const n = fbm(x * .018 + 3, z * .018 + 7);
+  const ramp = ss(14, 70, d); let h = ramp * (5 + 22 * n) + ss(45, 170, d) * (55 + 95 * fbm(x * .006 + 1, z * .006 + 2));
+  const ter = ss(16, 30, d) * (1 - ss(55, 80, d)); if (ter > 0 && h < 26) { const st = 1.1, q = Math.floor(h / st) * st + st * Math.pow((h / st) % 1, 6); h = lerp(h, q, ter); }
+  return h + (1 - ramp) * .3 * (fbm(x * .2, z * .2) - .5) * ss(1.9, 3.4, Math.abs(x)) - .05 * (1 - ss(1.9, 3.4, Math.abs(x))); }
+function terrCol(x, z, h) { const dx = x / 1.4, dz = (z + 12) / 1.9, d = Math.sqrt(dx * dx + dz * dz); const ter = ss(16, 30, d) * (1 - ss(55, 80, d)) * (h < 26 ? 1 : 0); const n = fbm(x * .07, z * .07);
+  let c = [.20 + .08 * n, .40 + .1 * n, .16]; if (ter > .3) { const f = (h / 1.1) % 1; c = f > .9 ? [.34, .27, .17] : [.36 + .1 * n, .62 + .08 * n, .18]; } // rice terraces: bright green bands with earthen lips
+  const far = ss(50, 190, d); c = [lerp(c[0], .22, far), lerp(c[1], .27, far), lerp(c[2], .36, far)]; return c; }
+const grassT2 = ctex(512, 512, (g, w, h) => { g.fillStyle = '#c8c8c8'; g.fillRect(0, 0, w, h); for (let k = 0; k < 9000; k++) { const v = 150 + R(k) * 105 | 0; g.strokeStyle = `rgb(${v},${v},${v})`; g.lineWidth = 1.5; const x = R(k * 3) * w, y = R(k * 7) * h; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (R(k) - .5) * 4, y - 4 - R(k + 2) * 7); g.stroke(); } }, [90, 90]);
+const TERR = (() => { const geo = new THREE.PlaneGeometry(600, 600, 240, 240); geo.rotateX(-Math.PI / 2); const p = geo.attributes.position, col = new Float32Array(p.count * 3);
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i), z = p.getZ(i), h = terrH(x, z); p.setY(i, h); const c = terrCol(x, z, h); col.set(c, i * 3); }
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3)); geo.computeVertexNormals(); const m = new THREE.Mesh(geo, M({ map: grassT2, vertexColors: true })); m.receiveShadow = true; m.castShadow = true; ext.add(m); return m; })();
+// trees: trunk + clustered low-poly canopies; banana plants near houses
+const leafCols = [0x2e4a26, 0x3a5a2c, 0x26401f, 0x46663a]; const barkM = M({ color: 0x4a3a2a });
+function tree(x, z, s = 1, seed = 0) { const G = new THREE.Group(); G.position.set(x, terrH(x, z) - .1, z); G.scale.setScalar(s); ext.add(G); const th = 2.6 + R(seed) * 1.6;
+  const t = new THREE.Mesh(new THREE.CylinderGeometry(.12, .2, th, 7), barkM); t.position.y = th / 2; t.castShadow = true; G.add(t);
+  for (let k = 0; k < 6; k++) { const c = new THREE.Mesh(new THREE.IcosahedronGeometry(.9 + R(seed + k) * .7, 1), M({ color: leafCols[Math.abs(Math.floor(seed + k)) % 4], flatShading: true })); c.position.set((R(seed * 3 + k) - .5) * 1.8, th + (R(seed + k * 7) - .2) * 1.2, (R(seed * 5 + k) - .5) * 1.8); c.scale.y = .8; c.castShadow = true; c.receiveShadow = true; G.add(c); } return G; }
+const bananaT = ctex(256, 512, (g, w, h) => { const leaf = (a, L) => { g.save(); g.translate(w / 2, h * .55); g.rotate(a); g.fillStyle = '#5a8a3a'; g.strokeStyle = '#3a5a24'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(L * .5, -34, L, -8); g.quadraticCurveTo(L * .5, 18, 0, 0); g.fill(); g.stroke(); g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(L * .5, -10, L, -8); g.stroke(); g.restore(); };
+  g.fillStyle = '#6a7a4a'; g.fillRect(w / 2 - 9, h * .5, 18, h * .5); for (let k = 0; k < 7; k++) leaf(-Math.PI / 2 + (k - 3) * .45 + (k % 2 ? .1 : -.1), 110 + R(k) * 30); });
+function banana(x, z, s = 1) { const G = new THREE.Group(); G.position.set(x, terrH(x, z), z); const mt = cutM(bananaT); for (const ry of [0, Math.PI / 3, -Math.PI / 3]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(1.6 * s, 3.2 * s), mt); p.position.y = 1.6 * s; p.rotation.y = ry; p.castShadow = true; G.add(p); } ext.add(G); PLANTS.push(G); }
+// clouds drifting high
+const CLOUD = []; for (let i = 0; i < 16; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: mistT, color: 0xe8eaf0, transparent: true, opacity: .55, depthWrite: false, fog: false })); s.scale.set(60 + R(i) * 60, 14 + R(i + 1) * 10, 1); s.position.set((R(i + 2) - .5) * 400, 70 + R(i + 3) * 40, -150 - R(i + 4) * 150); ext.add(s); CLOUD.push(s); }
 const mudT = ctex(256, 512, (g, w, h) => { g.fillStyle = '#6e5238'; g.fillRect(0, 0, w, h); for (let k = 0; k < 900; k++) { g.fillStyle = `rgba(${R(k) > .5 ? 120 : 50},${R(k) > .5 ? 96 : 36},${R(k) > .5 ? 70 : 24},.5)`; g.beginPath(); g.ellipse(R(k * 3) * w, R(k * 5) * h, 3 + R(k) * 8, 2 + R(k + 1) * 4, 0, 0, 7); g.fill(); } g.strokeStyle = 'rgba(40,28,18,.6)'; g.lineWidth = 5; for (const x of [.38, .62]) { g.beginPath(); g.moveTo(w * x, 0); for (let y = 0; y <= h; y += 16) g.lineTo(w * x + Math.sin(y * .05) * 4, y); g.stroke(); }
   const e = g.createLinearGradient(0, 0, w, 0); e.addColorStop(0, 'rgba(75,90,55,1)'); e.addColorStop(.14, 'rgba(75,90,55,0)'); e.addColorStop(.86, 'rgba(75,90,55,0)'); e.addColorStop(1, 'rgba(75,90,55,1)'); g.fillStyle = e; g.fillRect(0, 0, w, h); }, [1, 10]);
 { const mud = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 100), M({ map: mudT, roughness: .7 })); mud.rotation.x = -Math.PI / 2; mud.position.set(0, .01, 0); mud.receiveShadow = true; ext.add(mud); }
 const PUD = []; for (let k = 0; k < 7; k++) { const p = new THREE.Mesh(new THREE.CircleGeometry(.3 + R(k) * .35, 20), M({ color: 0x8a94aa, roughness: .08, metalness: .3 })); p.rotation.x = -Math.PI / 2; p.scale.y = .55; p.position.set((R(k + 3) - .5) * 2, .015, 9 - k * 3.2); ext.add(p); PUD.push(p); }
 function ridge(par, z, col, amp, seed, w, x0 = 0) { const c = document.createElement('canvas'); c.width = 1024; c.height = 256; const g = c.getContext('2d'); g.fillStyle = col; g.beginPath(); g.moveTo(0, 256); for (let x = 0; x <= 1024; x += 8) g.lineTo(x, 256 - (110 + 90 * Math.sin(x * .006 + seed) + 40 * Math.sin(x * .021 + seed * 3) + 14 * Math.sin(x * .07 + seed)) * amp); g.lineTo(1024, 256); g.fill(); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
   const m = new THREE.Mesh(new THREE.PlaneGeometry(w, w / 4), new THREE.MeshBasicMaterial({ map: t, transparent: true, fog: true })); m.position.set(x0, w / 8 - 2, z); par.add(m); return m; }
-const RIDGES = [ridge(ext, -150, '#3e4860', 1.1, 1, 420), ridge(ext, -110, '#353e52', 1.0, 4, 340), ridge(ext, -75, '#2c3444', .85, 7, 260), ridge(ext, 120, '#353e52', 1.0, 2, 340)]; RIDGES[3].rotation.y = Math.PI;
-const MIST = []; for (let i = 0; i < 28; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: mistT, color: 0xc8d0de, transparent: true, opacity: .32, depthWrite: false })); s.scale.set(26 + R(i) * 20, 5 + R(i + 2) * 4, 1); s.position.set((R(i + 5) - .5) * 160, 2 + R(i + 9) * 9, -40 - R(i + 11) * 90); ext.add(s); MIST.push(s); }
+const MIST = []; for (let i = 0; i < 40; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: mistT, color: 0xc8d0de, transparent: true, opacity: .32, depthWrite: false })); s.scale.set(26 + R(i) * 20, 5 + R(i + 2) * 4, 1); s.position.set((R(i + 5) - .5) * 160, 6 + R(i + 9) * 14, -45 - R(i + 11) * 110); ext.add(s); MIST.push(s); }
 // stilt houses with firewood stacks, water jars and hanging corn under the eaves
-const woodT = ctex(256, 256, (g, w, h) => { g.fillStyle = '#5a4430'; g.fillRect(0, 0, w, h); for (let k = 0; k < 16; k++) { g.fillStyle = k % 2 ? '#4e3a28' : '#634a34'; g.fillRect(k * w / 16, 0, w / 16 - 2, h); } for (let k = 0; k < 60; k++) { g.strokeStyle = 'rgba(30,20,10,.35)'; g.beginPath(); const x = R(k) * w; g.moveTo(x, 0); g.lineTo(x + (R(k + 1) - .5) * 6, h); g.stroke(); } });
+const woodT = ctex(256, 256, (g, w, h) => { g.fillStyle = '#8a7048'; g.fillRect(0, 0, w, h); for (let y = 0; y < h; y += 16) for (let x = 0; x < w; x += 16) { const o = ((x + y) / 16) % 2; g.fillStyle = o ? '#9a7e52' : '#76603c'; g.fillRect(x + 1, y + 1, 14, 14); g.strokeStyle = 'rgba(40,28,14,.5)'; g.lineWidth = 1; g.beginPath(); if (o) { g.moveTo(x + 2, y + 5); g.lineTo(x + 14, y + 5); g.moveTo(x + 2, y + 10); g.lineTo(x + 14, y + 10); } else { g.moveTo(x + 5, y + 2); g.lineTo(x + 5, y + 14); g.moveTo(x + 10, y + 2); g.lineTo(x + 10, y + 14); } g.stroke(); } g.fillStyle = 'rgba(30,20,10,.18)'; g.fillRect(0, 0, w, h); }, [3, 2]);
 const thatchT = ctex(256, 256, (g, w, h) => { g.fillStyle = '#7a6a48'; g.fillRect(0, 0, w, h); for (let k = 0; k < 500; k++) { g.strokeStyle = `rgba(${R(k) > .5 ? 150 : 40},${R(k) > .5 ? 130 : 32},${R(k) > .5 ? 90 : 18},.55)`; g.lineWidth = 2; const x = R(k * 3) * w, y = R(k * 5) * h; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (R(k) - .5) * 6, y + 30); g.stroke(); } });
 const postM = M({ color: 0x3e2e20 }), wallM = M({ map: woodT }), roofM = M({ map: thatchT, side: THREE.DoubleSide }), jarM = M({ color: 0x5a3a26, roughness: .5 }), cornM = M({ color: 0xd8a830, roughness: .8 }), logM = M({ color: 0x6a4a2c });
 const WINS = [];
 function stilt(x, z, ry, s = 1, lit = false) { const G = new THREE.Group(); G.position.set(x, 0, z); G.rotation.y = ry; G.scale.setScalar(s); ext.add(G);
   for (const px of [-2.6, -.9, .9, 2.6]) for (const pz of [-1.6, 1.6]) { const p = new THREE.Mesh(new THREE.CylinderGeometry(.11, .13, 1.9, 8), postM); p.position.set(px, .95, pz); p.castShadow = true; G.add(p); }
   boxIn(G, 5.8, .14, 3.8, postM, 0, 1.9, 0); boxIn(G, 5.4, 1.9, 3.4, wallM, 0, 2.9, 0);
-  for (const sd of [-1, 1]) { const r = new THREE.Mesh(new THREE.PlaneGeometry(7, 2.9), roofM); r.position.set(0, 4.55, sd * 1.15); r.rotation.x = sd * -.95; r.castShadow = r.receiveShadow = true; G.add(r); }
+  for (const sd of [-1, 1]) { const r = new THREE.Mesh(new THREE.BoxGeometry(7.2, .22, 3.1), roofM); r.position.set(0, 4.5, sd * 1.15); r.rotation.x = sd * .95; r.castShadow = r.receiveShadow = true; G.add(r); } boxIn(G, 7.3, .18, .3, roofM, 0, 5.62, 0);
+  boxIn(G, 5.8, .08, 1.0, postM, 0, 1.9, 2.3); for (let k = 0; k < 12; k++) boxIn(G, .05, .6, .05, postM, -2.8 + k * .5, 2.25, 2.78); boxIn(G, 5.8, .06, .06, postM, 0, 2.55, 2.78);
   for (const sd of [-1, 1]) { const tri = new THREE.Shape(); tri.moveTo(-1.7, 0); tri.lineTo(1.7, 0); tri.lineTo(0, 1.6); const gm = new THREE.Mesh(new THREE.ShapeGeometry(tri), wallM); gm.position.set(sd * 2.7, 3.85, 0); gm.rotation.y = Math.PI / 2; G.add(gm); }
   const wm = new THREE.MeshStandardMaterial({ color: 0x1a1410, emissive: 0xff9a40, emissiveIntensity: 0 }); const win = new THREE.Mesh(new THREE.PlaneGeometry(.8, .6), wm); win.position.set(1, 3.0, 1.71); G.add(win); if (lit) WINS.push(wm);
   for (let k = 0; k < 6; k++) boxIn(G, .8, .06, .06, postM, -1.6, .3 + k * .3, 2.1 + k * -.05); for (const sx of [-2, -1.2]) { const l = new THREE.Mesh(new THREE.CylinderGeometry(.04, .04, 2.1, 6), postM); l.position.set(sx, .95, 2.0); l.rotation.x = -.15; G.add(l); }
@@ -55,8 +81,11 @@ const bambooT = ctex(256, 512, (g, w, h) => { g.clearRect(0, 0, w, h); const lea
     for (let j = 0; j < 7; j++) { const y = 30 + j * 46 + R(k * 7 + j) * 20, xx = lerp(x1, x0, y / h), sd = j % 2 ? 1 : -1; for (let q = 0; q < 4; q++) { g.fillStyle = ['#56783a', '#46682e', '#668a46', '#3e5a28'][(q + j) % 4]; leaf(xx, y, sd > 0 ? .25 + q * .28 : Math.PI - .25 - q * .28, 30 + R(j * 4 + q + k) * 14); } } } });
 const tuftT = ctex(128, 128, (g, w, h) => { g.clearRect(0, 0, w, h); for (let k = 0; k < 14; k++) { g.strokeStyle = ['#56693c', '#46582f', '#64784a'][k % 3]; g.lineWidth = 4; g.beginPath(); g.moveTo(w / 2 + (k - 7) * 2, h); g.quadraticCurveTo(w / 2 + (k - 7) * 5, h * .5, w / 2 + (k - 7) * 8, 8 + R(k) * 40); g.stroke(); } });
 const PLANTS = []; function plant(par, tex, x, z, w, h) { const G = new THREE.Group(); G.position.set(x, 0, z); const mt = cutM(tex); for (const ry of [0, Math.PI / 2]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mt); p.position.y = h / 2; p.rotation.y = ry + R(x * 7 + z) * .5; p.castShadow = true; G.add(p); } par.add(G); PLANTS.push(G); return G; }
-for (const [x, z, s] of [[-5.2, -4.5, 1.2], [5.6, -5, 1.1], [-9, -9, 1.4], [9.5, -12, 1.3], [-4, -18, 1.2], [3.8, -22, 1.4], [-12, -3, 1.2], [11, -2, 1.1], [-7, 12, 1.3], [8, 16, 1.2]]) plant(ext, bambooT, x, z, 3.2 * s, 6.4 * s);
-for (let i = 0; i < 200; i++) { const x = (R(i) - .5) * 30, z = 18 - R(i + 3) * 48; if (Math.abs(x) < 2.2) continue; plant(ext, tuftT, x, z, .7, .6); }
+for (const [x, z, s] of [[-5.2, -4.5, 1.2], [5.6, -5, 1.1], [-9, -9, 1.4], [9.5, -12, 1.3], [-4, -18, 1.2], [3.8, -22, 1.4], [-12, -3, 1.2], [11, -2, 1.1], [-7, 12, 1.3], [8, 16, 1.2], [-6.5, 7, 1.1], [6.8, 9, 1.2]]) plant(ext, bambooT, x, z, 3.2 * s, 6.4 * s).position.y = terrH(x, z) - .05;
+for (let i = 0; i < 420; i++) { const x = (R(i) - .5) * 40, z = 22 - R(i + 3) * 60; if (Math.abs(x) < 2.0 && z > -40) continue; const g_ = plant(ext, tuftT, x, z, .6 + R(i + 9) * .5, .5 + R(i + 8) * .4); g_.position.y = terrH(x, z); }
+for (let i = 0; i < 70; i++) { const a = R(i) * Math.PI * 2, rr = 22 + R(i + 1) * 40; const x = Math.cos(a) * rr * 1.4, z = -12 + Math.sin(a) * rr * 1.6; if (Math.abs(x) < 13 && z > -10) continue; tree(x, z, .9 + R(i + 2) * .7, i); }
+for (const [x, z] of [[-14, -6], [16, -8], [-20, 2], [-22, 14], [-12, -24], [14, -30]]) tree(x, z, 1.1 + R(x) * .4, Math.abs(x * 7 + z) | 0);
+for (const [x, z] of [[-4.6, -15], [-11.5, -17], [4.4, -21], [10.5, -21], [-3.5, -31], [3.6, -32], [-4.2, 3.5], [4.6, 6]]) banana(x, z, .9 + R(x + z) * .3);
 { const fM = M({ color: 0x8a7a50 }); for (const sd of [-1, 1]) for (let k = 0; k < 14; k++) { const z = -2.2 - k * .9; const p = new THREE.Mesh(new THREE.CylinderGeometry(.035, .04, 1.1, 6), fM); p.position.set(sd * (2.5 + k * .05), .55, z); p.castShadow = true; ext.add(p); }
   for (const sd of [-1, 1]) for (const y of [.4, .8]) { const r = new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, 12.6, 6), fM); r.rotation.x = Math.PI / 2; r.rotation.y = sd * .05; r.position.set(sd * 2.85, y, -8.3); r.castShadow = true; ext.add(r); } }
 // the gate
@@ -84,7 +113,7 @@ const SMOKE = []; for (let i = 0; i < 12; i++) { const s = new THREE.Sprite(new 
 const hemi = new THREE.HemisphereLight(0xb8c4dc, 0x3a3a2c, 1.25); ext.add(hemi);
 const sun = new THREE.DirectionalLight(0xffd8b0, 1.5); sun.position.set(-14, 16, 12); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -16, right: 16, top: 16, bottom: -16, far: 70 }); sun.shadow.bias = -.0004; ext.add(sun);
 const fillE = new THREE.PointLight(0xc8d0ff, 0, 9, 1.4); ext.add(fillE);
-function extMode(m) { ext.background = SKY[m]; const f = { dusk: 0x7a8098, night: 0x1a2440, noon: 0xb4c8dc, dawn: 0x4a4a66 }[m]; ext.fog.color.set(f); ext.fog.near = m === 'night' ? 14 : 30;
+function extMode(m) { ext.background = SKY[m]; const f = { dusk: 0x7a8098, night: 0x1a2440, noon: 0xb4c8dc, dawn: 0x4a4a66 }[m]; ext.fog.color.set(f); ext.fog.near = m === 'night' ? 18 : 45; ext.fog.far = m === 'night' ? 260 : 420;
   hemi.intensity = { dusk: 1.25, night: .95, noon: 1.5, dawn: 1.0 }[m]; hemi.color.set({ dusk: 0xb8c4dc, night: 0x6a7ab0, noon: 0xe0ecff, dawn: 0x9a9ab8 }[m]);
   sun.intensity = { dusk: 1.5, night: 1.1, noon: 2.6, dawn: .6 }[m]; sun.color.set({ dusk: 0xffd8b0, night: 0x9ab0ff, noon: 0xfff4e0, dawn: 0xc8b0c0 }[m]); sun.position.set(m === 'noon' ? 6 : -14, m === 'noon' ? 24 : 16, 12);
   MIST.forEach(s => s.material.opacity = m === 'noon' ? .18 : m === 'night' ? .2 : .32); MIST.forEach(s => s.material.color.set(m === 'night' ? 0x5a6a8a : 0xc8d0de));
@@ -116,11 +145,17 @@ const bulbL = new THREE.PointLight(0xffd8a0, 0, 8, 1.4); bulbL.position.set(0, 2
 
 // =============================== THE PASS: town roofs in front, the mountain road above; the slope that gives way ===============================
 const pass = new THREE.Scene(); pass.background = SKY.dawn; pass.fog = new THREE.Fog(0x2a3048, 20, 160);
-const slopeT = ctex(512, 512, (g, w, h) => { g.fillStyle = '#2a3428'; g.fillRect(0, 0, w, h); for (let k = 0; k < 3000; k++) { g.fillStyle = `rgba(${R(k) > .5 ? 60 : 20},${R(k) > .5 ? 74 : 26},${R(k) > .5 ? 50 : 18},.6)`; g.fillRect(R(k * 3) * w, R(k * 7) * h, 4, 4); } g.strokeStyle = '#4a4036'; g.lineWidth = 14; g.beginPath(); g.moveTo(0, h * .8); g.lineTo(w * .55, h * .62); g.lineTo(w * .1, h * .42); g.lineTo(w * .7, h * .22); g.lineTo(w, h * .12); g.stroke(); });
-const SLOPE = new THREE.Mesh(new THREE.PlaneGeometry(90, 60, 30, 20), M({ map: slopeT })); { const p = SLOPE.geometry.attributes.position; for (let i = 0; i < p.count; i++) p.setZ(i, 4 * Math.sin(p.getX(i) * .1) * Math.cos(p.getY(i) * .12)); SLOPE.geometry.computeVertexNormals(); } SLOPE.rotation.x = -.55; SLOPE.position.set(0, 20, -70); SLOPE.receiveShadow = true; pass.add(SLOPE);
+const mount = (x, z) => { const d = -z - 8; return Math.max(0, d) * .62 * (.75 + .5 * fbm(x * .03 + 9, z * .03)) + 6 * fbm(x * .05, z * .05); };
+const roadAt = (x, z) => { const y = mount(x, z); const band = y % 9; return Math.abs(band - 4.5) < .45 && Math.abs(x) < 40; };
+const SLOPE = (() => { const geo = new THREE.PlaneGeometry(200, 140, 160, 110); geo.rotateX(-Math.PI / 2); geo.translate(0, 0, -70); const p = geo.attributes.position, col = new Float32Array(p.count * 3);
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i), z = p.getZ(i), y = mount(x, z); p.setY(i, y); const n = fbm(x * .15, z * .15); let c = [.12 + .08 * n, .24 + .1 * n, .12]; if (Math.abs(z + 40) < 2) c = [.42, .34, .24]; col.set(c, i * 3); }
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3)); geo.computeVertexNormals(); const m = new THREE.Mesh(geo, M({ vertexColors: true, map: grassT2 })); m.receiveShadow = true; pass.add(m); return m; })();
+{ const tM = [M({ color: 0x1e3a22 }), M({ color: 0x264a2a }), M({ color: 0x2e5230 })]; for (let i = 0; i < 260; i++) { const x = (R(i) - .5) * 150, z = -24 - R(i + 1) * 100; if (Math.abs(z + 40) < 3) continue; const y = mount(x, z), h = 3 + R(i + 2) * 3, G = new THREE.Group(); G.position.set(x, y, z);
+  for (let k = 0; k < 3; k++) { const c = new THREE.Mesh(new THREE.ConeGeometry(1.3 - k * .3, h * .5, 7), tM[(i + k) % 3]); c.position.y = h * .35 + k * h * .22; c.castShadow = true; G.add(c); } pass.add(G); } }
+{ const rM = M({ color: 0x6a5440 }); for (let x = -60; x <= 60; x += 2) { const b = new THREE.Mesh(new THREE.BoxGeometry(2.1, .5, 3.2), rM); b.position.set(x, mount(x, -40) + .1, -40); b.receiveShadow = true; pass.add(b); } } // the pass road: a shelf cut across the slope
 ridge(pass, -120, '#1e2638', 1.2, 3, 400); ridge(pass, -95, '#1a2030', 1.0, 5, 320);
-const SLIDE = new THREE.Group(); SLIDE.position.set(6, 22, -66); pass.add(SLIDE); const dirtM = M({ color: 0x8a6a48, emissive: 0x2a1a0a, emissiveIntensity: .5 });
-for (let k = 0; k < 40; k++) { const r = new THREE.Mesh(new THREE.DodecahedronGeometry(1.4 + R(k) * 2.8, 0), dirtM); r.position.set((R(k + 1) - .5) * 14, (R(k + 2) - .5) * 6, (R(k + 3)) * 3); r.userData.v = [(R(k + 4) - .5) * 4, -6 - R(k + 5) * 8, 3 + R(k + 6) * 5]; r.castShadow = true; SLIDE.add(r); }
+const SLIDE = new THREE.Group(); SLIDE.position.set(6, mount(6, -54) + 2, -54); pass.add(SLIDE); const dirtM = M({ color: 0x8a6a48, emissive: 0x2a1a0a, emissiveIntensity: .5 });
+for (let k = 0; k < 70; k++) { const r = new THREE.Mesh(new THREE.DodecahedronGeometry(.8 + R(k) * 2.2, 0), dirtM); r.position.set((R(k + 1) - .5) * 18, (R(k + 2) - .5) * 5, (R(k + 3) - .5) * 6); r.userData.v = [(R(k + 4) - .5) * 5, -6 - R(k + 5) * 4, 12 + R(k + 6) * 6]; r.castShadow = true; SLIDE.add(r); }
 const DUST = []; for (let i = 0; i < 30; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: mistT, color: 0xa08a70, transparent: true, opacity: 0, depthWrite: false })); pass.add(s); DUST.push(s); }
 const TOWN = new THREE.Group(); pass.add(TOWN); const TWIN = [];
 for (let k = 0; k < 9; k++) { const x = -14 + k * 3.6 + R(k) * 1.5, z = -8 - R(k + 2) * 8, h = 1.6 + R(k + 3) * 1.6; boxIn(TOWN, 3, h, 3, M({ color: 0x2a2a30 }), x, h / 2, z); const roof = new THREE.Mesh(new THREE.ConeGeometry(2.4, 1.2, 4), M({ color: 0x3a2a24 })); roof.rotation.y = Math.PI / 4; roof.position.set(x, h + .6, z); TOWN.add(roof);
@@ -146,7 +181,7 @@ function card(scn, who, ghost = false) { const c = document.createElement('canva
   const mat = new THREE.MeshStandardMaterial({ map: t, transparent: true, alphaTest: .4, side: THREE.DoubleSide, roughness: 1, emissive: ghost ? 0x6a7a80 : 0xffffff, emissiveMap: t, emissiveIntensity: ghost ? .5 : .16, opacity: ghost ? .72 : 1, depthWrite: !ghost });
   const m = new THREE.Mesh(new THREE.PlaneGeometry(CARD_H, CARD_H), mat); m.castShadow = !ghost; m.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: t, alphaTest: .4 });
   m.userData.paint = (o) => { const x = c.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, 1024, 1024); RIG.set(x);
-    if (who === 'bike1' || who === 'bike2') { const fl = o.flip || 1; RIG.motorbike(512, 1000, 2.9, fl, who === 'bike1' ? '#7a2a20' : '#2a4a6a'); const rp = { view: 'side', flip: fl, legF: [70, -70, 0], legB: [64, -66, 0], armF: [55, -15], armB: [50, -10], lean: 6 };
+    if (who === 'bike1' || who === 'bike2') { const fl = o.flip || 1; o.k = o.k || {}; o.v = o.v || {}; o.d = o.d || {}; RIG.motorbike(512, 1000, 2.9, fl, who === 'bike1' ? '#7a2a20' : '#2a4a6a'); const rp = { view: 'side', flip: fl, legF: [70, -70, 0], legB: [64, -66, 0], armF: [55, -15], armB: [50, -10], lean: 6 };
       if (who === 'bike1') RIG.castMember('khang', 512 - 10 * fl, 822, SC * .95, { ...rp, ...(o.k || {}) }); else { RIG.castMember('duy', 512 - 80 * fl, 818, SC * .9, { ...rp, armF: [40, 60], armB: [30, 60], lean: 4, ...(o.d || {}) }); RIG.castMember('vu', 512 - 6 * fl, 822, SC * .95, { ...rp, ...(o.v || {}) }); } }
     else RIG.castMember(who, 512, 1000, SC, o);
     if (o.print) PRINT(x, 512 + o.print[0], 1000 + o.print[1], 2.4);
@@ -157,6 +192,14 @@ const CAST = ['khang', 'vu', 'duy', 'ong', 'thay', 'bike1', 'bike2'];
 const CE = {}, CR = {}; for (const k of CAST) CE[k] = card(ext, k); CE.ghost = card(ext, 'ong', true); for (const k of ['khang', 'vu', 'duy']) CR[k] = card(room, k);
 const ALLC = [...Object.values(CE), ...Object.values(CR)];
 function put(c, x, z, o = {}, y = 0) { c.visible = true; c.position.set(x, y + CARD_H / 2 - (24 / 1024) * CARD_H, z); c.userData.o = o; }
+// pick the drawing (front / 3-4 / side / back, and which way it faces on screen) from where the character faces in the world and where the camera is
+const _r = new THREE.Vector3();
+function orient(c, cmr) { const o = c.userData.o; if (o.face === undefined && o.dir === undefined) return; cmr.updateMatrixWorld(); _r.setFromMatrixColumn(cmr.matrixWorld, 0);
+  const yaw = o.face !== undefined ? o.face : o.dir, fx = Math.sin(yaw), fz = Math.cos(yaw), side = fx * _r.x + fz * _r.z >= 0 ? 1 : -1;
+  if (o.dir !== undefined) { o.flip = side; return; }
+  let tx = cmr.position.x - c.position.x, tz = cmr.position.z - c.position.z; const L = Math.hypot(tx, tz) || 1; const ca = (fx * tx + fz * tz) / L;
+  o.view = ca > .85 ? 'front' : ca > .3 ? 'three' : ca > -.35 ? 'side' : 'back'; o.flip = o.view === 'front' || o.view === 'back' ? 1 : side; if (o.view === 'three' && o.faceDir === undefined) o.faceDir = .25; }
+const IN = Math.PI, OUT = 0;
 const cm = (p, l, fov = 40) => { cam.fov = fov; cam.position.set(...p); cam.lookAt(...l); cam.updateProjectionMatrix(); CT = l; };
 let CT = [0, 0, 0];
 // helpers for acting
@@ -168,10 +211,10 @@ const SIT = { legsFront: true, legF: [150, -150, 0], legB: [140, -146, 0], lean:
 const BEDSIT = { legsFront: true, legF: [90, -10, 0], legB: [86, -12, 0] };
 // the old man's photo state is drawn by rendering the gate set from Vũ's spot into RT
 function shootPhoto(state) { const vis = ALLC.map(c => c.visible), ov_ = ALLC.map(c => c.userData.o); ALLC.forEach(c => c.visible = false); extMode('dusk');
-  put(CE.khang, .1, -.3, { view: 'back', print: state === 'gone' ? [72, -282] : null });
-  if (state !== 'gone') put(CE.ong, .64, -.35, state === 'turned' ? { view: 'front', faceDir: 0, dead: true, armF: [24, 30], armB: [10, 22], bend: 6 } : state === 'point' ? { view: 'three', faceDir: 0, dead: true, armF: [120, -10], armB: [10, 22], bend: 2 } : { view: 'side', flip: -1, bend: 12, lean: 6, armF: [150, 40] });
+  put(CE.khang, .1, -.3, { face: IN, print: state === 'gone' ? [72, -282] : null });
+  if (state !== 'gone') put(CE.ong, .64, -.35, state === 'turned' ? { face: OUT, faceDir: 0, dead: true, armF: [24, 30], armB: [10, 22], bend: 6 } : state === 'point' ? { face: -.75, faceDir: 0, dead: true, armF: [120, -10], armB: [10, 22], bend: 2 } : { face: -Math.PI / 2, bend: 12, lean: 6, armF: [150, 40] });
   photoCam.position.set(.42, 1.35, 3.6); photoCam.lookAt(.4, 1.15, -.3); photoCam.updateProjectionMatrix();
-  for (const c of [CE.khang, CE.ong]) if (c.visible) { c.rotation.y = Math.atan2(photoCam.position.x - c.position.x, photoCam.position.z - c.position.z); c.userData.paint(c.userData.o); }
+  for (const c of [CE.khang, CE.ong]) if (c.visible) { orient(c, photoCam); c.rotation.y = Math.atan2(photoCam.position.x - c.position.x, photoCam.position.z - c.position.z); c.userData.paint(c.userData.o); }
   HANG.forEach((p, i) => { p.rotation.z = .1 * Math.sin(i); }); renderer.setRenderTarget(RT); renderer.render(ext, photoCam); renderer.setRenderTarget(null);
   ALLC.forEach((c, i) => { c.visible = vis[i]; c.userData.o = ov_[i]; }); }
 let PHOTO_STATE = null;
@@ -183,54 +226,54 @@ const ST = k => TLD.scenes.find(s => s[0] === k);
 const dusk = () => { extMode('dusk'); RAIN = .26; };
 S.hook = (lt, D) => { extMode('night'); fillE.intensity = 1.6; fillE.position.set(0, 2.2, 3); const p = sm(lt / D);
   // first sentence: slow push through the rain to the gate; second: the dead man is standing in the gateway
-  if (NOW >= BEAT.hook - .05) { put(CE.ghost, 0, -.2, { view: 'front', faceDir: 0, dead: true, armF: [8, 20], armB: [8, 20], bend: 4, ...idle(5), blink: 0 }); }
+  if (NOW >= BEAT.hook - .05) { put(CE.ghost, 0, -.2, { face: OUT, faceDir: 0, dead: true, armF: [8, 20], armB: [8, 20], bend: 4, ...idle(5), blink: 0 }); }
   cm([lerp(.6, .1, p), lerp(2.0, 1.6, p), lerp(13, 5.2, p)], [0, lerp(2.2, 1.55, p), 0], 40); RAIN = .22; return 'ext'; };
 S.title = (lt, D) => { extMode('night'); fillE.intensity = 1.6; fillE.position.set(0, 2.2, 3); TITLE = 1; cm([0, 1.8, lerp(7.5, 6.8, sm(lt / D))], [0, 2.4, 0], 42); RAIN = .22; return 'ext'; };
 S.s1 = (lt, D) => { dusk(); const p = sm(lt / D); cm([lerp(-3, .3, p), lerp(7, 2.4, p), lerp(30, 4.5, p)], [0, lerp(3, 2.6, p), 0], lerp(46, 38, p)); return 'ext'; };
-S.s2 = (lt, D) => { dusk(); put(CE.thay, -.5, -1.4, { view: 'front', faceDir: .1, armF: [70 + 30 * Math.sin(NOW * 2), 60], armB: [70 + 30 * Math.sin(NOW * 2 + 1), 60], ...idle(3) }); smoke(true); const p = sm(lt / D); cm([lerp(1.2, .4, p), 1.6, lerp(6, 4.2, p)], [-.6, 1.5, -1.2], 40); return 'ext'; };
+S.s2 = (lt, D) => { dusk(); put(CE.thay, -.5, -1.4, { face: OUT, faceDir: .1, armF: [70 + 30 * Math.sin(NOW * 2), 60], armB: [70 + 30 * Math.sin(NOW * 2 + 1), 60], ...idle(3) }); smoke(true); const p = sm(lt / D); cm([lerp(1.2, .4, p), 1.6, lerp(6, 4.2, p)], [-.6, 1.5, -1.2], 40); return 'ext'; };
 S.s3 = (lt, D) => { dusk(); const u = lt / D, ride = sm(clamp(u / .5)); const bz = lerp(26, 5.2, ride), bump = (1 - ride) * .02 * Math.sin(NOW * 30);
-  const bx = lerp(0, -1.5, sm(seg(u, .4, .55))); put(CE.bike1, bx - .3, bz, { flip: -1, k: idle(1) }, bump); put(CE.bike2, bx + .2, bz + 2.4, { flip: -1, v: idle(2), d: idle(4) }, bump);
-  put(CE.ong, 2.7, 1.0, { view: 'three', faceDir: -.3, flip: -1, ...SIT, armF: u > .78 ? [150 + 20 * Math.sin(NOW * 8), 50] : [96, 76], armB: [90, 76], bend: 10, ...idle(5) }, -.21);
+  const bx = lerp(0, -1.5, sm(seg(u, .4, .55))); put(CE.bike1, bx - .3, bz, { dir: IN, k: idle(1) }, bump); put(CE.bike2, bx + .2, bz + 2.4, { dir: IN, v: idle(2), d: idle(4) }, bump);
+  put(CE.ong, 2.7, 1.0, { face: -1.1, ...SIT, armF: u > .78 ? [150 + 20 * Math.sin(NOW * 8), 50] : [96, 76], armB: [90, 76], bend: 10, ...idle(5) }, -.21);
   if (u < .62) cm([7.5, 1.7, bz + 2.4], [0, 1.1, bz + 1.4], 44); else cm([lerp(-.6, -.3, u), 1.65, 8.6], [1.3, 1.3, .5], 44); return 'ext'; };
-S.O1 = (lt, D) => { dusk(); put(CE.ong, 2.7, 1.0, { view: 'front', faceDir: 0, ...SIT, armF: [150 + 25 * Math.sin(NOW * 7), 50], armB: [76, 76], mouth: TK('ONG'), ...idle(5) }, -.21); cm([2.5, 1.38, lerp(4.9, 4.6, lt / D)], [2.7, 1.2, 1.0], 34); return 'ext'; };
+S.O1 = (lt, D) => { dusk(); put(CE.ong, 2.7, 1.0, { face: -.05, faceDir: 0, ...SIT, armF: [150 + 25 * Math.sin(NOW * 7), 50], armB: [76, 76], mouth: TK('ONG'), ...idle(5) }, -.21); cm([2.5, 1.3, lerp(4.9, 4.6, lt / D)], [2.7, 1.02, 1.0], 34); return 'ext'; };
 S.s4 = (lt, D) => { dusk(); const u = lt / D, wk = clamp(u / .4), gp = gait(wk * 4 * Math.PI, wk < 1 ? 1 : 0);
-  put(CE.khang, 0, lerp(3.2, -.3, sm(wk)), { view: 'back', ...gp, ...idle(1), bob: gp.bob });
-  const up = sm(seg(u, .38, .6)); put(CE.ong, lerp(2.7, .75, up), lerp(1.0, -.35, up), up < .5 ? { view: 'three', faceDir: -.3, flip: -1, ...SIT, ...idle(5) } : { view: 'side', flip: -1, bend: 12, lean: 6, armF: [150 * sm(seg(u, .6, .72)), 40], ...idle(5) }, up < .5 ? -.21 : 0);
-  if (u < .8) cm([.3 - .2 * u, 1.6, 7.2], [.3, 1.3, 0], 40); else { put(CE.vu, -1.4, 5.0, { view: 'side', flip: 1, armF: [110, 60], armB: [100, 70], ...idle(2) }); cm([-2.9, 1.55, 8.8], [-.5, 1.35, 2.0], 42); }
+  put(CE.khang, 0, lerp(3.2, -.3, sm(wk)), { face: IN, ...gp, ...idle(1), bob: gp.bob });
+  const up = sm(seg(u, .38, .6)); put(CE.ong, lerp(2.7, .75, up), lerp(1.0, -.35, up), up < .5 ? { face: -1.1, ...SIT, ...idle(5) } : { face: -Math.PI / 2, bend: 12, lean: 6, armF: [150 * sm(seg(u, .6, .72)), 40], ...idle(5) }, up < .5 ? -.21 : 0);
+  if (u < .8) cm([.3 - .2 * u, 1.6, 7.2], [.3, 1.3, 0], 40); else { put(CE.vu, -1.2, 4.6, { face: IN, armF: [160, 40], armB: [160, 40], ...idle(2) }); cm([-2.2, 1.7, 8.4], [-.3, 1.35, 1.0], 42); }
   if (u > .94 && u < .975) FLASH = .75; return 'ext'; };
-S.D1 = (lt, D) => { dusk(); put(CE.duy, -1.2, 4.6, { view: 'three', faceDir: .3, look: .6, brow: 16, armF: [110, 10], armB: [-10, 20], mouth: TK('DUY') + .15, ...idle(4) }); cm([-1.0, 1.42, 7.4], [-1.2, 1.3, 4.6], 34); return 'ext'; };
-S.s5 = (lt, D) => { dusk(); const u = lt / D; if (u < .58) { const r = sm(u / .58); const bz = lerp(5.5, 24, r); put(CE.bike1, -.5, bz, { flip: 1, k: idle(1) }); put(CE.bike2, .7, bz - 2.2, { flip: 1, v: { view: u > .25 ? 'back' : 'side', ...idle(2) }, d: idle(4) });
+S.D1 = (lt, D) => { dusk(); put(CE.duy, -1.2, 4.6, { face: IN + .5, look: .6, brow: 16, armF: [110, 10], armB: [-10, 20], mouth: TK('DUY') + .15, ...idle(4) }); cm([-.6, 1.45, 2.0], [-1.2, 1.3, 4.6], 36); return 'ext'; };
+S.s5 = (lt, D) => { dusk(); const u = lt / D; if (u < .58) { const r = sm(u / .58); const bz = lerp(5.5, 24, r); put(CE.bike1, -.5, bz, { dir: OUT, k: idle(1) }); put(CE.bike2, .7, bz - 2.2, { dir: OUT, v: u > .25 ? { view: 'front', faceDir: 0, look: 0, ...idle(2) } : idle(2), d: idle(4) });
     cm([7, 1.7, lerp(6, 16, r)], [0, 1.2, lerp(6, 20, r)], 42); } else { cm([.2, 1.7, lerp(8, 7, (u - .58) / .42)], [.3, 1.5, 0], 40); } return 'ext'; };
 S.s6 = (lt, D) => { const u = lt / D; if (u < .42) { MODE = 'room'; roomNight(); BEDS[0].userData.bl.visible = true; BEDS[1].userData.bl.visible = false;
-    put(CR.vu, 1.6, -.6, { view: 'three', faceDir: -.2, ...BEDSIT, armF: [150, 50], armB: [140, 56], look: .3, brow: 10, ...idle(2) }, .3); phoneL.intensity = 2.2; phoneL.position.set(1.5, 1.3, -.1);
+    put(CR.vu, 1.6, -.6, { face: -.4, ...BEDSIT, armF: [150, 50], armB: [140, 56], look: .3, brow: 10, ...idle(2) }, .3); phoneL.intensity = 2.2; phoneL.position.set(1.5, 1.3, -.1);
     knock(1); cm([.0, 1.55, 2.5], [1.2, 1.15, -.7], 44); return 'room'; }
   return phoneShot(NOW >= BEAT.s6 ? 'turned' : 'normal', lt - D * .42, D * .58, 2.7, NOW >= BEAT.s6 ? 1.55 : 2.3, NOW >= BEAT.s6 ? [.1, .12] : [0, 0]); };
 S.s7 = (lt, D) => phoneShot(NOW >= BEAT.s7 ? 'point' : 'turned', lt, D, 2.6, 2.3, [.04, .1]);
 S.V1 = (lt, D) => { roomNight(); BEDS[0].userData.bl.visible = false; BEDS[1].userData.bl.visible = false; bulbL.intensity = 0;
-  put(CR.vu, .3, .2, { view: 'three', faceDir: -.3, flip: -1, armF: [150, 60], armB: [40, 30], brow: 14, look: -.5, mouth: TK('VU'), ...idle(2) });
-  put(CR.khang, -1.5, -.9, { view: 'three', faceDir: .3, ...BEDSIT, shock: 1, mouth: .3, ...idle(1) }, .3); put(CR.duy, -1.1, -1.25, { view: 'front', faceDir: .2, ...BEDSIT, look: .5, ...idle(4) }, .3);
+  put(CR.vu, .3, .2, { face: -1.2, armF: [150, 60], armB: [40, 30], brow: 14, look: -.5, mouth: TK('VU'), ...idle(2) });
+  put(CR.khang, -1.5, -.9, { face: .8, ...BEDSIT, shock: 1, mouth: .3, ...idle(1) }, .3); put(CR.duy, -1.1, -1.25, { face: .5, ...BEDSIT, look: .5, ...idle(4) }, .3);
   phoneL.intensity = 2; phoneL.position.set(.5, 1.4, .6); knock(1); cm([1.6, 1.5, 3.2], [-.3, 1.2, -.4], 44); return 'room'; };
 S.s8 = (lt, D) => { const a = ST('s8')[1]; if (NOW < BEAT.boom) { roomNight(); BEDS[0].userData.bl.visible = false; BEDS[1].userData.bl.visible = false;
     const k = NOW < BEAT.knockoff ? 1 + 1.5 * sm((NOW - a) / (BEAT.knockoff - a)) : 0; knock(k);
-    for (const [kk, x, f] of [['duy', -1.75, .3], ['khang', -1.3, .1], ['vu', -.85, -.1]]) put(CR[kk], x, -.75, { view: 'front', faceDir: f, ...BEDSIT, armF: [20, 90], armB: [20, 90], brow: 12, look: .6, blink: 0, ...(NOW > BEAT.knockoff ? { look: .9 } : {}) }, .3);
+    for (const [kk, x, f] of [['duy', -1.75, .3], ['khang', -1.3, .1], ['vu', -.85, -.1]]) put(CR[kk], x, -.75, { face: OUT, faceDir: f, ...BEDSIT, armF: [20, 90], armB: [20, 90], brow: 12, look: .6, blink: 0, ...(NOW > BEAT.knockoff ? { look: .9 } : {}) }, .3);
     phoneL.intensity = 1.2; phoneL.position.set(-1.3, 1.0, .2); cm([.9 + .1 * Math.sin(NOW * .3), 1.35, 2.6], [-1.3, 1.1, -.8], 44); return 'room'; }
   // the boom: the slope above the town gives way
-  const d = NOW - BEAT.boom; SHAKE = d < 2.5 ? .9 * (1 - d / 2.5) : .1; FLASH = d < .08 ? .4 : 0; slide(d); cm([0, 3, 4], [5, 19, -60], 46); return 'pass'; };
+  const d = NOW - BEAT.boom; SHAKE = d < 2.5 ? .9 * (1 - d / 2.5) : .1; FLASH = d < .08 ? .4 : 0; slide(d); cm([-8, 6, 8], [4, mount(6, -44) - 1, -44], 42); return 'pass'; };
 S.s9 = (lt, D) => { extMode('noon'); const u = lt / D;
-  put(CE.thay, .1, -.7, { view: u < .55 ? 'three' : 'side', faceDir: .3, armF: u > .7 ? [70, 30] : [10, 22], ...idle(3) });
-  put(CE.vu, .45, 1.1, { view: 'side', flip: -1, armF: [lerp(10, 80, sm(seg(u, .5, .65))), 20], ...idle(2) }); put(CE.khang, 1.4, 1.7, { view: 'three', faceDir: -.3, flip: -1, ...idle(1) }); put(CE.duy, -1.0, 1.9, { view: 'three', faceDir: .3, ...idle(4) });
-  put(CE.bike1, 3.2, 5.5, { flip: -1 }); put(CE.bike2, -3.0, 6.2, { flip: 1, v: { view: 'side' }, d: { view: 'side' } });
-  cm([lerp(3.4, 2.6, u), 1.7, lerp(7.2, 6.4, u)], [.3, 1.3, .3], 42); return 'ext'; };
-S.T1 = (lt, D) => { extMode('noon'); put(CE.thay, .1, -.7, { view: 'front', faceDir: 0, brow: 14, armF: [10, 22], mouth: TK('THAY'), ...idle(3) }); cm([.25, 1.5, lerp(2.4, 2.2, lt / D)], [.1, 1.35, -.7], 34); return 'ext'; };
-S.T2 = (lt, D) => { extMode('noon'); const u = lt / D; put(CE.thay, .1, -.7, { view: 'three', faceDir: .3, brow: 14, armF: u > .35 && u < .7 ? [120, 20] : [10, 22], mouth: TK('THAY'), ...idle(3) }); put(CE.vu, 2.6, -.2, { view: 'three', faceDir: -.4, flip: -1, ...idle(2) });
-  cm([lerp(1.9, 1.6, u), 1.55, 3.4], [.1, 1.35, -.7], 36); return 'ext'; };
+  put(CE.thay, .1, -.7, { face: OUT + .5, armF: u > .7 ? [70, 30] : [10, 22], ...idle(3) });
+  put(CE.vu, .45, 1.1, { face: IN + .3, armF: [lerp(10, 80, sm(seg(u, .5, .65))), 20], ...idle(2) }); put(CE.khang, 1.4, 1.7, { face: IN + .4, ...idle(1) }); put(CE.duy, -1.0, 1.9, { face: IN - .3, ...idle(4) });
+  put(CE.bike1, 3.2, 5.5, { dir: IN }); put(CE.bike2, -3.0, 6.2, { dir: IN });
+  cm([lerp(5.8, 5.4, u), 1.7, lerp(3.6, 3.2, u)], [.3, 1.3, .2], 40); return 'ext'; };
+S.T1 = (lt, D) => { extMode('noon'); put(CE.thay, .1, -.7, { face: OUT, faceDir: 0, brow: 5, armF: [10, 22], mouth: TK('THAY'), ...idle(3) }); cm([.25, 1.45, lerp(2.6, 2.4, lt / D)], [.1, 1.1, -.7], 34); return 'ext'; };
+S.T2 = (lt, D) => { extMode('noon'); const u = lt / D; put(CE.thay, .1, -.7, { face: 1.37, brow: 5, armF: u > .35 && u < .7 ? [120, 20] : [10, 22], mouth: TK('THAY'), ...idle(3) }); put(CE.vu, 2.6, -.2, { face: -1.77, ...idle(2) });
+  cm([lerp(1.9, 1.6, u), 1.5, 3.4], [.1, 1.15, -.7], 36); return 'ext'; };
 S.end = (lt, D) => { const z = NOW > BEAT.end ? lerp(2.4, 1.15, sm((NOW - BEAT.end) / 2.4)) : 2.4; return phoneShot('gone', lt, D, z, z, NOW > BEAT.end ? [-.1 * sm((NOW - BEAT.end) / 2.4), -.29 * sm((NOW - BEAT.end) / 2.4)] : [0, 0]); };
-S.cta = (lt, D) => { extMode('dusk'); RAIN = .1; CTA = 1; put(CE.khang, 0, 2.6, { view: 'back', ...idle(1) }); cm([0, 1.7, lerp(8, 7.4, lt / D)], [0, 1.9, 0], 42); return 'ext'; };
+S.cta = (lt, D) => { extMode('dusk'); RAIN = .1; CTA = 1; put(CE.khang, 0, 2.6, { face: IN, ...idle(1) }); cm([0, 1.7, lerp(8, 7.4, lt / D)], [0, 1.9, 0], 42); return 'ext'; };
 function roomNight() { MODE = 'room'; bulbL.intensity = 0; moonR.intensity = 18; roomHemi.intensity = .55; }
 function knock(k) { SHUT.forEach((s, i) => { s.rotation.y = s.userData.sd * (k > 0 ? .06 * k * Math.max(0, Math.sin(NOW * 21 + i * 2)) : 0); }); }
 function smoke(on) { SMOKE.forEach((s, i) => { const p = (NOW * .18 + i / 12) % 1; s.position.set(-1.2 + Math.sin(p * 6 + i) * .08, 1.15 + p * 1.4, -1.1); s.scale.setScalar(.15 + p * .6); s.material.opacity = on ? .22 * Math.sin(p * Math.PI) : 0; }); }
-function slide(d) { const p = clamp(d / 3.5); SLIDE.children.forEach(r => { const v = r.userData.v; r.position.x += 0; r.userData.p0 = r.userData.p0 || r.position.clone(); r.position.set(r.userData.p0.x + v[0] * p, r.userData.p0.y + v[1] * p * 1.6, r.userData.p0.z + v[2] * p); r.rotation.set(p * 3 + r.userData.p0.x, p * 2, 0); });
-  DUST.forEach((s, i) => { const q = clamp((d - i * .05) / 4); s.position.set(6 + (R(i) - .5) * 22 * (.4 + q), 14 + R(i + 3) * 6 - q * 4, -60 + R(i + 5) * 8); s.scale.set(10 + q * 22, 6 + q * 12, 1); s.material.opacity = d > 0 ? .75 * Math.sin(Math.min(1, q * 1.5) * Math.PI * .5) * (1 - clamp((d - 6) / 4)) : 0; });
+function slide(d) { const p = clamp(d / 3.5); SLIDE.children.forEach(r => { const v = r.userData.v; r.position.x += 0; r.userData.p0 = r.userData.p0 || r.position.clone(); r.position.set(r.userData.p0.x + v[0] * p, r.userData.p0.y + v[1] * p, r.userData.p0.z + v[2] * p); r.visible = d > -0.01; r.rotation.set(p * 3 + r.userData.p0.x, p * 2, 0); });
+  DUST.forEach((s, i) => { const q = clamp((d - i * .05) / 4); s.position.set(6 + (R(i) - .5) * 22 * (.4 + q), mount(6, -46) + 1 + R(i + 3) * 6 - q * 2, -46 + R(i + 5) * 8); s.scale.set(10 + q * 22, 6 + q * 12, 1); s.material.opacity = d > 0 ? .75 * Math.sin(Math.min(1, q * 1.5) * Math.PI * .5) * (1 - clamp((d - 6) / 4)) : 0; });
   pFlash.intensity = d < 0 ? 0 : 3 * Math.max(0, 1 - d / 1.2); }
 const JUMPS = [BEAT.hook, BEAT.s6];
 
@@ -256,7 +299,7 @@ window.draw = (t) => { NOW = t; const sc = TLD.scenes.find(s => t >= s[1] && t <
   // jumpscares: camera snaps toward what it looks at, shakes, white flash then a red wash
   let JF = -1; for (const tj of JUMPS) { const dt = t - tj; if (dt < 0 || dt > 1.3) continue; const z = dt < .1 ? dt / .1 * .45 : .45 * Math.max(0, 1 - (dt - .1) / 1.2); const tv = new THREE.Vector3(...CT); cam.position.lerp(tv, z); if (dt < .5) { const a2 = .05 * (1 - dt / .5); cam.position.x += (R(t * 977) - .5) * a2 * 2; cam.position.y += (R(t * 631) - .5) * a2 * 2; } cam.lookAt(tv); JF = dt; }
   if (SHAKE) { cam.position.x += (R(t * 977) - .5) * SHAKE; cam.position.y += (R(t * 631) - .5) * SHAKE * .6; }
-  for (const c of ALLC) if (c.visible) { c.rotation.y = Math.atan2(cam.position.x - c.position.x, cam.position.z - c.position.z); c.userData.paint(c.userData.o); const br = .01 * Math.sin(t * 2.2 + c.position.x * 3); c.scale.set(1, 1 + br, 1); }
+  for (const c of ALLC) if (c.visible) { orient(c, cam); c.rotation.y = Math.atan2(cam.position.x - c.position.x, cam.position.z - c.position.z); c.userData.paint(c.userData.o); const br = .01 * Math.sin(t * 2.2 + c.position.x * 3); c.scale.set(1, 1 + br, 1); }
   HANG.forEach((p, i) => { const w = k === 'hook' || k === 'title' ? 1.6 : k === 'cta' ? .8 : k.startsWith('T') || k === 's9' ? .4 : 1; p.rotation.z = w * (.12 * Math.sin(t * 2.1 + i * .9) + .05 * Math.sin(t * 5.3 + i)); p.rotation.x = w * .08 * Math.sin(t * 1.7 + i * 1.3); });
   PLANTS.forEach((p, i) => p.rotation.z = .03 * Math.sin(t * 1.2 + i)); MIST.forEach((s, i) => s.position.x = ((R(i + 5) - .5) * 160 + t * .6 + 80) % 160 - 80);
   renderer.render(SCN[mode], cam);
