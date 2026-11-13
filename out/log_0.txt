@@ -1579,3 +1579,20 @@ loaded V3TurboVieNeuTTS
 loaded V3TurboVieNeuTTS
 99_tm_hook2 clone:refs/mada8.wav 0 ok 26.4
 99_tm_hook2 asr ok
+loaded V3TurboVieNeuTTS
+99_ck_n clone:refs/mada8.wav 0 ok 17.9
+99_ck_n clone:refs/mada8.wav 4 ok 3.9
+99_ck_n clone:refs/mada8.wav 8 ok 2.8
+99_ck_n clone:refs/mada8.wav 12 ok 2.3
+99_ck_n clone:refs/mada8.wav 16 ok 1.5
+99_ck_n clone:refs/mada8.wav 20 ok 5.6
+99_ck_n clone:refs/mada8.wav 24 ok 2.8
+99_ck_n clone:refs/mada8.wav 28 ok 4.0
+99_ck_n clone:refs/mada8.wav 32 ok 2.2
+99_ck_n clone:refs/mada8.wav 36 ok 1.0
+99_ck_n asr ok
+99_ck_old Đức Trí 0 ok 1.0
+99_ck_old Đức Trí 4 ok 2.6
+99_ck_old asr ok
+99_ck_yng Thái Sơn 0 ok 1.0
+99_ck_yng asr ok
