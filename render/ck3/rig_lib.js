@@ -122,6 +122,7 @@ function face(o) {
   if (HS === 'cap') { const CC = o.capCol || '#a3332c'; g.fillStyle = CC; g.strokeStyle = INK; g.lineWidth = 3.2; g.beginPath(); g.moveTo(hx - 58, -26); g.bezierCurveTo(hx - 62, -80, hx + 56, -92, hx + 58, -26); g.closePath(); g.fill(); g.stroke();
     g.fillStyle = shade(CC, .7); g.beginPath(); g.moveTo(hx + 20 * Math.sign(d || 1), -30); g.quadraticCurveTo(hx + 70 * Math.sign(d || 1), -34, hx + 84 * Math.sign(d || 1), -20); g.quadraticCurveTo(hx + 50 * Math.sign(d || 1), -14, hx + 10 * Math.sign(d || 1), -22); g.closePath(); g.fill(); g.stroke();
     g.fillStyle = 'rgba(255,255,255,.5)'; g.beginPath(); g.arc(hx, -80, 4, 0, 7); g.fill(); }
+  if (o.nonla) nonLa(hx, o);
 }
 // joint positions by forward kinematics (0 deg = straight down, + = toward facing side), then each limb is stroked as ONE continuous path
 const dirv = a => [Math.sin(rad(a)), Math.cos(rad(a))];
@@ -502,6 +503,11 @@ window.poseTest = (list) => { g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#
   list.forEach((p, i) => { const cx = (i % 3 + .5) * W / 3, cy = (Math.floor(i / 3) + .78) * H / 2; character({ ...base, ...p, x: cx, y: cy + (p.y || 0) * .62, sc: .62 }); g.setTransform(1, 0, 0, 1, 0, 0); g.font = '16px DejaVu Sans'; g.fillStyle = '#fff'; g.textAlign = 'center'; g.fillText(JSON.stringify(p).slice(0, 60), cx, cy + 40); }); };
 
 
+// nón lá (conical leaf hat), worn over any hairstyle; tilt with o.nonlaTilt
+function nonLa(cx, o) { g.save(); g.translate(cx, -2); g.rotate(o.nonlaTilt || 0); const W_ = 122, Hh = 132; g.beginPath(); g.moveTo(-W_, 6); g.lineTo(0, -Hh); g.lineTo(W_, 6); g.quadraticCurveTo(0, 26, -W_, 6); g.closePath();
+  const q = g.createLinearGradient(-W_, 0, W_, 0); q.addColorStop(0, '#e2cc94'); q.addColorStop(.6, '#cfb47a'); q.addColorStop(1, '#a88e58'); g.fillStyle = o.nonlaCol || q; g.fill(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
+  g.strokeStyle = 'rgba(90,70,40,.45)'; g.lineWidth = 1.6; for (let k = 1; k < 6; k++) { const y = -Hh + k * (Hh + 6) / 6, w = W_ * (y + Hh) / (Hh + 6); g.beginPath(); g.moveTo(-w, y); g.quadraticCurveTo(0, y + 6 * k / 6, w, y); g.stroke(); }
+  if (o.nonlaTorn) { g.fillStyle = 'rgba(20,24,30,.9)'; g.beginPath(); g.moveTo(40, -20); g.lineTo(70, -6); g.lineTo(52, 2); g.closePath(); g.fill(); } g.restore(); }
 // back and profile heads (the 3/4 and front heads are drawn by face())
 function headTurn(o, HS, HAIR, G_) {
   const sk = G_ ? '#dfe3e0' : P.skin, skD = G_ ? '#b8bfbb' : P.skinD, ink = (w = 3.2) => { g.strokeStyle = INK; g.lineWidth = w; g.stroke(); };
@@ -509,15 +515,15 @@ function headTurn(o, HS, HAIR, G_) {
   if (o.view === 'back') {
     for (const s of [-1, 1]) if (HS !== 'turban' && HS !== 'shroud' && !G_) { g.beginPath(); g.ellipse(s * 52, 18, 9, 13, 0, 0, 7); g.fillStyle = skD; g.fill(); ink(3); }
     skull(54, 60); g.fillStyle = skD; g.fill(); ink();
-    if (HS === 'white') { g.beginPath(); g.moveTo(-54, 10); g.quadraticCurveTo(-50, 56, 0, 64); g.quadraticCurveTo(50, 56, 54, 10); g.quadraticCurveTo(0, 30, -54, 10); g.closePath(); g.fillStyle = '#ece9e2'; g.fill(); ink(2.5); g.fillStyle = 'rgba(255,255,255,.2)'; g.beginPath(); g.ellipse(-10, -24, 22, 10, -.2, 0, 7); g.fill(); return; }
-    if (HS === 'turban' || HS === 'shroud') { g.beginPath(); g.moveTo(-60, 30); g.bezierCurveTo(-72, -70, 72, -70, 60, 30); g.quadraticCurveTo(0, 50, -60, 30); g.closePath(); g.fillStyle = HS === 'shroud' ? '#2a2630' : '#1e2338'; g.fill(); ink(); if (HS === 'turban') { g.fillStyle = '#a3332c'; g.fillRect(-60, -16, 120, 9); } return; }
+    if (HS === 'white') { g.beginPath(); g.moveTo(-54, 10); g.quadraticCurveTo(-50, 56, 0, 64); g.quadraticCurveTo(50, 56, 54, 10); g.quadraticCurveTo(0, 30, -54, 10); g.closePath(); g.fillStyle = '#ece9e2'; g.fill(); ink(2.5); g.fillStyle = 'rgba(255,255,255,.2)'; g.beginPath(); g.ellipse(-10, -24, 22, 10, -.2, 0, 7); g.fill(); if (o.nonla) nonLa(0, o); return; }
+    if (HS === 'turban' || HS === 'shroud') { g.beginPath(); g.moveTo(-60, 30); g.bezierCurveTo(-72, -70, 72, -70, 60, 30); g.quadraticCurveTo(0, 50, -60, 30); g.closePath(); g.fillStyle = HS === 'shroud' ? '#2a2630' : '#1e2338'; g.fill(); ink(); if (HS === 'turban') { g.fillStyle = '#a3332c'; g.fillRect(-60, -16, 120, 9); } if (o.nonla) nonLa(0, o); return; }
     // hair covers the whole back of the head down to the nape (long + ragged for the dead)
     g.beginPath(); g.moveTo(-58, G_ ? 150 : 46); g.bezierCurveTo(-78, -96, 78, -96, 58, G_ ? 150 : 46);
     if (G_) { for (let k = 0; k <= 8; k++) g.lineTo(58 - k * 14.5, 150 + (k % 2 ? 18 : 0)); } else g.quadraticCurveTo(0, 62, -58, 46);
     g.closePath(); g.fillStyle = HAIR; g.fill(); ink();
     g.strokeStyle = 'rgba(130,140,160,.28)'; g.lineWidth = 2; for (const k of [-24, 0, 24]) { g.beginPath(); g.moveTo(k * .4, -40); g.quadraticCurveTo(k, 0, k * 1.1, 40); g.stroke(); }
     if (HS === 'cap') { const CC = o.capCol || '#a3332c'; g.beginPath(); g.moveTo(-58, -20); g.bezierCurveTo(-62, -82, 62, -82, 58, -20); g.closePath(); g.fillStyle = CC; g.fill(); ink(); g.fillStyle = shade(CC, .6); g.fillRect(-14, -24, 28, 7); }
-    return; }
+    if (o.nonla) nonLa(0, o); return; }
   // ---- profile, facing +x ----
   if (HS !== 'turban' && HS !== 'shroud' && !G_ && HS !== 'white') { /* ear drawn after the hair below */ }
   if (G_) { g.beginPath(); g.moveTo(-50, -20); g.bezierCurveTo(-66, -90, 40, -100, 50, -40); g.lineTo(-10, -30); g.quadraticCurveTo(-40, 60, -56, 150); g.lineTo(-74, 120); g.quadraticCurveTo(-80, 40, -50, -20); g.closePath(); g.fillStyle = HAIR; g.fill(); ink(); }
@@ -538,6 +544,7 @@ function headTurn(o, HS, HAIR, G_) {
     g.beginPath(); g.moveTo(-52, 30); g.bezierCurveTo(-64, -60, 30, -80, 50, -18); g.lineTo(40, -22); g.lineTo(42, -10); g.lineTo(28, -20); g.lineTo(26, -8); g.lineTo(10, -24); g.quadraticCurveTo(-20, -20, -24, 18); g.quadraticCurveTo(-36, 30, -52, 30); g.closePath(); g.fillStyle = HAIR; g.fill(); ink();
     g.beginPath(); g.ellipse(-12, 20, 9, 13, 0, 0, 7); g.fillStyle = skD; g.fill(); ink(3);
     if (HS === 'cap') { const CC = o.capCol || '#a3332c'; g.beginPath(); g.moveTo(-54, -10); g.bezierCurveTo(-56, -76, 44, -84, 48, -20); g.closePath(); g.fillStyle = CC; g.fill(); ink(); g.beginPath(); g.moveTo(36, -24); g.quadraticCurveTo(80, -26, 92, -14); g.quadraticCurveTo(70, -8, 40, -14); g.closePath(); g.fillStyle = shade(CC, .7); g.fill(); ink(2.5); } }
+  if (o.nonla) nonLa(o.view === 'side' ? 8 : 0, o);
 }
 
 // ================= "Cổng làng treo dao gỗ" set pieces =================
@@ -579,6 +586,13 @@ const CK = {
   vu: { pal: { skin: '#e2c09e', skinD: '#c4a07e' }, o: { hair: 'short', outfit: { top: 'coat', col: '#5d6b4a', colD: '#46523a', bot: '#2a2c34', botD: '#1e2026' } } },
   duy: { pal: { skin: '#eac9a8' }, o: { hair: 'cap', capCol: '#2c3e5a', outfit: { top: 'coat', col: '#3a4a66', colD: '#2a3650', bot: '#3a3a44', botD: '#2a2a32' } } },
   ong: { pal: { skin: '#a97b55', skinD: '#87603f' }, o: { hair: 'white', bend: 12, lean: 6, head: -4, outfit: { top: 'blouse', sleeve: 'long', col: '#46506a', colD: '#363e54', trim: ['#7a4a44', '#b8b0a0'], bot: '#2c3040', botD: '#22252f', feet: 'bare' } } },
+  luc: { pal: { skin: '#b88a62', skinD: '#95694a' }, o: { hair: 'short', outfit: { top: 'blouse', sleeve: 'long', col: '#6a5a46', colD: '#504434', bot: '#2e3238', botD: '#22252a', feet: 'bare' } } },
+  dat: { pal: { skin: '#c49670', skinD: '#a07654' }, o: { hair: 'short', nonla: true, outfit: { top: 'blouse', sleeve: 'long', col: '#4a5a6a', colD: '#38444f', bot: '#3a3430', botD: '#2a2622', feet: 'bare' } } },
+  thin: { pal: { skin: '#a47652', skinD: '#82583a' }, o: { hair: 'white', bend: 14, lean: 7, head: -4, outfit: { top: 'blouse', sleeve: 'long', col: '#7a6448', colD: '#5e4c36', bot: '#3a3632', botD: '#2a2724', feet: 'bare' } } },
+  khach: { pal: { skin: '#c89a74' }, o: { hair: 'short', nonla: true, outfit: { top: 'blouse', sleeve: 'long', col: '#5a5048', colD: '#443c36', bot: '#30302e', botD: '#242422', feet: 'bare' } } },
+  ba1: { pal: { skin: '#c8a07a' }, o: { hair: 'bun', outfit: { top: 'blouse', sleeve: 'long', col: '#6a3a40', colD: '#502c30', bot: '#1e1e22', botD: '#161618', feet: 'bare' } } },
+  ba2: { pal: { skin: '#b8906a' }, o: { hair: 'bun', nonla: true, outfit: { top: 'blouse', sleeve: 'long', col: '#3e4a5e', colD: '#2e3848', bot: '#1e1e22', botD: '#161618', feet: 'bare' } } },
+  ong2: { pal: { skin: '#a88058', skinD: '#86603e' }, o: { hair: 'short', outfit: { top: 'blouse', sleeve: 'long', col: '#56604a', colD: '#424a3a', bot: '#2c2c2a', botD: '#202020', feet: 'bare' } } },
   thay: { pal: { skin: '#a8784f', skinD: '#86603e' }, o: { hair: 'turban', outfit: { top: 'blouse', sleeve: 'long', col: '#1f2338', colD: '#171a2a', trim: ['#a3332c', '#e8e0d0', '#a3332c'], bottom: 'pants', bot: '#1f2338', botD: '#171a2a', feet: 'bare' } } },
 };
 function castMember(who, x, y, sc, extra = {}) { const C = CK[who], pal = { ...P }; Object.assign(P, C.pal); character({ t: 0, flip: 1, bob: 0, lean: 0, spine: 0, bend: 3, squash: 0, legF: [6, -4, 0], legB: [-8, -3, 0], armB: [-6, 16], armF: [10, 22], neck: 0, head: 0, faceDir: .25, look: .1, blink: 0, brow: 0, mouth: 0, shock: 0, scarf: 0, lanternSwing: 0, noLantern: true, ...C.o, ...extra, x, y, sc }); Object.assign(P, pal); }
