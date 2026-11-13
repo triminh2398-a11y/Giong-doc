@@ -5,15 +5,15 @@ s2|N|Thuyền nào đi ngang cũng dừng, thắp một nén hương lên cái m
 s3|N|Lực chạy đò ở bến dưới, nợ nần chồng chất. Mấy nhà có người mất tích trên sông treo thưởng cho ai tìm được xác. Một đêm, Lực chèo ghe ra giữa vũng, thả câu.
 s4|N|Gần sáng, cần câu oằn xuống. Lực kéo lên. Không phải cá. Là một chiếc dép nhựa của đàn bà, quấn đầy rong.
 L1|LUC|Xui thiệt... câu cả đêm được cái dép.
-s5|N|Sáng hôm đó, xác một người đàn bà mất tích ba năm trước nổi lên ngay bến đò, một chân còn mang chiếc dép y hệt. Nhà người ta khóc, rồi đưa Lực tiền thưởng.
+s5|N|Sáng hôm đó, xác một người đàn bà mất tích ba năm trước nổi lên ngay bến đò, một chân còn mang chiếc dép còn lại của đôi. Nhà người ta khóc, rồi đưa Lực tiền thưởng.
 s6|N|Ông Thìn, người lái đò già nhất bến, kéo Lực ra một góc.
 TH1|THIN|Vũng trả một người... thì nó giữ lại một chỗ. Mày đừng ra đó nữa.
-s7|N|Lực cười, cầm tiền đi trả nợ. Đêm sau, rồi đêm sau nữa, Lực lại ra vũng. Lần thì cái lược gỗ, lần thì chiếc đồng hồ rỉ sét. Mỗi sáng lại có một cái xác nổi lên ở bến, đúng của người mất món đồ đó.
-s8|N|Nhưng từ đêm thứ hai, mỗi lần Lực về tới nhà, trên sàn ghe luôn có một hàng dấu chân ướt, đi từ mép nước... tới chỗ Lực ngồi.
-s9|N|Đêm thứ ba, cần câu oằn mạnh hơn mọi lần. Lực kéo lên một chiếc dép tổ ong cũ mòn gót. Lực đứng chết trân. Là dép của chính mình... chiếc dép mà chiều đó Lực còn để dưới gầm giường.
+s7|N|Lực cười, cầm tiền đi trả nợ. Đêm thứ hai, rồi đêm thứ ba, Lực lại ra vũng. Lần thì cái lược gỗ, lần thì chiếc đồng hồ rỉ sét. Mỗi sáng lại có một cái xác nổi lên ở bến, đúng của người mất món đồ đó.
+s8|N|Nhưng từ đêm thứ hai, mỗi lần Lực về tới nhà, trên sàn nhà luôn có một hàng dấu chân ướt, đi từ cửa... tới tận chỗ giường Lực nằm.
+s9|N|Đêm thứ tư, cần câu oằn mạnh hơn mọi lần. Lực kéo lên một chiếc dép tổ ong cũ mòn gót. Lực đứng chết trân. Là dép của chính mình... chiếc dép mà chiều đó Lực còn để dưới gầm giường.
 L2|LUC|Không... không phải... tao còn sống mà!
 s10|N|Lực bỏ cần câu, chèo thục mạng vô bờ, chạy tới nhà ông Thìn. Ông già nhìn chiếc dép, rồi nhìn xuống chân Lực, đang ướt sũng dù trời không mưa.
-TH2|THIN|Ba người được về... là vũng thiếu ba chỗ. Nó đã chọn mày rồi.
-s11|N|Lực bỏ bến, bỏ sông, lên tận núi sống, cách xa nước. Nhưng mỗi sáng thức dậy, dưới chân giường của Lực luôn có một vũng nước nhỏ. Và vũng nước đó... cứ lớn dần.
-end|N|Mùa lũ năm đó, Lực bỏ nhà đi giữa đêm, không ai biết đi đâu. Sáng ra, người ta thấy chiếc ghe của Lực trôi lững lờ ngay giữa vũng. Trên ghe không có người, chỉ có đôi dép tổ ong cũ mòn gót. Xác Lực... chưa bao giờ nổi lên.
+TH2|THIN|Vũng đã trả ba người. Giờ nó đòi một người thay... và nó chọn mày rồi.
+s11|N|Lực bỏ bến, bỏ sông, lên trên núi ở, thật xa nước. Nhưng mỗi sáng thức dậy, dưới chân giường của Lực luôn có một vũng nước nhỏ. Và vũng nước đó... cứ lớn dần.
+end|N|Mùa lũ năm đó, một đêm Lực tự dưng bỏ nhà trên núi, đi bộ suốt đêm xuống lại bến sông. Sáng ra, người ta thấy chiếc ghe của Lực trôi lững lờ ngay giữa vũng. Trên ghe không có người, chỉ có đôi dép tổ ong cũ mòn gót. Xác Lực chưa bao giờ nổi lên. Vũng đã giữ Lực lại.
 cta|N|Nếu là bạn, bạn có dám thả câu ở cái vũng đó không?
