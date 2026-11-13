@@ -8,7 +8,7 @@ s4|N|Khang cười, bước qua sợi dây chắn, đứng giữa cổng. Ông c
 D1|DUY|Khang, ra đi mày! Người ta treo dao gỗ kìa!
 s5|N|Ba người nổ máy đi. Vũ ngoái lại. Cổng làng trống trơn, không còn ai.
 s6|N|Đêm đó ở nhà nghỉ dưới thị trấn, hai giờ sáng, có tiếng gỗ gõ lách cách ngoài cửa sổ. Vũ mở điện thoại ra coi lại tấm hình. Khang vẫn đứng giữa cổng. Nhưng ông cụ đã quay hẳn mặt về phía ống kính, đôi mắt trắng dã.
-s7|N|Giường bên, Khang ngồi bật dậy, sốt hầm hập, quay mặt về phía núi, lẩm bẩm một thứ tiếng không ai hiểu.
+s7|N|Giường bên, Khang ngồi bật dậy, sốt hầm hập, quay mặt về phía núi, lẩm bẩm những tiếng rời rạc, khàn đặc, như giọng một ông già.
 K1|KHANG|Ra rồi... ra được rồi...
 s8|N|Sáng ra, ba người quay lại bản. Thầy cúng đứng sát mép cổng, phía bên trong. Vũ đưa tấm hình. Mặt thầy cúng tái đi.
 T1|THAY|Ông này chết hôm kia. Tụi tôi đang đưa ổng đi... các cậu dắt ổng ra khỏi bản rồi.
