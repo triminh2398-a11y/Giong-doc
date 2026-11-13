@@ -68,8 +68,9 @@ function face(o) {
   g.beginPath(); if (HS === 'white') g.ellipse(d * 2, 4, 54, 72, 0, 0, 7); else g.ellipse(d * 4, 16, 52, 58, 0, 0, 7);
   if (G_) g.fillStyle = '#dfe3e0'; else { const gr = g.createRadialGradient(-14 + d * 10, 0, 8, 0, 14, 62); gr.addColorStop(0, P.skin); gr.addColorStop(1, P.skinD); g.fillStyle = gr; }
   g.fill(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
+  const G0 = G_; // o.dead: a living-looking body with the dead's empty eyes
   // eyes: the living have pupils; the dead stare with empty grey-white eyes in black-ringed sockets
-  for (const s of [-1, 1]) { const x = ex + s * 21 * (1 - Math.abs(d) * .25), y = 16, sc = 1 - (s === Math.sign(-d) ? Math.abs(d) * .25 : 0);
+  for (const s of [-1, 1]) { const x = ex + s * 21 * (1 - Math.abs(d) * .25), y = 16, sc = 1 - (s === Math.sign(-d) ? Math.abs(d) * .25 : 0); const G_ = G0 || o.dead;
     g.fillStyle = G_ ? 'rgba(20,20,28,.75)' : 'rgba(60,40,60,.35)'; g.beginPath(); g.ellipse(x, y + 5, (G_ ? 20 : 17) * sc, G_ ? 21 : 17, 0, 0, 7); g.fill();
     if (o.blink > .5) { g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.moveTo(x - 11 * sc, y + 2); g.quadraticCurveTo(x, y + 7, x + 11 * sc, y + 2); g.stroke(); continue; }
     const big = o.shock ? 1.22 : 1; g.fillStyle = G_ ? '#c9cfcc' : '#f2eee8'; g.beginPath(); g.ellipse(x, y, 12 * sc * big, 14.5 * big, 0, 0, 7); g.fill(); g.strokeStyle = INK; g.lineWidth = 2.5; g.stroke();
@@ -562,13 +563,13 @@ function motorbike(x, y, s, flip = 1, col = '#2a4a6a') { g.save(); g.translate(x
   g.fillStyle = '#1c1a20'; g.beginPath(); g.roundRect(-52, -104, 70, 18, 7); g.fill(); g.stroke(); g.strokeStyle = INK; g.lineWidth = 6; g.beginPath(); g.moveTo(52, -86); g.lineTo(70, -134); g.lineTo(52, -140); g.stroke();
   g.fillStyle = '#ffe9a8'; g.beginPath(); g.arc(84, -110, 8, 0, 7); g.fill(); g.lineWidth = 2.5; g.stroke(); g.restore(); }
 function highlandBG(t, mood = 'dusk') {
-  const gr = g.createLinearGradient(0, 0, 0, H); if (mood === 'night') { gr.addColorStop(0, '#0b1020'); gr.addColorStop(1, '#25304a'); } else { gr.addColorStop(0, '#4c5a74'); gr.addColorStop(.6, '#8a8e9e'); gr.addColorStop(1, '#5a6070'); } g.fillStyle = gr; g.fillRect(0, 0, W, H);
-  const mt = (yy, col, amp, seed) => { g.fillStyle = col; g.beginPath(); g.moveTo(-50, H); for (let x = -50; x <= W + 50; x += 20) g.lineTo(x, yy - amp * (.5 + .5 * Math.sin(x * .007 + seed)) - amp * .3 * Math.sin(x * .021 + seed * 2)); g.lineTo(W + 50, H); g.closePath(); g.fill(); };
+  const gr = g.createLinearGradient(0, 0, 0, H); if (mood === 'night') { gr.addColorStop(0, '#0b1020'); gr.addColorStop(1, '#25304a'); } else { gr.addColorStop(0, '#4c5a74'); gr.addColorStop(.6, '#8a8e9e'); gr.addColorStop(1, '#5a6070'); } g.fillStyle = gr; g.fillRect(-900, -900, W + 1800, H + 1800);
+  const mt = (yy, col, amp, seed) => { g.fillStyle = col; g.beginPath(); g.moveTo(-900, H + 900); for (let x = -900; x <= W + 900; x += 20) g.lineTo(x, yy - amp * (.5 + .5 * Math.sin(x * .007 + seed)) - amp * .3 * Math.sin(x * .021 + seed * 2)); g.lineTo(W + 900, H + 900); g.closePath(); g.fill(); };
   const n = mood === 'night'; mt(500, n ? '#1a2236' : '#5d6678', 160, 1); mt(600, n ? '#151c2c' : '#4a5363', 120, 4); mt(700, n ? '#11172a' : '#3b4352', 90, 7);
   g.fillStyle = n ? 'rgba(160,180,210,.10)' : 'rgba(220,226,235,.35)'; for (let i = 0; i < 4; i++) { g.beginPath(); g.ellipse(((i * 260 + t * 8) % (W + 400)) - 200, 560 + i * 40, 260, 26, 0, 0, 7); g.fill(); } // mist bands
-  stiltHouse(150, 820, .7, n); stiltHouse(560, 800, .6, false); stiltHouse(380, 760, .45, n);
-  const gg = g.createLinearGradient(0, 820, 0, H); gg.addColorStop(0, n ? '#1b2418' : '#4a5a3a'); gg.addColorStop(1, n ? '#0e130c' : '#2e3824'); g.fillStyle = gg; g.fillRect(0, 840, W, H - 840);
-  g.fillStyle = n ? '#2a2018' : '#6a5038'; g.beginPath(); g.moveTo(250, H); g.lineTo(330, 840); g.lineTo(400, 840); g.lineTo(520, H); g.closePath(); g.fill(); // muddy track into the gate
+  stiltHouse(-180, 830, .6, n); stiltHouse(880, 815, .6, n); stiltHouse(150, 820, .7, n); stiltHouse(560, 800, .6, false); stiltHouse(380, 760, .45, n);
+  const gg = g.createLinearGradient(0, 820, 0, H); gg.addColorStop(0, n ? '#1b2418' : '#4a5a3a'); gg.addColorStop(1, n ? '#0e130c' : '#2e3824'); g.fillStyle = gg; g.fillRect(-900, 840, W + 1800, H);
+  g.fillStyle = n ? '#2a2018' : '#6a5038'; g.beginPath(); g.moveTo(130, H + 300); g.lineTo(330, 840); g.lineTo(400, 840); g.lineTo(640, H + 300); g.closePath(); g.fill(); // muddy track into the gate
 }
 function rain(t, a = .5) { g.strokeStyle = `rgba(200,210,230,${a})`; g.lineWidth = 1.3; for (let i = 0; i < 120; i++) { const x = ((i * 97) % W + t * 40) % W, y = ((i * 211) + t * 900) % H; g.beginPath(); g.moveTo(x, y); g.lineTo(x - 6, y + 22); g.stroke(); } }
 const CK = {
