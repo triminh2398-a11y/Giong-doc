@@ -62,7 +62,7 @@ const LINE = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.
 
 // ---- low-poly people, one step up from boxes (late-PS1 look): tapered 6-8 sided limbs, round head with a painted face, hair cap, hands, sandals
 function faceTex(kind, open) { return ptex(128, 64, (g, w, h) => { // wraps round the head: face centred at x=32 (front), back of head at x=96
-  const dead = kind === 'dead', old = kind === 'old', sk = dead ? '#a8b0ae' : old ? '#946443' : '#b5835c', hairC = old ? '#7a7670' : dead ? '#0e1012' : '#16120f', px = (c, x, y, ww = 1, hh = 1) => { g.fillStyle = c; g.fillRect(x, y, ww, hh); };
+  const dead = kind === 'dead', old = kind === 'old', sk = dead ? '#9aaba4' : old ? '#946443' : '#b5835c', hairC = old ? '#7a7670' : dead ? '#0e1012' : '#16120f', px = (c, x, y, ww = 1, hh = 1) => { g.fillStyle = c; g.fillRect(x, y, ww, hh); };
   px(sk, 0, 0, w, h);
   px(dead ? 'rgba(60,80,80,.22)' : 'rgba(110,50,25,.16)', 19, 34, 26, 14); px('rgba(80,40,20,.14)', 17, 26, 4, 18); px('rgba(80,40,20,.14)', 43, 26, 4, 18); // cheeks, face sides
   px(hairC, 0, 0, w, old ? 14 : 18); px(hairC, 64, 0, 64, old ? 30 : 40); px(hairC, 8, 18, 6, 12); px(hairC, 50, 18, 6, 12); // hairline, back, sideburns
@@ -74,6 +74,9 @@ function faceTex(kind, open) { return ptex(128, 64, (g, w, h) => { // wraps roun
     px('rgba(60,30,15,.2)', 20, 30, 8, 1); px('rgba(60,30,15,.2)', 36, 30, 8, 1); } // lower lids
   px('rgba(70,35,20,.35)', 30, 29, 1, 8); px('rgba(255,220,190,.12)', 32, 29, 2, 8); px('rgba(70,35,20,.45)', 28, 37, 8, 2); px('rgba(40,20,10,.5)', 29, 38, 2, 1); px('rgba(40,20,10,.5)', 33, 38, 2, 1); // nose
   px(dead ? '#4e5658' : '#6e3a2c', 27, 43, 10, 1); px(dead ? '#5a6264' : '#8a4a38', 28, 44, 8, 2); px('rgba(40,20,10,.35)', 26, 43, 1, 1); px('rgba(40,20,10,.35)', 37, 43, 1, 1); // mouth, lower lip, corners
+  if (dead) { px('#0a0e0e', 18, 25, 11, 8); px('#0a0e0e', 35, 25, 11, 8); px('#e8ece6', 23, 28, 2, 2); px('#e8ece6', 39, 28, 2, 2); px('rgba(20,40,35,.5)', 17, 33, 13, 3); px('rgba(20,40,35,.5)', 34, 33, 13, 3);
+    px('#080a0a', 26, 41, 12, 8); px('#080a0a', 28, 49, 8, 2); px('rgba(30,60,50,.35)', 20, 50, 24, 8);
+    for (const [x, l] of [[15, 34], [19, 24], [30, 14], [34, 22], [45, 40], [48, 28]]) { px('rgba(14,22,16,.85)', x, 14, 2, l); px('rgba(40,70,40,.6)', x + 1, 14 + l - 6, 1, 6); } }
   if (open) { px('#1e0e0a', 27, 43, 10, 3); px('#6e3a2c', 28, 46, 8, 1); }
   if (old) { px('rgba(60,30,20,.4)', 20, 19, 24, 1); px('rgba(60,30,20,.35)', 22, 21, 20, 1); px('rgba(150,145,138,.35)', 20, 45, 24, 12); px('rgba(150,145,138,.3)', 26, 40, 12, 2); px(sk, 20, 0, 24, 9); }  // grey stubble, receding hairline
   if (!old && !dead) { px('rgba(30,20,15,.22)', 20, 46, 24, 10); px('rgba(30,20,15,.16)', 26, 40, 12, 2); } // stubble + moustache shadow
@@ -98,7 +101,7 @@ function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s ||
   const neck = J(spine, 0, .58 * S, 0); add(neck, cyl(.055, .065, .12, 6), skin, 0, .02 * S, 0);
   if (!o.baba) add(neck, new THREE.CylinderGeometry(.09 * S, .11 * S, .05 * S, 8, 1, true), L({ color: o.shirt, side: THREE.DoubleSide }), 0, -.01 * S, .01 * S); // collar
   const fk = o.dead ? 'dead' : o.old ? 'old' : 'n', faceC = faceTex(fk), faceO = faceTex(fk, true); const head = add(neck, new THREE.SphereGeometry(.15 * S, 10, 8), L({ map: faceC }), 0, .21 * S, 0, .92, 1.12, 1); head.rotation.y = 0;
-  add(neck, new THREE.SphereGeometry(.105 * S, 6, 4, 0, Math.PI * 2, Math.PI * .45, Math.PI * .45), skin, 0, .14 * S, .025 * S, 1, 1, 1); // jaw fill
+  if (!o.dead) add(neck, new THREE.SphereGeometry(.105 * S, 6, 4, 0, Math.PI * 2, Math.PI * .45, Math.PI * .45), skin, 0, .14 * S, .025 * S, 1, 1, 1); // jaw fill
   add(neck, new THREE.SphereGeometry(.03 * S, 4, 3), skin, -.14 * S, .2 * S, 0, .5, 1, .8); add(neck, new THREE.SphereGeometry(.03 * S, 4, 3), skin, .14 * S, .2 * S, 0, .5, 1, .8); // ears
   if (!o.old) { add(neck, new THREE.SphereGeometry(.158 * S, 8, 5, 0, Math.PI * 2, 0, Math.PI * .42), hairM, 0, .225 * S, -.012 * S, .96, 1.18, 1.05); // hair volume
     for (let k = -2; k <= 2; k++) { const f = add(neck, new THREE.BoxGeometry(.05 * S, .07 * S, .03 * S), hairM, k * .045 * S, .305 * S - Math.abs(k) * .006 * S, .125 * S - Math.abs(k) * .012 * S); f.rotation.set(-.5, k * .25, k * .15); } // fringe chunks
@@ -148,7 +151,10 @@ const SH = {
     const tip = new THREE.Vector3(hx + 2.1, 2.3, hz - .9), a = LINE.geometry.attributes.position; a.setXYZ(0, tip.x, tip.y, tip.z); a.setXYZ(1, tip.x + .2, 0, tip.z - .3); a.needsUpdate = true;
     cm([3.2 - .05 * t, 1.8, -9.6 + .05 * t], [-.2, .9, -14], 46); },
   // E: looking straight down into the water at the drowned face (Lực's own)
-  face: t => { SH.water(t + 2.2); cm([.2, 1.1 - .03 * t, -8.6], [.1, -.3, -7.86], 34); },
+  // the face snaps into view on the hit (t=1): no slow fade, a hard push-in with a short jolt, then a slow creep closer
+  face: t => { SH.water(t + 4); const on = t >= 1, k = on ? Math.max(0, 1 - (t - 1) / .45) : 0; GH.P.visible = on; GH.P.traverse(m => { if (m.material) [].concat(m.material).forEach(x => x.opacity = .7); });
+    const j = .03 * k * Math.sin(t * 90), y = on ? .55 - .03 * (t - 1) : 1.3;
+    on ? cm([.1 + j, y, -7.98 + j], [.1, -.32, -7.88], 32) : cm([.1, 1.3, -9.4], [.1, -.3, -8.6], 44); },
   mcu2: t => { SH.mcu(t); pose(THIN, { x: .9, y: .67, z: -5.5, yaw: Math.PI + .6, lean: 6, nod: 4 + 2 * Math.sin(t * 1.7), turn: -6, armL: [8, -6, 25], armR: [18 + 5 * Math.sin(t * 2.3), 6, 45] }); cm([-1.0, 2.5, -8.7], [.9, 2.25, -5.5], 24); },
   // B: Thìn walks along the pier toward Lực at dawn-dark
   walk: t => { GH.P.visible = false; LUC.P.visible = THIN.P.visible = true; ROD.visible = LINE.visible = false; BOAT.position.set(2.6, .05, -6); BOAT.rotation.set(0, .2, 0);

@@ -93,7 +93,8 @@ for t in JT:
 mu/=max(1e-6,np.abs(mu).max())*1.05;hi/=max(1e-6,np.abs(hi).max())*1.05
 out=_out;out/=np.abs(out).max()*1.05
 for t,g in zip(JT,[.8,.9,1.0]):
-    for i,dt,gn,du in [(788,-.01,.9,1.8),(1963,0,.7,1.5),(565,-.02,.8,1.6),(677,0,.5,1.4),(1704,-.02,.6,2.0)]:place(i,t+dt,gn*g,dur=du,fi=0,fo=.25,buf=jt)
+    # new stinger stack (none of these used in earlier episodes); dt lines each file's measured onset up with the hit
+    for i,dt,gn,du,rt in [(2919,-2.82,.75,4.4,1),(1306,-.03,1.0,2.2,1),(1286,-.45,.7,2.4,1),(2203,-.26,.55,1.9,.8)]:place(i,t+dt,gn*g,dur=du,fi=0,fo=.4,buf=jt,rate=rt)
 jt/=np.abs(jt).max()*1.02
 r,v=wavfile.read(D+'voice.wav');v=v.astype(float)/32768;v=np.pad(v,(0,max(0,N-len(v))))[:N];V=np.stack([v,v],1)
 e=np.abs(v);k=int(.05*SR);e=np.convolve(e,np.ones(k)/k,'same');duck=1-.45*np.clip(e/(np.percentile(e[e>1e-4],80)+1e-9),0,1)
