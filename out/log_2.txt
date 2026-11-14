@@ -1577,3 +1577,14 @@ loaded V3TurboVieNeuTTS
 99_vg_thin Thái Sơn 2 ok 3.0
 99_vg_thin Thái Sơn 6 ok 2.2
 99_vg_thin asr ok
+loaded V3TurboVieNeuTTS
+stv_keobong_02 Hải Đăng 2 ok 2.2
+stv_keobong_02 Hải Đăng 6 ok 1.5
+stv_keobong_02 Hải Đăng 10 ok 2.2
+stv_keobong_02 Hải Đăng 14 ok 0.6
+stv_keobong_02 Hải Đăng 18 ok 1.1
+stv_keobong_02 Hải Đăng 22 ok 2.1
+stv_keobong_02 Hải Đăng 26 ok 2.4
+stv_keobong_02 Hải Đăng 30 ok 1.5
+stv_keobong_02 Hải Đăng 34 ok 1.7
+stv_keobong_02 asr ok
