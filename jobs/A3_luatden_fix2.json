@@ -1,0 +1,16 @@
+{
+ "voices": [
+  "clone:refs/mada8.wav"
+ ],
+ "lines": [
+  "Đóng cửa sổ. Cài chốt.",
+  "Mọi căn nhà đều không còn ai.",
+  "Đóng cửa sổ. Cài chốt.",
+  "Mọi căn nhà đều không còn ai.",
+  "Đóng cửa sổ. Cài chốt.",
+  "Mọi căn nhà đều không còn ai.",
+  "Đóng cửa sổ. Cài chốt.",
+  "Mọi căn nhà đều không còn ai."
+ ],
+ "asr": true
+}
