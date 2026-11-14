@@ -60,27 +60,49 @@ const BOAT = boatMesh();
 const ROD = new THREE.Mesh(new THREE.CylinderGeometry(.015, .03, 2.6, 4), L({ color: 0x5a4a30 })); scene.add(ROD);
 const LINE = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0x9a9a9a })); scene.add(LINE);
 
-// ---- segmented low-poly people (PS1 style: rigid parts parented at the joints)
-function faceTex(kind) { return ptex(32, 32, (g, w, h) => { const sk = kind === 'dead' ? '#aeb4b0' : '#b88a62'; g.fillStyle = sk; g.fillRect(0, 0, w, h);
-  g.fillStyle = kind === 'dead' ? '#d8dcd8' : '#1a1410'; g.fillRect(9, 13, 4, kind === 'dead' ? 3 : 2); g.fillRect(19, 13, 4, kind === 'dead' ? 3 : 2); // eyes
-  if (kind === 'dead') { g.fillStyle = '#4a4e50'; g.fillRect(8, 16, 6, 1); g.fillRect(18, 16, 6, 1); }
-  g.fillStyle = 'rgba(40,20,10,.5)'; g.fillRect(15, 17, 2, 3); g.fillStyle = kind === 'dead' ? '#3a3c3e' : '#5a2e24'; g.fillRect(13, 23, 6, 1); // nose, mouth
-  if (kind === 'old') { g.fillStyle = '#d8d4cc'; g.fillRect(12, 24, 8, 7); g.fillStyle = 'rgba(60,30,20,.5)'; g.fillRect(8, 6, 16, 1); g.fillRect(9, 9, 14, 1); }
+// ---- low-poly people, one step up from boxes (late-PS1 look): tapered 6-8 sided limbs, round head with a painted face, hair cap, hands, sandals
+function faceTex(kind) { return ptex(64, 32, (g, w, h) => { // wraps round the head: face centred at x=16 (front), back of head at x=48
+  const dead = kind === 'dead', old = kind === 'old', sk = dead ? '#a8b0ae' : '#b5835c', hairC = old ? '#cfcac0' : dead ? '#0e1012' : '#16120f';
+  g.fillStyle = sk; g.fillRect(0, 0, w, h); g.fillStyle = dead ? 'rgba(60,80,80,.25)' : 'rgba(90,40,20,.18)'; g.fillRect(9, 17, 14, 7); // cheeks / jaw shade
+  g.fillStyle = hairC; g.fillRect(0, 0, w, old ? 7 : 9); g.fillRect(32, 0, 32, old ? 15 : 19); g.fillRect(4, 9, 3, 6); g.fillRect(25, 9, 3, 6); // hairline, back, sideburns
+  if (!old) { g.fillRect(9, 9, 5, 1); g.fillRect(17, 9, 6, 1); } // fringe edge
+  g.fillStyle = dead ? '#3c4446' : '#2a1c14'; g.fillRect(10, 12, 4, 1); g.fillRect(18, 12, 4, 1); // brows
+  if (dead) { g.fillStyle = '#4a5254'; g.fillRect(10, 13, 4, 3); g.fillRect(18, 13, 4, 3); g.fillStyle = '#c8ccc8'; g.fillRect(11, 14, 2, 1); g.fillRect(19, 14, 2, 1); }
+  else { g.fillStyle = '#d8d0c4'; g.fillRect(10, 14, 4, 2); g.fillRect(18, 14, 4, 2); g.fillStyle = '#1a120c'; g.fillRect(12, 14, 2, 2); g.fillRect(18, 14, 2, 2); }
+  g.fillStyle = 'rgba(70,35,20,.45)'; g.fillRect(15, 15, 2, 4); g.fillRect(14, 19, 4, 1); // nose + nostrils
+  g.fillStyle = dead ? '#4e5658' : '#6a3428'; g.fillRect(13, 22, 6, 1); g.fillStyle = 'rgba(70,35,20,.3)'; g.fillRect(14, 23, 4, 1); // lips
+  if (old) { g.fillStyle = 'rgba(60,30,20,.45)'; g.fillRect(9, 10, 14, 1); g.fillRect(8, 17, 1, 4); g.fillRect(23, 17, 1, 4); g.fillStyle = hairC; g.fillRect(12, 24, 8, 6); g.fillRect(10, 21, 3, 3); g.fillRect(19, 21, 3, 3); }
+  if (!old && !dead) { g.fillStyle = 'rgba(30,20,15,.25)'; g.fillRect(10, 24, 12, 4); } // stubble
 }); }
-function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s || 1;
-  const skin = L({ color: o.dead ? 0xaeb4b0 : 0xb88a62 }), shirt = L({ color: o.shirt }), pants = L({ color: o.pants }), hair = L({ color: o.hair || 0x141210 });
+function clothTex(base, kind) { return ptex(32, 32, (g, w, h) => { noise(g, w, h, [base, base, shade(base, -.08), shade(base, .05)], kind.length);
+  if (kind === 'shirt') { g.fillStyle = shade(base, -.3); g.fillRect(0, 0, 1, h); g.fillRect(w - 1, 0, 1, h); g.fillStyle = '#d0c8b8'; for (let y = 6; y < h; y += 7) g.fillRect(1, y, 1, 1); g.fillStyle = shade(base, -.2); g.fillRect(0, 0, w, 2); }
+  if (kind === 'pants') { g.fillStyle = shade(base, -.25); g.fillRect(0, 0, w, 3); }
+}); }
+function shade(hex, k) { const n = parseInt(hex.slice(1), 16), f = v => Math.max(0, Math.min(255, Math.round(v * (1 + k * 2)))); return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`; }
+function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s || 1, hx = c => '#' + new THREE.Color(c).getHexString();
+  const skinC = o.dead ? 0xa8b0ae : 0xb5835c, skin = L({ color: skinC }), shirt = L({ map: clothTex(hx(o.shirt), 'shirt') }), sleeve = L({ map: clothTex(hx(o.shirt), 'sleeve') }), pants = L({ map: clothTex(hx(o.pants), 'pants') });
+  const hairM = L({ color: o.old ? 0xcfcac0 : o.dead ? 0x0e1012 : 0x16120f }), sandal = L({ color: 0x2a2018 });
   const J = (par, x, y, z) => { const g = new THREE.Group(); g.position.set(x, y, z); par.add(g); return g; };
-  const part = (par, w, h, d, mat, y) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); m.position.y = y; par.add(m); return m; };
-  const hips = J(P, 0, .92 * S, 0); part(hips, .36 * S, .2 * S, .22 * S, pants, 0);
-  const spine = J(hips, 0, .1 * S, 0); const torso = new THREE.Mesh(new THREE.CylinderGeometry(.2 * S, .17 * S, .56 * S, 6), shirt); torso.position.y = .28 * S; spine.add(torso);
-  const neck = J(spine, 0, .58 * S, 0); const head = new THREE.Mesh(new THREE.BoxGeometry(.3 * S, .34 * S, .3 * S), [skin, skin, hair, skin, L({ map: faceTex(o.dead ? 'dead' : o.old ? 'old' : 'n') }), o.old ? L({ color: 0xc8c4bc }) : hair]); head.position.y = .2 * S; neck.add(head);
-  const hairTop = new THREE.Mesh(new THREE.BoxGeometry(.33 * S, .1 * S, .33 * S), o.old ? L({ color: 0xc8c4bc }) : hair); hairTop.position.y = .38 * S; neck.add(hairTop);
-  if (!o.old) { const fr = new THREE.Mesh(new THREE.BoxGeometry(.32 * S, .07 * S, .06 * S), hair); fr.position.set(0, .33 * S, .14 * S); neck.add(fr); const bk = new THREE.Mesh(new THREE.BoxGeometry(.32 * S, .26 * S, .06 * S), hair); bk.position.set(0, .22 * S, -.15 * S); neck.add(bk); }
-  if (o.hat) { const h = new THREE.Mesh(new THREE.ConeGeometry(.42 * S, .26 * S, 8), L({ color: 0xb8a070 })); h.position.y = .46 * S; neck.add(h); }
-  const limb = (par, x, y, len, w, mat, hand) => { const a = J(par, x, y, 0); part(a, w, len, w, mat, -len / 2); const b = J(a, 0, -len, 0); part(b, w * .9, len, w * .9, mat, -len / 2); if (hand) part(b, w * 1.1, .1 * S, w * 1.1, hand, -len - .05 * S); return [a, b]; };
-  const [uaL, faL] = limb(spine, -.27 * S, .52 * S, .3 * S, .1 * S, shirt, skin), [uaR, faR] = limb(spine, .27 * S, .52 * S, .3 * S, .1 * S, shirt, skin);
-  const [thL, shL] = limb(hips, -.1 * S, -.06 * S, .43 * S, .13 * S, pants, null), [thR, shR] = limb(hips, .1 * S, -.06 * S, .43 * S, .13 * S, pants, null);
-  for (const sh of [shL, shR]) { const f = new THREE.Mesh(new THREE.BoxGeometry(.13 * S, .07 * S, .22 * S), skin); f.position.set(0, -.45 * S, .05 * S); sh.add(f); }
+  const add = (par, geo, mat, x, y, z, sx = 1, sy = 1, sz = 1) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.scale.set(sx, sy, sz); par.add(m); return m; };
+  const cyl = (rt, rb, h, n = 6) => new THREE.CylinderGeometry(rt * S, rb * S, h * S, n);
+  const hips = J(P, 0, .92 * S, 0); add(hips, cyl(.17, .16, .22, 8), pants, 0, 0, 0, 1.15, 1, .8);
+  const spine = J(hips, 0, .1 * S, 0);
+  add(spine, cyl(.23, .16, .56, 8), shirt, 0, .28 * S, 0, 1.1, 1, .68); // chest wider at the shoulders
+  add(spine, new THREE.SphereGeometry(.1 * S, 6, 4), sleeve, -.21 * S, .5 * S, 0, 1, .8, 1); add(spine, new THREE.SphereGeometry(.1 * S, 6, 4), sleeve, .21 * S, .5 * S, 0, 1, .8, 1); // shoulder caps
+  const neck = J(spine, 0, .58 * S, 0); add(neck, cyl(.055, .065, .12, 6), skin, 0, .02 * S, 0);
+  add(neck, new THREE.CylinderGeometry(.09 * S, .11 * S, .05 * S, 8, 1, true), L({ color: o.shirt, side: THREE.DoubleSide }), 0, -.01 * S, .01 * S); // collar
+  const head = add(neck, new THREE.SphereGeometry(.15 * S, 10, 8), L({ map: faceTex(o.dead ? 'dead' : o.old ? 'old' : 'n') }), 0, .21 * S, 0, .92, 1.12, 1); head.rotation.y = 0;
+  add(neck, new THREE.SphereGeometry(.105 * S, 6, 4, 0, Math.PI * 2, Math.PI * .45, Math.PI * .45), skin, 0, .14 * S, .025 * S, 1, 1, 1); // jaw fill
+  add(neck, new THREE.SphereGeometry(.03 * S, 4, 3), skin, -.14 * S, .2 * S, 0, .5, 1, .8); add(neck, new THREE.SphereGeometry(.03 * S, 4, 3), skin, .14 * S, .2 * S, 0, .5, 1, .8); // ears
+  if (!o.old) add(neck, new THREE.SphereGeometry(.158 * S, 8, 5, 0, Math.PI * 2, 0, Math.PI * .42), hairM, 0, .225 * S, -.012 * S, .96, 1.18, 1.05); // hair volume
+  else { add(neck, new THREE.SphereGeometry(.152 * S, 8, 4, 0, Math.PI * 2, 0, Math.PI * .3), hairM, 0, .22 * S, -.02 * S, .95, 1.1, 1); add(neck, new THREE.ConeGeometry(.05 * S, .12 * S, 5), hairM, 0, .06 * S, .12 * S).rotation.x = Math.PI; } // thin white hair + chin beard
+  if (o.hat) add(neck, new THREE.ConeGeometry(.42 * S, .26 * S, 8), L({ color: 0xb8a070 }), 0, .46 * S, 0);
+  const hand = (par, y, side) => { const h = J(par, 0, y, 0); add(h, new THREE.BoxGeometry(.075 * S, .1 * S, .035 * S), skin, 0, -.05 * S, 0); add(h, new THREE.BoxGeometry(.025 * S, .05 * S, .025 * S), skin, side * .045 * S, -.03 * S, .015 * S).rotation.z = side * .5; };
+  const arm = (x, side) => { const a = J(spine, x, .5 * S, 0); add(a, cyl(.062, .05, .3), sleeve, 0, -.15 * S, 0); const b = J(a, 0, -.3 * S, 0); add(b, cyl(.048, .038, .27), o.longSleeve === false ? skin : sleeve, 0, -.135 * S, 0);
+    add(b, cyl(.042, .038, .04), skin, 0, -.285 * S, 0); hand(b, -.3 * S, side); return [a, b]; };
+  const leg = (x) => { const a = J(hips, x, -.06 * S, 0); add(a, cyl(.085, .065, .43), pants, 0, -.215 * S, 0); const b = J(a, 0, -.43 * S, 0); add(b, cyl(.062, .048, .42), pants, 0, -.21 * S, 0);
+    add(b, cyl(.04, .045, .04), skin, 0, -.43 * S, 0); add(b, new THREE.BoxGeometry(.1 * S, .045 * S, .2 * S), skin, 0, -.465 * S, .045 * S); add(b, new THREE.BoxGeometry(.11 * S, .02 * S, .22 * S), sandal, 0, -.49 * S, .045 * S); return [a, b]; };
+  const [uaL, faL] = arm(-.25 * S, -1), [uaR, faR] = arm(.25 * S, 1), [thL, shL] = leg(-.09 * S), [thR, shR] = leg(.09 * S);
   const rig = { P, hips, spine, neck, uaL, faL, uaR, faR, thL, shL, thR, shR, S, o }; if (o.ghost) P.traverse(m => { if (m.material) { const mm = Array.isArray(m.material) ? m.material : [m.material]; mm.forEach(x => { x.transparent = true; x.opacity = .7; x.depthWrite = false; }); } }); return rig; }
 // poses in degrees: { torso lean, head tilt/turn, arms [shoulder pitch, shoulder roll, elbow], legs [hip, knee] }
 function pose(r, p) { const d = THREE.MathUtils.degToRad, S = r.S;
@@ -103,6 +125,11 @@ scene.add(new THREE.HemisphereLight(0x8a9ac0, 0x2a2a24, 2)); scene.add(new THREE
 // ---- test shots
 const cm = (p, l, fov = 50) => { cam.fov = fov; cam.position.set(...p); cam.lookAt(...l); cam.updateProjectionMatrix(); };
 const SH = {
+  // D: medium close-up, Lực and Thìn talking on the pier (the reference channel's most common framing)
+  mcu: t => { GH.P.visible = false; LUC.P.visible = THIN.P.visible = true; ROD.visible = LINE.visible = false; BOAT.position.set(2.6, .05, -6);
+    pose(LUC, { x: 0, y: .67, z: -6.5, yaw: .5, nod: 4 + 3 * Math.sin(t * 2), armL: [10, -8, 40], armR: [30 + 6 * Math.sin(t * 3), 6, 70], bob: .01 * Math.sin(t * 1.8) });
+    pose(THIN, { x: .9, y: .67, z: -5.5, yaw: Math.PI + .6, lean: 8, nod: 6, armL: [0, -6, 10], armR: [0, 6, 10] });
+    cm([1.7, 2.45, -3.2], [-.1, 2.15, -6.5], 30); },
   // A: Lực fishing alone in the cove at night
   fish: t => { GH.P.visible = false; THIN.P.visible = false; LUC.P.visible = true; BOAT.position.set(0, .05 + .03 * Math.sin(t * 1.3), -14); BOAT.rotation.set(.02 * Math.sin(t), .3, .02 * Math.sin(t * .8));
     const br = Math.sin(t * 1.8); pose(LUC, { x: -.4, y: BOAT.position.y + .1, z: -14.2, yaw: .3 + Math.PI / 2, sit: true, legL: [80, 85], legR: [76, 90], armL: [55, -10, 40 + 3 * br], armR: [60, 10, 34 + 3 * br], lean: 12 + 2 * br, nod: 6 + 3 * Math.sin(t * .6) });
