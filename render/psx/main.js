@@ -61,7 +61,7 @@ const ROD = new THREE.Mesh(new THREE.CylinderGeometry(.015, .03, 2.6, 4), L({ co
 const LINE = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0x9a9a9a })); scene.add(LINE);
 
 // ---- low-poly people, one step up from boxes (late-PS1 look): tapered 6-8 sided limbs, round head with a painted face, hair cap, hands, sandals
-function faceTex(kind) { return ptex(128, 64, (g, w, h) => { // wraps round the head: face centred at x=32 (front), back of head at x=96
+function faceTex(kind, open) { return ptex(128, 64, (g, w, h) => { // wraps round the head: face centred at x=32 (front), back of head at x=96
   const dead = kind === 'dead', old = kind === 'old', sk = dead ? '#a8b0ae' : old ? '#946443' : '#b5835c', hairC = old ? '#7a7670' : dead ? '#0e1012' : '#16120f', px = (c, x, y, ww = 1, hh = 1) => { g.fillStyle = c; g.fillRect(x, y, ww, hh); };
   px(sk, 0, 0, w, h);
   px(dead ? 'rgba(60,80,80,.22)' : 'rgba(110,50,25,.16)', 19, 34, 26, 14); px('rgba(80,40,20,.14)', 17, 26, 4, 18); px('rgba(80,40,20,.14)', 43, 26, 4, 18); // cheeks, face sides
@@ -74,6 +74,7 @@ function faceTex(kind) { return ptex(128, 64, (g, w, h) => { // wraps round the 
     px('rgba(60,30,15,.2)', 20, 30, 8, 1); px('rgba(60,30,15,.2)', 36, 30, 8, 1); } // lower lids
   px('rgba(70,35,20,.35)', 30, 29, 1, 8); px('rgba(255,220,190,.12)', 32, 29, 2, 8); px('rgba(70,35,20,.45)', 28, 37, 8, 2); px('rgba(40,20,10,.5)', 29, 38, 2, 1); px('rgba(40,20,10,.5)', 33, 38, 2, 1); // nose
   px(dead ? '#4e5658' : '#6e3a2c', 27, 43, 10, 1); px(dead ? '#5a6264' : '#8a4a38', 28, 44, 8, 2); px('rgba(40,20,10,.35)', 26, 43, 1, 1); px('rgba(40,20,10,.35)', 37, 43, 1, 1); // mouth, lower lip, corners
+  if (open) { px('#1e0e0a', 27, 43, 10, 3); px('#6e3a2c', 28, 46, 8, 1); }
   if (old) { px('rgba(60,30,20,.4)', 20, 19, 24, 1); px('rgba(60,30,20,.35)', 22, 21, 20, 1); px('rgba(150,145,138,.35)', 20, 45, 24, 12); px('rgba(150,145,138,.3)', 26, 40, 12, 2); px(sk, 20, 0, 24, 9); }  // grey stubble, receding hairline
   if (!old && !dead) { px('rgba(30,20,15,.22)', 20, 46, 24, 10); px('rgba(30,20,15,.16)', 26, 40, 12, 2); } // stubble + moustache shadow
 }); }
@@ -96,7 +97,7 @@ function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s ||
   if (o.baba) add(spine, cyl(.2, .225, .27, 8), shirt, 0, -.085 * S, 0, 1.12, 1, .8); // bà ba hem hangs past the hips
   const neck = J(spine, 0, .58 * S, 0); add(neck, cyl(.055, .065, .12, 6), skin, 0, .02 * S, 0);
   if (!o.baba) add(neck, new THREE.CylinderGeometry(.09 * S, .11 * S, .05 * S, 8, 1, true), L({ color: o.shirt, side: THREE.DoubleSide }), 0, -.01 * S, .01 * S); // collar
-  const head = add(neck, new THREE.SphereGeometry(.15 * S, 10, 8), L({ map: faceTex(o.dead ? 'dead' : o.old ? 'old' : 'n') }), 0, .21 * S, 0, .92, 1.12, 1); head.rotation.y = 0;
+  const fk = o.dead ? 'dead' : o.old ? 'old' : 'n', faceC = faceTex(fk), faceO = faceTex(fk, true); const head = add(neck, new THREE.SphereGeometry(.15 * S, 10, 8), L({ map: faceC }), 0, .21 * S, 0, .92, 1.12, 1); head.rotation.y = 0;
   add(neck, new THREE.SphereGeometry(.105 * S, 6, 4, 0, Math.PI * 2, Math.PI * .45, Math.PI * .45), skin, 0, .14 * S, .025 * S, 1, 1, 1); // jaw fill
   add(neck, new THREE.SphereGeometry(.03 * S, 4, 3), skin, -.14 * S, .2 * S, 0, .5, 1, .8); add(neck, new THREE.SphereGeometry(.03 * S, 4, 3), skin, .14 * S, .2 * S, 0, .5, 1, .8); // ears
   if (!o.old) { add(neck, new THREE.SphereGeometry(.158 * S, 8, 5, 0, Math.PI * 2, 0, Math.PI * .42), hairM, 0, .225 * S, -.012 * S, .96, 1.18, 1.05); // hair volume
@@ -112,7 +113,7 @@ function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s ||
   const leg = (x) => { const a = J(hips, x, -.06 * S, 0); add(a, cyl(.085, .065, .43), pants, 0, -.215 * S, 0); const b = J(a, 0, -.43 * S, 0); add(b, cyl(.062, .048, .36), pants, 0, -.18 * S, 0); // sole lands exactly at the root (y=0) so feet sit on the ground
     add(b, cyl(.04, .045, .04), skin, 0, -.36 * S, 0); add(b, new THREE.BoxGeometry(.1 * S, .045 * S, .2 * S), skin, 0, -.3875 * S, .045 * S); add(b, new THREE.BoxGeometry(.11 * S, .02 * S, .22 * S), sandal, 0, -.42 * S, .045 * S); return [a, b]; };
   const [uaL, faL] = arm(-.25 * S, -1), [uaR, faR] = arm(.25 * S, 1), [thL, shL] = leg(-.09 * S), [thR, shR] = leg(.09 * S);
-  const rig = { P, hips, spine, neck, uaL, faL, uaR, faR, thL, shL, thR, shR, S, o }; if (o.ghost) P.traverse(m => { if (m.material) { const mm = Array.isArray(m.material) ? m.material : [m.material]; mm.forEach(x => { x.transparent = true; x.opacity = .7; x.depthWrite = false; }); } }); return rig; }
+  const rig = { P, hips, spine, neck, uaL, faL, uaR, faR, thL, shL, thR, shR, S, o, head, faceC, faceO }; if (o.ghost) P.traverse(m => { if (m.material) { const mm = Array.isArray(m.material) ? m.material : [m.material]; mm.forEach(x => { x.transparent = true; x.opacity = .7; x.depthWrite = false; }); } }); return rig; }
 // poses in degrees: { torso lean, head tilt/turn, arms [shoulder pitch, shoulder roll, elbow], legs [hip, knee] }
 function pose(r, p) { const d = THREE.MathUtils.degToRad, S = r.S;
   r.P.position.set(p.x || 0, (p.y || 0), p.z || 0); r.P.rotation.y = p.yaw || 0; r.hips.position.y = .92 * S + (p.bob || 0) - (p.sit ? .45 * S : 0);
@@ -146,6 +147,9 @@ const SH = {
     ROD.visible = LINE.visible = true; const hx = BOAT.position.x + .4, hz = BOAT.position.z - .4; ROD.position.set(hx + 1.0, 1.7, hz - .6); ROD.rotation.set(-.2, 0, -1.0);
     const tip = new THREE.Vector3(hx + 2.1, 2.3, hz - .9), a = LINE.geometry.attributes.position; a.setXYZ(0, tip.x, tip.y, tip.z); a.setXYZ(1, tip.x + .2, 0, tip.z - .3); a.needsUpdate = true;
     cm([3.2 - .05 * t, 1.8, -9.6 + .05 * t], [-.2, .9, -14], 46); },
+  // E: looking straight down into the water at the drowned face (Lực's own)
+  face: t => { SH.water(t + 2.2); cm([.2, 1.1 - .03 * t, -8.6], [.1, -.3, -7.86], 34); },
+  mcu2: t => { SH.mcu(t); pose(THIN, { x: .9, y: .67, z: -5.5, yaw: Math.PI + .6, lean: 6, nod: 4 + 2 * Math.sin(t * 1.7), turn: -6, armL: [8, -6, 25], armR: [18 + 5 * Math.sin(t * 2.3), 6, 45] }); cm([-1.0, 2.5, -8.7], [.9, 2.25, -5.5], 24); },
   // B: Thìn walks along the pier toward Lực at dawn-dark
   walk: t => { GH.P.visible = false; LUC.P.visible = THIN.P.visible = true; ROD.visible = LINE.visible = false; BOAT.position.set(2.6, .05, -6); BOAT.rotation.set(0, .2, 0);
     pose(LUC, { x: 0, y: .67, z: -6.5, yaw: 0, nod: 4 * Math.sin(t * .7), armL: [0, -6, 10], armR: [0, 6, 10], bob: .01 * Math.sin(t * 1.8) });
@@ -154,9 +158,11 @@ const SH = {
   // C: the reveal: Lực looks down off the pier; under the surface his own drowned face
   water: t => { LUC.P.visible = true; THIN.P.visible = false; GH.P.visible = true; ROD.visible = LINE.visible = false; BOAT.position.set(9, .05, -20);
     pose(LUC, { x: 0, y: .67, z: -7.4, yaw: Math.PI, lean: 38, nod: 34, armL: [20, -10, 20], armR: [20, 10, 20] });
-    pose(GH, { x: 0, y: 0, z: 0, armL: [0, -20, 0], armR: [0, 20, 0] }); GH.P.position.set(.1, -.35, -9.6); GH.P.rotation.set(-Math.PI / 2, 0, Math.PI); GH.P.position.y = -.35 + .03 * Math.sin(t * 1.2);
+    pose(GH, { x: 0, y: 0, z: 0, armL: [0, -20, 0], armR: [0, 20, 0] }); { const f = .7 * sm((t - 3) / 1.2); GH.P.traverse(m => { if (m.material) [].concat(m.material).forEach(x => x.opacity = f); }); GH.P.visible = f > .01; } GH.P.position.set(.1, -.35, -9.6); GH.P.rotation.set(-Math.PI / 2, 0, Math.PI); GH.P.position.y = -.35 + .03 * Math.sin(t * 1.2);
     cm([3.6, 2.6, -5.2], [0, .3, -8.6], 48); },
 };
-window.render = (shot, t) => { WATER.material.map.offset.set(t * .01, t * .02); SPR.forEach((s, i) => s.position.x += 0); SH[shot](t);
+window.MOUTH = {}; window.CAP = '';
+const capEl = document.createElement('div'); capEl.style.cssText = 'position:fixed;left:6%;right:6%;top:62%;text-align:center;font:800 52px/1.22 Inter,sans-serif;color:#fff;-webkit-text-stroke:9px #000;paint-order:stroke fill;letter-spacing:.5px'; document.body.appendChild(capEl);
+window.render = (shot, t) => { for (const [k, r] of [['LUC', LUC], ['THIN', THIN]]) { const want = (MOUTH[k] || 0) > .35 ? r.faceO : r.faceC; if (r.head.material.map !== want) { r.head.material.map = want; r.head.material.needsUpdate = true; } } capEl.textContent = CAP; WATER.material.map.offset.set(t * .01, t * .02); SPR.forEach((s, i) => s.position.x += 0); SH[shot](t);
   renderer.setRenderTarget(RT); renderer.render(scene, cam); renderer.setRenderTarget(null); renderer.render(postScene, postCam); };
 window.READY = true;
