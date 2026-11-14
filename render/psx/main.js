@@ -68,16 +68,14 @@ function faceTex(kind, open) { return ptex(128, 64, (g, w, h) => { // wraps roun
   px(hairC, 0, 0, w, old ? 14 : 18); px(hairC, 64, 0, 64, old ? 30 : 40); px(hairC, 8, 18, 6, 12); px(hairC, 50, 18, 6, 12); // hairline, back, sideburns
   if (!old) { for (let x = 16; x < 48; x += 4) px(hairC, x, 18, 3, 2 + ((x * 7) % 3)); } // ragged fringe edge
   const brow = dead ? '#3c4446' : old ? '#8a8478' : '#22160f'; px(brow, 19, 23, 9, 2); px(brow, 36, 23, 9, 2); px(brow, 23, 22, 5, 1); px(brow, 36, 22, 5, 1);
-  if (dead) { px('#465052', 19, 26, 10, 6); px('#465052', 35, 26, 10, 6); px('#bfc4c0', 21, 28, 5, 2); px('#bfc4c0', 38, 28, 5, 2); }
+  if (dead) { px('rgba(40,60,70,.35)', 19, 30, 10, 3); px('rgba(40,60,70,.35)', 35, 30, 10, 3); if (open) { px('#c4cac4', 20, 26, 9, 5); px('#c4cac4', 35, 26, 9, 5); px('#1e2424', 23, 27, 3, 3); px('#1e2424', 38, 27, 3, 3); px('#050606', 24, 28, 1, 1); px('#050606', 39, 28, 1, 1); px('rgba(30,40,40,.5)', 19, 26, 10, 1); px('rgba(30,40,40,.5)', 35, 26, 10, 1); } else { px('rgba(30,45,45,.6)', 20, 29, 8, 1); px('rgba(30,45,45,.6)', 36, 29, 8, 1); } }
   else { px('rgba(60,30,15,.35)', 19, 26, 10, 1); px('rgba(60,30,15,.35)', 35, 26, 10, 1); // upper lids
     px('#b4a490', 21, 27, 7, 3); px('#b4a490', 36, 27, 7, 3); px('#2a1810', 23, 27, 3, 3); px('#2a1810', 38, 27, 3, 3); px('#0c0806', 24, 28, 1, 1); px('#0c0806', 39, 28, 1, 1);
     px('rgba(60,30,15,.2)', 20, 30, 8, 1); px('rgba(60,30,15,.2)', 36, 30, 8, 1); } // lower lids
   px('rgba(70,35,20,.35)', 30, 29, 1, 8); px('rgba(255,220,190,.12)', 32, 29, 2, 8); px('rgba(70,35,20,.45)', 28, 37, 8, 2); px('rgba(40,20,10,.5)', 29, 38, 2, 1); px('rgba(40,20,10,.5)', 33, 38, 2, 1); // nose
-  px(dead ? '#4e5658' : '#6e3a2c', 27, 43, 10, 1); px(dead ? '#5a6264' : '#8a4a38', 28, 44, 8, 2); px('rgba(40,20,10,.35)', 26, 43, 1, 1); px('rgba(40,20,10,.35)', 37, 43, 1, 1); // mouth, lower lip, corners
-  if (dead) { px('#0a0e0e', 18, 25, 11, 8); px('#0a0e0e', 35, 25, 11, 8); px('#e8ece6', 23, 28, 2, 2); px('#e8ece6', 39, 28, 2, 2); px('rgba(20,40,35,.5)', 17, 33, 13, 3); px('rgba(20,40,35,.5)', 34, 33, 13, 3);
-    px('#080a0a', 26, 41, 12, 8); px('#080a0a', 28, 49, 8, 2); px('rgba(30,60,50,.35)', 20, 50, 24, 8);
-    for (const [x, l] of [[15, 34], [19, 24], [30, 14], [34, 22], [45, 40], [48, 28]]) { px('rgba(14,22,16,.85)', x, 14, 2, l); px('rgba(40,70,40,.6)', x + 1, 14 + l - 6, 1, 6); } }
-  if (open) { px('#1e0e0a', 27, 43, 10, 3); px('#6e3a2c', 28, 46, 8, 1); }
+  px(dead ? '#56646a' : '#6e3a2c', 27, 43, 10, 1); px(dead ? '#66747a' : '#8a4a38', 28, 44, 8, 2); px('rgba(40,20,10,.35)', 26, 43, 1, 1); px('rgba(40,20,10,.35)', 37, 43, 1, 1); // mouth, lower lip, corners
+  if (dead) { px('#3e4a50', 28, 43, 8, 1); for (const [x, l] of [[18, 9], [22, 6], [27, 11], [33, 7], [41, 10], [45, 6]]) px('rgba(10,16,14,.8)', x, 17, 1, l); }
+  if (open && !dead) { px('#1e0e0a', 27, 43, 10, 3); px('#6e3a2c', 28, 46, 8, 1); }
   if (old) { px('rgba(60,30,20,.4)', 20, 19, 24, 1); px('rgba(60,30,20,.35)', 22, 21, 20, 1); px('rgba(150,145,138,.35)', 20, 45, 24, 12); px('rgba(150,145,138,.3)', 26, 40, 12, 2); px(sk, 20, 0, 24, 9); }  // grey stubble, receding hairline
   if (!old && !dead) { px('rgba(30,20,15,.22)', 20, 46, 24, 10); px('rgba(30,20,15,.16)', 26, 40, 12, 2); } // stubble + moustache shadow
 }); }
@@ -152,9 +150,9 @@ const SH = {
     cm([3.2 - .05 * t, 1.8, -9.6 + .05 * t], [-.2, .9, -14], 46); },
   // E: looking straight down into the water at the drowned face (Lực's own)
   // the face snaps into view on the hit (t=1): no slow fade, a hard push-in with a short jolt, then a slow creep closer
-  face: t => { SH.water(t + 4); const on = t >= 1, k = on ? Math.max(0, 1 - (t - 1) / .45) : 0; GH.P.visible = on; GH.P.traverse(m => { if (m.material) [].concat(m.material).forEach(x => x.opacity = .7); });
-    const j = .03 * k * Math.sin(t * 90), y = on ? .55 - .03 * (t - 1) : 1.3;
-    on ? cm([.1 + j, y, -7.98 + j], [.1, -.32, -7.88], 32) : cm([.1, 1.3, -9.4], [.1, -.3, -8.6], 44); },
+  face: t => { SH.water(t + 4); const on = t >= 1; GH.P.visible = true; const op = on ? .7 : .12 + .1 * sm(t);
+    GH.P.traverse(m => { if (m.material) [].concat(m.material).forEach(x => x.opacity = op); }); const want = on ? GH.faceO : GH.faceC; if (GH.head.material.map !== want) { GH.head.material.map = want; GH.head.material.needsUpdate = true; }
+    GH.P.position.z = -10.75; const z = Math.min(1, t / 8); cm([.1, .95 - .5 * sm(z), -9.16], [.1, -.32, -9.0], 34 - 6 * z); },
   mcu2: t => { SH.mcu(t); pose(THIN, { x: .9, y: .67, z: -5.5, yaw: Math.PI + .6, lean: 6, nod: 4 + 2 * Math.sin(t * 1.7), turn: -6, armL: [8, -6, 25], armR: [18 + 5 * Math.sin(t * 2.3), 6, 45] }); cm([-1.0, 2.5, -8.7], [.9, 2.25, -5.5], 24); },
   // B: Thìn walks along the pier toward Lực at dawn-dark
   walk: t => { GH.P.visible = false; LUC.P.visible = THIN.P.visible = true; ROD.visible = LINE.visible = false; BOAT.position.set(2.6, .05, -6); BOAT.rotation.set(0, .2, 0);
