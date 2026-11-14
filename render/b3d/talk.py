@@ -13,7 +13,7 @@ def person(name, x, y, rotz, action='idle', frame=10):
     root=[o for o in objs if o.parent is None][0]
     arm=[o for o in objs if o.type=='ARMATURE'][0]; arm.name=name
     body=RT.jaw_key(objs)
-    act=RT.bake(arm, action, name=name+'_'+action)
+    act=RT.bake(arm, action, name=name+'_'+action, damp={'clavicle_l':.25,'clavicle_r':.25,'spine_03':.6})
     root.location=(x,y,0); root.rotation_euler=(0,0,rotz)
     return arm, objs
 random.seed(1)

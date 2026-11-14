@@ -14,7 +14,7 @@ const C = {
   p.on('pageerror', e => console.log('ERR', e.message)); p.on('console', m => { if (m.type() === 'error') console.log('C', m.text().slice(0, 200)); });
   await p.goto('http://127.0.0.1:8841/web/index.html'); await p.waitForTimeout(15000); console.log(await p.evaluate(() => JSON.stringify({b: window.__booted, e: typeof window.__export, l: typeof window.__loadSettings}))); await p.waitForFunction(() => window.__booted && window.__export && window.__loadSettings, null, { timeout: 120000 });
   for (const [id, st] of Object.entries(C)) { if (process.argv[2] && !process.argv.slice(2).includes(id)) continue;
-    await p.evaluate(s => window.__loadSettings({ format: 'charactercreator.character', version: 1, ...s }), st); await p.waitForTimeout(1500);
+    await p.evaluate(s => window.__loadSettings({ format: 'charactercreator.character', version: 1, ...s, values: { gender: s.sex === 'female' ? -1 : 1, ...s.values } }), st); await p.waitForTimeout(1500);
     const arr = await p.evaluate(async () => { const ab = await window.__export({ shape: 'baked', animations: 'all', fps: 30, textureSize: 1024, merge: false }); return Array.from(new Uint8Array(ab)); });
     fs.writeFileSync(`/home/claude/b3dv/chars/${id}.glb`, Buffer.from(arr)); console.log(id, arr.length); }
   await b.close(); srv.close(); })();

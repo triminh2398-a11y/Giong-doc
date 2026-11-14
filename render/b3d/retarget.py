@@ -25,7 +25,7 @@ def order(arm):
     for b in arm.data.bones:
         if b.parent is None: walk(b)
     return out
-def bake(tgt, clip, name=None, f0=None, f1=None, step=1, hips_scale=None):
+def bake(tgt, clip, name=None, f0=None, f1=None, step=1, hips_scale=None, damp=None):
     """Bake UAL clip onto target armature as a new action; returns the action."""
     src = source(); src.animation_data_create(); src.animation_data.action = bpy.data.actions[clip]
     a0, a1 = bpy.data.actions[clip].frame_range; f0 = int(a0 if f0 is None else f0); f1 = int(a1 if f1 is None else f1)
@@ -53,6 +53,9 @@ def bake(tgt, clip, name=None, f0=None, f1=None, step=1, hips_scale=None):
         for tn in ordr:
             sn = inv[tn]; spb = src.pose.bones[sn]; tpb = tgt.pose.bones[tn]
             q = spb.matrix.to_quaternion() @ srest[sn].inverted() @ CORR[tn] @ trest[tn]
+            if damp and tn in damp:  # keep this bone closer to its own rest orientation relative to its parent (avoids chest pinching from clavicles)
+                par = tpb.parent; restw = (par.matrix.to_quaternion() @ (tgt.data.bones[par.name].matrix_local.to_quaternion().inverted() @ trest[tn])) if par else trest[tn]
+                q = restw.slerp(q, damp[tn])
             m = q.to_matrix().to_4x4(); m.translation = tpb.matrix.translation
             if tn == 'pelvis': m.translation = tgt.data.bones['pelvis'].head_local + (spb.matrix.translation - hip0) * hips_scale
             tpb.matrix = m; bpy.context.view_layer.update()
