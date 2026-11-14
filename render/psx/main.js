@@ -79,11 +79,12 @@ function faceTex(kind) { return ptex(128, 64, (g, w, h) => { // wraps round the 
 }); }
 function clothTex(base, kind) { return ptex(32, 32, (g, w, h) => { noise(g, w, h, [base, base, shade(base, -.08), shade(base, .05)], kind.length);
   if (kind === 'shirt') { g.fillStyle = shade(base, -.3); g.fillRect(0, 0, 1, h); g.fillRect(w - 1, 0, 1, h); g.fillStyle = '#d0c8b8'; for (let y = 6; y < h; y += 7) g.fillRect(1, y, 1, 1); g.fillStyle = shade(base, -.2); g.fillRect(0, 0, w, 2); }
+  if (kind === 'baba') { g.fillStyle = shade(base, -.07); g.fillRect(0, 0, 1, h); g.fillStyle = '#4a4036'; for (let y = 4; y < h; y += 6) g.fillRect(0, y, 1, 1); g.fillStyle = shade(base, -.12); g.fillRect(4, 22, 6, 1); g.fillRect(4, 22, 1, 6); g.fillRect(9, 22, 1, 6); g.fillRect(w - 10, 22, 6, 1); g.fillRect(w - 10, 22, 1, 6); g.fillRect(w - 5, 22, 1, 6); }
   if (kind === 'pants') { g.fillStyle = shade(base, -.25); g.fillRect(0, 0, w, 3); }
 }); }
 function shade(hex, k) { const n = parseInt(hex.slice(1), 16), f = v => Math.max(0, Math.min(255, Math.round(v * (1 + k * 2)))); return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`; }
 function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s || 1, hx = c => '#' + new THREE.Color(c).getHexString();
-  const skinC = o.dead ? 0xa8b0ae : 0xb5835c, skin = L({ color: skinC }), shirt = L({ map: clothTex(hx(o.shirt), 'shirt') }), sleeve = L({ map: clothTex(hx(o.shirt), 'sleeve') }), pants = L({ map: clothTex(hx(o.pants), 'pants') });
+  const skinC = o.dead ? 0xa8b0ae : 0xb5835c, skin = L({ color: skinC }), shirt = L({ map: clothTex(hx(o.shirt), o.baba ? 'baba' : 'shirt') }), sleeve = L({ map: clothTex(hx(o.shirt), 'sleeve') }), pants = L({ map: clothTex(hx(o.pants), 'pants') });
   const hairM = L({ color: o.old ? 0xcfcac0 : o.dead ? 0x0e1012 : 0x16120f }), sandal = L({ color: 0x2a2018 });
   const J = (par, x, y, z) => { const g = new THREE.Group(); g.position.set(x, y, z); par.add(g); return g; };
   const add = (par, geo, mat, x, y, z, sx = 1, sy = 1, sz = 1) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.scale.set(sx, sy, sz); par.add(m); return m; };
@@ -92,8 +93,9 @@ function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s ||
   const spine = J(hips, 0, .1 * S, 0);
   add(spine, cyl(.23, .16, .56, 8), shirt, 0, .28 * S, 0, 1.1, 1, .68); // chest wider at the shoulders
   add(spine, new THREE.SphereGeometry(.1 * S, 6, 4), sleeve, -.21 * S, .5 * S, 0, 1, .8, 1); add(spine, new THREE.SphereGeometry(.1 * S, 6, 4), sleeve, .21 * S, .5 * S, 0, 1, .8, 1); // shoulder caps
+  if (o.baba) add(spine, cyl(.2, .225, .27, 8), shirt, 0, -.085 * S, 0, 1.12, 1, .8); // bà ba hem hangs past the hips
   const neck = J(spine, 0, .58 * S, 0); add(neck, cyl(.055, .065, .12, 6), skin, 0, .02 * S, 0);
-  add(neck, new THREE.CylinderGeometry(.09 * S, .11 * S, .05 * S, 8, 1, true), L({ color: o.shirt, side: THREE.DoubleSide }), 0, -.01 * S, .01 * S); // collar
+  if (!o.baba) add(neck, new THREE.CylinderGeometry(.09 * S, .11 * S, .05 * S, 8, 1, true), L({ color: o.shirt, side: THREE.DoubleSide }), 0, -.01 * S, .01 * S); // collar
   const head = add(neck, new THREE.SphereGeometry(.15 * S, 10, 8), L({ map: faceTex(o.dead ? 'dead' : o.old ? 'old' : 'n') }), 0, .21 * S, 0, .92, 1.12, 1); head.rotation.y = 0;
   add(neck, new THREE.SphereGeometry(.105 * S, 6, 4, 0, Math.PI * 2, Math.PI * .45, Math.PI * .45), skin, 0, .14 * S, .025 * S, 1, 1, 1); // jaw fill
   add(neck, new THREE.SphereGeometry(.03 * S, 4, 3), skin, -.14 * S, .2 * S, 0, .5, 1, .8); add(neck, new THREE.SphereGeometry(.03 * S, 4, 3), skin, .14 * S, .2 * S, 0, .5, 1, .8); // ears
@@ -105,7 +107,7 @@ function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s ||
     add(neck, new THREE.TorusGeometry(.085 * S, .03 * S, 4, 8), L({ map: kr }), 0, -.02 * S, .01 * S).rotation.x = Math.PI / 2; const tail = add(neck, new THREE.BoxGeometry(.06 * S, .16 * S, .02 * S), L({ map: kr }), .04 * S, -.11 * S, .1 * S); tail.rotation.z = .2; } // khăn rằn
   if (o.hat) add(neck, new THREE.ConeGeometry(.42 * S, .26 * S, 8), L({ color: 0xb8a070 }), 0, .46 * S, 0);
   const hand = (par, y, side) => { const h = J(par, 0, y, 0); add(h, new THREE.BoxGeometry(.075 * S, .1 * S, .035 * S), skin, 0, -.05 * S, 0); add(h, new THREE.BoxGeometry(.025 * S, .05 * S, .025 * S), skin, side * .045 * S, -.03 * S, .015 * S).rotation.z = side * .5; };
-  const arm = (x, side) => { const a = J(spine, x, .5 * S, 0); add(a, cyl(.062, .05, .3), sleeve, 0, -.15 * S, 0); const b = J(a, 0, -.3 * S, 0); add(b, cyl(.048, .038, .27), o.longSleeve === false ? skin : sleeve, 0, -.135 * S, 0);
+  const arm = (x, side) => { const a = J(spine, x, .5 * S, 0); add(a, o.baba ? cyl(.07, .068, .3) : cyl(.062, .05, .3), sleeve, 0, -.15 * S, 0); const b = J(a, 0, -.3 * S, 0); add(b, o.baba ? cyl(.066, .068, .27) : cyl(.048, .038, .27), o.longSleeve === false ? skin : sleeve, 0, -.135 * S, 0);
     add(b, cyl(.042, .038, .04), skin, 0, -.285 * S, 0); hand(b, -.3 * S, side); return [a, b]; };
   const leg = (x) => { const a = J(hips, x, -.06 * S, 0); add(a, cyl(.085, .065, .43), pants, 0, -.215 * S, 0); const b = J(a, 0, -.43 * S, 0); add(b, cyl(.062, .048, .36), pants, 0, -.18 * S, 0); // sole lands exactly at the root (y=0) so feet sit on the ground
     add(b, cyl(.04, .045, .04), skin, 0, -.36 * S, 0); add(b, new THREE.BoxGeometry(.1 * S, .045 * S, .2 * S), skin, 0, -.3875 * S, .045 * S); add(b, new THREE.BoxGeometry(.11 * S, .02 * S, .22 * S), sandal, 0, -.42 * S, .045 * S); return [a, b]; };
@@ -120,7 +122,7 @@ function pose(r, p) { const d = THREE.MathUtils.degToRad, S = r.S;
   const G = (th, sh, l) => { th.rotation.set(d(-(l[0] || 0)), 0, 0); sh.rotation.set(d(l[1] || 0), 0, 0); }; G(r.thL, r.shL, p.legL || [0, 0]); G(r.thR, r.shR, p.legR || [0, 0]); }
 function walk(ph, amp = 1) { const s = Math.sin(ph), c = Math.cos(ph); return { legL: [28 * s * amp, Math.max(0, -50 * c) * amp + 4], legR: [-28 * s * amp, Math.max(0, 50 * c) * amp + 4], armL: [-24 * s * amp, -8, 18], armR: [24 * s * amp, 8, 18], bob: .03 * Math.abs(Math.sin(ph)) * amp, lean: 4 }; }
 // Lực: faded blue short-sleeve shirt, dark trousers; Thìn: ivory áo bà ba, black trousers, khăn rằn round the neck; the ghost is Lực himself, same clothes
-const LUC = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false }), THIN = person({ shirt: 0xc9bea2, pants: 0x1a1816, old: true, s: .95, scarf: true }), GH = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false, dead: true, ghost: true });
+const LUC = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false }), THIN = person({ shirt: 0xc9bea2, pants: 0x1a1816, old: true, s: .95, scarf: true, baba: true }), GH = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false, dead: true, ghost: true });
 const ALL = [LUC, THIN, GH];
 
 // ---- post: 15-bit colour + light 4x4 ordered dither, nearest upscale
