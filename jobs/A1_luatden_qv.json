@@ -1,0 +1,15 @@
+{
+ "voices": [
+  "Thái Sơn",
+  "Đức Trí"
+ ],
+ "lines": [
+  "Mày quên bật đèn.",
+  "Mày quên bật đèn.",
+  "Mày quên bật đèn."
+ ],
+ "kw": {
+  "temperature": 1.0
+ },
+ "asr": true
+}
