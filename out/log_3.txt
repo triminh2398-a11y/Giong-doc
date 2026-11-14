@@ -1657,3 +1657,36 @@ A5_luatden_haidang Hải Đăng 55 ok 1.0
 A5_luatden_haidang Hải Đăng 59 ok 0.7
 A5_luatden_haidang Hải Đăng 63 ok 1.1
 A5_luatden_haidang asr ok
+loaded V3TurboVieNeuTTS
+B1_consotrendau Hải Đăng 3 ok 1.4
+B1_consotrendau Hải Đăng 7 ok 1.3
+B1_consotrendau Hải Đăng 11 ok 1.7
+B1_consotrendau Hải Đăng 15 ok 0.8
+B1_consotrendau Hải Đăng 19 ok 0.6
+B1_consotrendau Hải Đăng 23 ok 1.0
+B1_consotrendau Hải Đăng 27 ok 1.2
+B1_consotrendau Hải Đăng 31 ok 0.5
+B1_consotrendau Hải Đăng 35 ok 1.2
+B1_consotrendau Hải Đăng 39 ok 0.9
+B1_consotrendau Hải Đăng 43 ok 1.6
+B1_consotrendau Hải Đăng 47 ok 1.2
+B1_consotrendau Hải Đăng 51 ok 0.7
+B1_consotrendau Hải Đăng 55 ok 1.1
+B1_consotrendau Hải Đăng 59 ok 0.9
+B1_consotrendau Hải Đăng 63 ok 1.1
+B1_consotrendau Hải Đăng 67 ok 1.2
+B1_consotrendau Hải Đăng 71 ok 0.9
+B1_consotrendau Hải Đăng 75 ok 1.0
+B1_consotrendau Hải Đăng 79 ok 0.7
+B1_consotrendau Hải Đăng 83 ok 1.6
+B1_consotrendau Hải Đăng 87 ok 1.2
+B1_consotrendau Hải Đăng 91 ok 1.5
+B1_consotrendau Hải Đăng 95 ok 1.7
+B1_consotrendau Hải Đăng 99 ok 0.7
+B1_consotrendau Hải Đăng 103 ok 0.5
+B1_consotrendau Hải Đăng 107 ok 0.9
+B1_consotrendau Hải Đăng 111 ok 1.2
+B1_consotrendau Hải Đăng 115 ok 0.5
+B1_consotrendau Hải Đăng 119 ok 1.3
+B1_consotrendau Hải Đăng 123 ok 1.1
+B1_consotrendau asr ok
