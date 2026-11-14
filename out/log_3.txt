@@ -1639,3 +1639,21 @@ A4_luatden_tintuc Minh Đức 35 ok 0.5
 A4_luatden_tintuc Minh Đức 39 ok 0.7
 A4_luatden_tintuc Minh Đức 43 ok 1.0
 A4_luatden_tintuc asr ok
+loaded V3TurboVieNeuTTS
+A5_luatden_haidang Hải Đăng 3 ok 1.2
+A5_luatden_haidang Hải Đăng 7 ok 0.8
+A5_luatden_haidang Hải Đăng 11 ok 1.0
+A5_luatden_haidang Hải Đăng 15 ok 0.7
+A5_luatden_haidang Hải Đăng 19 ok 1.0
+A5_luatden_haidang Hải Đăng 23 ok 0.7
+A5_luatden_haidang Hải Đăng 27 ok 0.8
+A5_luatden_haidang Hải Đăng 31 ok 0.8
+A5_luatden_haidang Hải Đăng 35 ok 0.7
+A5_luatden_haidang Hải Đăng 39 ok 0.8
+A5_luatden_haidang Hải Đăng 43 ok 1.0
+A5_luatden_haidang Hải Đăng 47 ok 1.0
+A5_luatden_haidang Hải Đăng 51 ok 0.7
+A5_luatden_haidang Hải Đăng 55 ok 1.0
+A5_luatden_haidang Hải Đăng 59 ok 0.7
+A5_luatden_haidang Hải Đăng 63 ok 1.1
+A5_luatden_haidang asr ok
