@@ -1589,3 +1589,7 @@ A2_luatden_fix clone:refs/mada8.wav 11 ok 0.6
 A2_luatden_fix clone:refs/mada8.wav 15 ok 0.6
 A2_luatden_fix clone:refs/mada8.wav 19 ok 0.8
 A2_luatden_fix asr ok
+loaded V3TurboVieNeuTTS
+A3_luatden_fix2 clone:refs/mada8.wav 3 ok 21.2
+A3_luatden_fix2 clone:refs/mada8.wav 7 ok 1.1
+A3_luatden_fix2 asr ok
