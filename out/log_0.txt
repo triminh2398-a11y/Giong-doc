@@ -1668,3 +1668,7 @@ stv_keobong_02 Hải Đăng 24 ok 2.3
 stv_keobong_02 Hải Đăng 28 ok 1.4
 stv_keobong_02 Hải Đăng 32 ok 2.0
 stv_keobong_02 asr ok
+loaded V3TurboVieNeuTTS
+stv_keobong_02b Hải Đăng 0 ok 1.6
+stv_keobong_02b Hải Đăng 4 ok 1.7
+stv_keobong_02b asr ok
