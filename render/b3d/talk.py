@@ -12,7 +12,7 @@ def person(name, x, y, rotz, action='idle', frame=10):
     before=set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=HERE+'/chars/'+name+'.glb'); objs=[o for o in bpy.data.objects if o not in before]
     root=[o for o in objs if o.parent is None][0]
     arm=[o for o in objs if o.type=='ARMATURE'][0]; arm.name=name
-    body=RT.jaw_key(objs)
+    body=RT.jaw_key(objs, angle=float(os.environ.get('JAW', 10)))
     act=RT.bake(arm, action, name=name+'_'+action, damp={'clavicle_l':.25,'clavicle_r':.25,'spine_03':.6})
     root.location=(x,y,0); root.rotation_euler=(0,0,rotz)
     return arm, objs

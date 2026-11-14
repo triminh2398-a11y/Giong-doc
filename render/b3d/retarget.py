@@ -68,7 +68,7 @@ def jaw_key(objs, head_bone_z=None, angle=14.0):
     body = [o for o in objs if o.type == 'MESH' and o.name.startswith('Body')][0]
     teeth = [o for o in objs if o.type == 'MESH' and o.name.startswith('Teeth')]
     tb = [teeth[0].matrix_world @ mathutils.Vector(c) for c in teeth[0].bound_box] if teeth else None
-    zt = min(v.z for v in tb); zt2 = max(v.z for v in tb); ymid = sum(v.y for v in tb) / 8; mouth_z = (zt + zt2) / 2
+    zt = min(v.z for v in tb); zt2 = max(v.z for v in tb); ymid = sum(v.y for v in tb) / 8; mouth_z = zt2 - .0125  # lip seam sits ~12 mm below the top of the teeth on MakeHuman heads
     hinge = mathutils.Vector((0, ymid + .07, zt2 + .005))  # behind the teeth, a bit above (ear/condyle line)
     R = mathutils.Matrix.Rotation(__import__('math').radians(angle), 4, 'X')
     for o in [body] + teeth + [x for x in objs if x.type == 'MESH' and x.name.startswith('Tongue')]:
@@ -76,7 +76,7 @@ def jaw_key(objs, head_bone_z=None, angle=14.0):
         k = o.shape_key_add(name='jaw_open', from_mix=False); mw = o.matrix_world; mi = mw.inverted()
         for i, v in enumerate(o.data.vertices):
             p = mw @ v.co
-            if p.z > mouth_z + .004 or p.z < zt - .09 or abs(p.x) > .075 or p.y > ymid + .06: continue
-            w = min(1, max(0, (mouth_z + .004 - p.z) / .012)) * min(1, max(0, (p.z - (zt - .09)) / .03)) * min(1, max(0, (.075 - abs(p.x)) / .02))
+            if p.z > mouth_z + .0005 or p.z < zt - .09 or abs(p.x) > .075 or p.y > ymid + .06: continue
+            w = min(1, max(0, (mouth_z + .0005 - p.z) / .004)) * min(1, max(0, (p.z - (zt - .09)) / .03)) * min(1, max(0, (.075 - abs(p.x)) / .02))
             q = hinge + (R @ (p - hinge)); k.data[i].co = mi @ p.lerp(q, w)
     return body

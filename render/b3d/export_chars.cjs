@@ -1,9 +1,9 @@
 const { chromium } = require('playwright'); const path = require('path'); const http = require('http'), fs = require('fs');
-const root = '/home/claude/assets3d/CharacterCreator';
+const root = '/home/claude/assets3d/CharacterCreator'; const OUTD = __dirname + '/chars';
 const MT = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.glb': 'model/gltf-binary', '.png': 'image/png', '.jpg': 'image/jpeg', '.css': 'text/css', '.wasm': 'application/wasm' };
 const SKIN = '#c49a74';
 const C = {
-  luc:  { sex: 'male', values: { age: .05, weight: -.25, muscle: .2, height: -.35, eyeTilt: .5, noseWidth: .3, jawWidth: .2 }, colors: { skin: SKIN, hairColor: '#0e0c0c', browColor: '#0e0c0c', eyeColor: '#2a1a12' }, hair: 'short02', outfit: ['briefs', 'shirt', 'jeans'], clothColors: { shirt: { primary: '#4a3c2c' }, jeans: { primary: '#26272b' } } },
+  luc:  { sex: 'male', values: { age: .12, weight: -.1, muscle: .45, height: -.35, eyeTilt: .45, noseWidth: .4, jawWidth: .65, chin: .45, cheekbones: .35, lips: -.45, mouthWidth: .2, breastSize: -1, breastProjection: -1 }, colors: { skin: SKIN, hairColor: '#0e0c0c', browColor: '#0e0c0c', eyeColor: '#2a1a12' }, hair: 'short02', outfit: ['briefs', 'shirt', 'jeans'], clothColors: { shirt: { primary: '#4a3c2c' }, jeans: { primary: '#26272b' } } },
   dat:  { sex: 'male', values: { age: -.25, weight: -.35, height: -.4, eyeTilt: .5, noseWidth: .3 }, colors: { skin: '#caa27c', hairColor: '#0e0c0c', browColor: '#0e0c0c', eyeColor: '#2a1a12' }, hair: 'short04', outfit: ['briefs', 'tshirt', 'shorts'], clothColors: { tshirt: { primary: '#3e4c5a' }, shorts: { primary: '#3a342e' } } },
   thin: { sex: 'male', values: { age: .85, weight: -.45, muscle: -.4, height: -.45, eyeTilt: .4, noseWidth: .35 }, colors: { skin: '#b48a64', hairColor: '#c8c4bc', browColor: '#c8c4bc', eyeColor: '#2a1a12' }, hair: 'short04', outfit: ['briefs', 'shirt', 'jeans'], clothColors: { shirt: { primary: '#6a5a42' }, jeans: { primary: '#34302c' } } },
   ba1:  { sex: 'female', values: { age: .35, weight: -.1, height: -.5, eyeTilt: .5, noseWidth: .3 }, colors: { skin: '#c8a07a', hairColor: '#0e0c0c', browColor: '#0e0c0c', eyeColor: '#2a1a12' }, hair: 'ponytail01', outfit: ['panties', 'bra', 'shirt', 'skirt'], clothColors: { shirt: { primary: '#5a3438' }, skirt: { primary: '#1e1e22' } } },
@@ -16,5 +16,5 @@ const C = {
   for (const [id, st] of Object.entries(C)) { if (process.argv[2] && !process.argv.slice(2).includes(id)) continue;
     await p.evaluate(s => window.__loadSettings({ format: 'charactercreator.character', version: 1, ...s, values: { gender: s.sex === 'female' ? -1 : 1, ...s.values } }), st); await p.waitForTimeout(1500);
     const arr = await p.evaluate(async () => { const ab = await window.__export({ shape: 'baked', animations: 'all', fps: 30, textureSize: 1024, merge: false }); return Array.from(new Uint8Array(ab)); });
-    fs.writeFileSync(`/home/claude/b3dv/chars/${id}.glb`, Buffer.from(arr)); console.log(id, arr.length); }
+    fs.writeFileSync(`${OUTD}/${id}.glb`, Buffer.from(arr)); console.log(id, arr.length); }
   await b.close(); srv.close(); })();
