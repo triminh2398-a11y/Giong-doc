@@ -65,6 +65,7 @@ def mat(name, hexc, rough=0.85, emit=None, strength=0.0):
 def set_emit(m, s):
     m.node_tree.nodes['Principled BSDF'].inputs['Emission Strength'].default_value = s
 
+WETMATS = []
 def noise_mat(name, h1, h2, scale, rough=0.9):
     m = bpy.data.materials.new(name); m.use_nodes = True
     nt = m.node_tree; p = nt.nodes['Principled BSDF']
@@ -78,6 +79,7 @@ def noise_mat(name, h1, h2, scale, rough=0.9):
     nt.links.new(cr.outputs['Color'], p.inputs['Base Color'])
     p.inputs['Roughness'].default_value = rough
     if 'Specular IOR Level' in p.inputs: p.inputs['Specular IOR Level'].default_value = 0.15
+    WETMATS.append((p, rough))
     return m
 
 # ---------------------------------------------------------------- meshes
@@ -90,7 +92,7 @@ def box(name, size, center=(0, 0, 0), m=None, parent=None, loc=(0, 0, 0), rot=(0
     if m: me.materials.append(m)
     return link(o, parent)
 
-def lathe(name, R, H, b, m=None, parent=None, loc=(0, 0, 0), N=48, face_w=None, face_h=None, zc=None):
+def lathe(name, R, H, b, m=None, parent=None, loc=(0, 0, 0), N=64, face_w=None, face_h=None, zc=None, sq=2.0):
     prof = [(0.0, 0.0)]
     for k in range(5):
         a = -math.pi / 2 + k * (math.pi / 2) / 4
@@ -103,7 +105,8 @@ def lathe(name, R, H, b, m=None, parent=None, loc=(0, 0, 0), N=48, face_w=None, 
     rings = []
     for j in range(N):
         ph = 2 * math.pi * j / N - math.pi
-        rings.append([bm.verts.new((r * math.sin(ph), -r * math.cos(ph), z)) for r, z in prof])
+        k_ = 1.0 / ((abs(math.cos(ph)) ** sq + abs(math.sin(ph)) ** sq) ** (1.0 / sq))
+        rings.append([bm.verts.new((r * k_ * math.sin(ph), -r * k_ * math.cos(ph), z)) for r, z in prof])
     phis = [2 * math.pi * j / N - math.pi for j in range(N)]
     fw = face_w or (2 * math.pi * R * 130 / 360); fh = face_h or fw * 578 / 1024
     zc = zc if zc is not None else H / 2
@@ -188,6 +191,7 @@ MOON = light('moon', 'SUN', 0.55, '#9EB8FF', rot=(52 * D2R, 0, -35 * D2R), angle
 
 # ---------------------------------------------------------------- ground
 grass = noise_mat('grass', '#336B24', '#42802B', 1.4)
+GRASS_P = WETMATS[-1][0]
 asph = noise_mat('asph', '#212126', '#2E2E33', 6)
 side = noise_mat('side', '#7E7E86', '#8E8E96', 3)
 yline = mat('yline', '#FAC726', 0.6)
@@ -202,8 +206,10 @@ FDIR = os.path.join(HERE, 'faces'); os.makedirs(FDIR, exist_ok=True)
 def face_img(kind):
     im = Image.new('RGBA', (1024, 578), (0, 0, 0, 0)); d = ImageDraw.Draw(im); K = (0, 0, 0, 255)
     L, R = 412, 612
-    def eyes(h=52, w=34, y=270):
-        for x in (L, R): d.ellipse((x - w / 2, y - h / 2, x + w / 2, y + h / 2), fill=K)
+    def eyes(h=64, w=42, y=270):
+        for x in (L, R):
+            d.ellipse((x - w / 2, y - h / 2, x + w / 2, y + h / 2), fill=K)
+            d.ellipse((x - w / 2 + 6, y - h / 2 + 8, x - w / 2 + 20, y - h / 2 + 22), fill=(255, 255, 255, 255))
     def brows(dl, dr, y=200, wdt=16):  # dl: inner-end offset (neg = raised)
         d.line((L - 50, y, L + 40, y + dl), fill=K, width=wdt); d.line((R + 50, y, R - 40, y + dr), fill=K, width=wdt)
     if kind == 'smile':
@@ -288,6 +294,11 @@ class Kid:
         shoe = mat('shoe', '#F2F2F2', 0.7); hm = mat(name + '_h', hair, 0.9)
         s.body = empty(name + '_body', (0, 0, 2), s.root)
         box(name + '_torso', (2, 1, 2), (0, 0, 1), tm, s.body)
+        dk = mat('belt', '#26262B', 0.6)
+        box(name + '_belt', (2.04, 1.04, 0.24), (0, 0, 0.12), dk, s.body)
+        box(name + '_buckle', (0.34, 0.06, 0.2), (0, -0.53, 0.12), mat('buckle', '#D8C060', 0.3), s.body)
+        box(name + '_collar', (1.2, 1.06, 0.18), (0, 0, 1.93), mat(name + '_col', '#F4F1E8', 0.7), s.body)
+        box(name + '_pocket', (0.55, 0.05, 0.45), (0.5, -0.52, 1.45), dk, s.body)
         s.arm = {}; s.leg = {}
         for side, sx in (('L', 1.5), ('R', -1.5)):
             a = empty(name + '_arm' + side, (sx, 0, 2), s.body)
@@ -299,17 +310,18 @@ class Kid:
             box(name + '_shoe' + side, (1.02, 1.04, 0.38), (0, -0.02, -1.81), shoe, g)
             s.leg[side] = g
         s.neck = empty(name + '_neck', (0, 0, 2), s.body)
-        s.head = lathe(name + '_head', 0.62, 1.22, 0.22, FMAT['stern'], s.neck)
+        s.head = lathe(name + '_head', 0.74, 1.40, 0.30, FMAT['stern'], s.neck, face_w=1.75, sq=5.0)
         s.head.material_slots[0].link = 'OBJECT'; s.head.material_slots[0].material = FMAT['stern']
         if cap:
             cm = mat(name + '_cap', cap, 0.7)
-            s.cap = cyl(name + '_capc', 0.68, 0.42, cm, s.neck, (0, 0, 1.15), center=False)
-            box(name + '_brim', (1.1, 0.8, 0.1), (0, -0.85, 1.2), cm, s.neck)
+            s.cap = box(name + '_capc', (1.62, 1.62, 0.5), (0, 0, 1.55), cm, s.neck)
+            box(name + '_brim', (1.4, 0.9, 0.12), (0, -1.05, 1.36), cm, s.neck)
         else:
-            box(name + '_hair', (1.34, 1.34, 0.36), (0, 0.04, 1.2), hm, s.neck)
-            box(name + '_hairb', (1.34, 0.3, 0.9), (0, 0.55, 0.85), hm, s.neck)
+            box(name + '_hair', (1.62, 1.62, 0.42), (0, 0.04, 1.42), hm, s.neck)
+            box(name + '_hairf', (1.62, 0.35, 0.32), (0, -0.66, 1.2), hm, s.neck)
+            box(name + '_hairb', (1.62, 0.35, 1.0), (0, 0.66, 0.95), hm, s.neck)
             if pig:
-                for sx in (-1, 1): box(name + '_pig', (0.4, 0.4, 0.7), (sx * 0.8, 0.3, 0.75), hm, s.neck)
+                for sx in (-1, 1): box(name + '_pig', (0.45, 0.45, 0.8), (sx * 0.95, 0.3, 0.8), hm, s.neck)
         s.face = 'stern'; s.flash = None
     def place(s, x, y, heading_deg):
         s.root.location = (x, y, 0); s.root.rotation_euler = (0, 0, (heading_deg + 90) * D2R)
@@ -383,6 +395,28 @@ me = bpy.data.meshes.new('beam'); bmb.to_mesh(me); bmb.free(); me.materials.appe
 BEAM = link(bpy.data.objects.new('beam', me), FL)
 try: BEAM.visible_shadow = False
 except Exception: pass
+def beam_cone(name, length, half_deg, parent, loc=(0, 0, 0), rot=(0, 0, 0), strength=0.10, color='#FFD9A0'):
+    bmc = bpy.data.materials.new(name + '_m'); bmc.use_nodes = True; nt_ = bmc.node_tree
+    for n in list(nt_.nodes):
+        if n.type != 'OUTPUT_MATERIAL': nt_.nodes.remove(n)
+    tr_ = nt_.nodes.new('ShaderNodeBsdfTransparent'); be_ = nt_.nodes.new('ShaderNodeEmission')
+    be_.inputs['Color'].default_value = lin4(color); be_.inputs['Strength'].default_value = strength
+    lw = nt_.nodes.new('ShaderNodeLayerWeight'); lw.inputs['Blend'].default_value = 0.35
+    inv = nt_.nodes.new('ShaderNodeMath'); inv.operation = 'MULTIPLY'; inv.inputs[1].default_value = 0.09
+    one = nt_.nodes.new('ShaderNodeMath'); one.operation = 'SUBTRACT'; one.inputs[0].default_value = 1.0
+    nt_.links.new(lw.outputs['Facing'], one.inputs[1]); nt_.links.new(one.outputs[0], inv.inputs[0])
+    ms_ = nt_.nodes.new('ShaderNodeMixShader')
+    nt_.links.new(inv.outputs[0], ms_.inputs[0]); nt_.links.new(tr_.outputs[0], ms_.inputs[1]); nt_.links.new(be_.outputs[0], ms_.inputs[2])
+    nt_.links.new(ms_.outputs[0], nt_.nodes['Material Output'].inputs['Surface'])
+    try: bmc.surface_render_method = 'BLENDED'
+    except Exception: bmc.blend_method = 'BLEND'
+    b_ = bmesh.new(); bmesh.ops.create_cone(b_, cap_ends=False, segments=32, radius1=0.15, radius2=length * math.tan(half_deg * D2R), depth=length)
+    bmesh.ops.translate(b_, verts=b_.verts, vec=(0, 0, -length / 2))
+    me_ = bpy.data.meshes.new(name); b_.to_mesh(me_); b_.free(); me_.materials.append(bmc)
+    o_ = bpy.data.objects.new(name, me_); o_.location = loc; o_.rotation_euler = rot
+    try: o_.visible_shadow = False
+    except Exception: pass
+    return link(o_, parent)
 FLASH_BULB = mat('flbulb', '#444444', 0.4, '#FFE3B0', 0)
 sphere('flbulbm', 0.13, FLASH_BULB, FL, (0, 0, 0.05))
 
@@ -454,13 +488,15 @@ for x in (-48, -18, 12, 42):
     bm_ = mat('bulb%d' % x, '#777777', 0.4, '#FFBD6B', 9)
     sphere('bulb', 0.4, bm_, r, (0, 3.6, 12.55))
     L = light('lampL', 'SPOT', 4200, '#FFBD6B', r, (0, 3.6, 12.3), spot_size=118 * D2R, spot_blend=0.35, shadow_soft_size=0.4)
-    LAMPS[x] = (L, bm_)
+    bc = beam_cone('lbeam', 12.2, 26, r, (0, 3.6, 12.3), strength=0.12, color='#FFC98A')
+    LAMPS[x] = (L, bm_, bc)
 GX, GY = 58, -9.0
 gr = empty('globe', (GX, GY, 0))
 box('gpole', (0.45, 0.45, 9.6), (0, 0, 4.8), pole_m, gr)
 GLOBE_M = mat('globem', '#777777', 0.3, '#FFD9A0', 14)
 sphere('glob', 1.0, GLOBE_M, gr, (0, 0, 10.4))
 GLOBE = light('globeL', 'POINT', 9000, '#FFC98A', gr, (0, 0, 10.4), shadow_soft_size=0.9)
+GBEAM = beam_cone('gbeam', 9.6, 32, gr, (0, 0, 10.0), strength=0.14, color='#FFD9A0')
 
 # swings near the globe
 sw = empty('swings', (68, -18, 0))
@@ -502,6 +538,63 @@ def hand_(name, L_, w, m_):
 HOUR = hand_('hourh', 1.0, 0.16, k_m); MINU = hand_('minh', 1.5, 0.11, k_m); SEC = hand_('sech', 1.65, 0.05, mat('red', '#EC1C24', 0.5))
 light('ilamp', 'POINT', 900, '#FFC27A', None, (IX - 2, IY - 7, 9), shadow_soft_size=0.6)
 light('ilamp2', 'POINT', 260, '#FFC27A', None, (IX + 1.5, IY - 3.5, 6.5), shadow_soft_size=0.4)
+
+# ---------------------------------------------------------------- floodlight towers
+TOWERS = []
+steel = mat('steel', '#2B2F38', 0.5)
+for tx, ty, yaw in ((-58, 22, -0.5), (84, -26, 2.4), (26, 34, 0.2)):
+    tr0 = empty('tower', (tx, ty, 0)); tr0.rotation_euler = (0, 0, yaw)
+    for sx in (-1.6, 1.6):
+        for sy in (-1.6, 1.6):
+            box('tleg', (0.35, 0.35, 24), (sx * 0.8, sy * 0.8, 12), steel, tr0, rot=(-sy * 0.055, sx * 0.055, 0))
+    for z in range(2, 24, 3):
+        w_ = 3.4 - z * 0.06
+        box('tb1', (w_, 0.2, 0.2), (0, -w_ / 2, z), steel, tr0); box('tb2', (w_, 0.2, 0.2), (0, w_ / 2, z), steel, tr0)
+        box('tb3', (0.2, w_, 0.2), (-w_ / 2, 0, z), steel, tr0); box('tb4', (0.2, w_, 0.2), (w_ / 2, 0, z), steel, tr0)
+        box('tx', (0.15, w_ * 1.35, 0.15), (0, -w_ / 2, z + 1.5), steel, tr0, rot=(0.8, 0, math.pi / 2))
+    hd = empty('thead', (0, 0, 24.5), tr0); hd.rotation_euler = (-0.55, 0, 0)
+    box('tframe', (6.2, 0.6, 2.4), (0, 0.35, 0), steel, hd)
+    pm_ = mat('tpanel%d' % tx, '#DDDDDD', 0.3, '#F4F6FF', 12)
+    for px in (-2.0, 0, 2.0): box('tpanel', (1.7, 0.1, 1.9), (px, 0.0, 0), pm_, hd)
+    L_ = light('towerL', 'SPOT', 3500, '#EEF2FF', hd, (0, -0.4, 0), rot=(math.pi / 2, 0, 0), spot_size=70 * D2R, spot_blend=0.4, shadow_soft_size=1.0)
+    bs_ = [beam_cone('tbeam', 46, 11, hd, (px, -0.2, 0), rot=(math.pi / 2, 0, 0), strength=0.07, color='#EEF2FF') for px in (-2.0, 0, 2.0)]
+    TOWERS.append((L_, pm_, bs_))
+
+# ---------------------------------------------------------------- city skyline with lit windows
+skm = bpy.data.materials.new('skyline'); skm.use_nodes = True; nt = skm.node_tree; pB = nt.nodes['Principled BSDF']
+pB.inputs['Base Color'].default_value = lin4('#3A4258'); pB.inputs['Roughness'].default_value = 0.8
+tcs = nt.nodes.new('ShaderNodeTexCoord'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tcs.outputs['Object'], sp.inputs['Vector'])
+def mth(op, a=None, b=None):
+    n = nt.nodes.new('ShaderNodeMath'); n.operation = op
+    for i, v in enumerate((a, b)):
+        if v is None: continue
+        if isinstance(v, (int, float)): n.inputs[i].default_value = v
+        else: nt.links.new(v, n.inputs[i])
+    return n.outputs[0]
+hcoord = mth('MULTIPLY', mth('ADD', sp.outputs['X'], sp.outputs['Y']), 1 / 2.6)
+vcoord = mth('MULTIPLY', sp.outputs['Z'], 1 / 3.2)
+fu = mth('FRACT', hcoord); fv = mth('FRACT', vcoord)
+winu = mth('MULTIPLY', mth('GREATER_THAN', fu, 0.28), mth('LESS_THAN', fu, 0.72))
+winv = mth('MULTIPLY', mth('GREATER_THAN', fv, 0.32), mth('LESS_THAN', fv, 0.78))
+cell = nt.nodes.new('ShaderNodeCombineXYZ')
+nt.links.new(mth('FLOOR', hcoord), cell.inputs['X']); nt.links.new(mth('FLOOR', vcoord), cell.inputs['Y'])
+oi = nt.nodes.new('ShaderNodeObjectInfo'); nt.links.new(mth('MULTIPLY', oi.outputs['Random'], 97.0), cell.inputs['Z'])
+wn_ = nt.nodes.new('ShaderNodeTexWhiteNoise'); wn_.noise_dimensions = '3D'; nt.links.new(cell.outputs[0], wn_.inputs['Vector'])
+lit = mth('GREATER_THAN', wn_.outputs['Value'], 0.55)
+win = mth('MULTIPLY', mth('MULTIPLY', winu, winv), lit)
+mcol = nt.nodes.new('ShaderNodeMix'); mcol.data_type = 'RGBA'
+mcol.inputs[6].default_value = lin4('#FFE2A6'); mcol.inputs[7].default_value = lin4('#CFE0FF')
+nt.links.new(mth('GREATER_THAN', wn_.outputs['Value'], 0.8), mcol.inputs['Factor'])
+nt.links.new(mcol.outputs[2], pB.inputs['Emission Color'])
+skw = mth('MULTIPLY', win, 2.2); nt.links.new(skw, pB.inputs['Emission Strength'])
+SKYW = skw.node.inputs[1]
+nt.links.new(mth('MULTIPLY', win, 0.0), pB.inputs['Roughness']) if False else None
+rs = random.Random(11)
+for i in range(70):
+    a = 2 * math.pi * i / 70 + rs.uniform(-0.03, 0.03); rr = rs.uniform(190, 280)
+    w_ = rs.uniform(12, 26); h_ = rs.uniform(22, 60) if rs.random() > 0.2 else rs.uniform(60, 90)
+    o_ = box('bld', (w_, w_ * rs.uniform(0.7, 1.2), h_), (0, 0, h_ / 2), skm, None, (rr * math.cos(a), rr * math.sin(a), 0))
+    o_.rotation_euler = (0, 0, a + math.pi / 2)
 
 # ---------------------------------------------------------------- camera
 CAM = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); link(CAM); S.camera = CAM
@@ -550,9 +643,13 @@ T_FLASH = W(62)
 
 def world_state(t):
     bo = T_BO <= t < T_BACK
-    SKY.default_value = 0.12 if bo else 1.0
-    MOON.data.energy = 0.04 if bo else 0.55
+    SKY.default_value = 0.12 if bo else 1.7
+    MOON.data.energy = 0.04 if bo else 1.1
     TWINKLE.default_value = t * 0.35
+    wet = t >= W(47) - 0.04
+    for p_, r0 in WETMATS:
+        p_.inputs['Roughness'].default_value = (0.12 if r0 < 0.95 and p_ is not GRASS_P else 0.45) if wet else r0
+        if 'Specular IOR Level' in p_.inputs: p_.inputs['Specular IOR Level'].default_value = 0.6 if wet else 0.15
     STARG.default_value = 1.6 / 0.12 * 0.6 if bo else 1.6
     for h in HOUSES:
         lit = not bo
@@ -561,12 +658,16 @@ def world_state(t):
         if h is H_BIN and t >= T_BINDARK: lit = False
         door = 1.0 if (t >= T_BACK and h is not H_BIN) else 0.0
         h.set(lit, door)
-    for x, (L, bm_) in LAMPS.items():
+    for x, (L, bm_, bc) in LAMPS.items():
         on = not bo
         if x in T_LAMP and T_LAMP[x] - 0.12 <= t < T_BACK: on = flicker(t, T_LAMP[x])
-        L.data.energy = 4200 if on else 0; set_emit(bm_, 9 if on else 0)
+        L.data.energy = 4200 if on else 0; set_emit(bm_, 9 if on else 0); bc.hide_render = not on
     gon = flicker(t, T_BO) if t < T_BACK else True
-    GLOBE.data.energy = 9000 if gon else 0; set_emit(GLOBE_M, 14 if gon else 0)
+    GLOBE.data.energy = 9000 if gon else 0; set_emit(GLOBE_M, 14 if gon else 0); GBEAM.hide_render = not gon
+    for L_, pm_, bs_ in TOWERS:
+        L_.data.energy = 0 if bo else 3500; set_emit(pm_, 0 if bo else 12)
+        for b_ in bs_: b_.hide_render = bo
+    SKYW.default_value = 0 if bo else 1.5
     fon = (t >= T_FLASH) and not bo
     FL.data.energy = 1400 if fon else 0; BEAM.hide_render = not fon; set_emit(FLASH_BULB, 2.5 if fon else 0)
     # props that always move
@@ -762,6 +863,13 @@ def apply(t):
     if ov:
         bpy.context.view_layer.update()
         c, g = ov['c'](k), ov['g'](k)
+    i_ = SHOTS.index(s)
+    if not ov and i_ not in (18, 19, 20, 28):
+        sgn = 1 if i_ % 2 else -1
+        a = sgn * 7 * D2R * (k - 0.5)
+        d = Vector(c) - Vector(g)
+        d = Vector((d.x * math.cos(a) - d.y * math.sin(a), d.x * math.sin(a) + d.y * math.cos(a), d.z))
+        c = tuple(Vector(g) + d + Vector((0, 0, 0.35 * (k - 0.5))))
     cam_set(c, g, s['fov'])
     MON_FACE_EM.default_value = 3.0
 
