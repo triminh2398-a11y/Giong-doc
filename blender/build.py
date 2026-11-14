@@ -174,6 +174,7 @@ wn.links.new(sep.outputs['Z'], up.inputs['Value'])
 m1 = wn.nodes.new('ShaderNodeMath'); m1.operation = 'MULTIPLY'
 m2 = wn.nodes.new('ShaderNodeMath'); m2.operation = 'MULTIPLY'
 m3 = wn.nodes.new('ShaderNodeMath'); m3.operation = 'MULTIPLY'; m3.inputs[1].default_value = 1.6
+STARG = m3.inputs[1]
 wn.links.new(st.outputs['Result'], m1.inputs[0]); wn.links.new(twm.outputs['Result'], m1.inputs[1])
 wn.links.new(m1.outputs[0], m2.inputs[0]); wn.links.new(up.outputs['Result'], m2.inputs[1])
 wn.links.new(m2.outputs[0], m3.inputs[0])
@@ -370,7 +371,7 @@ beam_m = bpy.data.materials.new('beam'); beam_m.use_nodes = True; nt = beam_m.no
 for n in list(nt.nodes):
     if n.type != 'OUTPUT_MATERIAL': nt.nodes.remove(n)
 tr = nt.nodes.new('ShaderNodeBsdfTransparent'); be = nt.nodes.new('ShaderNodeEmission')
-be.inputs['Color'].default_value = lin4('#FFE3B0'); be.inputs['Strength'].default_value = 0.5
+be.inputs['Color'].default_value = lin4('#FFE3B0'); be.inputs['Strength'].default_value = 0.12
 bms = nt.nodes.new('ShaderNodeMixShader'); bms.inputs[0].default_value = 0.06
 nt.links.new(tr.outputs[0], bms.inputs[1]); nt.links.new(be.outputs[0], bms.inputs[2])
 nt.links.new(bms.outputs[0], nt.nodes['Material Output'].inputs['Surface'])
@@ -380,8 +381,10 @@ bmb = bmesh.new(); bmesh.ops.create_cone(bmb, cap_ends=False, segments=24, radiu
 bmesh.ops.translate(bmb, verts=bmb.verts, vec=(0, 0, -7))
 me = bpy.data.meshes.new('beam'); bmb.to_mesh(me); bmb.free(); me.materials.append(beam_m)
 BEAM = link(bpy.data.objects.new('beam', me), FL)
+try: BEAM.visible_shadow = False
+except Exception: pass
 FLASH_BULB = mat('flbulb', '#444444', 0.4, '#FFE3B0', 0)
-sphere('flbulbm', 0.2, FLASH_BULB, FL, (0, 0, 0.05))
+sphere('flbulbm', 0.13, FLASH_BULB, FL, (0, 0, 0.05))
 
 # ---------------------------------------------------------------- houses
 HCOL = ['#C94F3D', '#3F7FBF', '#E0B33A', '#5BAA5B', '#8E5BB5', '#E07A3A', '#D8D8D0', '#3FB0B0']
@@ -431,7 +434,7 @@ H = {h.idx: h for h in HOUSES}
 H_TEO, H_SHUT, H_CHAIR, H_BIN, H_NB = H[1], H[0], H[3], H[5], H[6]
 # shutter on H_SHUT left window
 shm = mat('shutter', '#9AA0A8', 0.6)
-H_SHUT.shutter = box('shutter', (3.2, 0.3, 3.0), (0, 0, -1.5), shm, H_SHUT.root, (-3.9, -4.8, 8.0))
+H_SHUT.shutter = box('shutter', (3.2, 0.3, 4.6), (0, 0, -2.3), shm, H_SHUT.root, (-3.9, -4.8, 8.0))
 box('shbox', (3.4, 0.6, 0.6), (-3.9, -4.85, 8.2), shm, H_SHUT.root)
 # rocking chair on H_CHAIR porch
 cm_ = mat('chair', '#8A5A33', 0.8)
@@ -498,6 +501,7 @@ def hand_(name, L_, w, m_):
     p = empty(name, (0, -0.16, 0), CLK); box(name + 'm', (w, 0.05, L_), (0, 0, L_ / 2 - 0.15), m_, p); return p
 HOUR = hand_('hourh', 1.0, 0.16, k_m); MINU = hand_('minh', 1.5, 0.11, k_m); SEC = hand_('sech', 1.65, 0.05, mat('red', '#EC1C24', 0.5))
 light('ilamp', 'POINT', 900, '#FFC27A', None, (IX - 2, IY - 7, 9), shadow_soft_size=0.6)
+light('ilamp2', 'POINT', 260, '#FFC27A', None, (IX + 1.5, IY - 3.5, 6.5), shadow_soft_size=0.4)
 
 # ---------------------------------------------------------------- camera
 CAM = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); link(CAM); S.camera = CAM
@@ -549,6 +553,7 @@ def world_state(t):
     SKY.default_value = 0.12 if bo else 1.0
     MOON.data.energy = 0.04 if bo else 0.55
     TWINKLE.default_value = t * 0.35
+    STARG.default_value = 1.6 / 0.12 * 0.6 if bo else 1.6
     for h in HOUSES:
         lit = not bo
         if h is H_TEO and 2.3 <= t < 5.9: lit = False
@@ -563,7 +568,7 @@ def world_state(t):
     gon = flicker(t, T_BO) if t < T_BACK else True
     GLOBE.data.energy = 9000 if gon else 0; set_emit(GLOBE_M, 14 if gon else 0)
     fon = (t >= T_FLASH) and not bo
-    FL.data.energy = 1400 if fon else 0; BEAM.hide_render = not fon; set_emit(FLASH_BULB, 6 if fon else 0)
+    FL.data.energy = 1400 if fon else 0; BEAM.hide_render = not fon; set_emit(FLASH_BULB, 2.5 if fon else 0)
     # props that always move
     for i, p in enumerate(SWINGS):
         f, a = (0.38, 13) if i == 0 else (0.34, 8)
@@ -578,7 +583,7 @@ def world_state(t):
     kb = back((t - W(46)) / 0.14) if t >= W(46) else 0
     BOLT.location.x = IX + 4.1 - 1.0 * kb
     if t >= W(160) - 0.04:  # Bin's door creaks open onto black
-        H_BIN.door.rotation_euler = (0, 0, -100 * D2R * smooth((t - (W(160) - 0.04)) / 1.6))
+        H_BIN.door.rotation_euler = (0, 0, -100 * D2R * smooth((t - (W(160) - 0.04)) / 1.0))
 
 def reset():
     for k in KIDS: k.hide(); k.pose({})
@@ -592,7 +597,7 @@ def shot(t0, cam0, cam1, tg0, tg1, fov, setup):
 nothing = lambda t, u: None
 
 # S1 wide town obeying
-shot(0.0, (-70, -34, 26), (-62, -30, 23), (10, 4, 4), (10, 4, 4), 62, nothing)
+shot(0.0, (-72, -9, 27), (-64, -8, 24), (14, 6, 3), (14, 6, 3), 62, nothing)
 # S2 row of lit windows
 shot(cut(4), (-10, -6, 6.5), (-6, -4, 6.4), (18, 12, 5.5), (18, 12, 5.5), 50, nothing)
 # S3 Teo alone in front of his dark house
@@ -609,20 +614,20 @@ def capset(t, rate=1.0):
     CAPOBJ.location = (-14, 8.4, 0.16); CAPOBJ.rotation_euler = (0, 10 * D2R * math.sin(2 * math.pi * 1.1 * t) * math.exp(-(t - W(17)) * 0.5), 0.6)
 shot(cut(17), (-26, -1, 3.2), (-24.5, -0.5, 3.0), (-14, 8.4, 0.8), (-14, 8.4, 0.8), 52, lambda t, u: capset(t))
 # S6 close of the cap rocking
-shot(cut(20), (-16.6, 5.8, 1.6), (-15.6, 6.8, 1.2), (-14, 8.4, 0.2), (-14, 8.4, 0.2), 36, lambda t, u: capset(t))
+shot(cut(20), (-18.6, 3.4, 3.0), (-18.0, 4.0, 2.7), (-14, 8.4, 0.3), (-14, 8.4, 0.3), 36, lambda t, u: capset(t))
 # S7 clock ticks over to nine
 shot(cut(27), (IX - 5, IY - 9, 7.5), (IX - 5, IY - 7, 7.5), (IX - 5, IY, 7.5), (IX - 5, IY, 7.5), 34, nothing)
 # S8 every light pops on
-shot(cut(30), (-40, -26, 14), (-37, -24, 13), (16, 10, 5), (16, 10, 5), 60, nothing)
+shot(cut(30), (-44, -1, 11), (-40, -0.5, 10.5), (16, 12, 4), (16, 12, 4), 60, nothing)
 # S9 everyone runs home
 def s9(t, u):
     for i, (k, x0) in enumerate(zip(RUN, (-6, 0, 7))):
         y = -3 + 9 * u + i * 0.6; k.place(x0 + i, y, 90); k.pose(run(t + i * 0.13, {'face': 'scared'}))
-shot(cut(36), (2, -24, 5.5), (2, -21, 5.2), (2, 4, 3), (2, 4, 3), 58, s9)
+shot(cut(36), (-16, -4.5, 4.5), (-14, -4.2, 4.4), (4, 4, 3), (4, 4, 3), 58, s9)
 # S10 shutter slams
 shot(cut(42), (-35.9, 2.0, 5.2), (-35.9, 3.0, 5.2), (-35.9, 11.4, 5.4), (-35.9, 11.4, 5.4), 38, nothing)
 # S11 bolt slides
-shot(10.30, (IX + 3.6, IY - 4.0, 4.6), (IX + 3.6, IY - 3.4, 4.5), (IX + 3.6, IY, 4.0), (IX + 3.6, IY, 4.0), 32, nothing)
+shot(10.30, (IX + 3.0, IY - 6.0, 4.8), (IX + 3.1, IY - 5.2, 4.7), (IX + 3.6, IY, 4.0), (IX + 3.6, IY, 4.0), 34, nothing)
 # S12 Bin on his porch, looking down the street
 def binporch(t, P):
     BIN.place(46.5, 10.3, -90); BIN.pose(P)
@@ -634,7 +639,7 @@ shot(cut(50), (62, -27, 4.8), (63, -25.5, 4.6), (68, -18, 3), (68, -18, 3), 46, 
 shot(cut(57), (46.0, 3.2, 4.9), (46.2, 4.6, 4.9), (46.5, 10.3, 4.8), (46.5, 10.3, 4.8), 36,
      lambda t, u: binporch(t, keyed([(0, {'face': 'worried', 'head': -30}), (W(58), {'face': 'determined', 'head': 0}), (W(59), {'face': 'determined', 'armR': -70})], t)))
 # S15 flashlight clicks on
-shot(cut(61), (44.2, 5.0, 3.6), (44.6, 5.6, 3.6), (46.2, 8.6, 3.0), (46.2, 8.6, 3.0), 40,
+shot(cut(61), (41.4, 5.6, 4.6), (41.9, 5.9, 4.5), (46.2, 9.2, 3.6), (46.2, 9.2, 3.6), 46,
      lambda t, u: binporch(t, {'face': 'determined', 'armR': -52}))
 # S16 Bin runs out, his house goes dark behind him
 def s16(t, u):
@@ -666,7 +671,7 @@ def kidsglobe(t, bp, nap):
 def s22(t, u):
     NA.place(GX + 1.5, GY + 1.6, 110); NA.pose({'face': 'cry', 'armL': -20, 'armR': -20, 'headx': 12})
     BIN.place(GX - 9 + 6.4 * smooth(u * 1.4), GY + 3.2, -10); BIN.pose(run(t, {'face': 'worried'}, flash=True) if u < 0.7 else {'face': 'worried', 'armR': -52})
-shot(cut(85), (GX - 2, GY + 14, 4.6), (GX - 1.6, GY + 12.5, 4.6), (GX, GY + 1, 3.0), (GX, GY + 1, 3.0), 50, s22)
+shot(cut(85), (GX - 1, GY + 17, 5.0), (GX - 0.8, GY + 15.5, 4.9), (GX - 1, GY + 1.5, 3.0), (GX - 1, GY + 1.5, 3.0), 56, s22)
 # S23 low wide: the two of them in the last pool of light
 shot(cut(90), (GX - 14, GY + 16, 1.2), (GX - 12, GY + 14.5, 1.3), (GX, GY, 6.5), (GX, GY, 6.5), 64,
      lambda t, u: kidsglobe(t, {'face': 'worried', 'armR': -52}, {'face': 'scared', 'head': 40}))
@@ -686,33 +691,33 @@ shot(cut(98), (NBX + 8, 3.5, 5.0), (NBX + 7.2, 4.2, 5.0), (NBX, 10.5, 4.2), (NBX
 # S26 nobody answers
 def atdoor(t, bp, nap):
     BIN.place(NBX + 0.3, 9.3, 90); BIN.pose(bp); NA.place(NBX - 2.0, 8.4, 70); NA.pose(nap)
-shot(cut(102), (NBX - 0.6, 4.6, 5.0), (NBX - 0.6, 5.4, 5.0), (NBX - 0.6, 11, 4.6), (NBX - 0.6, 11, 4.6), 40,
+shot(cut(102), (NBX - 2.0, 0.5, 6.0), (NBX - 1.8, 1.6, 5.8), (NBX - 0.3, 11.4, 4.2), (NBX - 0.3, 11.4, 4.2), 46,
      lambda t, u: atdoor(t, keyed([(0, {'face': 'panic', 'armL': -95}), (W(104), {'face': 'scared', 'armL': 0, 'head': -60})], t), {'face': 'scared', 'head': -40}))
 # S27 the last light flickers - seen from the door, over the kids
 def turned(t, u, bf='scared'):
     BIN.place(NBX + 0.3, 9.6, -90); BIN.pose({'face': bf, 'armR': -52}); NA.place(NBX - 2.0, 9.2, -80); NA.pose({'face': 'scared'})
-shot(cut(106), (NBX - 0.6, 12.6, 5.6), (NBX - 0.8, 12.2, 5.6), (GX, GY, 7.0), (GX, GY, 7.5), 52, turned)
+shot(cut(106), (NBX + 1.2, 11.0, 6.4), (NBX + 1.0, 10.7, 6.4), (GX, GY, 7.0), (GX, GY, 7.5), 52, turned)
 # S28 it dies -> black
-shot(cut(111), (NBX - 0.6, 12.6, 5.6), (NBX - 0.6, 12.0, 5.6), (GX, GY, 7.5), (GX, GY, 7.8), 58, turned)
+shot(cut(111), (NBX + 1.2, 11.0, 6.4), (NBX + 1.2, 10.6, 6.4), (GX, GY, 7.5), (GX, GY, 7.8), 58, turned)
 # S29 three seconds of silence: only roofs against the stars
 shot(26.30, (8, -2, 1.0), (8, -1.4, 1.0), (8, 16, 16), (8, 16, 16.5), 64, nothing)
 # S30 the lights come back: same wide, every door open
-shot(cut(112), (-70, -34, 26), (-65, -31.5, 24), (10, 4, 4), (10, 4, 4), 62, nothing)
+shot(cut(112), (-72, -9, 27), (-66, -8.2, 24.8), (14, 6, 3), (14, 6, 3), 62, nothing)
 # S31 slow slide along the empty houses
 shot(cut(116), (-20, 1.5, 4.5), (2, 1.5, 4.5), (-12, 12, 3.6), (10, 12, 3.6), 56, nothing)
 # S32 rocking chair, still rocking, nobody home
-shot(cut(122), (H_CHAIR.x - 9, 3.0, 4.0), (H_CHAIR.x - 8.2, 4.0, 3.9), (H_CHAIR.x - 4.2, 10.0, 2.4), (H_CHAIR.x - 4.2, 10.0, 2.4), 44, nothing)
+shot(cut(122), (H_CHAIR.x - 1.5, 3.2, 4.2), (H_CHAIR.x - 0.8, 4.2, 4.0), (H_CHAIR.x + 4.0, 10.6, 2.0), (H_CHAIR.x + 4.0, 10.6, 2.0), 46, nothing)
 # S33-S35 the twist over the two of them
 KX, KY = 52.5, 7.6
 def twokids(t, bp, nap):
     BIN.place(KX, KY, -90); BIN.pose(bp); NA.place(KX + 1.9, KY - 0.3, -90); NA.pose(nap)
-shot(cut(129), (KX + 1.0, KY - 6.0, 4.9), (KX + 1.0, KY - 5.0, 4.8), (KX + 1.0, KY, 4.2), (KX + 1.0, KY, 4.2), 40,
+shot(cut(129), (KX + 1.0, KY - 8.5, 4.6), (KX + 1.0, KY - 7.4, 4.5), (KX + 1.0, KY, 3.9), (KX + 1.0, KY, 3.9), 42,
      lambda t, u: twokids(t, {'face': 'scared', 'armR': -52}, {'face': 'scared', 'armL': -30}))
 shot(cut(138), (36, -4, 5.0), (39, -1.5, 5.2), (48, 12, 5.0), (48, 12, 5.0), 50, lambda t, u: twokids(t, {'face': 'scared', 'armR': -52}, {'face': 'scared'}))
 def s35(t, u):
     BIN.place(KX, KY, -90 + 210 * smooth(u * 1.3)); BIN.pose({'face': 'shock' if u > 0.35 else 'scared', 'armR': -52})
     NA.place(KX + 1.9, KY - 0.3, -90 + 200 * smooth(u * 1.1 - 0.2)); NA.pose({'face': 'scared'})
-shot(cut(148), (KX + 1.2, KY - 7.0, 4.7), (KX + 1.2, KY - 6.0, 4.6), (KX + 1.0, KY, 4.2), (KX + 1.0, KY, 4.2), 42, s35)
+shot(cut(148), (KX + 1.2, KY - 9.5, 4.6), (KX + 1.2, KY - 8.4, 4.5), (KX + 1.0, KY, 3.9), (KX + 1.0, KY, 3.9), 46, s35)
 # S36 his own door creaks open onto black
 shot(cut(156), (51, 1.5, 4.0), (50.4, 3.0, 4.0), (48, 11.4, 3.4), (48, 11.4, 3.4), 44,
      lambda t, u: twokids(t, {'face': 'shock', 'armR': -52}, {'face': 'scared'}))
@@ -721,7 +726,7 @@ def s37(t, u):
     MON.place(48, 12.6, -48); MON.pose({'bend': 72 * smooth(u * 1.15), 'armL': -30 * u, 'armR': -40 * u, 'headx': -50 * smooth(u * 1.15)})
     twokids(t, {'face': 'panic', 'armR': -52}, {'face': 'panic'})
     BIN.place(KX, KY, 130); NA.place(KX + 1.9, KY - 0.3, 135)
-    return {'c': lambda k: (52.6 - 0.4 * k, 4.6 + 0.5 * k, 2.2), 'g': lambda k: tuple(lerp((48, 11.5, 6.5), tuple(mhead()), 0.5 + 0.5 * k))}
+    return {'c': lambda k: (43.6 + 0.4 * k, 4.2 + 0.4 * k, 2.2), 'g': lambda k: tuple(lerp((48.5, 11.0, 6.0), tuple(mhead()), 0.4 + 0.5 * k))}
 shot(cut(164), (52.5, 3.0, 2.0), (52.2, 3.6, 2.2), (48, 11.0, 6.5), (48, 10.5, 6.0), 58, s37)
 # S38 from its height, looking down at two terrified faces
 def mpose_end(t):
@@ -737,7 +742,7 @@ def s38(t, u, close=False):
     BIN.place(KX, KY, 132); BIN.pose({'face': 'panic', 'armR': -52, 'headx': -22})
     NA.place(KX + 1.9, KY - 0.3, 138); NA.pose({'face': 'panic', 'headx': -22, 'armL': -40, 'armR': -40})
     if not close:
-        return {'c': lambda k: tuple(mhead() + Vector((0, 0, 1.2)) + 0.3 * k * (kidc() - mhead())), 'g': lambda k: tuple(kidc())}
+        return {'c': lambda k: tuple(mhead() + mfwd() * 1.5 + Vector((0, 0, 0.6)) + 0.25 * k * (kidc() - mhead())), 'g': lambda k: tuple(kidc())}
     def cc(k):
         h = mhead(); f = mfwd(); return tuple(h + f * (4.2 - 0.6 * k) + Vector((0, 0, -0.4)))
     return {'c': cc, 'g': lambda k: tuple(mhead())}
