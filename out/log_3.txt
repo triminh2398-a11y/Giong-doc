@@ -1593,3 +1593,49 @@ loaded V3TurboVieNeuTTS
 A3_luatden_fix2 clone:refs/mada8.wav 3 ok 21.2
 A3_luatden_fix2 clone:refs/mada8.wav 7 ok 1.1
 A3_luatden_fix2 asr ok
+loaded V3TurboVieNeuTTS
+A4_luatden_tintuc Thùy Dung 3 ok 0.7
+A4_luatden_tintuc Thùy Dung 7 ok 0.5
+A4_luatden_tintuc Thùy Dung 11 ok 0.6
+A4_luatden_tintuc Thùy Dung 15 ok 0.4
+A4_luatden_tintuc Thùy Dung 19 ok 0.7
+A4_luatden_tintuc Thùy Dung 23 ok 0.4
+A4_luatden_tintuc Thùy Dung 27 ok 0.4
+A4_luatden_tintuc Thùy Dung 31 ok 0.5
+A4_luatden_tintuc Thùy Dung 35 ok 0.4
+A4_luatden_tintuc Thùy Dung 39 ok 0.5
+A4_luatden_tintuc Thùy Dung 43 ok 0.6
+A4_luatden_tintuc Minh Triết 3 ok 0.6
+A4_luatden_tintuc Minh Triết 7 ok 0.5
+A4_luatden_tintuc Minh Triết 11 ok 0.7
+A4_luatden_tintuc Minh Triết 15 ok 0.4
+A4_luatden_tintuc Minh Triết 19 ok 0.6
+A4_luatden_tintuc Minh Triết 23 ok 0.4
+A4_luatden_tintuc Minh Triết 27 ok 0.5
+A4_luatden_tintuc Minh Triết 31 ok 0.6
+A4_luatden_tintuc Minh Triết 35 ok 0.5
+A4_luatden_tintuc Minh Triết 39 ok 0.5
+A4_luatden_tintuc Minh Triết 43 ok 0.7
+A4_luatden_tintuc Mai Anh 3 ok 0.8
+A4_luatden_tintuc Mai Anh 7 ok 0.5
+A4_luatden_tintuc Mai Anh 11 ok 0.9
+A4_luatden_tintuc Mai Anh 15 ok 0.5
+A4_luatden_tintuc Mai Anh 19 ok 0.8
+A4_luatden_tintuc Mai Anh 23 ok 0.5
+A4_luatden_tintuc Mai Anh 27 ok 0.5
+A4_luatden_tintuc Mai Anh 31 ok 0.7
+A4_luatden_tintuc Mai Anh 35 ok 0.5
+A4_luatden_tintuc Mai Anh 39 ok 0.7
+A4_luatden_tintuc Mai Anh 43 ok 0.9
+A4_luatden_tintuc Minh Đức 3 ok 0.9
+A4_luatden_tintuc Minh Đức 7 ok 0.6
+A4_luatden_tintuc Minh Đức 11 ok 0.9
+A4_luatden_tintuc Minh Đức 15 ok 0.6
+A4_luatden_tintuc Minh Đức 19 ok 0.8
+A4_luatden_tintuc Minh Đức 23 ok 0.6
+A4_luatden_tintuc Minh Đức 27 ok 0.6
+A4_luatden_tintuc Minh Đức 31 ok 0.7
+A4_luatden_tintuc Minh Đức 35 ok 0.5
+A4_luatden_tintuc Minh Đức 39 ok 0.7
+A4_luatden_tintuc Minh Đức 43 ok 1.0
+A4_luatden_tintuc asr ok
