@@ -62,7 +62,7 @@ const LINE = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.
 
 // ---- low-poly people, one step up from boxes (late-PS1 look): tapered 6-8 sided limbs, round head with a painted face, hair cap, hands, sandals
 function faceTex(kind) { return ptex(128, 64, (g, w, h) => { // wraps round the head: face centred at x=32 (front), back of head at x=96
-  const dead = kind === 'dead', old = kind === 'old', sk = dead ? '#a8b0ae' : '#b5835c', hairC = old ? '#cfcac0' : dead ? '#0e1012' : '#16120f', px = (c, x, y, ww = 1, hh = 1) => { g.fillStyle = c; g.fillRect(x, y, ww, hh); };
+  const dead = kind === 'dead', old = kind === 'old', sk = dead ? '#a8b0ae' : old ? '#946443' : '#b5835c', hairC = old ? '#7a7670' : dead ? '#0e1012' : '#16120f', px = (c, x, y, ww = 1, hh = 1) => { g.fillStyle = c; g.fillRect(x, y, ww, hh); };
   px(sk, 0, 0, w, h);
   px(dead ? 'rgba(60,80,80,.22)' : 'rgba(110,50,25,.16)', 19, 34, 26, 14); px('rgba(80,40,20,.14)', 17, 26, 4, 18); px('rgba(80,40,20,.14)', 43, 26, 4, 18); // cheeks, face sides
   px(hairC, 0, 0, w, old ? 14 : 18); px(hairC, 64, 0, 64, old ? 30 : 40); px(hairC, 8, 18, 6, 12); px(hairC, 50, 18, 6, 12); // hairline, back, sideburns
@@ -74,7 +74,7 @@ function faceTex(kind) { return ptex(128, 64, (g, w, h) => { // wraps round the 
     px('rgba(60,30,15,.2)', 20, 30, 8, 1); px('rgba(60,30,15,.2)', 36, 30, 8, 1); } // lower lids
   px('rgba(70,35,20,.35)', 30, 29, 1, 8); px('rgba(255,220,190,.12)', 32, 29, 2, 8); px('rgba(70,35,20,.45)', 28, 37, 8, 2); px('rgba(40,20,10,.5)', 29, 38, 2, 1); px('rgba(40,20,10,.5)', 33, 38, 2, 1); // nose
   px(dead ? '#4e5658' : '#6e3a2c', 27, 43, 10, 1); px(dead ? '#5a6264' : '#8a4a38', 28, 44, 8, 2); px('rgba(40,20,10,.35)', 26, 43, 1, 1); px('rgba(40,20,10,.35)', 37, 43, 1, 1); // mouth, lower lip, corners
-  if (old) { px('rgba(60,30,20,.4)', 20, 19, 24, 1); px('rgba(60,30,20,.35)', 22, 21, 20, 1); px(hairC, 25, 47, 14, 13); px(hairC, 22, 41, 5, 5); px(hairC, 37, 41, 5, 5); }
+  if (old) { px('rgba(60,30,20,.4)', 20, 19, 24, 1); px('rgba(60,30,20,.35)', 22, 21, 20, 1); px('rgba(150,145,138,.35)', 20, 45, 24, 12); px('rgba(150,145,138,.3)', 26, 40, 12, 2); px(sk, 20, 0, 24, 9); }  // grey stubble, receding hairline
   if (!old && !dead) { px('rgba(30,20,15,.22)', 20, 46, 24, 10); px('rgba(30,20,15,.16)', 26, 40, 12, 2); } // stubble + moustache shadow
 }); }
 function clothTex(base, kind) { return ptex(32, 32, (g, w, h) => { noise(g, w, h, [base, base, shade(base, -.08), shade(base, .05)], kind.length);
@@ -84,8 +84,8 @@ function clothTex(base, kind) { return ptex(32, 32, (g, w, h) => { noise(g, w, h
 }); }
 function shade(hex, k) { const n = parseInt(hex.slice(1), 16), f = v => Math.max(0, Math.min(255, Math.round(v * (1 + k * 2)))); return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`; }
 function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s || 1, hx = c => '#' + new THREE.Color(c).getHexString();
-  const skinC = o.dead ? 0xa8b0ae : 0xb5835c, skin = L({ color: skinC }), shirt = L({ map: clothTex(hx(o.shirt), o.baba ? 'baba' : 'shirt') }), sleeve = L({ map: clothTex(hx(o.shirt), 'sleeve') }), pants = L({ map: clothTex(hx(o.pants), 'pants') });
-  const hairM = L({ color: o.old ? 0xcfcac0 : o.dead ? 0x0e1012 : 0x16120f }), sandal = L({ color: 0x2a2018 });
+  const skinC = o.dead ? 0xa8b0ae : o.old ? 0x946443 : 0xb5835c, skin = L({ color: skinC }), shirt = L({ map: clothTex(hx(o.shirt), o.baba ? 'baba' : 'shirt') }), sleeve = L({ map: clothTex(hx(o.shirt), 'sleeve') }), pants = L({ map: clothTex(hx(o.pants), 'pants') });
+  const hairM = L({ color: o.old ? 0x7a7670 : o.dead ? 0x0e1012 : 0x16120f }), sandal = L({ color: 0x2a2018 });
   const J = (par, x, y, z) => { const g = new THREE.Group(); g.position.set(x, y, z); par.add(g); return g; };
   const add = (par, geo, mat, x, y, z, sx = 1, sy = 1, sz = 1) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.scale.set(sx, sy, sz); par.add(m); return m; };
   const cyl = (rt, rb, h, n = 6) => new THREE.CylinderGeometry(rt * S, rb * S, h * S, n);
@@ -102,7 +102,7 @@ function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s ||
   if (!o.old) { add(neck, new THREE.SphereGeometry(.158 * S, 8, 5, 0, Math.PI * 2, 0, Math.PI * .42), hairM, 0, .225 * S, -.012 * S, .96, 1.18, 1.05); // hair volume
     for (let k = -2; k <= 2; k++) { const f = add(neck, new THREE.BoxGeometry(.05 * S, .07 * S, .03 * S), hairM, k * .045 * S, .305 * S - Math.abs(k) * .006 * S, .125 * S - Math.abs(k) * .012 * S); f.rotation.set(-.5, k * .25, k * .15); } // fringe chunks
     for (const x of [-1, 1]) { const sd = add(neck, new THREE.BoxGeometry(.025 * S, .08 * S, .1 * S), hairM, x * .128 * S, .27 * S, -.01 * S); sd.rotation.z = x * -.2; } }
-  else { add(neck, new THREE.SphereGeometry(.152 * S, 8, 4, 0, Math.PI * 2, 0, Math.PI * .3), hairM, 0, .22 * S, -.02 * S, .95, 1.1, 1); add(neck, new THREE.ConeGeometry(.05 * S, .12 * S, 5), hairM, 0, .06 * S, .12 * S).rotation.x = Math.PI; } // thin white hair + chin beard
+  else { add(neck, new THREE.SphereGeometry(.152 * S, 8, 4, 0, Math.PI * 2, 0, Math.PI * .3), hairM, 0, .22 * S, -.02 * S, .95, 1.1, 1); } // short grey hair, no beard
   if (o.scarf) { const kr = ptex(16, 4, (g, w, h) => { for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { g.fillStyle = (x + y) % 2 ? '#1a1a1a' : '#d8d4c8'; g.fillRect(x, y, 1, 1); } }); kr.wrapS = THREE.RepeatWrapping; kr.repeat.set(2, 1);
     add(neck, new THREE.TorusGeometry(.085 * S, .03 * S, 4, 8), L({ map: kr }), 0, -.02 * S, .01 * S).rotation.x = Math.PI / 2; const tail = add(neck, new THREE.BoxGeometry(.06 * S, .16 * S, .02 * S), L({ map: kr }), .04 * S, -.11 * S, .1 * S); tail.rotation.z = .2; } // khăn rằn
   if (o.hat) add(neck, new THREE.ConeGeometry(.42 * S, .26 * S, 8), L({ color: 0xb8a070 }), 0, .46 * S, 0);
@@ -121,8 +121,8 @@ function pose(r, p) { const d = THREE.MathUtils.degToRad, S = r.S;
   A(r.uaL, r.faL, p.armL || [0, -6, 8]); A(r.uaR, r.faR, p.armR || [0, 6, 8]);
   const G = (th, sh, l) => { th.rotation.set(d(-(l[0] || 0)), 0, 0); sh.rotation.set(d(l[1] || 0), 0, 0); }; G(r.thL, r.shL, p.legL || [0, 0]); G(r.thR, r.shR, p.legR || [0, 0]); }
 function walk(ph, amp = 1) { const s = Math.sin(ph), c = Math.cos(ph); return { legL: [28 * s * amp, Math.max(0, -50 * c) * amp + 4], legR: [-28 * s * amp, Math.max(0, 50 * c) * amp + 4], armL: [-24 * s * amp, -8, 18], armR: [24 * s * amp, 8, 18], bob: .03 * Math.abs(Math.sin(ph)) * amp, lean: 4 }; }
-// Lực: faded blue short-sleeve shirt, dark trousers; Thìn: ivory áo bà ba, black trousers, khăn rằn round the neck; the ghost is Lực himself, same clothes
-const LUC = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false }), THIN = person({ shirt: 0xc9bea2, pants: 0x1a1816, old: true, s: .95, scarf: true, baba: true }), GH = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false, dead: true, ghost: true });
+// Lực: faded blue short-sleeve shirt, dark trousers; Thìn: earth-brown áo bà ba (not ivory, no goatee: keep clear of any real historical figure's look), black trousers, khăn rằn round the neck; the ghost is Lực himself, same clothes
+const LUC = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false }), THIN = person({ shirt: 0x5e4630, pants: 0x1a1816, old: true, s: .95, scarf: true, baba: true }), GH = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false, dead: true, ghost: true });
 const ALL = [LUC, THIN, GH];
 
 // ---- post: 15-bit colour + light 4x4 ordered dither, nearest upscale
