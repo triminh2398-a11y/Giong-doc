@@ -1,0 +1,34 @@
+name: render-blender
+on:
+  workflow_dispatch:
+    inputs:
+      script: { description: 'script in render/b3d', default: 'talk.py' }
+      frames: { description: 'total frames', default: '120' }
+      shards: { description: 'shards', default: '12' }
+      res: { description: 'WxH', default: '540x960' }
+      samples: { default: '32' }
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs: { idx: '${{ steps.m.outputs.idx }}' }
+    steps:
+      - id: m
+        run: python3 -c "import json;print('idx='+json.dumps(list(range(int('${{ inputs.shards }}')))))" >> $GITHUB_OUTPUT
+  render:
+    needs: plan
+    runs-on: ubuntu-latest
+    strategy: { fail-fast: false, matrix: { i: '${{ fromJson(needs.plan.outputs.idx) }}' } }
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: render/b3d }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.13' }
+      - run: pip install bpy==5.3.0
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 >/dev/null
+      - name: render shard
+        run: |
+          N=${{ inputs.frames }}; S=${{ inputs.shards }}; i=${{ matrix.i }}; per=$(( (N + S - 1) / S )); a=$(( i * per )); b=$(( a + per - 1 )); [ $b -ge $N ] && b=$((N-1))
+          RX=${{ inputs.res }}; export RX=${RX%x*} RY=${RX#*x} SAMPLES=${{ inputs.samples }}
+          python3 render/b3d/${{ inputs.script }} -- $a $b out
+      - uses: actions/upload-artifact@v4
+        with: { name: 'frames-${{ matrix.i }}', path: out, retention-days: 3 }
