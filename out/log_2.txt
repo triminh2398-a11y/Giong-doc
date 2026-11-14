@@ -1591,3 +1591,24 @@ stv_keobong_02 asr ok
 loaded V3TurboVieNeuTTS
 stv_keobong_02b Hải Đăng 2 ok 1.6
 stv_keobong_02b asr ok
+loaded V3TurboVieNeuTTS
+A1_luatden_n clone:refs/mada8.wav 2 ok 17.9
+A1_luatden_n clone:refs/mada8.wav 6 ok 1.3
+A1_luatden_n clone:refs/mada8.wav 10 ok 1.1
+A1_luatden_n clone:refs/mada8.wav 14 ok 0.6
+A1_luatden_n clone:refs/mada8.wav 18 ok 0.9
+A1_luatden_n clone:refs/mada8.wav 22 ok 1.2
+A1_luatden_n clone:refs/mada8.wav 26 ok 0.6
+A1_luatden_n clone:refs/mada8.wav 30 ok 0.5
+A1_luatden_n clone:refs/mada8.wav 34 ok 0.2
+A1_luatden_n clone:refs/mada8.wav 38 ok 1.1
+A1_luatden_n clone:refs/mada8.wav 42 ok 0.7
+A1_luatden_n clone:refs/mada8.wav 46 ok 1.0
+A1_luatden_n clone:refs/mada8.wav 50 ok 1.1
+A1_luatden_n clone:refs/mada8.wav 54 ok 1.1
+A1_luatden_n clone:refs/mada8.wav 58 ok 0.4
+A1_luatden_n clone:refs/mada8.wav 62 ok 1.0
+A1_luatden_n asr ok
+A1_luatden_qv Thái Sơn 2 ok 0.3
+A1_luatden_qv Đức Trí 2 ok 0.6
+A1_luatden_qv asr ok
