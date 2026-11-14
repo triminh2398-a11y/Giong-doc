@@ -101,12 +101,14 @@ function person(o) { const P = new THREE.Group(); scene.add(P); const S = o.s ||
     for (let k = -2; k <= 2; k++) { const f = add(neck, new THREE.BoxGeometry(.05 * S, .07 * S, .03 * S), hairM, k * .045 * S, .305 * S - Math.abs(k) * .006 * S, .125 * S - Math.abs(k) * .012 * S); f.rotation.set(-.5, k * .25, k * .15); } // fringe chunks
     for (const x of [-1, 1]) { const sd = add(neck, new THREE.BoxGeometry(.025 * S, .08 * S, .1 * S), hairM, x * .128 * S, .27 * S, -.01 * S); sd.rotation.z = x * -.2; } }
   else { add(neck, new THREE.SphereGeometry(.152 * S, 8, 4, 0, Math.PI * 2, 0, Math.PI * .3), hairM, 0, .22 * S, -.02 * S, .95, 1.1, 1); add(neck, new THREE.ConeGeometry(.05 * S, .12 * S, 5), hairM, 0, .06 * S, .12 * S).rotation.x = Math.PI; } // thin white hair + chin beard
+  if (o.scarf) { const kr = ptex(16, 4, (g, w, h) => { for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { g.fillStyle = (x + y) % 2 ? '#1a1a1a' : '#d8d4c8'; g.fillRect(x, y, 1, 1); } }); kr.wrapS = THREE.RepeatWrapping; kr.repeat.set(2, 1);
+    add(neck, new THREE.TorusGeometry(.085 * S, .03 * S, 4, 8), L({ map: kr }), 0, -.02 * S, .01 * S).rotation.x = Math.PI / 2; const tail = add(neck, new THREE.BoxGeometry(.06 * S, .16 * S, .02 * S), L({ map: kr }), .04 * S, -.11 * S, .1 * S); tail.rotation.z = .2; } // khăn rằn
   if (o.hat) add(neck, new THREE.ConeGeometry(.42 * S, .26 * S, 8), L({ color: 0xb8a070 }), 0, .46 * S, 0);
   const hand = (par, y, side) => { const h = J(par, 0, y, 0); add(h, new THREE.BoxGeometry(.075 * S, .1 * S, .035 * S), skin, 0, -.05 * S, 0); add(h, new THREE.BoxGeometry(.025 * S, .05 * S, .025 * S), skin, side * .045 * S, -.03 * S, .015 * S).rotation.z = side * .5; };
   const arm = (x, side) => { const a = J(spine, x, .5 * S, 0); add(a, cyl(.062, .05, .3), sleeve, 0, -.15 * S, 0); const b = J(a, 0, -.3 * S, 0); add(b, cyl(.048, .038, .27), o.longSleeve === false ? skin : sleeve, 0, -.135 * S, 0);
     add(b, cyl(.042, .038, .04), skin, 0, -.285 * S, 0); hand(b, -.3 * S, side); return [a, b]; };
-  const leg = (x) => { const a = J(hips, x, -.06 * S, 0); add(a, cyl(.085, .065, .43), pants, 0, -.215 * S, 0); const b = J(a, 0, -.43 * S, 0); add(b, cyl(.062, .048, .42), pants, 0, -.21 * S, 0);
-    add(b, cyl(.04, .045, .04), skin, 0, -.43 * S, 0); add(b, new THREE.BoxGeometry(.1 * S, .045 * S, .2 * S), skin, 0, -.465 * S, .045 * S); add(b, new THREE.BoxGeometry(.11 * S, .02 * S, .22 * S), sandal, 0, -.49 * S, .045 * S); return [a, b]; };
+  const leg = (x) => { const a = J(hips, x, -.06 * S, 0); add(a, cyl(.085, .065, .43), pants, 0, -.215 * S, 0); const b = J(a, 0, -.43 * S, 0); add(b, cyl(.062, .048, .36), pants, 0, -.18 * S, 0); // sole lands exactly at the root (y=0) so feet sit on the ground
+    add(b, cyl(.04, .045, .04), skin, 0, -.36 * S, 0); add(b, new THREE.BoxGeometry(.1 * S, .045 * S, .2 * S), skin, 0, -.3875 * S, .045 * S); add(b, new THREE.BoxGeometry(.11 * S, .02 * S, .22 * S), sandal, 0, -.42 * S, .045 * S); return [a, b]; };
   const [uaL, faL] = arm(-.25 * S, -1), [uaR, faR] = arm(.25 * S, 1), [thL, shL] = leg(-.09 * S), [thR, shR] = leg(.09 * S);
   const rig = { P, hips, spine, neck, uaL, faL, uaR, faR, thL, shL, thR, shR, S, o }; if (o.ghost) P.traverse(m => { if (m.material) { const mm = Array.isArray(m.material) ? m.material : [m.material]; mm.forEach(x => { x.transparent = true; x.opacity = .7; x.depthWrite = false; }); } }); return rig; }
 // poses in degrees: { torso lean, head tilt/turn, arms [shoulder pitch, shoulder roll, elbow], legs [hip, knee] }
@@ -117,7 +119,8 @@ function pose(r, p) { const d = THREE.MathUtils.degToRad, S = r.S;
   A(r.uaL, r.faL, p.armL || [0, -6, 8]); A(r.uaR, r.faR, p.armR || [0, 6, 8]);
   const G = (th, sh, l) => { th.rotation.set(d(-(l[0] || 0)), 0, 0); sh.rotation.set(d(l[1] || 0), 0, 0); }; G(r.thL, r.shL, p.legL || [0, 0]); G(r.thR, r.shR, p.legR || [0, 0]); }
 function walk(ph, amp = 1) { const s = Math.sin(ph), c = Math.cos(ph); return { legL: [28 * s * amp, Math.max(0, -50 * c) * amp + 4], legR: [-28 * s * amp, Math.max(0, 50 * c) * amp + 4], armL: [-24 * s * amp, -8, 18], armR: [24 * s * amp, 8, 18], bob: .03 * Math.abs(Math.sin(ph)) * amp, lean: 4 }; }
-const LUC = person({ shirt: 0x5a4a38, pants: 0x24262a }), THIN = person({ shirt: 0x6a5840, pants: 0x2e2a26, old: true, s: .95 }), GH = person({ shirt: 0x5a4a38, pants: 0x24262a, dead: true, ghost: true });
+// Lực: faded blue short-sleeve shirt, dark trousers; Thìn: ivory áo bà ba, black trousers, khăn rằn round the neck; the ghost is Lực himself, same clothes
+const LUC = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false }), THIN = person({ shirt: 0xc9bea2, pants: 0x1a1816, old: true, s: .95, scarf: true }), GH = person({ shirt: 0x4a5866, pants: 0x2a2c30, longSleeve: false, dead: true, ghost: true });
 const ALL = [LUC, THIN, GH];
 
 // ---- post: 15-bit colour + light 4x4 ordered dither, nearest upscale
