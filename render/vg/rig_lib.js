@@ -46,6 +46,7 @@ const ROCK = layer(900, 1100, (x) => { x.strokeStyle = INK; x.lineJoin = 'round'
   statue(175, .9); statue(820, 1); });
 // ---------------- skeletal rig ----------------
 // bones: angles in degrees, 0 = straight down, positive = clockwise (toward facing direction)
+let KMK = false; // reference-channel look: pale faces, big dark eye sockets, tiny mouths, bigger heads, muted clothes
 const P = { skin: '#e6cbb2', skinD: '#c9a88e', jacket: '#4a5470', jacketD: '#353d54', pants: '#262a36', scarf: '#7a3a3a', hair: '#14121a', shoe: '#18161c' };
 function limb(len, w0, w1, col, colD) { // tapered capsule along +y
   g.beginPath(); g.moveTo(-w0, 0); g.quadraticCurveTo(-w0 - 2, len * .5, -w1, len); g.arc(0, len, w1, Math.PI, 0, true); g.quadraticCurveTo(w0 + 2, len * .5, w0, 0); g.arc(0, 0, w0, 0, Math.PI, true); g.closePath();
@@ -64,11 +65,12 @@ function face(o) {
     const ends = [[74, 120], [62, 104], [56, 150], [44, 112], [34, 140]]; g.quadraticCurveTo(hx + 84, 60, hx + ends[0][0], ends[0][1]); for (const [ax, ay] of ends.slice(1)) g.lineTo(hx + ax, ay);
     g.lineTo(hx - 30, 136); g.lineTo(hx - 42, 108); g.lineTo(hx - 54, 156); g.lineTo(hx - 62, 100); g.lineTo(hx - 76, 126); g.quadraticCurveTo(hx - 86, 60, hx - 66, -10); g.closePath();
     g.fillStyle = HAIR; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke();
-  } else { for (const s of [-1, 1]) { g.beginPath(); g.ellipse(s * 52 + d * 4, 18, 9, 13, 0, 0, 7); g.fillStyle = P.skinD; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke(); } } // ears
+  } else if (!KMK) { for (const s of [-1, 1]) { g.beginPath(); g.ellipse(s * 52 + d * 4, 18, 9, 13, 0, 0, 7); g.fillStyle = P.skinD; g.fill(); g.strokeStyle = INK; g.lineWidth = 3; g.stroke(); } } // ears
   // face
-  g.beginPath(); if (HS === 'white') g.ellipse(d * 2, 4, 54, 72, 0, 0, 7); else g.ellipse(d * 4, 16, 52, 58, 0, 0, 7);
-  if (G_) g.fillStyle = '#dfe3e0'; else { const gr = g.createRadialGradient(-14 + d * 10, 0, 8, 0, 14, 62); gr.addColorStop(0, P.skin); gr.addColorStop(1, P.skinD); g.fillStyle = gr; }
+  g.beginPath(); if (KMK) g.ellipse(d * 3, 10, 58, 60, 0, 0, 7); else if (HS === 'white') g.ellipse(d * 2, 4, 54, 72, 0, 0, 7); else g.ellipse(d * 4, 16, 52, 58, 0, 0, 7);
+  if (KMK) g.fillStyle = P.skin; else if (G_) g.fillStyle = '#dfe3e0'; else { const gr = g.createRadialGradient(-14 + d * 10, 0, 8, 0, 14, 62); gr.addColorStop(0, P.skin); gr.addColorStop(1, P.skinD); g.fillStyle = gr; }
   g.fill(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
+  if (KMK) { faceK(o, d, ex, hx, HS, HAIR); return; }
   const G0 = G_; // o.dead: a living-looking body with the dead's empty eyes
   // eyes: the living have pupils; the dead stare with empty grey-white eyes in black-ringed sockets
   for (const s of [-1, 1]) { const x = ex + s * 21 * (1 - Math.abs(d) * .25), y = 16, sc = 1 - (s === Math.sign(-d) ? Math.abs(d) * .25 : 0); const G_ = G0 || o.dead;
@@ -243,7 +245,7 @@ function character(o) {
     g.save(); g.translate(...tip); g.rotate(Math.atan2(uy, ux) - Math.PI / 2); g.fillStyle = '#6f747c'; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.moveTo(-4, -4); g.lineTo(6, -4); g.lineTo(10, 26); g.lineTo(-14, 26); g.closePath(); g.fill(); g.stroke(); g.restore(); }
   if (o.prop === 'mirror') { const h = AF[2]; g.save(); g.translate(h[0] + 10, h[1] - 24); g.fillStyle = '#5a4a3a'; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.roundRect(-14, -26, 28, 44, 5); g.fill(); g.stroke(); g.fillStyle = '#9fb2bf'; g.beginPath(); g.roundRect(-10, -22, 20, 36, 3); g.fill(); g.restore(); }
   // neck + head
-  g.save(); g.translate(...neck); g.rotate(rad(T * .5 - o.neck)); g.translate(0, -66); g.rotate(rad(-o.head)); face(o); g.restore();
+  g.save(); g.translate(...neck); g.rotate(rad(T * .5 - o.neck)); if (KMK) { g.translate(0, -94); g.rotate(rad(-o.head)); g.scale(1.55, 1.55); } else { g.translate(0, -66); g.rotate(rad(-o.head)); } face(o); g.restore();
   if (late) late();
   if (o.prop === 'statue') { // the wooden grave statue carried on the shoulder, both hands holding it
     g.save(); g.translate(chest[0] - 46, chest[1] - 70); g.rotate(rad(-14)); g.fillStyle = '#7a5638'; g.strokeStyle = INK; g.lineWidth = 3;
@@ -503,6 +505,34 @@ window.poseTest = (list) => { g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#
   list.forEach((p, i) => { const cx = (i % 3 + .5) * W / 3, cy = (Math.floor(i / 3) + .78) * H / 2; character({ ...base, ...p, x: cx, y: cy + (p.y || 0) * .62, sc: .62 }); g.setTransform(1, 0, 0, 1, 0, 0); g.font = '16px DejaVu Sans'; g.fillStyle = '#fff'; g.textAlign = 'center'; g.fillText(JSON.stringify(p).slice(0, 60), cx, cy + 40); }); };
 
 
+// reference look: big dark sockets with a soft grey bag, a small highlight, short thick brows, a tiny mouth, no nose
+function faceK(o, d, ex, hx, HS, HAIR) {
+  const dead = o.dead || o.ghost, sc0 = 1 - Math.abs(d) * .25;
+  for (const s of [-1, 1]) { const x = ex + s * 22 * (1 - Math.abs(d) * .25), y = 14, sc = 1 - (s === Math.sign(-d) ? Math.abs(d) * .28 : 0);
+    g.fillStyle = 'rgba(70,64,74,.45)'; g.beginPath(); g.ellipse(x, y + 5, 25 * sc, 27, 0, 0, 7); g.fill(); // bag / socket shadow
+    if (o.blink > .5) { g.strokeStyle = INK; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(x - 12 * sc, y + 4); g.quadraticCurveTo(x, y + 10, x + 12 * sc, y + 4); g.stroke(); continue; }
+    const big = o.shock ? 1.12 : 1; g.fillStyle = dead ? '#3a3a40' : '#141317'; g.beginPath(); g.ellipse(x + (o.look || 0) * 3, y + 3, 18.5 * sc * big, 21.5 * big, 0, 0, 7); g.fill();
+    if (dead) { g.fillStyle = '#e8e6e0'; g.beginPath(); g.ellipse(x, y + 3, 6 * sc, 7, 0, 0, 7); g.fill(); continue; } // the dead: a pale pin of an iris in a grey socket
+    if (o.shock) { g.fillStyle = '#f4f2ee'; g.beginPath(); g.arc(x + (o.look || 0) * 3, y + 3, 3.4, 0, 7); g.fill(); continue; } // fright: tiny white pupils
+    g.fillStyle = '#f4f2ee'; g.beginPath(); g.arc(x + (o.look || 0) * 3 - 5 * sc, y - 5, 3.6, 0, 7); g.fill(); g.beginPath(); g.arc(x + (o.look || 0) * 3 + 4 * sc, y + 7, 1.6, 0, 7); g.fill(); }
+  if (!dead || o.brow) { g.strokeStyle = INK; g.lineWidth = 5; g.lineCap = 'round'; const b = o.brow || 0; for (const s of [-1, 1]) { const x = ex + s * 22; g.beginPath(); g.moveTo(x - 9 * sc0, -14 + s * b * .32 - (o.shock ? 6 : 0)); g.lineTo(x + 9 * sc0, -14 - s * b * .32 - (o.shock ? 6 : 0)); g.stroke(); } }
+  const mo = o.mouth || 0, mx = ex + d * 4, my = 50; g.strokeStyle = INK; g.lineWidth = 3; g.lineCap = 'round';
+  if (mo > .15) { g.fillStyle = '#2a1a1e'; g.beginPath(); g.ellipse(mx, my + 2, 4 + mo * 4, 3 + mo * 9, 0, 0, 7); g.fill(); g.stroke(); }
+  else if (o.shock || o.brow > 8) { g.beginPath(); g.moveTo(mx - 9, my); for (let k = 1; k <= 6; k++) g.lineTo(mx - 9 + k * 3, my + (k % 2 ? -2.5 : 2.5)); g.stroke(); } // wobbly scared mouth
+  else { g.beginPath(); g.moveTo(mx - 6, my); g.lineTo(mx + 6, my); g.stroke(); }
+  if (o.sweat) { g.fillStyle = '#c8dcec'; g.strokeStyle = INK; g.lineWidth = 2; g.beginPath(); g.moveTo(ex + 42, -30); g.quadraticCurveTo(ex + 50, -14, ex + 42, -10); g.quadraticCurveTo(ex + 34, -14, ex + 42, -30); g.fill(); g.stroke(); }
+  if (HS === 'white') { g.fillStyle = 'rgba(80,70,64,.35)'; g.strokeStyle = 'rgba(60,50,46,.6)'; g.lineWidth = 2; for (const yy of [-34, -26]) { g.beginPath(); g.moveTo(ex - 18, yy); g.quadraticCurveTo(ex, yy - 3, ex + 18, yy); g.stroke(); }
+    g.fillStyle = '#d6d2ca'; g.strokeStyle = INK; g.lineWidth = 2.5; g.beginPath(); g.moveTo(ex - 12, 60); g.quadraticCurveTo(ex - 6, 92, ex + 2, 104); g.quadraticCurveTo(ex + 10, 90, ex + 12, 60); g.quadraticCurveTo(ex, 66, ex - 12, 60); g.closePath(); g.fill(); g.stroke(); }
+  hairK(o, d, hx, HS, HAIR); if (o.nonla) { g.save(); g.translate(0, -44); g.scale(.74, .62); nonLa(0, o); g.restore(); } }
+// reference-look hair: simple solid caps drawn over the top of the head
+function hairK(o, d, hx, HS, HAIR) { const H = HS === 'white' ? '#9a958e' : '#232227'; g.fillStyle = H; g.strokeStyle = INK; g.lineWidth = 3.4;
+  if (HS === 'white') { g.beginPath(); g.moveTo(hx - 56, 4); g.bezierCurveTo(hx - 66, -70, hx - 30, -94, hx, -94); g.bezierCurveTo(hx + 30, -94, hx + 66, -70, hx + 56, 4); g.quadraticCurveTo(hx + 50, -40, hx, -50); g.quadraticCurveTo(hx - 50, -40, hx - 56, 4); g.closePath(); g.fill(); g.stroke();
+    g.beginPath(); g.arc(hx + 2, -96, 16, 0, 7); g.fill(); g.stroke(); return; } // grey hair pulled to a small top-knot
+  if (HS === 'bun') { g.beginPath(); g.arc(hx - 50, -30, 22, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.moveTo(hx - 56, 14); g.bezierCurveTo(hx - 68, -64, hx - 30, -92, hx, -92); g.bezierCurveTo(hx + 34, -92, hx + 70, -64, hx + 56, 14); g.quadraticCurveTo(hx + 44, -34, hx, -44); g.quadraticCurveTo(hx - 44, -34, hx - 56, 14); g.closePath(); g.fill(); g.stroke(); return; }
+  // short: a heavy fringe with a few jagged tips
+  g.beginPath(); g.moveTo(hx - 64, 22); g.bezierCurveTo(hx - 78, -66, hx - 34, -100, hx + 2, -100); g.bezierCurveTo(hx + 42, -100, hx + 80, -66, hx + 64, 22);
+  g.lineTo(hx + 50, -18); g.lineTo(hx + 40, -10); g.lineTo(hx + 30, -30); g.lineTo(hx + 16, -18); g.lineTo(hx + 4, -34); g.lineTo(hx - 10, -20); g.lineTo(hx - 24, -32); g.lineTo(hx - 36, -14); g.lineTo(hx - 48, -24); g.closePath(); g.fill(); g.stroke();
+  g.strokeStyle = 'rgba(255,255,255,.12)'; g.lineWidth = 6; g.beginPath(); g.moveTo(hx - 30, -80); g.quadraticCurveTo(hx, -90, hx + 26, -82); g.stroke(); }
 // nón lá (conical leaf hat), worn over any hairstyle; tilt with o.nonlaTilt
 function nonLa(cx, o) { g.save(); g.translate(cx, -2); g.rotate(o.nonlaTilt || 0); const W_ = 122, Hh = 132; g.beginPath(); g.moveTo(-W_, 6); g.lineTo(0, -Hh); g.lineTo(W_, 6); g.quadraticCurveTo(0, 26, -W_, 6); g.closePath();
   const q = g.createLinearGradient(-W_, 0, W_, 0); q.addColorStop(0, '#e2cc94'); q.addColorStop(.6, '#cfb47a'); q.addColorStop(1, '#a88e58'); g.fillStyle = o.nonlaCol || q; g.fill(); g.strokeStyle = INK; g.lineWidth = 3.2; g.stroke();
@@ -595,7 +625,7 @@ const CK = {
   ong2: { pal: { skin: '#a88058', skinD: '#86603e' }, o: { hair: 'short', outfit: { top: 'blouse', sleeve: 'long', col: '#56604a', colD: '#424a3a', bot: '#2c2c2a', botD: '#202020', feet: 'bare' } } },
   thay: { pal: { skin: '#a8784f', skinD: '#86603e' }, o: { hair: 'turban', outfit: { top: 'blouse', sleeve: 'long', col: '#1f2338', colD: '#171a2a', trim: ['#a3332c', '#e8e0d0', '#a3332c'], bottom: 'pants', bot: '#1f2338', botD: '#171a2a', feet: 'bare' } } },
 };
-function castMember(who, x, y, sc, extra = {}) { const C = CK[who], pal = { ...P }; Object.assign(P, C.pal); character({ t: 0, flip: 1, bob: 0, lean: 0, spine: 0, bend: 3, squash: 0, legF: [6, -4, 0], legB: [-8, -3, 0], armB: [-6, 16], armF: [10, 22], neck: 0, head: 0, faceDir: .25, look: .1, blink: 0, brow: 0, mouth: 0, shock: 0, scarf: 0, lanternSwing: 0, noLantern: true, ...C.o, ...extra, x, y, sc }); Object.assign(P, pal); }
+function castMember(who, x, y, sc, extra = {}) { const C = CK[who], pal = { ...P }; Object.assign(P, C.pal); if (KMK) Object.assign(P, { skin: '#dcd7cd', skinD: '#bab4a9' }); character({ t: 0, flip: 1, bob: 0, lean: 0, spine: 0, bend: 3, squash: 0, legF: [6, -4, 0], legB: [-8, -3, 0], armB: [-6, 16], armF: [10, 22], neck: 0, head: 0, faceDir: .25, look: .1, blink: 0, brow: 0, mouth: 0, shock: 0, scarf: 0, lanternSwing: 0, noLantern: true, ...C.o, ...extra, x, y, sc }); Object.assign(P, pal); }
 window.sheetCK = (which) => { g.setTransform(1, 0, 0, 1, 0, 0);
   if (which === 'scene') { highlandBG(2, 'dusk'); villageGate(380, 900, 2); g.fillStyle = '#5a5a5e'; g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.ellipse(565, 902, 34, 14, 0, 0, 7); g.fill(); g.stroke(); castMember('ong', 560, 896 + 58 * .55 / .62, .55, { flip: -1, faceDir: -.2, legsFront: true, legF: [150, -150, 0], legB: [140, -146, 0], lean: -10, armF: [100, 70], armB: [96, 76] });
     motorbike(120, 1040, .75, 1, '#7a2a20'); motorbike(600, 1060, .75, -1, '#2a4a6a');
@@ -609,5 +639,5 @@ window.turn = () => { g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#2a3040';
   const who = ['khang', 'duy', 'ong', 'thay'], views = [['front', 0], ['three', .25], ['side', 1], ['back', 0]];
   who.forEach((w, r) => views.forEach(([v, fd], c) => { const x = (c + .5) * W / 4, y = (r + .9) * H / 4; castMember(w, x, y, .42, { view: v, faceDir: fd }); }));
   g.font = '700 18px DejaVu Sans'; g.fillStyle = '#e9e6de'; g.textAlign = 'center'; ['Chính diện', 'Nghiêng 3/4', 'Ngang', 'Sau lưng'].forEach((s, c) => g.fillText(s, (c + .5) * W / 4, 24)); };
-return { set: c => { g = c; }, get g() { return g; }, castMember, character, CK, P, INK, woodKnife, chickenWing, talEo, motorbike, shade };
+return { style: v => { KMK = v === 'kmk'; }, set: c => { g = c; }, get g() { return g; }, castMember, character, CK, P, INK, woodKnife, chickenWing, talEo, motorbike, shade };
 })();
