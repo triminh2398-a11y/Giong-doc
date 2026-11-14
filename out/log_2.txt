@@ -1612,3 +1612,10 @@ A1_luatden_n asr ok
 A1_luatden_qv Thái Sơn 2 ok 0.3
 A1_luatden_qv Đức Trí 2 ok 0.6
 A1_luatden_qv asr ok
+loaded V3TurboVieNeuTTS
+A2_luatden_fix clone:refs/mada8.wav 2 ok 21.2
+A2_luatden_fix clone:refs/mada8.wav 6 ok 1.0
+A2_luatden_fix clone:refs/mada8.wav 10 ok 0.9
+A2_luatden_fix clone:refs/mada8.wav 14 ok 1.5
+A2_luatden_fix clone:refs/mada8.wav 18 ok 1.4
+A2_luatden_fix asr ok
