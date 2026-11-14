@@ -40,6 +40,14 @@ jobs:
           if chunk:
               print(chunk[0], chunk[-1] + 1)
           EOF
+          if jq -e .stills $J >/dev/null; then
+            FR=$(python3 -c "import json,sys;j=json.load(open('job.json'));L=j['stills'];s,n=int(sys.argv[1]),int(sys.argv[2]);print(','.join(map(str,L[len(L)*s//n:len(L)*(s+1)//n])))" $S $N)
+            [ -n "$FR" ] || exit 0
+            mkdir -p st; python3 build.py list "$PWD/st" "$FR" 2>&1 | grep -E "^still|Error|Traceback" | tail -n 50
+            sleep $(( S * 2 ))
+            for f in st/*.png; do for k in 1 2 3 4 5 6; do gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" -t "$TAG" -n "stills" || true; gh release upload "$TAG" $f --clobber && break; sleep 8; done; done
+            exit 0
+          fi
           cat ranges.txt
           [ -s ranges.txt ] || exit 0
           read A B < ranges.txt
