@@ -7,6 +7,10 @@ on:
       shards: { description: 'shards', default: '12' }
       res: { description: 'WxH', default: '540x960' }
       samples: { default: '32' }
+      tag: { description: 'release tag', default: 'b3d-test' }
+      audio: { description: 'audio wav in render/b3d', default: 'talk.wav' }
+permissions:
+  contents: write
 jobs:
   plan:
     runs-on: ubuntu-latest
@@ -32,3 +36,17 @@ jobs:
           python3 render/b3d/${{ inputs.script }} -- $a $b out
       - uses: actions/upload-artifact@v4
         with: { name: 'frames-${{ matrix.i }}', path: out, retention-days: 3 }
+  assemble:
+    needs: render
+    runs-on: ubuntu-latest
+    env: { GH_TOKEN: '${{ github.token }}' }
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: render/b3d }
+      - uses: actions/download-artifact@v4
+        with: { path: arts }
+      - run: |
+          mkdir fr && cp arts/*/*.png fr/ && ls fr | wc -l
+          ffmpeg -loglevel error -y -framerate 30 -i fr/%04d.png -i render/b3d/${{ inputs.audio }} -vf scale=1080:1920:flags=lanczos -c:v libx264 -crf 18 -pix_fmt yuv420p -c:a aac -shortest out.mp4
+          gh release view "${{ inputs.tag }}" >/dev/null 2>&1 || gh release create "${{ inputs.tag }}" -t "${{ inputs.tag }}" -n blender
+          gh release upload "${{ inputs.tag }}" out.mp4 --clobber
