@@ -5,7 +5,7 @@ const TLD = window.TLD, BEAT = TLD.beat;
 const RW = 720, RH = 1280;
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); renderer.setPixelRatio(1); renderer.setSize(RW, RH);
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.25; renderer.outputColorSpace = THREE.SRGBColorSpace;
-document.body.appendChild(renderer.domElement);
+document.body.appendChild(renderer.domElement); renderer.domElement.style.filter = 'saturate(.62) contrast(.9) brightness(.9) hue-rotate(-6deg)';
 const ov = document.createElement('canvas'); ov.width = RW; ov.height = RH; document.body.appendChild(ov); const g2 = ov.getContext('2d');
 const cam = new THREE.PerspectiveCamera(40, RW / RH, 0.05, 900); cam.layers.enable(1);
 const R = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -149,8 +149,8 @@ function mix(A, B, u) { const o = { ...A, ...B }; for (const k in o) { const a =
 const talkE = sp => { let e = 0; for (const [a, b, s] of TLD.vox) if (s === sp) e = Math.max(e, sm((NOW - a) / .15) * sm((b - NOW) / .2)); return e; };
 const mouthOf = sp => { for (const [a, b, s] of TLD.vox) if (s === sp && NOW >= a && NOW < b) return .25 + .6 * Math.abs(Math.sin(NOW * 12.5)) * (.6 + .4 * Math.sin(NOW * 3.1)); return 0; };
 // life layer: breathing (shoulders/arms), slow weight shift, head drift, blinks with double-blinks, talk gestures (beat gestures on stressed syllables)
-function life(o, seed, sp) { const br = Math.sin(NOW * 1.9 + seed), sway = Math.sin(NOW * .55 + seed * 1.7), te = sp ? talkE(sp) : 0, beat = te * Math.max(0, Math.sin(NOW * 4.2 + seed)) ;
-  const out = { ...o }; out.bob = (o.bob || 0) + 1.6 * br; out.lean = (o.lean || 0) + 1.2 * sway; out.head = (o.head || 0) + 2.2 * Math.sin(NOW * .8 + seed * 2) + 1.2 * Math.sin(NOW * 2.3 + seed) + te * 3 * Math.sin(NOW * 7.3);
+function life(o, seed, sp) { const br = Math.sin(NOW * 1.9 + seed), sway = Math.sin(NOW * .55 + seed * 1.7), te = sp ? talkE(sp) : 0, beat = .3 * te * Math.max(0, Math.sin(NOW * 4.2 + seed));
+  const out = { ...o }; out.bob = (o.bob || 0) + 1.6 * br; out.lean = (o.lean || 0) + 1.2 * sway; out.head = (o.head || 0) + 2.2 * Math.sin(NOW * .8 + seed * 2) + 1.2 * Math.sin(NOW * 2.3 + seed) + te * 4 * Math.sin(NOW * 5.1) + 3 * Math.sin(NOW * .37 + seed * 3);
   const ab = o.armB || [-6, 16], af = o.armF || [10, 22]; out.armB = [ab[0] + 2.2 * br, ab[1] + 3 * br]; out.armF = [af[0] - 2.2 * br + (o.gest === false ? 0 : beat * 26), af[1] + 3 * br + beat * 30];
   if (o.blink === undefined) { const per = 3.1 + (seed % 3) * .7, ph = (NOW + seed * .9) % per; out.blink = ph < .09 || (seed % 2 && ph > .22 && ph < .3) ? 1 : 0; }
   if (sp && out.mouth === undefined) out.mouth = mouthOf(sp); if (sp && te > 0 && out.brow === undefined) out.brow = 6 * te * Math.max(0, Math.sin(NOW * 2.4)); return out; }
@@ -199,7 +199,7 @@ S.s4 = (lt, D) => { mood('night'); const u = lt / D, pull = sm(seg(NOW, BEAT.s4 
 // morning at the bến: villagers round a covered body; Lực stands at the edge, nobody looks at him
 // the body lies at the bank end of the pier; the camera stands out on the pier looking back at the bank and the houses
 function benCrowd(u, who = 0) { mood('dawn'); SHROUD.visible = true; SHROUD.position.set(-6.8, .82, 23); const cry = 2 * Math.sin(NOW * 6);
-  put(CE.ba1, -7.4, 22.5, life({ face: 1.0, bend: 26, lean: 14, legsFront: true, legF: [80, -150, 0], legB: [70, -140, 0], armF: [120, 60 + cry * 6], armB: [100, 70], head: 10 + cry, blink: 1 }, 5), .08);
+  if (who === 1) put(CE.ba1, -5.4, 24.4, life({ face: -2.4, armF: [20, 80], look: .6 }, 5), .58); else put(CE.ba1, -7.4, 22.5, life({ face: 1.0, bend: 26, lean: 14, legsFront: true, legF: [80, -150, 0], legB: [70, -140, 0], armF: [120, 60 + cry * 6], armB: [100, 70], head: 10 + cry, blink: 1 }, 5), .08);
   put(CE.ba2, -5.9, 23.7, life({ face: -2.2, armF: [30, 90], armB: [20, 60], look: .6 }, 6), .58); put(CE.ong2, -6.3, 21.9, life({ face: -.4, armF: [10, 22], look: .5 }, 4), .58); put(CE.thin, -5.5, 22.7, life({ face: -1.8 }, 7), .58); }
 const LUCB = [-8.7, 21.3];
 S.s5 = (lt, D) => { const u = lt / D; benCrowd(u); put(CE.luc, ...LUCB, life({ face: .9, look: .3, brow: 4, armF: [8, 20] }, 1), .58);
@@ -212,18 +212,26 @@ S.s6 = (lt, D) => { mood('night'); const u = lt / D;
 S.s7 = (lt, D) => { const u = lt / D; if (u < .45) { mood('dawn'); put(CE.thin, -6.4, 22.4, life({ face: -2.44, look: .2, armB: [-6, 16], armF: [-4, 18] }, 7), .58); put(CE.luc, -8.6, 19.8, life({ face: .6 }, 1), .58);
     cm([-11.2, 1.7, 15.6], [-6.8, 1.3, 22.2], 34); return 'ext'; }
   const p = sm(seg(u, .45, 1)); FOOT.forEach((f, i) => f.visible = i / FOOT.length < p * 1.3); cm([-1.2, 2.4, 2.6], [0, 0, -.2], 46); return 'hut'; };
+const push = (p0, p1, l0, l1, a, b, fov = 34) => { const u = sm(seg(NOW, a, b)); cm(p0.map((v, i) => lerp(v, p1[i], u)), l0.map((v, i) => lerp(v, l1[i], u)), fov); };
 S.s8 = (lt, D) => { const u = lt / D; if (u < .3) { mood('night'); fishing(0, 0, .25, sm(seg(u, 0, .2)) * .6, u > .12 ? 3 : -1, 1); cm([2.6, .9, 1.6], [3.2, .85, -.85], 30); return 'ext'; }
-  benCrowd(u); put(CE.luc, -7.3, 22.0, life({ face: .9, bend: 30, lean: 16, legsFront: true, legF: [80, -150, 0], legB: [70, -140, 0], armF: [150, 50], armB: [120, 60], head: 14, blink: 1, mouth: .5 }, 1), .1);
-  cm([-5.8, 1.9, 29.8], [-7, .9, 22.4], 38); return 'ext'; };
-S.L2 = (lt, D) => { benCrowd(0); put(CE.luc, ...LUCB, life({ face: .1, armF: [100, 40], armB: [60, 30], brow: 14, shock: .6 }, 1, 'LUC'), .58); cm([-8.9, 1.5, 24.8], [-8.7, 1.25, 21.3], 32); return 'ext'; };
-S.s9 = (lt, D) => { const u = lt / D; benCrowd(0); const wk = seg(u, 0, .3); put(CE.thin, lerp(-5.5, -7.6, sm(wk)), lerp(22.7, 22.2, sm(wk)), life({ face: -2.26, ...(wk > 0 && wk < 1 ? gait(wk * 3 * Math.PI, .6) : {}) }, 7), .58);
-  if (NOW < BEAT.s9look) { put(CE.luc, ...LUCB, life({ face: .5, look: .2 }, 1), .58); cm([-8.0, 1.7, 27.0], [-8.0, 1.25, 21.6], 36); return 'ext'; }
-  // looking down off the pier: no reflection, only his own drowned face under the water
-  put(CE.luc, -8.1, 20.4, life({ face: -Math.PI / 2 - .5, bend: 30, lean: 18, head: 20, look: .4 }, 1), .58); if (NOW >= BEAT.s9) FACE = { p: [-9.6, -.05, 19.8], s: 5.2 };
-  cm([-11.0, 3.4, 17.0], [-9.4, .2, 19.8], 44); return 'ext'; };
-S.TH1 = (lt, D) => { benCrowd(0); put(CE.thin, -7.6, 22.2, life({ face: -2.26, armF: [40, 40] }, 7, 'THIN'), .58); cm([-9.7, 1.45, 19.6], [-7.6, 1.15, 22.2], 34); return 'ext'; };
-S.TH2 = (lt, D) => { benCrowd(0); const u = lt / D; put(CE.thin, -7.6, 22.2, life({ face: -2.26, armF: u > .3 ? [70, 30] : [20, 30] }, 7, 'THIN'), .58); put(CE.luc, ...LUCB, life({ face: .7, blink: u > .7 ? 1 : 0, head: 8 }, 1), .58);
-  cm([-6.6, 1.6, 27.2], [-8.1, 1.25, 21.8], 36); return 'ext'; };
+  benCrowd(u, 1); const kneel = { face: .9, bend: 30, lean: 16, legsFront: true, legF: [80, -150, 0], legB: [70, -140, 0], armF: [150, 50], armB: [120, 60], head: 14 + 2 * Math.sin(NOW * 5), blink: 1, mouth: .5 };
+  put(CE.luc, -7.3, 22.0, life(kneel, 1), .1); const c1 = TLD.scenes.find(x => x[0] === 's8')[1] + D * .3, c2 = c1 + (D * .7) * .55;
+  if (NOW < c2) push([-5.8, 1.9, 29.8], [-6.2, 1.7, 28.4], [-7, .9, 22.4], [-7, .9, 22.4], c1, c2, 38); else push([-7.9, 1.35, 25.0], [-7.8, 1.3, 24.5], [-7.3, .85, 22.1], [-7.3, .85, 22.1], c2, c2 + 4, 32); return 'ext'; };
+S.L2 = (lt, D) => { benCrowd(0); put(CE.luc, ...LUCB, life({ face: .1, armF: [40, 30], armB: [30, 30], brow: 14, shock: .6 }, 1, 'LUC'), .58); const a = NOW - lt; push([-8.75, 1.62, 24.0], [-8.72, 1.6, 23.2], [-8.7, 1.45, 21.3], [-8.7, 1.45, 21.3], a, a + D, 30); return 'ext'; };
+S.s9 = (lt, D) => { const a = NOW - lt; benCrowd(0); const t1 = a + 2.2, t2 = BEAT.s9look, t3 = BEAT.s9look + 1.4, J = BEAT.s9;
+  if (NOW < t1) { const wk = seg(NOW, a, t1); put(CE.thin, lerp(-5.5, -7.6, sm(wk)), lerp(22.7, 22.2, sm(wk)), life({ face: -2.26, bob: 6 * Math.abs(Math.sin(wk * 9)), head: 3 * Math.sin(wk * 9) }, 7), .58); put(CE.luc, ...LUCB, life({ face: .5 }, 1), .58);
+    push([-6.0, 1.6, 26.6], [-6.3, 1.6, 26.0], [-7.0, 1.3, 22.4], [-7.4, 1.3, 22.2], a, t1, 36); return 'ext'; }
+  if (NOW < t2) { put(CE.thin, -7.6, 22.2, life({ face: -2.26 }, 7), .58); put(CE.luc, ...LUCB, life({ face: .7, look: .5, brow: 6 }, 1), .58); push([-8.4, 1.62, 24.1], [-8.45, 1.6, 23.6], [-8.65, 1.45, 21.3], [-8.65, 1.45, 21.3], t1, t2, 30); return 'ext'; }
+  if (NOW < t3) { put(CE.luc, -8.1, 20.4, life({ face: -Math.PI / 2 - .5, bend: 30, lean: 18, head: 22, look: .4 }, 1), .58); push([-10.9, 1.35, 22.4], [-10.7, 1.3, 22.1], [-8.3, 1.15, 20.4], [-8.3, 1.1, 20.4], t2, t3, 36); return 'ext'; }
+  if (NOW < J) { push([-9.5, 2.0, 20.4], [-9.55, 1.6, 20.2], [-9.6, 0, 19.7], [-9.6, 0, 19.7], t3, J, 40); return 'ext'; } // the water: no reflection, ripples only
+  if (NOW < J + 2.4) { push([-9.5, 1.6, 20.2], [-9.52, 1.3, 20.1], [-9.6, 0, 19.7], [-9.6, 0, 19.7], J, J + 2.4, 40); FACE = { screen: true, s: 1.9 + .35 * sm(seg(NOW, J, J + 2.4)) }; return 'ext'; }
+  if (NOW < J + 3.8) { put(CE.luc, ...LUCB, life({ face: .1, shock: 1, mouth: .6, brow: 16, look: 0 }, 1), .58); benCrowd(0); push([-8.72, 1.6, 23.4], [-8.72, 1.6, 22.9], [-8.7, 1.45, 21.3], [-8.7, 1.45, 21.3], J + 2.4, J + 3.8, 28); return 'ext'; }
+  if (NOW < J + 5.0) { push([-9.5, 1.3, 20.1], [-9.5, 1.3, 20.1], [-9.6, 0, 19.7], [-9.6, 0, 19.7], 0, 1, 40); FACE = { screen: true, s: 2.6 }; return 'ext'; }
+  put(CE.thin, -7.6, 22.2, life({ face: -2.26, look: .3 }, 7), .58); put(CE.luc, ...LUCB, life({ face: .7, shock: .6 }, 1), .58); push([-7.3, 1.55, 25.0], [-7.4, 1.55, 24.4], [-8.1, 1.3, 21.8], [-8.1, 1.3, 21.8], J + 5, a + D, 34); return 'ext'; };
+S.TH1 = (lt, D) => { const a = NOW - lt; benCrowd(0); put(CE.thin, -7.6, 22.2, life({ face: -2.26, armF: [20, 30] }, 7, 'THIN'), .58); put(CE.luc, ...LUCB, life({ face: .7, look: .2, head: 6 }, 1), .58);
+  if (lt < D * .62) push([-9.2, 1.5, 19.9], [-9.0, 1.48, 20.4], [-7.6, 1.35, 22.2], [-7.6, 1.35, 22.2], a, a + D * .62, 30); else push([-8.6, 1.6, 23.6], [-8.62, 1.58, 23.1], [-8.65, 1.45, 21.3], [-8.65, 1.45, 21.3], a + D * .62, a + D, 28); return 'ext'; };
+S.TH2 = (lt, D) => { const a = NOW - lt, u = lt / D; benCrowd(0); put(CE.thin, -7.6, 22.2, life({ face: -2.26, armF: u > .3 ? [50, 30] : [20, 30] }, 7, 'THIN'), .58); put(CE.luc, ...LUCB, life({ face: .7, blink: u > .7 ? 1 : 0, head: 8 }, 1), .58);
+  push([-6.6, 1.6, 27.2], [-7.0, 1.55, 25.8], [-8.1, 1.25, 21.8], [-8.1, 1.25, 21.8], a, a + D, 36); return 'ext'; };
 S.end = (lt, D) => { const u = lt / D; if (u < .5) { mood('day'); GRAVES.visible = true; GRAVES.position.set(-18, terrH(-18, 30), 30); smoke(-18, terrH(-18, 30) + .5, 28.8); cm([-15, 2.2, 25], [-18, .8, 30], 38); return 'ext'; }
   mood('night'); bob(GHE, 0, 0, .25 + .05 * NOW, 1); setRod(ROD, [.3, .45, -.1], 1.3, .25, 0, [3.2, -.02, -.8]); cm([lerp(6, 4, sm(seg(u, .5, 1))), 2.2, 10], [0, .5, 0], 40); return 'ext'; };
 S.cta = (lt, D) => { mood('night'); CTA = 1; bob(GHE, 0, 0, .25, 1); setRod(ROD, [.3, .45, -.1], 1.3, .25, 0, [3.2, -.02, -.8]); cm([3, 2.6, 13], [0, 1.2, 0], 40); return 'ext'; };
@@ -231,16 +239,16 @@ const JUMPS = [BEAT.hook, BEAT.s9];
 
 // the drowned face under the surface: drawn as an overlay at a projected water point, 70%, tinted and rippling
 const FC = document.createElement('canvas'); FC.width = 1024; FC.height = 1024; let FACE = null;
-function drownedFace() { if (!FACE) return; const v = new THREE.Vector3(...FACE.p).project(cam); if (v.z > 1) return; const sx = (v.x * .5 + .5) * RW, sy = (-v.y * .5 + .5) * RH; const dist = cam.position.distanceTo(new THREE.Vector3(...FACE.p));
+function drownedFace() { if (!FACE) return; let sx, sy, dist; if (FACE.screen) { sx = RW / 2; sy = RH * .42; dist = 1; } else { const v = new THREE.Vector3(...FACE.p).project(cam); if (v.z > 1) return; sx = (v.x * .5 + .5) * RW; sy = (-v.y * .5 + .5) * RH; dist = cam.position.distanceTo(new THREE.Vector3(...FACE.p)); }
   const x = FC.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, 1024, 1024); RIG.set(x); RIG.castMember('luc', 512, 1000, 1.5, { view: 'front', faceDir: 0, dead: true, blink: 0, head: 0, look: 0 });
-  x.clearRect(0, 690, 1024, 334); x.globalCompositeOperation = 'source-atop'; x.fillStyle = 'rgba(225,232,236,.5)'; x.fillRect(0, 0, 1024, 1024); x.fillStyle = 'rgba(40,80,110,.25)'; x.fillRect(0, 0, 1024, 1024); x.globalCompositeOperation = 'source-over';
+  x.clearRect(0, 690, 1024, 334); x.globalCompositeOperation = 'source-atop'; x.fillStyle = 'rgba(220,230,236,.48)'; x.fillRect(0, 0, 1024, 1024); x.fillStyle = 'rgba(30,70,90,.22)'; x.fillRect(0, 0, 1024, 1024); x.globalCompositeOperation = 'source-over';
   const sc = FACE.s * 900 / dist, wob = 1 + .03 * Math.sin(NOW * 2.3); g2.save(); g2.globalAlpha = .7 * (FACE.a ?? 1); g2.translate(sx, sy); g2.scale(sc * wob / 1024, sc * .8 / wob / 1024); g2.drawImage(FC, -512, -515); g2.restore();
   g2.save(); g2.globalAlpha = .25 * (FACE.a ?? 1); g2.strokeStyle = '#b8d0e8'; g2.lineWidth = 2; for (let k = 0; k < 3; k++) { const r = ((NOW * .4 + k / 3) % 1); g2.beginPath(); g2.ellipse(sx, sy, sc * (.3 + r * .5), sc * .62 * (.3 + r * .5) * .5, 0, 0, 7); g2.stroke(); } g2.restore(); }
 // =============================== overlay ===============================
 function rain(a) { g2.strokeStyle = `rgba(210,220,235,${a})`; g2.lineWidth = 1.2; for (let i = 0; i < 160; i++) { const x = ((i * 97) % RW + NOW * 50) % RW, y = ((i * 211) + NOW * 1100) % RH; g2.beginPath(); g2.moveTo(x, y); g2.lineTo(x - 7, y + 26); g2.stroke(); } }
-function subs(t) { for (const [a, b, str, sp] of TLD.subs) { if (t < a || t >= b) continue; g2.save(); g2.textAlign = 'center'; g2.lineJoin = 'round'; g2.font = 'bold 42px "DejaVu Sans"';
-  const ws = str.split(' '); const L = []; let c = ''; for (const w of ws) { const tt = c ? c + ' ' + w : w; if (g2.measureText(tt).width > 620 && c) { L.push(c); c = w; } else c = tt; } if (c) L.push(c); const lh = 54, y0 = 1010 - (L.length - 1) * lh / 2;
-  const col = sp === 'N' ? '#ffffff' : sp === 'LUC' ? '#9ad0ff' : '#ffd76a'; L.forEach((l, i) => { g2.lineWidth = 9; g2.strokeStyle = '#000'; g2.strokeText(l, RW / 2, y0 + i * lh); g2.fillStyle = col; g2.fillText(l, RW / 2, y0 + i * lh); }); g2.restore(); } }
+function subs(t) { for (const [a, b, str, sp] of TLD.subs) { if (t < a || t >= b) continue; g2.save(); g2.textAlign = 'center'; g2.lineJoin = 'round'; g2.font = 'bold 34px "DejaVu Sans"';
+  const ws = str.split(' '); const L = []; let c = ''; for (const w of ws) { const tt = c ? c + ' ' + w : w; if (g2.measureText(tt).width > 620 && c) { L.push(c); c = w; } else c = tt; } if (c) L.push(c); const lh = 44, y0 = 930 - (L.length - 1) * lh / 2;
+  const col = sp === 'N' ? '#ffffff' : sp === 'LUC' ? '#9ad0ff' : '#ffd76a'; L.forEach((l, i) => { g2.lineWidth = 7; g2.strokeStyle = '#000'; g2.strokeText(l, RW / 2, y0 + i * lh); g2.fillStyle = col; g2.fillText(l, RW / 2, y0 + i * lh); }); g2.restore(); } }
 function fit(s, maxW, size, font) { g2.font = `${font} ${size}px "DejaVu Serif"`; const w = g2.measureText(s).width; g2.font = `${font} ${Math.min(size, size * maxW / w)}px "DejaVu Serif"`; }
 function titleTxt(lt, a) { g2.save(); g2.globalAlpha = a; g2.textAlign = 'center'; g2.lineJoin = 'round'; g2.shadowColor = 'rgba(80,160,255,.6)'; g2.shadowBlur = 24; g2.fillStyle = '#cfe4ff';
   for (const [s, y] of [['VŨNG', 560], ['GIỮ XÁC', 690]]) { fit(s, 620, 130, 'bold'); g2.lineWidth = 10; g2.strokeStyle = '#000'; g2.strokeText(s, RW / 2, y); g2.fillText(s, RW / 2, y); }
@@ -251,7 +259,7 @@ function ctaTxt(a) { g2.save(); g2.globalAlpha = a * .6; g2.textAlign = 'center'
 const SCN = { ext, hut };
 
 // =============================== frame ===============================
-window.draw = (t) => { NOW = t; const sc = TLD.scenes.find(s => t >= s[1] && t < s[2]) || TLD.scenes[TLD.scenes.length - 1]; const [k, a, b] = sc; const lt = t - a, D = b - a;
+window.draw = (t) => { t += window.T0 || 0; NOW = t; const sc = TLD.scenes.find(s => t >= s[1] && t < s[2]) || TLD.scenes[TLD.scenes.length - 1]; const [k, a, b] = sc; const lt = t - a, D = b - a;
   hideAll(); FACE = null; FOOT.forEach(f => f.visible = true); TITLE = 0; CTA = 0; FLASH = 0; RAIN = 0; SHAKE = 0; g2.clearRect(0, 0, RW, RH);
   const mode = S[k](lt, D);
   let JF = -1; for (const tj of JUMPS) { const dt = t - tj; if (dt < 0 || dt > 1.3) continue; const z = dt < .1 ? dt / .1 * .45 : .45 * Math.max(0, 1 - (dt - .1) / 1.2); const tv = new THREE.Vector3(...CT); cam.position.lerp(tv, z); if (dt < .5) { const a2 = .05 * (1 - dt / .5); cam.position.x += (R(t * 977) - .5) * a2 * 2; cam.position.y += (R(t * 631) - .5) * a2 * 2; } cam.lookAt(tv); JF = dt; }
