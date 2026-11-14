@@ -9,10 +9,12 @@ on:
       samples: { default: '32' }
       tag: { description: 'release tag', default: 'b3d-test' }
       audio: { description: 'audio wav in render/b3d', default: 'talk.wav' }
+      from_run: { description: 'reuse frames of this run id (skip render)', default: '' }
 permissions:
   contents: write
 jobs:
   plan:
+    if: inputs.from_run == ''
     runs-on: ubuntu-latest
     outputs: { idx: '${{ steps.m.outputs.idx }}' }
     steps:
@@ -38,13 +40,15 @@ jobs:
         with: { name: 'frames-${{ matrix.i }}', path: out, retention-days: 3 }
   assemble:
     needs: render
+    if: always() && (needs.render.result == 'success' || inputs.from_run != '')
     runs-on: ubuntu-latest
     env: { GH_TOKEN: '${{ github.token }}' }
     steps:
       - uses: actions/checkout@v4
         with: { sparse-checkout: render/b3d }
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
       - uses: actions/download-artifact@v4
-        with: { path: arts }
+        with: { path: arts, run-id: '${{ inputs.from_run || github.run_id }}', github-token: '${{ github.token }}' }
       - run: |
           mkdir fr && cp arts/*/*.png fr/ && ls fr | wc -l
           ffmpeg -loglevel error -y -framerate 30 -i fr/%04d.png -i render/b3d/${{ inputs.audio }} -vf scale=1080:1920:flags=lanczos -c:v libx264 -crf 18 -pix_fmt yuv420p -c:a aac -shortest out.mp4
